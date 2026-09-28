@@ -80,10 +80,11 @@ Chaque hub a : **1 page hub** + **6–12 guides piliers** + articles satellites.
 
 | # | Titre de travail | Angle décision | CTA |
 | --- | --- | --- | --- |
-| A1 | **Titre foncier vs bail vs délibération : lequel acheter ?** | Matrice risques + tableau comparatif | Filtre catalogue TF/bail |
-| A2 | **Les 5 documents fonciers à exiger (NICAD, plan, TF, fiscalité…)** | Checklist avant tout versement | Diligence add-on |
-| A3 | **État des droits réels : comment le demander et le lire** | Étape 15 min qui sauve des millions | Pack notaire |
-| A4 | **Arnaques immobilières au Sénégal : 12 red flags WhatsApp** | Liste noire comportements | Inspection diaspora |
+| A1 | **Titre foncier vs bail vs délibération : lequel acheter ?** | Matrice risques + tableau comparatif + seuils tutelle 10/50 ha | Filtre catalogue TF/bail |
+| A2 | **Les documents fonciers à exiger (NICAD, EDR, plan, tutelle…)** | Checklist avant tout versement | Diligence add-on |
+| A3 | **État des droits réels : comment le demander et le lire** | Étape qui sauve des millions | Pack notaire |
+| A4 | **Arnaques immobilières au Sénégal : red flags WhatsApp** | Liste noire + séparation des rôles diaspora | Inspection diaspora |
+| A7 | **Glossaire foncier en 10 minutes** (NICAD, CCOD, DGSCOS, Yastal…) | Lexique actionnable | Lien `dossier/…/07` |
 | A5 | **Frais de notaire et mutation : budget réel 2026** | Calculateur embarqué | Outil frais acquisition |
 | A6 | **Bornage : pourquoi le géomètre n’est pas optionnel** | Superficie réelle vs promise | Lead géomètre |
 
@@ -94,7 +95,9 @@ Chaque hub a : **1 page hub** + **6–12 guides piliers** + articles satellites.
 | B1 | **Acheter un terrain en 2026 : erreurs à éviter (guide complet)** | Parcours étape par étape | Catalogue terrains |
 | B2 | **Combien coûte construire une maison au Sénégal ?** | FCFA/m² + imprévus 10–15% | Simu construction |
 | B3 | **Terrain + maison : budget total (achat, frais, chantier)** | Un seul chiffre mental | Simu budget total |
-| B4 | **Autorisation de construire / TeleDAC : étapes & pièces** | Go admin | Pack permis |
+| B4 | **Autorisation de construire : étapes, pièces & délais réels** (TeleDAc ≠ guichet de masse) | Go admin sans illusion | Pack permis |
+| B4b | **Arrêt Dscos / contentieux occupation : ce que ça change pour ton chantier** | Go / no-go zone | Diligence + disclaimer |
+| B8 | **De la délibération au bail (Yastal) : comment régulariser** | Parcours A→B chiffré en mois | Add-on régularisation `43` |
 | B5 | **Viabiliser un terrain : fosse, clôture, eau, électricité** | Coûts oubliés | Simu prêt-à-bâtir |
 | B6 | **Payer un terrain en plusieurs fois : comment ça marche vraiment** | Étalé sans bullshit | Simu mensualité |
 | B7 | **Diamniadio / Lac Rose / Petite Côte : où acheter selon ton projet** | Zoning décisionnel | Landings SEO villes |
@@ -222,7 +225,9 @@ Chaque hub a : **1 page hub** + **6–12 guides piliers** + articles satellites.
 | Or historique | [Keur City](https://keurcity.com/actualites/) | Barre de fond (procédures) — blog mort depuis fin 2023 |
 | #1 actifs | [ImmoConnexion](https://immoconnexion.com/acheter-un-terrain-au-senegal/) + [MyAfric](https://www.myafric.com/fr/acheter-senegal-depuis-france-diaspora/) | Foncier long-form / diaspora — à égaler puis battre avec outils |
 | #2 | [SenPages](https://www.senpages.com/dossiers/acheter-un-terrain) + [SamaGalle](https://samagalle.com/blog/documents-fonciers-essentiels-immobilier-senegal-guide-2026) | Chiffres DGID, CGF/CFPB, TF — sources barèmes |
-| #3 | [Inv. Immo Afrique](https://investissementimmoafrique.com/blog/autorisation-de-construire-au-senegal/) | TeleDAC / permis — pilier construction |
+| #3 | [Inv. Immo Afrique](https://investissementimmoafrique.com/blog/autorisation-de-construire-au-senegal/) | Permis / AC — **croiser** avec délais réels & TeleDAc non fiable |
 | Bruit SEO | Nadia Immo, Keur Immo (partiel) | Ne pas imiter le volume creux |
 
-**Notre moat éditorial :** profondeur Keur City × fraîcheur ImmoConnexion/MyAfric × **simulateurs + catalogue agence curated**.
+**Notre moat éditorial :** profondeur Keur City × fraîcheur ImmoConnexion/MyAfric × **simulateurs + catalogue agence curated** × **Observatoire** (études officielles + lab crawl).
+
+**Sources macro / études (PDFs) :** [`docs/research-lab/etudes/`](../research-lab/etudes/README.md) — ANSD ICC/IMC/ICAS, CAHF, BM, IFC, Habitat III.

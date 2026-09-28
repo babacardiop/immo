@@ -94,7 +94,8 @@ Légende scores : 1 = faible · 5 = excellent. « Outils » = simulateurs / chec
 - **Exemple :** [Autorisation de construire / TeleDAC 2026](https://investissementimmoafrique.com/blog/autorisation-de-construire-au-senegal/).
 - **Force :** Code Urbanisme 2023, pièces dossier, délais 28/40 j, TeleDAC, Visa de localisation, tableau traditionnel vs e-procédure, CTA simulateur construction.
 - **Faiblesse :** tone lead-gen ; moins d’autorité sur foncier/diaspora que le trio ImmoConnexion–MyAfric–SenPages.
-- **À piquer :** structure TeleDAC + Visa localisation pour nos piliers construction.
+- **À piquer :** structure délais légaux vs réels + Visa localisation pour nos piliers construction.
+- **Corriger (2026) :** ne **pas** présenter TeleDAc comme guichet AC de masse — dépôt papier mairie = voie réelle (`dossier/etude-de-marche/06`, Tracos `parcours-autorisation-construire.md`).
 
 ### 3.7 Keur Immo
 
@@ -189,7 +190,7 @@ Prioriser les piliers où le marché est **fort mais incomplet**, ou où Keur Ci
 | P0 | Diaspora : rôles, procuration, fonds | MyAfric + **inspection / escrow add-ons** |
 | P0 | Budget total acquisition | Nadia/SenPages chiffres + **simu budget total** |
 | P1 | CFPB exonération 5 ans + CGF | Remettre à jour Keur City + fusionner SamaGalle |
-| P1 | TeleDAC / permis construire | Inv. Immo Afrique + **simu construction** |
+| P1 | AC / permis construire (délais réels, pas TeleDAc magique) | Inv. Immo Afrique **corrigé** + **simu construction** |
 | P1 | Compromis de vente SN | Remettre à niveau Keur City (template checklist) |
 | P2 | Crédit CDD / atypique | Angle quasi libre (héritage Keur City) |
 | P2 | Analyse marché annuelle | Angle quasi libre (héritage Keur City 2024) |

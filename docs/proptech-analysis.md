@@ -48,6 +48,8 @@ PropTech is not “add AI for buzz.” It is **software that runs the agency**: 
 
 **Lesson:** Nigeria/Uganda already productize what Immobilier-au-Sénégal only advertises. Senegal has strong **gestion locative** tools (Noflaye) and **title diligence** (Yaweet) — few players unite **vente classique (tous biens) + vente étalée + location-vente + location** under one curated brand.
 
+**État / SI public (lecture, pas concurrence) :** DGID (Livre foncier, NICAD, SGF 2026), PROCASEF/SIFCOM (délibérations), DGSCOS (contentieux / futurs quitus TRA-COS), TeleDAc (**non** guichet AC de masse). Le hub **lit** ces coffres ; il n’écrit pas le titre. Détail : `dossier/etude-de-marche/06` · `07`.
+
 ---
 
 ## 3. Feature map (by product axis)
@@ -94,7 +96,7 @@ Offre “marché standard” : acheteur solvable ou diaspora qui paie comptant /
 | Document vault | Extrait LF, plan, promesse, quittances | P1 |
 | Default / clause résolutoire workflow | Ops + trust for owners | P2 |
 | GPS plot pin + optional parcel outline | Trust / diaspora | P2 |
-| Partner title check (Yaweet-style) | Upsell diligence before first payment | P2 |
+| Partner title check (Yaweet-style) | Upsell diligence before first payment | **P1** |
 | Optional: étalé on maisons later | Same engine, higher ticket | P3 |
 
 ### D. Axe 3 — Location-vente (maisons · appartements)
@@ -122,13 +124,15 @@ Offre “marché standard” : acheteur solvable ou diaspora qui paie comptant /
 | Feature | Why | Priority |
 | --- | --- | --- |
 | Curated publish CMS (“we put the ads”) | Mandate checklist before go-live | **P0** |
-| Title badge system | TF / Bail / vérifié / en cours | **P0** |
+| Title badge system | TF / Bail / Délibération+disclaimer / vérifié | **P0** |
+| Partner title check (Yaweet-style) + checklist régime | Upsell diligence **before** first payment | **P1** (was P2 — Vague 2) |
 | Escrow or dedicated collection account | Don’t let money bypass platform (Conekta/Jawudi lesson) | P1 (legal setup first) |
 | Diaspora mode | Multi-currency display, remote KYC, French/English, time-zone reminders | P1 |
 | Agent / branch CRM | Leads from web → WhatsApp → visit | P1 |
 | Owner portal | List performance, payouts, documents | P1 |
 | Fraud reporting + listing audit trail | Brand protection | P2 |
-| Blockchain certificate | Optional later (Sytemap/Gura-style) — **not** v1 | P3 |
+| Watch futurs quitus DGSCOS / TRA-COS | Conditionnement notaire/banque éventuel | P3 |
+| Blockchain certificate | **Reject as product** (intégrité = hash + audit) — aligné vision Tracos | — |
 
 ---
 
@@ -202,7 +206,8 @@ No single competitor in Senegal owns this full chain. Closest fragments: Senhect
 2. **Autocomplete is the front door** of that moat: search by *mensualité* and *titre*, not only keyword.
 3. **Wave/Orange Money is non-negotiable** for SN realism; card-only is diaspora-secondary.
 4. **Don’t rebuild Noflaye day one** — ship location as Axis 3 with light management; deepen once Axis 1 payments work.
-5. **Partner for diligence** (Yaweet-like) instead of becoming a cadastre office.
+5. **Partner for diligence** (Yaweet-like) instead of becoming a cadastre office — and **encode paper hierarchy** (délibération ≠ TF).
+6. **Don’t promise TeleDAc** or admin SLAs you don’t control.
 6. Position copy: *agence immobilière full-service* (vente, location, **gestion / loyers**) — PropTech underneath. Catalogue : **vente** (terrains, maisons, apparts) + **étalé** + **loc-vente** + **location gérée**. See `docs/positioning.md`.
 
 ---

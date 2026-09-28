@@ -10,11 +10,11 @@
 
 ## 1. Besoin client
 
-Le client a un terrain (ou vient de l’acheter) et veut chiffrer / construire sans chercher un artisan au hasard.
+Le client a un terrain (ou vient de l’acheter) et veut chiffrer / construire sans chercher un artisan au hasard — idéalement **après** titre lisible + **AC** (risque Arrêt Dscos sinon).
 
 ## 2. Offre partenaire
 
-Devis structuré, planning, contrat travaux, options finition. L’agence intro + suit le lead jusqu’à signature.
+Devis structuré, planning, contrat travaux, options finition. L’agence intro + suit le lead jusqu’à signature. Policy : pas de gros œuvre sans preuve AC / titre (disclaimer écrit sinon).
 
 ## 3. Commission (indicatif — à figer en convention)
 
@@ -22,7 +22,7 @@ Devis structuré, planning, contrat travaux, options finition. L’agence intro 
 
 ## 4. Synergies add-ons / produit
 
-`02-simulateur-construction`, `03-simulateur-budget-total`, `06-pack-terrain-maison`, `26-suivi-chantier`
+`02-simulateur-construction`, `03-simulateur-budget-total`, `06-pack-terrain-maison`, `09-permis-construire-cu`, `26-suivi-chantier`, `08-due-diligence-fonciere`
 
 ## 5. Parcours (passerelle)
 

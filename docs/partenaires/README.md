@@ -2,6 +2,8 @@
 
 Organisées par **catégorie**. Vue d’ensemble : [`docs/partenaires.md`](../partenaires.md).
 
+**Règle papiers :** délibération ≠ TF — voir [`dossier/etude-de-marche/06`](../../dossier/etude-de-marche/06-parcours-foncier-securite.md). Fiches notaire / formalités / géomètre / constructeur enrichies (AC, DGSCOS, Yastal).
+
 ## Catégories
 
 | Dossier | Thème | Nb |

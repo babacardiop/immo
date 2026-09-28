@@ -10,7 +10,7 @@ Agence full-service  +  Add-ons (outils)  +  Partenaires (exécution)
         =  double revenu (commission métier + commission d’apport)
 ```
 
-**Docs liés :** [`positioning.md`](./positioning.md) · [`add-ons.md`](./add-ons.md) · [`partenaires.md`](./partenaires.md) · [`blog/`](./blog/) · [`proptech-analysis.md`](./proptech-analysis.md) · [`research-lab/`](./research-lab/README.md)
+**Docs liés :** [`positioning.md`](./positioning.md) · [`add-ons.md`](./add-ons.md) · [`partenaires.md`](./partenaires.md) · [`blog/`](./blog/) · [`proptech-analysis.md`](./proptech-analysis.md) · [`research-lab/`](./research-lab/README.md) · [`research-lab/etudes/`](./research-lab/etudes/README.md) · **[`../dossier/etude-de-marche/`](../dossier/etude-de-marche/README.md)** (étude marché + parcours foncier)
 
 ---
 
@@ -99,11 +99,12 @@ Légende : **F** = feature produit cœur · **A** = add-on · **P** = partenaire
 | --- | --- | --- |
 | **F** | Site Next.js : catalogue, fiche bien, recherche, contact/WhatsApp | `tech-stack.md` |
 | **F** | Mandats curated (pas d’open posting) | `positioning.md` |
+| **F** | Facets **TF / bail / délibération** + disclaimer délibération | `dossier/…/06-parcours-foncier` |
 | **F** | Portail agent minimal (créer / éditer annonce) | — |
-| **C** | 1 page “Comment on travaille” + 1 guide TF vs bail (teaser) | `blog/` |
+| **C** | 1 page “Comment on travaille” + 1 guide TF vs bail vs délibération (teaser) | `blog/` + glossaire `07` |
 
 **Partenaires / add-ons :** aucun nouveau — focus crédibilité catalogue.  
-**KPI :** mandats en ligne, leads WhatsApp, taux réponse &lt; 24 h.
+**KPI :** mandats en ligne, leads WhatsApp, taux réponse &lt; 24 h, % listings avec type papier renseigné.
 
 ---
 
@@ -129,19 +130,23 @@ Légende : **F** = feature produit cœur · **A** = add-on · **P** = partenaire
 
 ### Vague 2 — Sécuriser & formaliser (Mois 3–4)
 
-**Parcours :** *Avant de payer : papiers, bornage, diligence.*
+**Parcours :** *Avant de payer : papiers, bornage, diligence — et on sait lire TF / bail / délibération.*
 
 | Type | Item | Spec / fiche |
 | --- | --- | --- |
-| **A** | Due diligence foncière (CTA + checklist) | `02-terrain…/08-…` |
+| **A** | Due diligence foncière (CTA + checklist EDR/NICAD/régime) | `02-terrain…/08-…` |
 | **A** | Bornage / géomètre (lead) | `02-terrain…/07-…` |
 | **A** | Calculateur frais d’acquisition | `01-outils…/18-…` |
 | **A** | Pack Terrain → Maison (funnel) | `02-terrain…/06-…` |
+| **A** | *(option)* Orientation régularisation bail / Yastal | `02-terrain…/43-…` |
 | **P** | Formalités / papiers légaux *(relation existante)* | `…/04-formalites` |
 | **P** | Géomètre | `…/06-geometre` |
-| **C** | Pilier arnaques / red flags + frais notaire | blog M2–M4 |
+| **C** | Pilier arnaques / red flags + frais notaire + **Arrêt Dscos / zones** | blog M2–M4 · `dossier/…/06` |
 
-**KPI :** diligences lancées, dossiers formalités, unblock rate closing.
+**Référentiel métier :** [`dossier/etude-de-marche/06-parcours-foncier-securite.md`](../dossier/etude-de-marche/06-parcours-foncier-securite.md)  
+**KPI :** diligences lancées, dossiers formalités, unblock rate closing, % go/no-go documentés.
+
+**Policy catalogue Vague 2 :** pas de boost listing sans diligence minimale (EDR ou équivalent) sur terrains &gt; seuil.
 
 ---
 

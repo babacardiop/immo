@@ -6,15 +6,15 @@
 | **Priorité** | **P0** |
 | **Catégorie** | Administratif |
 | **Statut** | Relation existante — à nommer & signer |
-| **Synthèse** | Cabinet / expert démarches pour NICAD, plan cadastral, CU, permis, quitus, dossiers DGID — le « faire établir les papiers ». |
+| **Synthèse** | Cabinet / expert démarches pour NICAD, plan cadastral, CU, **AC (papier mairie)**, quitus fiscaux, dossiers **DGID / Yastal (bail)**, preuve tutelle délibération — le « faire établir les papiers ». |
 
 ## 1. Besoin client
 
-Clients (surtout diaspora) perdus dans les guichets ; délais ; pièces manquantes qui bloquent notaire ou chantier.
+Clients (surtout diaspora) perdus dans les guichets ; délais ; pièces manquantes qui bloquent notaire ou chantier ; confusion **délibération / bail / TF** ; retards AC (souvent 3–12 mois, TeleDAc non fiable).
 
 ## 2. Offre partenaire
 
-Prise en charge dossier administratif : constitution, suivi, récupération pièces officielles.
+Prise en charge dossier administratif : constitution, suivi, récupération pièces officielles (EDR, NICAD, extraits, dépôts Domaines, dépôt AC mairie).
 
 ## 3. Commission (indicatif — à figer en convention)
 
@@ -22,22 +22,23 @@ Forfait par type de dossier (ex. 50–300k selon complexité) **ou** 15–25 % d
 
 ## 4. Synergies add-ons / produit
 
-`08-due-diligence-fonciere`, `09-permis-construire-cu`, `21-certification-docs`, `43-regularisation-tf`
+`08-due-diligence-fonciere`, `09-permis-construire-cu`, `21-certification-docs`, `43-regularisation-tf`  
+Réf. métier : `dossier/etude-de-marche/06-parcours-foncier-securite.md`
 
 ## 5. Parcours (passerelle)
 
-1. Agent détecte trou documentaire
-2. Lead formalités avec liste pièces manquantes
-3. Partenaire chiffure + timeline
-4. Suivi statut dans CRM (déposé / obtenu / bloqué)
+1. Agent détecte trou documentaire (ou verdict diligence)
+2. Lead formalités avec liste pièces manquantes + **régime** (TF/bail/délibération)
+3. Partenaire chiffure + timeline **réaliste** (pas délais marketing TeleDAc)
+4. Suivi statut dans CRM (déposé / obtenu / bloqué / CCOD)
 
 ## 6. SLA attendu
 
-Devis 48 h ; reporting hebdo sur dossiers ouverts
+Devis 48 h ; reporting hebdo sur dossiers ouverts ; alerte si blocage tutelle / CCOD / DGSCOS
 
 ## 7. Cadre contractuel
 
-Périmètre écrit (ce qui est inclus) ; pas de garantie de résultat administration — obligation de moyens
+Périmètre écrit (ce qui est inclus) ; **pas de garantie de résultat** administration — obligation de moyens ; interdiction de présenter délibération comme TF
 
 ## 8. Données (cible)
 
@@ -47,18 +48,18 @@ Périmètre écrit (ce qui est inclus) ; pas de garantie de résultat administra
 
 ## 9. KPI
 
-dossiers, pieces_obtenues, delai_median, unblock_rate_closing
+dossiers, pieces_obtenues, delai_median, unblock_rate_closing, regularisation_bail_started
 
 ## 10. Risques
 
-Promesses irréalistes de délais admin ; communication prudente au client
+Promesses irréalistes de délais admin ; communication prudente au client ; zones contentieuses DGSCOS
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 interlocuteur + grille forfaits types (NICAD, CU, PC…) |
-| **Plus tard** | Statuts auto dans portail client ; bundle diligence+formalités |
+| **v1** | 1 interlocuteur + grille forfaits types (NICAD, EDR, CU, PC papier, Yastal) |
+| **Plus tard** | Statuts auto dans portail client ; bundle diligence+formalités+régularisation |
 
 ## 12. Fiche partenaire nommé (à remplir)
 

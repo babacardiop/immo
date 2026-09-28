@@ -14,7 +14,7 @@ docs/research-lab/
 ## Formule
 
 ```
-Études officielles (ANSD, BM, CAHF…)  +  Crawl classifiés (dédup)
+Études officielles (ANSD, BM, CAHF…) archivées dans [`etudes/pdf/`](./etudes/pdf/)  +  Crawl classifiés (dédup)
         =  Observatoire immo SN (notre avance)
 ```
 
@@ -28,14 +28,19 @@ Ensemble = études “gold” publiables + outils calibrés + leads.
 | --- | --- |
 | [`strategy.md`](./strategy.md) | Sauce secrète, dédup, architecture, roadmap lab L0–L5 |
 | [`data-sources.md`](./data-sources.md) | Inventaire des data streams à agréger |
-| [`etudes/README.md`](./etudes/README.md) | Catalogue des études trouvées (ANSD, BM, CAHF, IFC…) |
+| [`etudes/README.md`](./etudes/README.md) | Catalogue d’études + liens vers PDFs |
+| [`etudes/MANIFEST.md`](./etudes/MANIFEST.md) | Liste des PDF téléchargés |
+| [`etudes/pdf/`](./etudes/pdf/) | Archive (ANSD, BM, IFC, CAHF, Habitat…) |
 
 ## Liens hub
 
 - [`../hub-roadmap.md`](../hub-roadmap.md) — lab = voie parallèle, pas Vague 1  
 - [`../positioning.md`](../positioning.md)  
 - [`../blog/strategie.md`](../blog/strategie.md) — études → contenu public  
-- Add-ons nourris : estimation vendeur, carte prix/m², simu construction  
+- [`../../dossier/etude-de-marche/`](../../dossier/etude-de-marche/README.md) — synthèse marché + **parcours foncier / DGSCOS**  
+- Add-ons nourris : estimation vendeur, carte prix/m², simu construction, diligence  
+
+**Veille foncier État à croiser :** NICAD/eNICAD, SGF, SIFCOM, ICAS, plaintes DGSCOS (zones chaudes), délais AC réels — voir `data-sources.md` §F et `dossier/…/06`. 
 
 ## Règle anti-dispersion
 

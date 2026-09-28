@@ -75,10 +75,23 @@ Chaque brief suit le même canevas. Remplir / valider métier avant rédaction.
 - **Embed:** simulateur budget total  
 - **Décision:** cash total réel  
 
-## B4 — Autorisation de construire / TeleDAC
+## B4 — Autorisation de construire (délais réels)
 
-- **Intent:** permis construire Sénégal TeleDAC  
+- **Intent:** permis construire Sénégal démarches mairie  
+- **Angle:** délais légaux vs réels ; TeleDAc **non** comme guichet de masse ; risque chantier sans AC  
 - **CTA:** pack permis  
+- **Sources:** `dossier/etude-de-marche/06` ; urbanisme.gouv.sn ; Tracos `parcours-autorisation-construire.md`
+
+## B4b — Arrêt Dscos / contentieux
+
+- **Intent:** arrêt chantier DGSCOS Sénégal  
+- **CTA:** diligence foncière  
+
+## B8 — Délibération → bail
+
+- **Intent:** régularisation terrain délibération bail Yastal  
+- **CTA:** add-on régularisation `43`  
+- **Sources:** `dossier/etude-de-marche/06` ; Tracos `parcours-complet.md` 
 - **Sources:** Investissement Immo Afrique autorisation  
 
 ## B6 — Payer un terrain en plusieurs fois

@@ -19,7 +19,7 @@ docs/
   partenaires.md           # Overview partenariats & commissions
   partenaires/             # Fiches partenaires (24, par catégories)
   hub-roadmap.md           # Stratégie hub + calendrier itérations
-  research-lab/            # Lab: strategy, data-sources, etudes/
+  research-lab/            # Lab: strategy, data-sources, etudes/ (+ pdf/)
   blog/                    # Stratégie blog & briefs guides
   positioning.md           # Brand / model one-pager
   social-share-cards.md    # OG cards for FB / WA / IG / TikTok

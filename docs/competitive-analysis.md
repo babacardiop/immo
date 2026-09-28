@@ -61,15 +61,18 @@ Goal: build a modern, map-first, SEO-strong platform (EverGreen UI) that beats l
 
 **Takeaway:** copy Senhectare’s *domain seriousness* (paper type, dossier, €/m²) for terrains — then beat them with EverGreen UI, urban+coastal inventory, and a tighter map↔list experience. Don’t cede agricultural land entirely; own **all property types** with rural filters included.
 
+**Enrichissement foncier (2026) :** la vraie guerre n’est pas seulement UX vs Expat — c’est **confiance documentaire**. Yaweet (diligence), Noflaye/Diavix (gestion soft), et le cadre **DGSCOS / DGID** (contentieux, NICAD, SGF) définissent le terrain. Voir [`dossier/etude-de-marche/03`](../dossier/etude-de-marche/03-offre-concurrence.md) et [`06`](../dossier/etude-de-marche/06-parcours-foncier-securite.md).
+
 ## Our differentiation (product thesis)
 
 1. **Full catalog** — vente classique de **terrains, maisons, appartements** + étalé + location-vente + location (see `docs/positioning.md`).
 2. **Map-first discovery** — pins on Dakar / Petite Côte / régions; list sync; draw-to-search; “near me.”
-3. **Senegal-native listing model** — m²/ha, titre foncier vs bail, viabilisé, angle, distance mer + **simulateur de mensualités**.
+3. **Senegal-native listing model** — m²/ha, **TF vs bail vs délibération** (disclaimer), viabilisé, angle, distance mer + **simulateur de mensualités**.
 4. **Premium UI** — EverGreen design language; mobile-first; low ad noise.
-5. **SEO moat** — Next.js SSR for city × type × mode queries.
-6. **Trust** — we publish ads (mandat), verified titles, WhatsApp one-tap.
+5. **SEO moat** — Next.js SSR for city × type × mode queries + guides anti-arnaque.
+6. **Trust** — we publish ads (mandat), verified titles / EDR / NICAD, WhatsApp one-tap.
 7. **Immo-only** — not cars/jobs/phones.
+8. **Diligence before pay** — Vague 2 gate (not marketplace hope).
 
 ## Risks
 
@@ -85,11 +88,11 @@ Goal: build a modern, map-first, SEO-strong platform (EverGreen UI) that beats l
 1. Landing (EverGreen) + SEO shell  
 2. Property list + detail (SSR)  
 3. **Map search with list sync** (Leaflet or Mapbox)  
-4. Core filters: type, vente/location, city, price, surface, paper type  
+4. Core filters: type, vente/location, city, price, surface, **paper type (TF/bail/délibération)**  
 5. WhatsApp CTA on every listing  
-6. Agent publish (basic)  
+6. Agent publish (basic) + **disclaimer bandeau** if deliberation  
 
-Later: saved searches, payment plans, cadastral/PDF attach, compare, alerts.
+Later: saved searches, payment plans, cadastral/PDF attach, diligence gate, compare, alerts.
 
 ## Sources
 

@@ -349,7 +349,8 @@ Complètent la §3 — toujours en **partenaire**, pas en production interne.
 ```
 P0  Simu mensualité + simu construction + simu budget total + estimation vendeur
      + pages guides SEO
-P1  Diligence/géomètre CTA + permis checklist + caution/assurance
+P1  Diligence/géomètre CTA + permis checklist (**délais réels**, papier mairie) + caution/assurance
+    (+ option régularisation délibération→bail) — réf. `dossier/etude-de-marche/06`
      + PNO + clim/solaire leads + inspection diaspora
      + jauge épargne construction dans dashboard acquéreur
 P2  Viabilisation/forage/clôture + suivi chantier + escrow

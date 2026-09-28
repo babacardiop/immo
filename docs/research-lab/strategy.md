@@ -162,7 +162,7 @@ Le lab est une **voie parallèle**, pas Vague 1.
 
 | Phase lab | Quand | Livrable |
 | --- | --- | --- |
-| **L0 — Design** | Maintenant | Modèle données, sources, scoring dédup + **catalogue études** (`etudes/`) |
+| **L0 — Design** | Maintenant | Modèle données + **PDFs études archivés** (`etudes/pdf/`) + catalogue |
 | **L1 — Manual spike** | Après Vague 0 (site live) | 200–500 annonces scrapées **1 source**, dédup manuelle Excel/Notion pour valider signaux |
 | **L2 — 2 sources + auto-score** | Pendant Vague 2–3 | Pipeline + UI review ; premiers prix/m² Almadies/mermoz |
 | **L3 — Lead radar** | Vague 3–5 | Alerts CRM agents |

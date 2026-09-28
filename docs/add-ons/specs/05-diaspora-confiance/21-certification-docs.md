@@ -5,15 +5,15 @@
 | **ID fichier** | `21-certification-docs.md` |
 | **Priorité** | **P1** |
 | **Catégorie** | Confiance |
-| **Synthèse** | Stockage sécurisé TF, bail, EDL, quittances, rapports diligence — partage contrôlé. |
+| **Synthèse** | Stockage sécurisé TF, bail, délibération+tutelle, EDR, EDL, quittances, rapports diligence — partage contrôlé + audit. |
 
 ## 1. Problème client
 
-Docs éparpillés WhatsApp; perte; falsification.
+Docs éparpillés WhatsApp; perte; falsification; diaspora sans preuve datée.
 
 ## 2. Réalité marché (recherche)
 
-Attente diaspora + gestion pro (Noflaye: docs 24/7).
+Attente diaspora + gestion pro (Noflaye: docs 24/7). État (SGF/SIFCOM) digitalise lentement — le coffre agence reste nécessaire.
 
 ## 3. Utilisateurs & synergies
 
@@ -22,8 +22,9 @@ Attente diaspora + gestion pro (Noflaye: docs 24/7).
 
 ## 4. Inputs
 
-- fichiers
-- métadonnées type
+- fichiers typés (`tf`, `bail`, `deliberation`, `edr`, `nicad`, `diligence_report`, …)
+- métadonnées type + hash optionnel
+- date / auteur upload
 
 ## 5. Outputs
 

@@ -108,7 +108,22 @@ Le **locataire** n’est pas un simple lead WhatsApp : il a un compte pour suivr
 | “Site d’annonces” | Pas de marge récurrente, guerre du volume, arnaques |
 | “Que vente étalée” | Trop étroit ; ignore le cash de la gestion locative |
 
-**Synthèse :** métier d’**agence immobilière classique complète** ; différenciation par **exécution digitale** (recherche, carte, étalé, paiements, gestion en ligne) et catalogue propre.
+**Synthèse :** métier d’**agence immobilière classique complète** ; différenciation par **exécution digitale** (recherche, carte, étalé, paiements, gestion en ligne), catalogue propre, et **sécurisation foncière** (lecture des papiers avant paiement).
+
+---
+
+## Hiérarchie des papiers (non négociable en catalogue)
+
+| Papier | Nature | On publie en vente classique ? |
+| --- | --- | --- |
+| **Titre foncier (TF)** | Propriété Livre foncier | Oui (priorité) |
+| **Bail emphytéotique / ordinaire** | Occupation État opposable | Oui si inscrit + pièces |
+| **Délibération exécutoire** | Droit d’**usage** seulement — **pas** une vente légale | Uniquement avec **disclaimer** fort + orientation régularisation ; jamais présenté comme TF |
+| Sans papier / douteux | — | **Non** |
+
+Référence opérationnelle : [`dossier/etude-de-marche/06-parcours-foncier-securite.md`](../dossier/etude-de-marche/06-parcours-foncier-securite.md) · glossaire [`07`](../dossier/etude-de-marche/07-glossaire-foncier.md).
+
+**Règle agents :** séparer les rôles diaspora (présentateur ≠ vérificateur ≠ détenteur des fonds). Notaire choisi avec l’acheteur. Jamais « paie d’abord, on régularise après ».
 
 ---
 
@@ -117,6 +132,7 @@ Le **locataire** n’est pas un simple lead WhatsApp : il a un compte pour suivr
 - *Votre agence immobilière — vendre, louer, gérer.*
 - *On publie des biens vérifiés. On encaisse vos loyers. On vous aide à devenir propriétaire.*
 - *Pas une marketplace. Une agence.*
+- *Avant de payer : on lit le titre (EDR, NICAD). Délibération ≠ titre foncier.*
 
 ## Not
 
@@ -124,11 +140,14 @@ Le **locataire** n’est pas un simple lead WhatsApp : il a un compte pour suivr
 - “Expat-Dakar mais plus beau”
 - Pure fiche rural (Senhectare only)
 - SaaS de gestion locative sans activité d’agence (≠ Noflaye) — **nous opérons** le métier, le soft nous sert
+- Vendre une **délibération** comme un titre
+- Promettre TeleDAc / délais admin irréalistes
 
 ## Docs liés
 
+- `dossier/etude-de-marche/` — **étude de marché dossier** (sectorielle, demande, concurrence, PESTEL, mix, parcours foncier)
 - `docs/hub-roadmap.md` — **stratégie hub + calendrier d’itérations** (features / add-ons / partenaires)
-- `docs/research-lab/` — crawl classifiés, dédup, catalogue d’études, autres data streams
+- `docs/research-lab/` — crawl classifiés, dédup, **études PDF** (`etudes/pdf/`), data streams
 - `docs/proptech-analysis.md` — outils digitaux sur ce métier
 - `docs/add-ons.md` — services annexes (construction, caution, assurance…)
 - `docs/partenaires.md` — passerelles & commissions (constructeur, archi, notaire, formalités, financier…)

@@ -38,7 +38,7 @@ Partenaire signe / encaisse  →  nous reverse commission apporteur
 | 01 | **Constructeur / BTP** | Firme de construction partenaire | 2–5 % du contrat travaux (ou forfait / palier) | Simu construction → Pack Terrain→Maison |
 | 02 | **Architecte** | Archi qui fait de bons plans | 10–20 % honoraires archi **ou** forfait intro 150–500k FCFA | Seuil projet > ~30 M FCFA ; plans types |
 | 03 | **Notaire** | Notaire connu | Forfait apporteur / dossier (souvent 50–200k) **ou** accord étude | Closing vente ; séquestre ; pack juridique |
-| 04 | **Formalités / papiers** | Interlocuteur obtention pièces légales | Forfait par dossier ou % sur honoraires cabinet | Due diligence, NICAD, CU, permis, régul. TF |
+| 04 | **Formalités / papiers** | Interlocuteur obtention pièces légales | Forfait par dossier ou % sur honoraires cabinet | Due diligence, NICAD, EDR, CU, **AC papier mairie**, Yastal/bail, régul. TF — *pas TeleDAc magique* |
 | 05 | **Financier haut de gamme** | Structuration investissements colossaux | Success fee 0,5–2 % ticket **ou** retainer partagé | Gros tickets, diaspora HNWI, promo / multi-lots |
 
 Ces 5 fiches sont dans `docs/partenaires/specs/` avec statut **« relation existante — à nommer & signer »**.
@@ -114,7 +114,8 @@ Même logique que les add-ons : chaque besoin client = une **passerelle** monét
 2. **Exclusivité ou non** (recommandé : non-exclusif, shortlist 2–3 par métier).
 3. **Qualité / SLA** : délais de rappel client (ex. 24–48 h), droit de retirer le partenaire.
 4. **Transparence client** : on dit qu’on travaille avec des partenaires ; on ne cache pas l’existence d’un apport (éthique + confiance).
-5. **Séparation des rôles** (surtout diaspora) : le vérificateur ≠ le vendeur ≠ le notaire — voir MyAfric / notre blog.
+5. **Séparation des rôles** (surtout diaspora) : le vérificateur ≠ le vendeur ≠ le notaire — voir MyAfric / notre blog / `dossier/etude-de-marche/06`.  
+6. **Hiérarchie des papiers** : délibération ≠ bail ≠ TF — ne jamais briefer un partenaire pour « vendre une délibération comme un titre ».
 
 ---
 

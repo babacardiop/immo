@@ -10,11 +10,11 @@
 
 ## 1. Besoin client
 
-Litiges de limites, écart superficie annoncée vs réelle, exigence banque / notaire / PC.
+Litiges de limites, écart superficie annoncée vs réelle, exigence banque / notaire / AC ; caler plan ↔ occupation réelle (parcours bail Domaines).
 
 ## 2. Offre partenaire
 
-Levé, bornage contradictoire, plan pour dossier.
+Levé, bornage contradictoire, plan pour dossier Domaines / AC / notaire ; photos GPS datées (diaspora).
 
 ## 3. Commission (indicatif — à figer en convention)
 
@@ -22,13 +22,13 @@ Levé, bornage contradictoire, plan pour dossier.
 
 ## 4. Synergies add-ons / produit
 
-`07-bornage-geometre`, `08-due-diligence-fonciere`
+`07-bornage-geometre`, `08-due-diligence-fonciere`, `09-permis-construire-cu`, `43-regularisation-tf`
 
 ## 5. Parcours (passerelle)
 
-1. Flag diligence
+1. Flag diligence ou régularisation
 2. Lead géomètre
-3. PV bornage → dossier notaire
+3. PV bornage → dossier notaire / Domaines / AC
 
 ## 6. SLA attendu
 
@@ -50,7 +50,7 @@ leads, missions, unblock_title_issues
 
 ## 10. Risques
 
-Géomètre non assermenté — exiger qualification
+Géomètre non assermenté — exiger qualification ; bornage sans titre clair = valeur limitée (coupler au régime juridique) ; zones DGSCOS
 
 ## 11. Roadmap
 

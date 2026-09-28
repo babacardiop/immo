@@ -2,6 +2,8 @@
 
 Organisées par **catégorie**. Overview : [`docs/add-ons.md`](../add-ons.md).
 
+**Référentiel foncier (enrichi Tracos) :** [`dossier/etude-de-marche/06`](../../dossier/etude-de-marche/06-parcours-foncier-securite.md) · [`07 glossaire`](../../dossier/etude-de-marche/07-glossaire-foncier.md) — specs `08` diligence, `09` permis, `43` régularisation à jour.
+
 ## Catégories
 
 | Dossier | Thème | Nb |
@@ -40,14 +42,14 @@ Du terrain sécurisé à la maison : diligence, bornage, permis, packs, chantier
 | --- | --- | --- | --- |
 | 06 | Pack Terrain → Maison | P1 | [`06-pack-terrain-maison.md`](./specs/02-terrain-construction/06-pack-terrain-maison.md) |
 | 07 | Bornage / géomètre | P1 | [`07-bornage-geometre.md`](./specs/02-terrain-construction/07-bornage-geometre.md) |
-| 08 | Due diligence foncière | P1 | [`08-due-diligence-fonciere.md`](./specs/02-terrain-construction/08-due-diligence-fonciere.md) |
+| 08 | Due diligence foncière | **P0–P1** | [`08-due-diligence-fonciere.md`](./specs/02-terrain-construction/08-due-diligence-fonciere.md) |
 | 09 | Permis de construire & CU | P1 | [`09-permis-construire-cu.md`](./specs/02-terrain-construction/09-permis-construire-cu.md) |
 | 25 | Plans types / catalogues maisons | P2 | [`25-plans-types.md`](./specs/02-terrain-construction/25-plans-types.md) |
 | 26 | Suivi de chantier léger | P2 | [`26-suivi-chantier.md`](./specs/02-terrain-construction/26-suivi-chantier.md) |
 | 27 | Marketplace matériaux | P3 | [`27-materiaux-marketplace.md`](./specs/02-terrain-construction/27-materiaux-marketplace.md) |
 | 41 | Forage / adduction eau | P2 | [`41-forage-eau.md`](./specs/02-terrain-construction/41-forage-eau.md) |
 | 42 | VRD / viabilisation lot | P2 | [`42-vrd-viabilisation.md`](./specs/02-terrain-construction/42-vrd-viabilisation.md) |
-| 43 | Régularisation / montée en TF | P2 | [`43-regularisation-tf.md`](./specs/02-terrain-construction/43-regularisation-tf.md) |
+| 43 | Régularisation / montée en TF (délibération→bail) | **P1–P2** | [`43-regularisation-tf.md`](./specs/02-terrain-construction/43-regularisation-tf.md) |
 | 44 | Clôture & portail | P2 | [`44-cloture-portail.md`](./specs/02-terrain-construction/44-cloture-portail.md) |
 
 

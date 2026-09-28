@@ -17,8 +17,9 @@ Agence  +  Add-ons (outils)  +  Partenaires (exécution)  +  Blog haute valeur
 | Priorité | Doc | Contenu |
 | --- | --- | --- |
 | **1** | [`docs/hub-roadmap.md`](docs/hub-roadmap.md) | Stratégie hub + **calendrier des vagues** (features / add-ons / partenaires) |
-| **2** | [`docs/positioning.md`](docs/positioning.md) | Métier, 4 axes, portails, ce qu’on n’est pas |
-| **3** | [`docs/tech-stack.md`](docs/tech-stack.md) | Next.js, Tailwind, shadcn, maps, SEO |
+| **2** | [`docs/positioning.md`](docs/positioning.md) | Métier, 4 axes, portails, hiérarchie des papiers |
+| **3** | [`dossier/`](dossier/README.md) | **Dossier final** (étude, BP, tech, marketing…) — étude ✅ |
+| **4** | [`docs/tech-stack.md`](docs/tech-stack.md) | Next.js, Tailwind, shadcn, maps, SEO |
 
 Ensuite selon le sujet :
 
@@ -26,8 +27,9 @@ Ensuite selon le sujet :
 | --- | --- |
 | Add-ons (52 specs, 7 catégories) | [`docs/add-ons.md`](docs/add-ons.md) · [`docs/add-ons/README.md`](docs/add-ons/README.md) |
 | Partenaires (24 fiches, 5 catégories) | [`docs/partenaires.md`](docs/partenaires.md) · [`docs/partenaires/README.md`](docs/partenaires/README.md) |
-| Research lab (crawl, dédup, études) | [`docs/research-lab/`](docs/research-lab/README.md) |
+| Research lab (crawl, dédup, études PDF) | [`docs/research-lab/`](docs/research-lab/README.md) · [`etudes/pdf/`](docs/research-lab/etudes/pdf/) |
 | Blog / guides | [`docs/blog/`](docs/blog/README.md) |
+| Foncier / diligence (ops) | [`dossier/…/06`](dossier/etude-de-marche/06-parcours-foncier-securite.md) · [`07 glossaire`](dossier/etude-de-marche/07-glossaire-foncier.md) |
 | Concurrence / PropTech | [`docs/competitive-analysis.md`](docs/competitive-analysis.md) · [`docs/proptech-analysis.md`](docs/proptech-analysis.md) |
 | Design EverGreen | [`docs/design-tokens.md`](docs/design-tokens.md) · [`assets/`](assets/) · [`docs/assets.md`](docs/assets.md) |
 | Share cards (WA / IG / TikTok) | [`docs/social-share-cards.md`](docs/social-share-cards.md) |
@@ -76,6 +78,12 @@ Détail : [`docs/positioning.md`](docs/positioning.md).
 immo/
 ├── README.md                 ← ce fichier
 ├── assets/                   # Design boards + crops
+├── dossier/                  # Pack docs finaux (voir dossier/README.md)
+│   ├── etude-de-marche/      # ✅ Étude + foncier
+│   ├── modele-economique/    # BP, prévisionnel
+│   ├── tech/site + research-lab/
+│   ├── marketing/
+│   └── …
 ├── docs/
 │   ├── hub-roadmap.md        # Plan de sortie (lire en premier)
 │   ├── positioning.md

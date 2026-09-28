@@ -6,15 +6,15 @@
 | **Priorité** | **P0** |
 | **Catégorie** | Juridique |
 | **Statut** | Relation existante — à nommer & signer |
-| **Synthèse** | Étude notariale de confiance pour actes de vente, séquestre, mutations TF, procurations diaspora. |
+| **Synthèse** | Étude notariale de confiance pour actes de vente, séquestre, mutations TF / baux, procurations diaspora — **pas** le notaire imposé par le vendeur seul. |
 
 ## 1. Besoin client
 
-Sécuriser le closing ; éviter paiements Wave directs au vendeur ; mutation au Livre foncier.
+Sécuriser le closing ; éviter paiements Wave directs au vendeur ; mutation au Livre foncier ; EDR ; cadrer procurations.
 
 ## 2. Offre partenaire
 
-Avant-contrat / acte authentique, séquestre, formalités Conservation, conseil pièces.
+Avant-contrat / acte authentique, séquestre, formalités Conservation, conseil pièces ; orientation si papier = délibération (régularisation d’abord).
 
 ## 3. Commission (indicatif — à figer en convention)
 
@@ -22,12 +22,13 @@ Forfait apporteur par dossier clos (souvent 50–200k FCFA) selon accord déonto
 
 ## 4. Synergies add-ons / produit
 
-`17-notaire-pack-juridique`, `18-calculateur-frais-acquisition`, `35-escrow-sequestre`, `37-procuration-assist`
+`17-notaire-pack-juridique`, `18-calculateur-frais-acquisition`, `35-escrow-sequestre`, `37-procuration-assist`, `08-due-diligence-fonciere`  
+Réf. : `dossier/etude-de-marche/06-parcours-foncier-securite.md`
 
 ## 5. Parcours (passerelle)
 
-1. Offre acceptée → tunnel closing
-2. Intro étude + envoi checklist pièces
+1. Diligence / offre acceptée → tunnel closing
+2. Intro étude + checklist pièces (**EDR, NICAD, titre**)
 3. Séquestre & signature
 4. Commission à l’acte / mutation engagée
 
@@ -37,7 +38,7 @@ Prise en charge dossier < 72 h ; liste pièces écrite dès J0
 
 ## 7. Cadre contractuel
 
-Accord commercial compatible déontologie notariale ; traçabilité apporteur
+Accord commercial compatible déontologie notariale ; traçabilité apporteur ; refus d’acter une « vente délibération = TF »
 
 ## 8. Données (cible)
 
@@ -51,7 +52,7 @@ dossiers_ouverts, actes_signes, delai_moyen_closing, commission
 
 ## 10. Risques
 
-Conflit si notaire « du vendeur » imposé ; toujours proposer notre étude ou choix client éclairé
+Conflit si notaire « du vendeur » imposé ; toujours proposer notre étude ou choix client éclairé ; contentieux DGSCOS sur parcelle
 
 ## 11. Roadmap
 

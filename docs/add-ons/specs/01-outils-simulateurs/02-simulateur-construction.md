@@ -79,6 +79,7 @@ Responsabilité devis — toujours 'indicatif'; barèmes à recalibrer avec part
 
 ## 14. Sources
 
+- **Lab / indices officiels (archivés) :** [`docs/research-lab/etudes/pdf/02-ansd-icc-t4-2025.pdf`](../../research-lab/etudes/pdf/02-ansd-icc-t4-2025.pdf) · [`…/10-ansd-imc-fevrier-2026.pdf`](../../research-lab/etudes/pdf/10-ansd-imc-fevrier-2026.pdf) · [`…/12-ansd-ibtp-t4-2025.pdf`](../../research-lab/etudes/pdf/12-ansd-ibtp-t4-2025.pdf) — catalogue [`etudes/README.md`](../../research-lab/etudes/README.md)
 - https://keur-immo.com/senegal/construction-maison-senegal/
 - https://investissementimmoafrique.com/simulateur-cout-construction-maison-senegal/
 - https://investissementimmoafrique.com/calculateur-du-cout-de-construction/
@@ -86,4 +87,4 @@ Responsabilité devis — toujours 'indicatif'; barèmes à recalibrer avec part
 
 ---
 
-*Spec générée pour l'agence full-service SN — voir aussi `docs/add-ons.md`, `docs/positioning.md`.*
+*Spec générée pour l'agence full-service SN — voir aussi `docs/add-ons.md`, `docs/positioning.md`, `docs/research-lab/`.*
