@@ -1,42 +1,41 @@
-# Avocat immobilier / contentieux
+# Huissier
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `07-avocat-immobilier.md` |
-| **Priorité** | **P1** |
+| **ID fichier** | `19-huissier.md` |
+| **Priorité** | **P2** |
 | **Catégorie** | Juridique |
 | **Statut** | À recruter |
-| **Synthèse** | Avocat pour litiges fonciers, double vente, recouvrement locatif lourd, rédaction hors notaire. |
+| **Synthèse** | Constats, significations, procédures d’exécution locative. |
 
 ## 1. Besoin client
 
-Contentieux ou situation anormale que le notaire ne traite pas seul.
+Impayés lourds, conflits occupation.
 
 ## 2. Offre partenaire
 
-Consultation, mise en demeure, procédure.
+Constats d’huissier, actes.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Forfait intro ou 10–15 % honoraires (selon dossier).
+Forfait intro.
 
 ## 4. Synergies add-ons / produit
 
-`08-due-diligence-fonciere`, `23-scoring-locataire`
+`23-scoring-locataire`, `gestion locative`
 
 ## 5. Parcours (passerelle)
 
-1. Escalade litige
-2. Intro avocat
-3. Suivi statut
+1. Escalade impayé
+2. Intro huissier
 
 ## 6. SLA attendu
 
-Rappel 24–48 h
+Urgences 24–48 h
 
 ## 7. Cadre contractuel
 
-Convention ; client = mandant de l’avocat
+Apporteur
 
 ## 8. Données (cible)
 
@@ -46,18 +45,18 @@ Convention ; client = mandant de l’avocat
 
 ## 9. KPI
 
-consults, dossiers_ouverts
+constats, procedures
 
 ## 10. Risques
 
-Conflits d’intérêts si avocat aussi du vendeur
+Image « dure » — process gradué avant huissier
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 cabinet référencé |
-| **Plus tard** | Grille urgences (saisie, expulsion) |
+| **v1** | 1 étude d’huissier |
+| **Plus tard** | Playbook impayés |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +72,4 @@ Conflits d’intérêts si avocat aussi du vendeur
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

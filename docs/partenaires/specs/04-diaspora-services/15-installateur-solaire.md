@@ -1,37 +1,37 @@
-# Climatisation & froid
+# Installateur solaire
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `16-clim-froid.md` |
-| **Priorité** | **P1** |
-| **Catégorie** | Confort |
+| **ID fichier** | `15-installateur-solaire.md` |
+| **Priorité** | **P2** |
+| **Catégorie** | Énergie |
 | **Statut** | À recruter |
-| **Synthèse** | Fourniture / pose clim + contrats entretien. |
+| **Synthèse** | Kits solaires / onduleurs pour maisons et locatif. |
 
 ## 1. Besoin client
 
-Location meublée et standing ; maintenance récurrente.
+Fiabiliser l’énergie ; upsell post-achat / gestion.
 
 ## 2. Offre partenaire
 
-Pack clim + entretien annuel.
+Étude, installation, SAV.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-% installation + fee contrat entretien année 1.
+5–10 % du kit installé.
 
 ## 4. Synergies add-ons / produit
 
-`19-pack-clim`, `46-contrat-entretien`
+`20-kit-solaire`
 
 ## 5. Parcours (passerelle)
 
-1. Bail / remise clés
-2. Upsell clim
+1. CTA énergie
+2. Lead solaire
 
 ## 6. SLA attendu
 
-Pose sous créneau convenu
+Visite technique 5 j
 
 ## 7. Cadre contractuel
 
@@ -45,18 +45,18 @@ Apporteur
 
 ## 9. KPI
 
-packs_vendus, contrats_entretien
+installations, ticket_moyen
 
 ## 10. Risques
 
-Qualité pose
+SAV défaillant → shortlist exigeante
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 frigoriste |
-| **Plus tard** | Marketplace maintenance |
+| **v1** | 1 installateur |
+| **Plus tard** | Offre proprio multi-biens |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +72,4 @@ Qualité pose
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

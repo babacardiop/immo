@@ -569,41 +569,18 @@ def render(p: dict) -> str:
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)
 """
 
 
 def main() -> None:
-    rows = []
     for p in PARTNERS:
         path = OUT / p["file"]
         path.write_text(render(p), encoding="utf-8")
-        rows.append(
-            f"| {p['file'][:2]} | {p['title']} | {p['priority']} | {p['status'].split('—')[0].strip()} | [`specs/{p['file']}`](./specs/{p['file']}) |"
-        )
         print("wrote", path.relative_to(ROOT))
+    from reorganize_specs import main as reorganize
 
-    readme = f"""# Partenaires — fiches (1 fichier = 1 type)
-
-Passerelles monétisables (commissions d’apport). Vue d’ensemble : [`docs/partenaires.md`](../partenaires.md).
-
-| # | Partenaire | Priorité | Statut | Fichier |
-| --- | --- | --- | --- | --- |
-{chr(10).join(rows)}
-
-## Comment utiliser
-
-1. **P0 existants** : nommer le partenaire dans §12 de la fiche + signer la convention d’apporteur.
-2. Brancher le CTA produit (simu, closing, bail) → `PartnerLead`.
-3. Suivre `CommissionEvent` dans le CRM agence.
-4. Recruter les **À recruter** selon vague V1.5 / V2 (`partenaires.md` §6).
-
-## Lien add-ons
-
-Les add-ons (`docs/add-ons/`) sont souvent le **front** (outil / checklist) ; le partenaire est le **back** (exécution + commission).
-"""
-    (ROOT / "docs" / "partenaires" / "README.md").write_text(readme, encoding="utf-8")
-    print("wrote docs/partenaires/README.md")
+    reorganize()
 
 
 if __name__ == "__main__":

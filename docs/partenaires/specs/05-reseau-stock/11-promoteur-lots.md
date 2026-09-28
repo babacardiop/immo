@@ -1,42 +1,42 @@
-# Forage / adduction d’eau
+# Promoteur / lotisseur
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `13-forage-eau.md` |
-| **Priorité** | **P2** |
-| **Catégorie** | Chantier annexe |
+| **ID fichier** | `11-promoteur-lots.md` |
+| **Priorité** | **P1** |
+| **Catégorie** | Stock & co-marketing |
 | **Statut** | À recruter |
-| **Synthèse** | Entreprise de forage et pompage pour terrains non desservis. |
+| **Synthèse** | Accès lots / programmes neufs avec mandat ou commission promoteur. |
 
 ## 1. Besoin client
 
-Viabiliser avant construction hors réseau SDE.
+Élargir le catalogue curated sans porter le stock.
 
 ## 2. Offre partenaire
 
-Étude, forage, équipement pompe.
+Lots sécurisés, grilles prix, co-visite, VEFA si applicable.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-3–8 % devis ou forfait.
+2–5 % (ou barème promoteur) sur vente lot / unité.
 
 ## 4. Synergies add-ons / produit
 
-`41-forage-eau`, `10-simulateur-pret-a-batir`
+`catalogue`, `01-simulateur-mensualite`
 
 ## 5. Parcours (passerelle)
 
-1. Simu prêt-à-bâtir
-2. Lead forage
-3. Devis
+1. Mandat programme
+2. Publication curated
+3. Vente → commission
 
 ## 6. SLA attendu
 
-Devis 5–7 j
+Maj dispo lots hebdo
 
 ## 7. Cadre contractuel
 
-Apporteur standard
+Mandat écrit + exclusivité éventuelle par programme
 
 ## 8. Données (cible)
 
@@ -46,18 +46,18 @@ Apporteur standard
 
 ## 9. KPI
 
-devis, forages_realises
+lots_live, ventes, commission
 
 ## 10. Risques
 
-Échec forage — contrat clair sur aléas géologiques
+Retards livraison promoteur — disclaimer VEFA
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 entreprise |
-| **Plus tard** | Bundle VRD+forage |
+| **v1** | 1 programme partenaire |
+| **Plus tard** | Multi-programmes + page « neuf » |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +73,4 @@ devis, forages_realises
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

@@ -1,42 +1,42 @@
-# Courtier crédit / banque
+# Géomètre / bornage
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `08-courtier-credit-banque.md` |
+| **ID fichier** | `06-geometre-bornage.md` |
 | **Priorité** | **P1** |
-| **Catégorie** | Finance |
+| **Catégorie** | Foncier technique |
 | **Statut** | À recruter |
-| **Synthèse** | Accès crédit immobilier retail (CDI/CDD selon banques) et orientation dossier. |
+| **Synthèse** | Géomètre expert pour bornage, superficie réelle, plan — avant achat ou avant construction. |
 
 ## 1. Besoin client
 
-Financer achat / construction hors vente étalée agence.
+Litiges de limites, écart superficie annoncée vs réelle, exigence banque / notaire / PC.
 
 ## 2. Offre partenaire
 
-Montage dossier, comparatif banques, suivi accord.
+Levé, bornage contradictoire, plan pour dossier.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Partage commission courtage bancaire (selon banque) ou forfait dossier.
+10–15 % honoraires ou forfait intro 25–75k FCFA.
 
 ## 4. Synergies add-ons / produit
 
-`01-simulateur-mensualite`, `18-calculateur-frais-acquisition`, `24-epargne-construction`
+`07-bornage-geometre`, `08-due-diligence-fonciere`
 
 ## 5. Parcours (passerelle)
 
-1. CTA financer
-2. Lead courtier
-3. Accord de principe → closing
+1. Flag diligence
+2. Lead géomètre
+3. PV bornage → dossier notaire
 
 ## 6. SLA attendu
 
-1er RDV sous 5 j
+Devis 48 h ; intervention selon zone
 
 ## 7. Cadre contractuel
 
-Accord apporteur / courtier
+Convention apporteur standard
 
 ## 8. Données (cible)
 
@@ -46,18 +46,18 @@ Accord apporteur / courtier
 
 ## 9. KPI
 
-dossiers, accords, taux_obtention
+leads, missions, unblock_title_issues
 
 ## 10. Risques
 
-Survente capacité d’emprunt — disclaimer
+Géomètre non assermenté — exiger qualification
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 courtier ou 1 contact banque |
-| **Plus tard** | Simulateur capacité d’emprunt |
+| **v1** | 1 géomètre Dakar + 1 Petite Côte si possible |
+| **Plus tard** | Couverture régionale |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +73,4 @@ Survente capacité d’emprunt — disclaimer
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

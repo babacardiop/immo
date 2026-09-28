@@ -197,7 +197,7 @@ Chaque hub a : **1 page hub** + **6–12 guides piliers** + articles satellites.
 
 ## 10. Lien avec le reste du système
 
-- Add-on contenu : `docs/add-ons/specs/05-guides-seo.md` (à traiter comme **Blog** élargi)
+- Add-on contenu : `docs/add-ons/specs/07-contenu-marketing-b2b/05-guides-seo.md` (à traiter comme **Blog** élargi)
 - Outils cités dans les CTA : specs `01`–`24` P0/P1
 - Share : `docs/social-share-cards.md`
 - Positionnement : aide à la décision = confiance d’**agence**, pas marketplace

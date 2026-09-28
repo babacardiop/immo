@@ -1,42 +1,41 @@
-# Géomètre / bornage
+# Fintech caution / escrow
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `06-geometre-bornage.md` |
+| **ID fichier** | `23-fintech-caution-escrow.md` |
 | **Priorité** | **P1** |
-| **Catégorie** | Foncier technique |
+| **Catégorie** | Fintech |
 | **Statut** | À recruter |
-| **Synthèse** | Géomètre expert pour bornage, superficie réelle, plan — avant achat ou avant construction. |
+| **Synthèse** | Partenaires type caution locative digitale ou séquestre paiements diaspora. |
 
 ## 1. Besoin client
 
-Litiges de limites, écart superficie annoncée vs réelle, exigence banque / notaire / PC.
+Réduire friction caution et risque paiement vendeur.
 
 ## 2. Offre partenaire
 
-Levé, bornage contradictoire, plan pour dossier.
+Caution as a service ; escrow milestones.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-10–15 % honoraires ou forfait intro 25–75k FCFA.
+Referral fee par dossier activé.
 
 ## 4. Synergies add-ons / produit
 
-`07-bornage-geometre`, `08-due-diligence-fonciere`
+`11-caution-locative`, `35-escrow-sequestre`
 
 ## 5. Parcours (passerelle)
 
-1. Flag diligence
-2. Lead géomètre
-3. PV bornage → dossier notaire
+1. Bail / closing
+2. Opt-in fintech
 
 ## 6. SLA attendu
 
-Devis 48 h ; intervention selon zone
+API ou process manuel v1
 
 ## 7. Cadre contractuel
 
-Convention apporteur standard
+Partenariat commercial + conformité
 
 ## 8. Données (cible)
 
@@ -46,18 +45,18 @@ Convention apporteur standard
 
 ## 9. KPI
 
-leads, missions, unblock_title_issues
+activations, fee
 
 ## 10. Risques
 
-Géomètre non assermenté — exiger qualification
+Régulation fintech ; communication claire
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 géomètre Dakar + 1 Petite Côte si possible |
-| **Plus tard** | Couverture régionale |
+| **v1** | 1 partenaire caution OU process séquestre notaire |
+| **Plus tard** | Intégration API |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +72,4 @@ Géomètre non assermenté — exiger qualification
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

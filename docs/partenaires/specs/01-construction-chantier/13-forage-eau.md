@@ -1,42 +1,42 @@
-# Assureur / courtier MRH–PNO
+# Forage / adduction d’eau
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `09-assureur-courtier.md` |
-| **Priorité** | **P1** |
-| **Catégorie** | Assurance |
+| **ID fichier** | `13-forage-eau.md` |
+| **Priorité** | **P2** |
+| **Catégorie** | Chantier annexe |
 | **Statut** | À recruter |
-| **Synthèse** | Couverture habitation locataire / PNO propriétaire non occupant à la signature. |
+| **Synthèse** | Entreprise de forage et pompage pour terrains non desservis. |
 
 ## 1. Besoin client
 
-Obligation ou bon sens à l’entrée dans les lieux / mise en gestion.
+Viabiliser avant construction hors réseau SDE.
 
 ## 2. Offre partenaire
 
-Devis MRH/PNO, souscription, attestation.
+Étude, forage, équipement pompe.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-10–20 % de la prime 1ʳᵉ année (usage courtier) ou fee fixe.
+3–8 % devis ou forfait.
 
 ## 4. Synergies add-ons / produit
 
-`13-assurance-mrh`, `14-assurance-pno`
+`41-forage-eau`, `10-simulateur-pret-a-batir`
 
 ## 5. Parcours (passerelle)
 
-1. Bail signé / mandat gestion
-2. Devis assurance
-3. Attestation upload portail
+1. Simu prêt-à-bâtir
+2. Lead forage
+3. Devis
 
 ## 6. SLA attendu
 
-Devis J+1
+Devis 5–7 j
 
 ## 7. Cadre contractuel
 
-Convention courtage
+Apporteur standard
 
 ## 8. Données (cible)
 
@@ -46,18 +46,18 @@ Convention courtage
 
 ## 9. KPI
 
-polices, primes, renewals
+devis, forages_realises
 
 ## 10. Risques
 
-Sinistres mal gérés → image ; choisir courtier réactif
+Échec forage — contrat clair sur aléas géologiques
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 courtier + 2 compagnies |
-| **Plus tard** | Upsell annuel auto |
+| **v1** | 1 entreprise |
+| **Plus tard** | Bundle VRD+forage |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +73,4 @@ Sinistres mal gérés → image ; choisir courtier réactif
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

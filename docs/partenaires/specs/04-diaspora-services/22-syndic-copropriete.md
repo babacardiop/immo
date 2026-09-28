@@ -1,37 +1,37 @@
-# Clôture & portail
+# Syndic / copropriété
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `20-cloture-portail.md` |
+| **ID fichier** | `22-syndic-copropriete.md` |
 | **Priorité** | **P2** |
-| **Catégorie** | Chantier annexe |
+| **Catégorie** | Gestion |
 | **Statut** | À recruter |
-| **Synthèse** | Sécurisation parcelle après achat terrain. |
+| **Synthèse** | Syndic pour immeubles ; synchro avec gestion locative lots. |
 
 ## 1. Besoin client
 
-Éviter occupation / vols matériaux.
+Immeubles collectifs ; conformité charges.
 
 ## 2. Offre partenaire
 
-Devis clôture, portail, motorisation.
+Mandat syndic, AG, charges.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-5–10 % devis.
+Apport mandat (forfait ou mois de honoraires).
 
 ## 4. Synergies add-ons / produit
 
-`44-cloture-portail`, `06-pack-terrain-maison`
+`22-portail-multi-biens`, `gestion`
 
 ## 5. Parcours (passerelle)
 
-1. Post-achat terrain
-2. CTA clôturer
+1. Immeuble sous mandat
+2. Intro syndic
 
 ## 6. SLA attendu
 
-Devis 5 j
+Proposition sous 7 j
 
 ## 7. Cadre contractuel
 
@@ -45,18 +45,18 @@ Apporteur
 
 ## 9. KPI
 
-chantiers
+mandats_syndic
 
 ## 10. Risques
 
-Qualité ferronnerie
+Conflit syndic vs gestionnaire lots
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 atelier |
-| **Plus tard** | Pack sécurité terrain |
+| **v1** | 1 syndic (ex. réseau type Senegal Syndic / local) |
+| **Plus tard** | Offre immeuble complet |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +72,4 @@ Qualité ferronnerie
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

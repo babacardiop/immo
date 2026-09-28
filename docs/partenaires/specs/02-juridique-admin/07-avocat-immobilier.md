@@ -1,41 +1,42 @@
-# Déménagement / ménage
+# Avocat immobilier / contentieux
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `17-demenagement.md` |
-| **Priorité** | **P2** |
-| **Catégorie** | Lifestyle |
+| **ID fichier** | `07-avocat-immobilier.md` |
+| **Priorité** | **P1** |
+| **Catégorie** | Juridique |
 | **Statut** | À recruter |
-| **Synthèse** | Prestataires déménagement et ménage de fin/début de bail. |
+| **Synthèse** | Avocat pour litiges fonciers, double vente, recouvrement locatif lourd, rédaction hors notaire. |
 
 ## 1. Besoin client
 
-Friction post-signature.
+Contentieux ou situation anormale que le notaire ne traite pas seul.
 
 ## 2. Offre partenaire
 
-Devis volume, créneau, ménage EDL.
+Consultation, mise en demeure, procédure.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-8–15 % prestation.
+Forfait intro ou 10–15 % honoraires (selon dossier).
 
 ## 4. Synergies add-ons / produit
 
-`30-demenagement-menage`, `48-preavis-remise-cles`
+`08-due-diligence-fonciere`, `23-scoring-locataire`
 
 ## 5. Parcours (passerelle)
 
-1. Bail signé
-2. CTA déménager
+1. Escalade litige
+2. Intro avocat
+3. Suivi statut
 
 ## 6. SLA attendu
 
-Devis 24–48 h
+Rappel 24–48 h
 
 ## 7. Cadre contractuel
 
-Apporteur
+Convention ; client = mandant de l’avocat
 
 ## 8. Données (cible)
 
@@ -45,18 +46,18 @@ Apporteur
 
 ## 9. KPI
 
-prestations
+consults, dossiers_ouverts
 
 ## 10. Risques
 
-Casse / vols — assurance prestataire
+Conflits d’intérêts si avocat aussi du vendeur
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1–2 prestataires |
-| **Plus tard** | Pack remise clés tout-en-un |
+| **v1** | 1 cabinet référencé |
+| **Plus tard** | Grille urgences (saisie, expulsion) |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +73,4 @@ Casse / vols — assurance prestataire
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

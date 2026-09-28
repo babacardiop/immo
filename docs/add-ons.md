@@ -1,8 +1,10 @@
 # Add-ons & services annexes
 
-**Specs détaillées (1 fichier / add-on, enrichies par recherches web):** [`docs/add-ons/`](./add-ons/README.md) → 52 specs dans [`docs/add-ons/specs/`](./add-ons/specs/).
+**Specs détaillées (1 fichier / add-on) :** [`docs/add-ons/README.md`](./add-ons/README.md) — **52** specs en **7 catégories**.
 
-**Partenaires & commissions d’apport :** [`docs/partenaires.md`](./partenaires.md) → fiches dans [`docs/partenaires/`](./partenaires/README.md).
+**Partenaires & commissions d’apport :** [`docs/partenaires.md`](./partenaires.md) → fiches en **5 catégories** dans [`docs/partenaires/README.md`](./partenaires/README.md).
+
+**Hub & calendrier d’itérations :** [`docs/hub-roadmap.md`](./hub-roadmap.md) — parcours par vague, anti-dispersion, sortie features / add-ons / partenaires.
 
 **Blog / guides haute valeur :** [`docs/blog/`](./blog/README.md) — stratégie, calendrier, briefs.
 
@@ -138,6 +140,8 @@ UI EverGreen : même design que le simulateur de **mensualité terrain** → par
 ---
 
 ## 6. Roadmap recommandée
+
+> **Plan détaillé (vagues, anti-dispersion, calendrier 18 mois) :** [`docs/hub-roadmap.md`](./hub-roadmap.md).
 
 ### Vague 1 (rapide, fort ROI contenu)
 1. Simulateur **mensualité** (cœur produit)

@@ -228,5 +228,5 @@ Prioriser les piliers où le marché est **fort mais incomplet**, ou où Keur Ci
 - [`strategie.md`](./strategie.md) — positionnement & barème qualité
 - [`calendrier-editorial.md`](./calendrier-editorial.md)
 - [`briefs/`](./briefs/)
-- `docs/add-ons/specs/05-guides-seo.md`
+- `docs/add-ons/specs/07-contenu-marketing-b2b/05-guides-seo.md`
 - `docs/positioning.md`

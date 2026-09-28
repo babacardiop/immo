@@ -1,6 +1,8 @@
 # Partenaires & passerelles
 
-**Fiches détaillées (1 fichier / type de partenaire):** [`docs/partenaires/`](./partenaires/README.md)
+**Fiches détaillées (1 fichier / type de partenaire) :** [`docs/partenaires/README.md`](./partenaires/README.md) — **24** fiches en **5 catégories**.
+
+**Calendrier de sortie (vagues) :** [`docs/hub-roadmap.md`](./hub-roadmap.md).
 
 **Contexte :** agence full-service (`docs/positioning.md`) + add-ons (`docs/add-ons.md`).  
 **Objectif :** monétiser l’écosystème autour de la transaction — **commission d’apport d’affaires** — sans devenir BTP, étude notariale, ni banque.

@@ -960,31 +960,14 @@ def render(a: dict) -> str:
 
 def main() -> None:
     all_addons = ADDONS + more_addons()
-    index_lines = [
-        "# Specs add-ons (1 fichier = 1 add-on)",
-        "",
-        "Dossier généré avec recherches web marché Sénégal / Afrique (construction, caution, solaire, diaspora, notaire, forage, etc.).",
-        "",
-        "| # | Add-on | Priorité | Fichier |",
-        "| --- | --- | --- | --- |",
-    ]
-    for i, a in enumerate(all_addons, 1):
+    for a in all_addons:
         path = OUT / a["file"]
         path.write_text(render(a), encoding="utf-8")
-        index_lines.append(
-            f"| {i} | {a['title']} | {a['priority']} | [`specs/{a['file']}`](./specs/{a['file']}) |"
-        )
-    index_lines += [
-        "",
-        "## Comment utiliser",
-        "",
-        "1. Lire l'overview [`../add-ons.md`](../add-ons.md) (anciennement à la racine docs — voir lien).",
-        "2. Implémenter d'abord les **P0** puis **P1**.",
-        "3. Chaque spec contient: problème, marché, inputs/outputs, UX, data, API, monetization, KPIs, risques, sources.",
-        "",
-    ]
-    (OUT.parent / "README.md").write_text("\n".join(index_lines) + "\n", encoding="utf-8")
-    print(f"Wrote {len(all_addons)} specs to {OUT}")
+    print(f"Wrote {len(all_addons)} specs (flat) to {OUT}")
+    # Classer par catégories + régénérer README
+    from reorganize_specs import main as reorganize
+
+    reorganize()
 
 
 if __name__ == "__main__":

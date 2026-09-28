@@ -15,9 +15,10 @@ docs/
   competitive-analysis.md  # Local competitors & differentiation
   proptech-analysis.md     # PropTech features & phased roadmap
   add-ons.md               # Overview add-ons + synergies
-  add-ons/                  # Specs détaillées (52 fichiers)
+  add-ons/                  # Specs détaillées (52, par catégories)
   partenaires.md           # Overview partenariats & commissions
-  partenaires/             # Fiches types de partenaires (24)
+  partenaires/             # Fiches partenaires (24, par catégories)
+  hub-roadmap.md           # Stratégie hub + calendrier itérations
   blog/                    # Stratégie blog & briefs guides
   positioning.md           # Brand / model one-pager
   social-share-cards.md    # OG cards for FB / WA / IG / TikTok

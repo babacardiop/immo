@@ -1,37 +1,37 @@
-# Installateur solaire
+# Clôture & portail
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `15-installateur-solaire.md` |
+| **ID fichier** | `20-cloture-portail.md` |
 | **Priorité** | **P2** |
-| **Catégorie** | Énergie |
+| **Catégorie** | Chantier annexe |
 | **Statut** | À recruter |
-| **Synthèse** | Kits solaires / onduleurs pour maisons et locatif. |
+| **Synthèse** | Sécurisation parcelle après achat terrain. |
 
 ## 1. Besoin client
 
-Fiabiliser l’énergie ; upsell post-achat / gestion.
+Éviter occupation / vols matériaux.
 
 ## 2. Offre partenaire
 
-Étude, installation, SAV.
+Devis clôture, portail, motorisation.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-5–10 % du kit installé.
+5–10 % devis.
 
 ## 4. Synergies add-ons / produit
 
-`20-kit-solaire`
+`44-cloture-portail`, `06-pack-terrain-maison`
 
 ## 5. Parcours (passerelle)
 
-1. CTA énergie
-2. Lead solaire
+1. Post-achat terrain
+2. CTA clôturer
 
 ## 6. SLA attendu
 
-Visite technique 5 j
+Devis 5 j
 
 ## 7. Cadre contractuel
 
@@ -45,18 +45,18 @@ Apporteur
 
 ## 9. KPI
 
-installations, ticket_moyen
+chantiers
 
 ## 10. Risques
 
-SAV défaillant → shortlist exigeante
+Qualité ferronnerie
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 installateur |
-| **Plus tard** | Offre proprio multi-biens |
+| **v1** | 1 atelier |
+| **Plus tard** | Pack sécurité terrain |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +72,4 @@ SAV défaillant → shortlist exigeante
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

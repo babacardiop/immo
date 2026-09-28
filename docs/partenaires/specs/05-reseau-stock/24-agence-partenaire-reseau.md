@@ -1,41 +1,42 @@
-# Photographe / home staging
+# Agence partenaire / réseau inter-agences
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `18-photo-home-staging.md` |
+| **ID fichier** | `24-agence-partenaire-reseau.md` |
 | **Priorité** | **P2** |
-| **Catégorie** | Marketing biens |
+| **Catégorie** | Réseau |
 | **Statut** | À recruter |
-| **Synthèse** | Shoot pro et staging léger pour mandats vente/location. |
+| **Synthèse** | Agences hors zone (Thiès, Saint-Louis, diaspora desk) pour split de commission. |
 
 ## 1. Besoin client
 
-Annonces curated premium.
+Couverture géographique sans ouvrir une branche tout de suite.
 
 ## 2. Offre partenaire
 
-Shooting, drone optionnel, staging.
+Apport croisé de mandats / acquéreurs ; co-visite.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Forfait agence inclus mandat **ou** % si upsell vendeur.
+Split classique 50/50 (négociable).
 
 ## 4. Synergies add-ons / produit
 
-`33-home-staging-photo`, `39-annonces-boost`
+`40-white-label`
 
 ## 5. Parcours (passerelle)
 
-1. Prise mandat
-2. Shoot sous 7 j
+1. Lead hors zone
+2. Handshake agence
+3. Split à closing
 
 ## 6. SLA attendu
 
-Livraison photos 48–72 h
+Accusé lead 24 h
 
 ## 7. Cadre contractuel
 
-Prestation ou apporteur
+Convention inter-agences
 
 ## 8. Données (cible)
 
@@ -45,18 +46,18 @@ Prestation ou apporteur
 
 ## 9. KPI
 
-biens_shootes, time_to_publish
+leads_echanges, closings_partages
 
 ## 10. Risques
 
-Retard publish catalogue
+Qualité hétérogène — charte curated
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 photographe dédié |
-| **Plus tard** | Visite virtuelle |
+| **v1** | 1–2 agences alliées |
+| **Plus tard** | White-label branches |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +73,4 @@ Retard publish catalogue
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

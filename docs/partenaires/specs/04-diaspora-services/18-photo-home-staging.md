@@ -1,42 +1,41 @@
-# Agence partenaire / réseau inter-agences
+# Photographe / home staging
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `24-agence-partenaire-reseau.md` |
+| **ID fichier** | `18-photo-home-staging.md` |
 | **Priorité** | **P2** |
-| **Catégorie** | Réseau |
+| **Catégorie** | Marketing biens |
 | **Statut** | À recruter |
-| **Synthèse** | Agences hors zone (Thiès, Saint-Louis, diaspora desk) pour split de commission. |
+| **Synthèse** | Shoot pro et staging léger pour mandats vente/location. |
 
 ## 1. Besoin client
 
-Couverture géographique sans ouvrir une branche tout de suite.
+Annonces curated premium.
 
 ## 2. Offre partenaire
 
-Apport croisé de mandats / acquéreurs ; co-visite.
+Shooting, drone optionnel, staging.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Split classique 50/50 (négociable).
+Forfait agence inclus mandat **ou** % si upsell vendeur.
 
 ## 4. Synergies add-ons / produit
 
-`40-white-label`
+`33-home-staging-photo`, `39-annonces-boost`
 
 ## 5. Parcours (passerelle)
 
-1. Lead hors zone
-2. Handshake agence
-3. Split à closing
+1. Prise mandat
+2. Shoot sous 7 j
 
 ## 6. SLA attendu
 
-Accusé lead 24 h
+Livraison photos 48–72 h
 
 ## 7. Cadre contractuel
 
-Convention inter-agences
+Prestation ou apporteur
 
 ## 8. Données (cible)
 
@@ -46,18 +45,18 @@ Convention inter-agences
 
 ## 9. KPI
 
-leads_echanges, closings_partages
+biens_shootes, time_to_publish
 
 ## 10. Risques
 
-Qualité hétérogène — charte curated
+Retard publish catalogue
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1–2 agences alliées |
-| **Plus tard** | White-label branches |
+| **v1** | 1 photographe dédié |
+| **Plus tard** | Visite virtuelle |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +72,4 @@ Qualité hétérogène — charte curated
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

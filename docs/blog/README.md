@@ -9,4 +9,4 @@ Centre de contenu décisionnel (guides immo haute valeur).
 | [calendrier-editorial.md](./calendrier-editorial.md) | Planning 6 mois |
 | [briefs/](./briefs/) | Briefs SEO / angles / CTA par article |
 
-Liens : `docs/add-ons.md` · `docs/add-ons/specs/05-guides-seo.md` · `docs/social-share-cards.md` · `docs/positioning.md`
+Liens : `docs/add-ons.md` · `docs/add-ons/specs/07-contenu-marketing-b2b/05-guides-seo.md` · `docs/social-share-cards.md` · `docs/positioning.md`

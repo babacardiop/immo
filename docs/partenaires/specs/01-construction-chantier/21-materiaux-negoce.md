@@ -1,41 +1,42 @@
-# Syndic / copropriété
+# Négoce matériaux
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `22-syndic-copropriete.md` |
+| **ID fichier** | `21-materiaux-negoce.md` |
 | **Priorité** | **P2** |
-| **Catégorie** | Gestion |
+| **Catégorie** | Chantier |
 | **Statut** | À recruter |
-| **Synthèse** | Syndic pour immeubles ; synchro avec gestion locative lots. |
+| **Synthèse** | Fournisseurs ciment, fer, carrelage — devis agrégés. |
 
 ## 1. Besoin client
 
-Immeubles collectifs ; conformité charges.
+Coût chantier transparent ; marge volume.
 
 ## 2. Offre partenaire
 
-Mandat syndic, AG, charges.
+Grilles prix, livraison chantier.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Apport mandat (forfait ou mois de honoraires).
+Kickback volume ou marge négociée.
 
 ## 4. Synergies add-ons / produit
 
-`22-portail-multi-biens`, `gestion`
+`27-materiaux-marketplace`
 
 ## 5. Parcours (passerelle)
 
-1. Immeuble sous mandat
-2. Intro syndic
+1. Budget construction
+2. Liste matériaux
+3. Commande
 
 ## 6. SLA attendu
 
-Proposition sous 7 j
+Dispo / délai livraison affichés
 
 ## 7. Cadre contractuel
 
-Apporteur
+Accord commercial volume
 
 ## 8. Données (cible)
 
@@ -45,18 +46,18 @@ Apporteur
 
 ## 9. KPI
 
-mandats_syndic
+GMV materiaux, commission
 
 ## 10. Risques
 
-Conflit syndic vs gestionnaire lots
+Litiges qualité — rôle marketplace clair
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 syndic (ex. réseau type Senegal Syndic / local) |
-| **Plus tard** | Offre immeuble complet |
+| **v1** | 1 négoce partenaire |
+| **Plus tard** | Marketplace multi-fournisseurs |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +73,4 @@ Conflit syndic vs gestionnaire lots
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

@@ -7,9 +7,9 @@
 | **Catégorie** | Acquisition / Contenu |
 | **Synthèse** | Blog + guides décisionnels FR à très haute valeur ajoutée, indexables, branchés simulateurs et add-ons. |
 
-> **Stratégie complète :** [`docs/blog/strategie.md`](../../blog/strategie.md)  
-> Calendrier : [`docs/blog/calendrier-editorial.md`](../../blog/calendrier-editorial.md)  
-> Briefs : [`docs/blog/briefs/`](../../blog/briefs/)
+> **Stratégie complète :** [`docs/blog/strategie.md`](../../../blog/strategie.md)  
+> Calendrier : [`docs/blog/calendrier-editorial.md`](../../../blog/calendrier-editorial.md)  
+> Briefs : [`docs/blog/briefs/`](../../../blog/briefs/)
 
 ## 1. Problème client
 
@@ -17,7 +17,7 @@ Sans contenus d'aide à la décision, Google et WhatsApp envoient les prospects 
 
 ## 2. Réalité marché (recherche)
 
-Les contenus qui performent au SN sont des **guides longs** (TF vs bail, NICAD, arnaques, frais notaire, construction m², diaspora, TeleDAC). Benchmark détaillé : [`docs/blog/benchmark-editorial.md`](../../blog/benchmark-editorial.md) — Keur City = or historique ; ImmoConnexion / MyAfric / SenPages / SamaGalle = peloton actif.
+Les contenus qui performent au SN sont des **guides longs** (TF vs bail, NICAD, arnaques, frais notaire, construction m², diaspora, TeleDAC). Benchmark détaillé : [`docs/blog/benchmark-editorial.md`](../../../blog/benchmark-editorial.md) — Keur City = or historique ; ImmoConnexion / MyAfric / SenPages / SamaGalle = peloton actif.
 
 ## 3. Utilisateurs & synergies
 

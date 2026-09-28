@@ -1,42 +1,41 @@
-# Promoteur / lotisseur
+# Déménagement / ménage
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `11-promoteur-lots.md` |
-| **Priorité** | **P1** |
-| **Catégorie** | Stock & co-marketing |
+| **ID fichier** | `17-demenagement.md` |
+| **Priorité** | **P2** |
+| **Catégorie** | Lifestyle |
 | **Statut** | À recruter |
-| **Synthèse** | Accès lots / programmes neufs avec mandat ou commission promoteur. |
+| **Synthèse** | Prestataires déménagement et ménage de fin/début de bail. |
 
 ## 1. Besoin client
 
-Élargir le catalogue curated sans porter le stock.
+Friction post-signature.
 
 ## 2. Offre partenaire
 
-Lots sécurisés, grilles prix, co-visite, VEFA si applicable.
+Devis volume, créneau, ménage EDL.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-2–5 % (ou barème promoteur) sur vente lot / unité.
+8–15 % prestation.
 
 ## 4. Synergies add-ons / produit
 
-`catalogue`, `01-simulateur-mensualite`
+`30-demenagement-menage`, `48-preavis-remise-cles`
 
 ## 5. Parcours (passerelle)
 
-1. Mandat programme
-2. Publication curated
-3. Vente → commission
+1. Bail signé
+2. CTA déménager
 
 ## 6. SLA attendu
 
-Maj dispo lots hebdo
+Devis 24–48 h
 
 ## 7. Cadre contractuel
 
-Mandat écrit + exclusivité éventuelle par programme
+Apporteur
 
 ## 8. Données (cible)
 
@@ -46,18 +45,18 @@ Mandat écrit + exclusivité éventuelle par programme
 
 ## 9. KPI
 
-lots_live, ventes, commission
+prestations
 
 ## 10. Risques
 
-Retards livraison promoteur — disclaimer VEFA
+Casse / vols — assurance prestataire
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 programme partenaire |
-| **Plus tard** | Multi-programmes + page « neuf » |
+| **v1** | 1–2 prestataires |
+| **Plus tard** | Pack remise clés tout-en-un |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +72,4 @@ Retards livraison promoteur — disclaimer VEFA
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

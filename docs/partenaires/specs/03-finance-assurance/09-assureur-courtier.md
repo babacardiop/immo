@@ -1,41 +1,42 @@
-# Huissier
+# Assureur / courtier MRH–PNO
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `19-huissier.md` |
-| **Priorité** | **P2** |
-| **Catégorie** | Juridique |
+| **ID fichier** | `09-assureur-courtier.md` |
+| **Priorité** | **P1** |
+| **Catégorie** | Assurance |
 | **Statut** | À recruter |
-| **Synthèse** | Constats, significations, procédures d’exécution locative. |
+| **Synthèse** | Couverture habitation locataire / PNO propriétaire non occupant à la signature. |
 
 ## 1. Besoin client
 
-Impayés lourds, conflits occupation.
+Obligation ou bon sens à l’entrée dans les lieux / mise en gestion.
 
 ## 2. Offre partenaire
 
-Constats d’huissier, actes.
+Devis MRH/PNO, souscription, attestation.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Forfait intro.
+10–20 % de la prime 1ʳᵉ année (usage courtier) ou fee fixe.
 
 ## 4. Synergies add-ons / produit
 
-`23-scoring-locataire`, `gestion locative`
+`13-assurance-mrh`, `14-assurance-pno`
 
 ## 5. Parcours (passerelle)
 
-1. Escalade impayé
-2. Intro huissier
+1. Bail signé / mandat gestion
+2. Devis assurance
+3. Attestation upload portail
 
 ## 6. SLA attendu
 
-Urgences 24–48 h
+Devis J+1
 
 ## 7. Cadre contractuel
 
-Apporteur
+Convention courtage
 
 ## 8. Données (cible)
 
@@ -45,18 +46,18 @@ Apporteur
 
 ## 9. KPI
 
-constats, procedures
+polices, primes, renewals
 
 ## 10. Risques
 
-Image « dure » — process gradué avant huissier
+Sinistres mal gérés → image ; choisir courtier réactif
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 étude d’huissier |
-| **Plus tard** | Playbook impayés |
+| **v1** | 1 courtier + 2 compagnies |
+| **Plus tard** | Upsell annuel auto |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +73,4 @@ Image « dure » — process gradué avant huissier
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

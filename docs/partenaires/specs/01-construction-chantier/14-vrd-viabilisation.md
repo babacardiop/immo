@@ -1,42 +1,41 @@
-# Négoce matériaux
+# VRD / viabilisation
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `21-materiaux-negoce.md` |
+| **ID fichier** | `14-vrd-viabilisation.md` |
 | **Priorité** | **P2** |
-| **Catégorie** | Chantier |
+| **Catégorie** | Chantier annexe |
 | **Statut** | À recruter |
-| **Synthèse** | Fournisseurs ciment, fer, carrelage — devis agrégés. |
+| **Synthèse** | Voirie, réseaux, branchements pour lot / terrain nu. |
 
 ## 1. Besoin client
 
-Coût chantier transparent ; marge volume.
+Terrain nu → prêt à bâtir.
 
 ## 2. Offre partenaire
 
-Grilles prix, livraison chantier.
+Devis VRD, coordination concessionnaires.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Kickback volume ou marge négociée.
+3–8 % marché.
 
 ## 4. Synergies add-ons / produit
 
-`27-materiaux-marketplace`
+`42-vrd-viabilisation`, `10-simulateur-pret-a-batir`
 
 ## 5. Parcours (passerelle)
 
-1. Budget construction
-2. Liste matériaux
-3. Commande
+1. Pack terrain
+2. Lead VRD
 
 ## 6. SLA attendu
 
-Dispo / délai livraison affichés
+Devis 7–14 j
 
 ## 7. Cadre contractuel
 
-Accord commercial volume
+Apporteur
 
 ## 8. Données (cible)
 
@@ -46,18 +45,18 @@ Accord commercial volume
 
 ## 9. KPI
 
-GMV materiaux, commission
+chantiers_vrd
 
 ## 10. Risques
 
-Litiges qualité — rôle marketplace clair
+Dépassements ; buffer imprévus client
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 négoce partenaire |
-| **Plus tard** | Marketplace multi-fournisseurs |
+| **v1** | 1 entreprise |
+| **Plus tard** | Estimates dans simu prêt-à-bâtir |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -73,4 +72,4 @@ Litiges qualité — rôle marketplace clair
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)

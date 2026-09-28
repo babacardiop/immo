@@ -1,41 +1,42 @@
-# Fintech caution / escrow
+# Courtier crédit / banque
 
 | Champ | Valeur |
 | --- | --- |
-| **ID fichier** | `23-fintech-caution-escrow.md` |
+| **ID fichier** | `08-courtier-credit-banque.md` |
 | **Priorité** | **P1** |
-| **Catégorie** | Fintech |
+| **Catégorie** | Finance |
 | **Statut** | À recruter |
-| **Synthèse** | Partenaires type caution locative digitale ou séquestre paiements diaspora. |
+| **Synthèse** | Accès crédit immobilier retail (CDI/CDD selon banques) et orientation dossier. |
 
 ## 1. Besoin client
 
-Réduire friction caution et risque paiement vendeur.
+Financer achat / construction hors vente étalée agence.
 
 ## 2. Offre partenaire
 
-Caution as a service ; escrow milestones.
+Montage dossier, comparatif banques, suivi accord.
 
 ## 3. Commission (indicatif — à figer en convention)
 
-Referral fee par dossier activé.
+Partage commission courtage bancaire (selon banque) ou forfait dossier.
 
 ## 4. Synergies add-ons / produit
 
-`11-caution-locative`, `35-escrow-sequestre`
+`01-simulateur-mensualite`, `18-calculateur-frais-acquisition`, `24-epargne-construction`
 
 ## 5. Parcours (passerelle)
 
-1. Bail / closing
-2. Opt-in fintech
+1. CTA financer
+2. Lead courtier
+3. Accord de principe → closing
 
 ## 6. SLA attendu
 
-API ou process manuel v1
+1er RDV sous 5 j
 
 ## 7. Cadre contractuel
 
-Partenariat commercial + conformité
+Accord apporteur / courtier
 
 ## 8. Données (cible)
 
@@ -45,18 +46,18 @@ Partenariat commercial + conformité
 
 ## 9. KPI
 
-activations, fee
+dossiers, accords, taux_obtention
 
 ## 10. Risques
 
-Régulation fintech ; communication claire
+Survente capacité d’emprunt — disclaimer
 
 ## 11. Roadmap
 
 | Phase | Contenu |
 | --- | --- |
-| **v1** | 1 partenaire caution OU process séquestre notaire |
-| **Plus tard** | Intégration API |
+| **v1** | 1 courtier ou 1 contact banque |
+| **Plus tard** | Simulateur capacité d’emprunt |
 
 ## 12. Fiche partenaire nommé (à remplir)
 
@@ -72,4 +73,4 @@ Régulation fintech ; communication claire
 
 ---
 
-Voir aussi : [`docs/partenaires.md`](../../partenaires.md) · [`docs/add-ons.md`](../../add-ons.md)
+Voir aussi : [`docs/partenaires.md`](../../../partenaires.md) · [`docs/add-ons.md`](../../../add-ons.md)
