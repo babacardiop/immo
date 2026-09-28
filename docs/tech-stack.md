@@ -34,6 +34,7 @@ Locked decisions for the EverGreen Senegal real estate product.
 - Add-ons: `docs/add-ons.md`
 - Positioning: `docs/positioning.md`
 - Share cards: `docs/social-share-cards.md`
+- Blog / guides: `docs/blog/strategie.md`
 
 ## Monorepo layout (planned)
 

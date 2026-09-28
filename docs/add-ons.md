@@ -1,12 +1,17 @@
 # Add-ons & services annexes
 
+**Specs détaillées (1 fichier / add-on, enrichies par recherches web):** [`docs/add-ons/`](./add-ons/README.md) → 52 specs dans [`docs/add-ons/specs/`](./add-ons/specs/).
+
+**Partenaires & commissions d’apport :** [`docs/partenaires.md`](./partenaires.md) → fiches dans [`docs/partenaires/`](./partenaires/README.md).
+
+**Blog / guides haute valeur :** [`docs/blog/`](./blog/README.md) — stratégie, calendrier, briefs.
+
 **Contexte :** agence immobilière full-service (`docs/positioning.md`) + couche PropTech.  
 **Objectif :** monétiser au-delà de la commission de vente/location, et accompagner le client **après** l’achat du terrain ou la signature du bail.
 
 Beaucoup d’acheteurs de terrain au Sénégal veulent ensuite **construire**. Des acteurs digitaux proposent déjà des simulateurs ([Investissement Immo Afrique](https://investissementimmoafrique.com/simulateur-cout-construction-maison-senegal/), [HUBCephas](https://hubcephas.com/estimateur-en-ligne/), guides [Keur Immo](https://keur-immo.com/senegal/construction-maison-senegal/)). C’est un add-on naturel pour nous : **terrain → budget maison → mise en relation constructeur**.
 
 ---
-
 ## 1. Principe
 
 | Type d’add-on | Comment on gagne | Risque ops |

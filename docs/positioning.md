@@ -129,6 +129,8 @@ Le **locataire** n’est pas un simple lead WhatsApp : il a un compte pour suivr
 
 - `docs/proptech-analysis.md` — outils digitaux sur ce métier
 - `docs/add-ons.md` — services annexes (construction, caution, assurance…)
+- `docs/partenaires.md` — passerelles & commissions (constructeur, archi, notaire, formalités, financier…)
+- `docs/blog/` — blog & guides décisionnels haute valeur
 - `docs/competitive-analysis.md` — vs classifieds & niches
 - `docs/first analysis/` — historique modèle économique (étalé / loc-vente)
 - `docs/tech-stack.md` — Next.js etc.
