@@ -10,7 +10,7 @@ Agence full-service  +  Add-ons (outils)  +  Partenaires (exécution)
         =  double revenu (commission métier + commission d’apport)
 ```
 
-**Docs liés :** [`positioning.md`](./positioning.md) · [`add-ons.md`](./add-ons.md) · [`partenaires.md`](./partenaires.md) · [`blog/`](./blog/) · [`proptech-analysis.md`](./proptech-analysis.md)
+**Docs liés :** [`positioning.md`](./positioning.md) · [`add-ons.md`](./add-ons.md) · [`partenaires.md`](./partenaires.md) · [`blog/`](./blog/) · [`proptech-analysis.md`](./proptech-analysis.md) · [`research-lab/`](./research-lab/README.md)
 
 ---
 
@@ -304,6 +304,7 @@ Tout le reste du catalogue reste **documenté mais fermé** :
 | Partenaire qui déçoit | Shortlist 2–3, SLA, clause de sortie |
 | Devenir BTP / banque par accident | Règle : on orchestre, on n’exécute pas le métier partenaire |
 | Hub “vide” (promesse &gt; preuve) | Vague 0–1 d’abord ; ne pas communiquer “écosystème” avant 3 partenaires live |
+| Lab crawl qui mange le build hub | Lab = voie parallèle (`research-lab/`) ; spike seulement après Vague 0 |
 
 ---
 

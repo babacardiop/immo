@@ -128,6 +128,7 @@ Le **locataire** n’est pas un simple lead WhatsApp : il a un compte pour suivr
 ## Docs liés
 
 - `docs/hub-roadmap.md` — **stratégie hub + calendrier d’itérations** (features / add-ons / partenaires)
+- `docs/research-lab/` — crawl classifiés, dédup, catalogue d’études, autres data streams
 - `docs/proptech-analysis.md` — outils digitaux sur ce métier
 - `docs/add-ons.md` — services annexes (construction, caution, assurance…)
 - `docs/partenaires.md` — passerelles & commissions (constructeur, archi, notaire, formalités, financier…)
