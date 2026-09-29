@@ -6,10 +6,10 @@
 
 | # | Fichier | Statut | Contenu attendu |
 | --- | --- | --- | --- |
-| 01 | `01-catalogue-offres.md` | ❌ | 4 axes + packs |
-| 02 | `02-grille-tarifs.md` | ❌ | Commissions, forfaits, FAI |
-| 03 | `03-packs-et-bundles.md` | ❌ | Bundles par vague |
-| 04 | `04-politique-commerciale.md` | ❌ | Remises, exclusivité, multi-mandat |
+| 01 | [`01-catalogue-offres.md`](./01-catalogue-offres.md) | ✅ | 4 axes + packs |
+| 02 | [`02-grille-tarifs.md`](./02-grille-tarifs.md) | ✅ | Commissions, forfaits, FAI |
+| 03 | [`03-packs-et-bundles.md`](./03-packs-et-bundles.md) | ✅ | Bundles par vague |
+| 04 | [`04-politique-commerciale.md`](./04-politique-commerciale.md) | ✅ | Remises, exclusivité, multi-mandat |
 
 ## Sources
 
