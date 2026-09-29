@@ -1,0 +1,13 @@
+poste,hyp_fcfa_mois_bas,hyp_fcfa_mois_haut,hyp_retenue,phase_on,source_doc,as_of,notes
+loyer_bureau_mermoz_sc,350000,450000,400000,M1+,ME/05,2026-09,35-45 m2
+gerant_remuneration,700000,700000,700000,M1+,ME/05,2026-09,fixe pilotage
+agent1_fixe,250000,250000,250000,M1+,ME/05,2026-09,+split 40% COGS
+agent2_fixe,220000,220000,220000,M6+,ME/05,2026-09,
+ops_admin,280000,280000,280000,M7+,ME/05,2026-09,
+contenu_produit,300000,400000,300000,M1+,ME/05,2026-09,Y1 300k Y2 400k
+tech_tools,150000,150000,150000,go-live+,ME/05,2026-09,
+marketing_paid,0,400000,0,M3+,ME/05+MK/14,2026-09,0 puis 200k puis 400k — voir media_budget
+rc_garantie_assurance_lisse,120000,120000,120000,M1+,ME/05,2026-09,
+compta_juridique_divers,200000,200000,200000,M1+,ME/05,2026-09,
+charges_sociales_pct_brut,0.20,0.23,0.22,M1+,ME/05,2026-09,forfait +22% masse salariale fixe
+IS_pct_benefice,0.30,0.30,0.30,Y2+,ME/05,2026-09,pas IS Y1 si perte

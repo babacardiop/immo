@@ -1,0 +1,13 @@
+code,prestation,taux_ou_montant,unite,fourchette,payeur,source_doc,as_of,notes
+VENTE_EXCL,Vente mandat exclusif,6,%,5-7 (8 standing),vendeur_ou_FAI,OT/02,2026-09,defaut catalogue
+VENTE_SIMPLE,Vente mandat simple,4.5,%,4-5,vendeur,OT/02,2026-09,
+VENTE_GROS,Vente ticket >100M,4,%,3-5,vendeur,OT/02,2026-09,degressif ecrit
+LOC_MISE,Mise en location,1,mois_loyer,voir decret <=500k,selon_mandat,OT/02,2026-09,
+GESTION,Gestion locative,8,%_loyers_encaisses,7 volume / 9-10 diaspora,bailleur,OT/02,2026-09,
+GESTION_VOLUME,Gestion >=5 lots,7,%_loyers_encaisses,,bailleur,OT/02,2026-09,
+GESTION_DIASPORA,Gestion reporting diaspora,9.5,%,9-10,bailleur,OT/02,2026-09,
+APPORT_BTP,Apport constructeur,3,%_contrat_travaux,2-5,partenaire_via_conv,JO/02,2026-09,
+APPORT_ARCHI,Apport archi,200000,FCFA_forfait,150-500k,partenaire,JO/02,2026-09,
+APPORT_NOTAIRE,Apport notaire,100000,FCFA_forfait,50-200k,partenaire,JO/02,2026-09,
+SPLIT_AGENT,Split agent commercial,40,%_commission_agence,20-50,interne,ME/04,2026-09,COGS
+WAVE_OM,Frais Wave/OM si absorbe,1.5,%_flux_loyer,1-2.5,contrat,ME/04,2026-09,

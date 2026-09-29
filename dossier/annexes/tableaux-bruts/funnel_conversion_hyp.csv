@@ -1,0 +1,12 @@
+etape,segment,taux_bas_pct,taux_haut_pct,cible_mid_pct,source_doc,as_of,notes
+visite_site_to_lead,demande,2,4,3,ME/04,2026-09,WA/form
+lead_to_rdv,demande,25,40,32,ME/04+PC/04,2026-09,
+visite_to_offre,demande,20,35,27,ME/04,2026-09,
+offre_to_closing,demande,40,60,50,ME/04,2026-09,
+lead_to_closing_blended,demande,1.5,4,2.5,ME/04,2026-09,
+estimation_to_mandat,offre_vendeur,30,50,40,PC/04,2026-09,bench FR 30-40
+mandat_exclusif_to_closing_12m,offre,50,70,60,PC/04,2026-09,
+pct_mandats_exclusifs_cible,offre,60,70,60,PC/04+OT,2026-09,fin Y1
+mise_loc_to_gestion,loc,50,60,50,PC/04,2026-09,
+sim_complete_to_partner_lead,outils,10,20,15,PC/04+MK/09,2026-09,
+SLA_WA_pct_cible,ops,90,95,90,OR/06+PC/04,2026-09,<24h

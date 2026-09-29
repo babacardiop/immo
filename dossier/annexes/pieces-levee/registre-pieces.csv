@@ -1,0 +1,36 @@
+piece_id,categorie,libelle,priorite,guichets,source_interne,fichier_drive,statut,owner,date_cible,notes
+ID-01,admin,CNI/passeport fondateurs,P0,"all",—,00_Admin/,a_collecter,GER,,
+ID-02,admin,Certificat residence <3 mois,P1,"DER,banque",—,00_Admin/,a_collecter,GER,,
+ID-03,admin,CV dirigeants + photo,P0,"all",photos-marque,00_Admin/,a_produire,GER,,
+ID-04,admin,Justificatif domicile SENELEC/Sonatel,P1,"banque,FONGIP",—,00_Admin/,a_collecter,GER,,
+ID-05,admin,Situation patrimoniale / dettes perso,P1,"FONGIP,banque",—,00_Admin/,a_produire,GER,,si opt B
+ID-06,admin,Extrait de naissance,P2,"BNDE",—,00_Admin/,a_collecter,GER,,
+CO-01,societe,Statuts SARL,P0,"all",OR-03,01_Societe/,a_produire,GER,avocat/notaire
+CO-02,societe,RCCM,P0,"all",—,01_Societe/,a_obtenir,GER,,
+CO-03,societe,NINEA,P0,"all",—,01_Societe/,a_obtenir,GER,,
+CO-04,societe,PV AG / decisions,P1,"all",—,01_Societe/,a_produire,GER,,CCA gérance
+CO-07,societe,Bail / attestation siege,P0,"all",—,01_Societe/,a_obtenir,GER,,
+CO-08,societe,Preuves liberation capital + CCA,P0,"all,equity",ME-09,01_Societe/,a_obtenir,GER,,
+CO-09,societe,Cap table,P0,"equity,FOGARISE",OR-03,01_Societe/,a_produire,GER,,
+IM-01,conformite,Carte professionnelle immo,P0,"all",RC/JO,02_Conformite_Immo/,a_obtenir,GER,différence métier
+IM-02,conformite,Garantie financiere,P0,"all",ME-08,02_Conformite_Immo/,a_obtenir,GER,bloquant
+IM-03,conformite,RC professionnelle,P0,"all",ME-08,02_Conformite_Immo/,a_obtenir,GER,,
+EC-01,economique,Lettre de demande,P0,"banque,BNDE,FONGIP",04-modeles-lettres,08_Pitch/,a_produire,GER,,
+EC-02,economique,Business plan PDF,P0,"all",ME-03,03_Business/,a_exporter,CT,,
+EC-04,economique,Etude de marche export,P0,"all",etude-de-marche,03_Business/,a_exporter,CT,,
+EC-07,economique,P&L previsionnel PDF,P0,"banque,FONGIP,BNDE,ADEPME",ME-06,04_Finance/,a_exporter,CT,,
+EC-08,economique,Plan tresorerie PDF,P0,"banque,FONGIP,BNDE",ME-07,04_Finance/,a_exporter,CT,,
+EC-09,economique,Usages des fonds PDF,P0,"all",ME-08,04_Finance/,a_exporter,CT,,
+EC-10,economique,Plan financement equilibre PDF,P0,"all",ME-09,04_Finance/,a_exporter,CT,,
+EC-11,economique,Scenarios PDF,P1,"banque,equity",ME-10,04_Finance/,a_exporter,CT,,
+EC-12,economique,One-pager,P0,"all",ME-11,03_Business/,a_produire,CT,,
+EC-13,economique,Pitch deck 10-15 slides,P0,"equity,banque",ME-11,08_Pitch/,a_produire,GER,,
+EC-14,economique,Plan amortissement credit,P1,"banque,FONGIP,BNDE",—,04_Finance/,a_produire,EC,si dette
+DV-01,devis,Pro forma site web,P0,"banque,FONGIP,BNDE,DER",ME-08,05_Devis/,a_obtenir,CT,,
+DV-03,devis,Pro forma identite/photo,P0,"banque,FONGIP",ME-08,05_Devis/,a_obtenir,CT,,
+DV-05,devis,Devis/attestation garantie+RC,P0,"banque,FONGIP",ME-08,05_Devis/,a_obtenir,GER,,
+DV-06,devis,Pro forma materiel IT,P1,"banque,BNDE",ME-08,05_Devis/,a_obtenir,GER,,
+TR-01,traction,Releves bancaires 3 mois,P1,"banque,FONGIP,BNDE",—,06_Traction/,N_A_creation,GER,si existante
+TR-02,traction,Etats financiers N-x,P1,"ADEPME,banque",—,06_Traction/,N_A_creation,EC,si existante
+TR-03,traction,Conventions partenaires signees,P1,"all",JO-02,06_Traction/,a_obtenir,GER,apres LOI
+TR-05,traction,Snapshot KPI,P2,"equity,ADEPME",ME-04,06_Traction/,a_produire,CT,apres live

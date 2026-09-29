@@ -1,0 +1,10 @@
+phase,campagne_id,campagne_nom,plateforme,pct_enveloppe,fcfa_mois,fcfa_jour_approx,objectif,source_doc,as_of
+M3_M6,C1,Estimation vendeur,Meta,35,70000,2300,supply_Z1,MK/14,2026-09
+M3_M6,C2,Simu terrain,Meta,30,60000,2000,mamadou_sim_complete,MK/14,2026-09
+M3_M6,C3,Retarget,Meta,25,50000,1700,warm,MK/14,2026-09
+M3_M6,C4,Google Search,Google,10,20000,700,intent,MK/14,2026-09
+M7_M12,C1,Estimation vendeur SN,Meta,20,80000,2700,supply,MK/14,2026-09
+M7_M12,C2,Simu terrain SN,Meta,15,60000,2000,mamadou,MK/14,2026-09
+M7_M12,C5,Diaspora FR EU,Meta,30,120000,4000,fatou_secure,MK/14,2026-09
+M7_M12,C3,Retarget tous,Meta,20,80000,2700,warm,MK/14,2026-09
+M7_M12,C4,Google Search,Google,15,60000,2000,intent,MK/14,2026-09

@@ -1,0 +1,24 @@
+tier,code_quartier,nom,sous_zone,priorite_y1,personas,produits,prix_m2_ordre_fcfa,vigilance,seo_landing,lat_approx,lng_approx,notes
+Z1,ngor,Ngor,littoral_prime,P0,"Fatou,expat,Marieme","vente_exclusif,loc_meuble,gestion","1100000-2500000",DPM_erosion,/quartiers/ngor,14.751,-17.515,Z1 farming
+Z1,almadies,Almadies,littoral_prime,P0,"Fatou,expat,Marieme","vente_exclusif,loc_meuble,gestion","1100000-2500000",DPM_erosion,/quartiers/almadies,14.744,-17.525,Z1 farming
+Z1,ouakam,Ouakam,mixte_ouest,P1,"mix","vente,loc","550000-1000000",selectif,/quartiers/ouakam,14.725,-17.490,selectif Y1
+Z1,yoff,Yoff,mixte_ouest,P1,"mix","vente,loc","550000-1000000",selectif,,14.755,-17.470,selectif Y1
+Z1,point_e,Point E,residentiel_bourgeois,P0,"cadres,diaspora","vente,loc,gestion","900000-1600000",,/quartiers/point-e,14.698,-17.470,Z1
+Z1,fann,Fann,residentiel_bourgeois,P0,"cadres,expat","vente,loc,gestion","900000-1600000",,,14.690,-17.465,Z1
+Z1,mermoz,Mermoz,coeur_ops,P0,"cadres,familles,Ousmane","vente,loc,gestion,farming","650000-1500000",HQ,/quartiers/mermoz,14.705,-17.475,bureau ancre farming 1
+Z1,sacre_coeur,Sacre-Coeur,coeur_ops,P0,"cadres,familles,Ousmane","vente,loc,gestion,farming","650000-1500000",HQ,/quartiers/sacre-coeur,14.710,-17.460,bureau ancre farming 1
+Z2,liberte,Liberte,intermediaire,P1,"Aissatou,Mamadou","loc,vente","—",,/quartiers/liberte,14.720,-17.450,Z2
+Z2,sicap,Sicap,intermediaire,P1,"mix","loc,vente","—",,,14.715,-17.440,Z2
+Z2,parcelles,Parcelles Assainies,intermediaire,P1,"mix","loc,vente","—",selectif,,14.760,-17.400,selectif
+Z2,keur_massar,Keur Massar,couronne_accession,P1,"Mamadou,diaspora","terrain,vente","terrain 5-30M ticket",inondation,/terrains/keur-massar,14.780,-17.320,diligence
+Z2,rufisque,Rufisque,couronne_accession,P1,"Mamadou","terrain,vente","—",faux_titres_signales,,14.715,-17.270,ilots sains only
+Z2,jaxaay,Jaxaay,couronne_accession,P1,"Mamadou","terrain","—",inondation,,14.750,-17.300,diligence
+Z3,saly,Saly,petite_cote,P2,"Fatou","secondaire,saisonnier","~900000",DPM_axe_sensible,,14.450,-17.010,V4+ journee ou partenaire
+Z3,ngaparou,Ngaparou,petite_cote,P2,"Fatou","secondaire","~940000",,,14.430,-17.020,V4+
+Z3,somone,Somone,petite_cote,P2,"Fatou,Mamadou","terrain,villa","terrains 40-70k/m2",,,14.420,-17.050,V4-V5
+Z3,mbour,Mbour,petite_cote,P3,"local","mix","—",faible_Y1,,14.420,-16.965,Y2
+Z4,diamniadio,Diamniadio,watch,P3,"opportuniste","terrain,programme","280000-800000",liquidite_faible,/terrains/diamniadio,14.720,-17.180,watch TF+acheteur
+Z4,thies,Thies,watch,P3,"—","—","—",hors_rayon,,14.790,-16.930,Y2 partenaire
+NG,sindia_diass,Sindia-Diass axe,sensible,NG,"—","—","—",contentieux_signales,,14.500,-17.080,GC strict ou NG
+NG,sangalkam,Sangalkam,sensible,NG,"—","—","—",plaintes_signalees,,14.800,-17.200,GC/NG
+NG,kounoune,Kounoune,sensible,NG,"—","—","—",faux_titres_signales,,14.750,-17.250,GC/NG

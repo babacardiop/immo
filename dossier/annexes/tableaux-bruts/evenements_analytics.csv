@@ -1,0 +1,13 @@
+event_name,definition,phase_min,ga4_conversion,meta_mapping,params_cles,source_doc,as_of
+page_view,Vue page,V0,non,PageView,,MK/13,2026-09
+view_item,Vue fiche bien,V0,non,ViewContent,"item_id,paper_type,zone",MK/13,2026-09
+wa_click,Clic CTA WhatsApp,V0,oui,Contact_ou_custom,"lead_intent,event_id",MK/13,2026-09
+estimation_request,Demande estimation,V0,oui,Lead,"zone,persona",MK/13,2026-09
+sim_start,Ouverture outil,V1,non,custom,tool_id,MK/13,2026-09
+sim_complete,Output simu genere,V1,oui,CompleteRegistration_ou_custom,tool_id,MK/13,2026-09
+partner_lead,Lead partenaire,V1,oui,Lead,partner_type,MK/13,2026-09
+secure_interest,Interet Pack Secure,V2_V4,oui,custom,,MK/13,2026-09
+diligence_start,Diligence ouverte,V2,non,custom,,MK/13,2026-09
+mandat_signe,Mandat signe CRM,ops,oui,offline,value_marge,MK/13,2026-09
+closing,Closing vente/loc,ops,oui,Purchase,value_marge_XOF,MK/13,2026-09
+gestion_on,Mandat gestion actif,V3,oui,custom,,MK/13,2026-09

@@ -6,13 +6,13 @@
 
 | # | Élément | Statut | Contenu |
 | --- | --- | --- | --- |
-| 01 | `sources-et-citations.md` | ❌ | Liste sources URL / date / usage |
-| 02 | `cartes/` | ❌ | Zones prioritaires, no-go |
-| 03 | `captures-concurrence/` | ❌ | Screenshots datés |
-| 04 | `tableaux-bruts/` | ❌ | Exports Excel / CSV |
-| 05 | `lettres-intention/` | ❌ | LOI partenaires |
-| 06 | `photos-marque/` | ❌ | Assets brand |
-| 07 | `pieces-levee/` | ❌ | Pièces admin dossier levée / subvention |
+| 01 | [`sources-et-citations.md`](./sources-et-citations.md) | ✅ | Liste sources URL / date / usage |
+| 02 | [`cartes/`](./cartes/) | ✅ | Zones prioritaires, no-go |
+| 03 | [`captures-concurrence/`](./captures-concurrence/) | ✅ | Screenshots datés |
+| 04 | [`tableaux-bruts/`](./tableaux-bruts/) | ✅ | Exports Excel / CSV |
+| 05 | [`lettres-intention/`](./lettres-intention/) | ✅ | LOI partenaires |
+| 06 | [`photos-marque/`](./photos-marque/) | ✅ | Assets brand |
+| 07 | [`pieces-levee/`](./pieces-levee/) | ✅ | Pièces admin dossier levée / subvention |
 
 ## Règles
 

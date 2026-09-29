@@ -1,0 +1,12 @@
+driver,y1,y2,y3,unite,source_doc,as_of,notes
+closings_vente,14,28,40,nb,ME/05,2026-09,
+mises_en_location,18,42,65,nb,ME/05,2026-09,
+lots_gestion_fin_annee,20,55,95,nb,ME/05,2026-09,
+lots_gestion_moyenne_annuelle,8,35,72,nb,ME/05,2026-09,hyp moyenne pour CA gestion
+commissions_apport_nb,8,22,35,nb,ME/05,2026-09,
+dossiers_etale_locvente,10,24,36,nb,ME/05,2026-09,
+commission_vente_moyenne_encaissee,2800000,2800000,2800000,FCFA,ME/05,2026-09,mix tickets 25-80M taux 5-6%
+mise_location_moyenne,320000,320000,320000,FCFA,ME/05,2026-09,1 mois loyer ~320k
+gestion_par_lot_mois,25600,25600,25600,FCFA,ME/05,2026-09,8% x 320k
+apport_partenaire_moyen,900000,900000,900000,FCFA,ME/05,2026-09,
+frais_dossier_etale,40000,40000,40000,FCFA,ME/05,2026-09,

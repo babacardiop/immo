@@ -1,0 +1,16 @@
+table_id,fichier,description,source_doc,as_of,rows_approx,unite
+CAT, _catalogue.csv,Index des exports,annexes/04,2026-09-29,15,—
+KPI_Y,kpi_annees_y1_y3.csv,Indicateurs annuels Y1-Y3,ME/05-previsionnel,2026-09,8,FCFA_ou_nb
+DRV,drivers_volumes_y1_y3.csv,Drivers volumes,ME/05-previsionnel,2026-09,6,nb
+RAMP,rampe_y1_mensuelle.csv,Rampe mensuelle Y1,ME/05-previsionnel,2026-09,12,nb
+OPEX,charges_opex_mensuelles.csv,Charges opex mensuelles hyp,ME/05-previsionnel,2026-09,11,FCFA_mois
+CAPEX,capex_setup_m0.csv,Capex et cash depart,ME/05-previsionnel,2026-09,7,FCFA
+TARIF,grille_tarifs.csv,Grille honoraires,OT/02-grille-tarifs,2026-09,12,%_ou_FCFA
+UE,unit_economics_hypotheses.csv,Unit economics cibles,ME/04-unites-economiques,2026-09,15,mixte
+MED_PH,media_budget_phases.csv,Budgets media par phase,MK/04+14,2026-09,4,FCFA_mois
+MED_SP,media_split_campagnes.csv,Split campagnes Meta/Google,MK/14,2026-09,9,FCFA_mois
+CAC,cac_plafonds_canaux.csv,CAC closing par canal,ME/04+MK/09,2026-09,6,FCFA
+PERS,personas_priorite.csv,Personas et priorite com,MK/02,2026-09,7,—
+FUN,funnel_conversion_hyp.csv,Taux conversion hyp,ME/04+PC/04,2026-09,10,%
+EVT,evenements_analytics.csv,Events analytics,MK/13,2026-09,12,—
+ZONES,../cartes/quartiers.csv,Quartiers Z1-NG,PC/02+cartes,2026-09,23,—

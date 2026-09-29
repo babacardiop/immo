@@ -1,0 +1,5 @@
+phase,mois_debut,mois_fin,budget_media_fcfa_mois,condition_go,kill_si,source_doc,as_of
+soft_zero,1,2,0,catalogue+WA+CRM+1_pilier,,MK/04+14,2026-09
+soft_paid,3,6,200000,V1_simus+SLA>=90%+cash>=8M,"cash<6M|LTV_CAC<3|SLA<75%",MK/04+14,2026-09
+scale_paid,7,12,400000,V4_soft+LTV_CAC_ok+cash>=10M,"cash<6M|LTV_CAC<3|SLA<75%",MK/04+14,2026-09
+kill,0,0,0,,cash_ou_ratio_ou_SLA,MK/04,2026-09

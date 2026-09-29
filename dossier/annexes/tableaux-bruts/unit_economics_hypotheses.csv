@@ -1,0 +1,17 @@
+metrique,valeur_cible,unite,bench_externe,source_doc,as_of,notes
+marge_contribution_vente_exclusive,50,%_commission_brute,45-55 hub; split agent US 30-50,ME/04,2026-09,
+LTV_bailleur_gestion,2250000,FCFA,1.5-3M sur 3-5 ans,ME/04,2026-09,milieu fourchette
+LTV_diaspora_parcours,5500000,FCFA,3-8M+,ME/04,2026-09,vente+gestion+apport
+LTV_CAC_blended_min,3,ratio,kill <3:1,ME/04+MK/09,2026-09,
+LTV_CAC_blended_cible,4,ratio,brokerages US 4:1+,ME/04,2026-09,
+payback_CAC_transaction_mois,3,mois,,ME/04,2026-09,
+payback_CAC_gestion_mois,7.5,mois,6-9,ME/04,2026-09,
+CAC_organique_closing,175000,FCFA,50-300k,ME/04,2026-09,milieu
+CAC_google_search_closing_bas,400000,FCFA,0.4-1.5M,ME/04,2026-09,
+CAC_google_search_closing_haut,1500000,FCFA,,ME/04,2026-09,
+CAC_meta_froid_closing_bas,800000,FCFA,0.8-2.5M,ME/04,2026-09,
+CAC_meta_froid_closing_haut,2500000,FCFA,,ME/04,2026-09,
+CPC_google_immo_sn_bas,150,FCFA,Kolonell,MK/04,2026-09,
+CPC_google_immo_sn_haut,300,FCFA,,MK/04,2026-09,
+CPC_meta_sn_bas,120,FCFA,,MK/04,2026-09,
+CPC_meta_sn_haut,400,FCFA,,MK/04,2026-09,

@@ -1,0 +1,8 @@
+poste,montant_fcfa,categorie,source_doc,as_of,notes
+site_vague_0_1,8000000,capex,ME/05,2026-09,build lean
+identite_photo_setup,1500000,capex,ME/05,2026-09,
+sarl_carte_garantie_rc_setup,2500000,capex_conformite,ME/05,2026-09,
+materiel_depot_loyer,2000000,capex,ME/05,2026-09,
+total_capex_setup,14000000,total,ME/05,2026-09,
+apport_cash_depart,30000000,financement,ME/05,2026-09,hypothese viabilite Y1
+dont_bfr_buffer,16000000,financement,ME/05,2026-09,30M - 14M capex

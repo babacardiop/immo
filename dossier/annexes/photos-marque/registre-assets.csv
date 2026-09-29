@@ -1,0 +1,12 @@
+asset_id,filename,type,source,rights,consent,usage,channels,owner,status,date_added,notes
+EG-B01,eg_logo_wordmark_lockup_v1.svg,logo,shoot_presta,owned,na,primary_logo,"site,print,ads,og",CT,draft,,P0 Soft — à produire
+EG-B02,eg_logo_mark_ink_v1.svg,mark,shoot_presta,owned,na,mark,"favicon,avatar",CT,draft,,P0
+EG-B03,eg_favicon_180_v1.png,favicon,shoot_presta,owned,na,favicon,web,Presta,draft,,dérivé mark
+EG-B04,eg_og_default_1200x630_v1.jpg,og,shoot_presta,owned,na,og_default,"fb,wa,li",CT,draft,,<300KB
+EG-B05,eg_share_home_1080x1080_v1.jpg,share,shoot_presta,owned,na,ig_square,ig,CT,draft,,
+EG-B06,eg_share_home_1080x1920_v1.jpg,share,shoot_presta,owned,na,story,"ig,wa_status,tiktok",CT,draft,,
+EG-B07,eg_equipe_ger_portrait_v1.jpg,equipe,shoot_own,owned,pending,media_kit,"li,presse,about",GER,draft,,release à signer
+EG-B08,eg_lieu_z1_hero_v1.jpg,lieu,shoot_own,owned,na,hero_soft,"site,og",CT,draft,,shotlist SH-C01
+EG-B09,eg_process_papiers_anonyme_v1.jpg,process,shoot_own,owned,na,about_process,site,CT,draft,,docs fictifs
+EG-REF-UI,assets/images/hero-bg.jpg,ref,mockup_ui,ref_interne,na,ui_reference,interne,CT,live,2026-09,Dribbble crop — PAS ads
+EG-TOK,docs/design-tokens.md,tokens,owned,owned,na,palette,all,CT,live,2026-09,source hex

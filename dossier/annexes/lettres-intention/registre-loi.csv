@@ -1,0 +1,7 @@
+loi_id,metier,fichier,priorite,partenaire_nom,date_envoi,date_retour,statut,convention_signee,notes
+LOI-BTP,Constructeur BTP,02-loi-constructeur-btp.md,P0,,,,,a_remplir,Vague 1
+LOI-ARCHI,Architecte,03-loi-architecte.md,P0,,,,,a_remplir,Vague 1
+LOI-NOTAIRE,Notaire,04-loi-notaire.md,P0,,,,,a_remplir,deontologie
+LOI-FORM,Formalites papiers,05-loi-formalites-papiers.md,P0,,,,,a_remplir,Vague 1-2
+LOI-FIN,Financier structuration,06-loi-financier.md,P0,,,,,a_remplir,HNWI
+LOI-RESEAU,Agence reseau,07-loi-agence-reseau.md,P2,,,,,a_remplir,Sens B
