@@ -4,11 +4,11 @@
 
 | # | Fichier | Statut | Contenu attendu |
 | --- | --- | --- | --- |
-| 01 | `01-registre-risques.md` | ❌ | Matrice impact × proba |
-| 02 | `02-politique-anti-fraude.md` | ❌ | Diligence, red flags, diaspora |
-| 03 | `03-conformite-agence.md` | ❌ | Carte pro, mentions légales, décret loyers |
-| 04 | `04-politique-papiers.md` | ❌ | TF / bail / délibération en catalogue |
-| 05 | `05-assurance-et-responsabilite.md` | ❌ | RC pro, limites métier |
+| 01 | [`01-registre-risques.md`](./01-registre-risques.md) | ✅ | Matrice impact × proba |
+| 02 | [`02-politique-anti-fraude.md`](./02-politique-anti-fraude.md) | ✅ | Diligence, red flags, diaspora |
+| 03 | [`03-conformite-agence.md`](./03-conformite-agence.md) | ✅ | Carte pro, mentions légales, décret loyers |
+| 04 | [`04-politique-papiers.md`](./04-politique-papiers.md) | ✅ | TF / bail / délibération en catalogue |
+| 05 | [`05-assurance-et-responsabilite.md`](./05-assurance-et-responsabilite.md) | ✅ | RC pro, limites métier |
 
 ## Sources
 
