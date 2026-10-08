@@ -26,6 +26,12 @@
 | 18 | [`18-design-system.md`](./18-design-system.md) | ✅ | Charte composants UI + tokens |
 | 19 | [`19-data-flow-rgpd.md`](./19-data-flow-rgpd.md) | ✅ | **Data Flow** collecte → stockage → usage |
 
+## Sprints build
+
+| Dossier | Statut | Contenu |
+| --- | --- | --- |
+| [`sprints/`](./sprints/) | ✅ | S00–S06 · backend / tests / frontend / infra (Render · Neon · GitHub Actions) |
+
 ## Sources `docs/`
 
 - [`../../../docs/tech-stack.md`](../../../docs/tech-stack.md)

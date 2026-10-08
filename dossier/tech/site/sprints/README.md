@@ -1,0 +1,63 @@
+# Sprints site — Itérations build MVP
+
+**Rôle :** découper le build Vague 0–1 en sprints actionnables.  
+Chaque sprint = dossier avec **5 fichiers** :
+
+| Fichier | Contenu |
+| --- | --- |
+| `backend.md` | APIs, schéma DB, Server Actions, jobs |
+| `backend-tests.md` | Tests unit/integration API · ACL · gates |
+| `frontend.md` | Pages, composants, UX |
+| `frontend-tests.md` | Tests UI · Playwright soft · a11y smoke |
+| `infra.md` | CI/CD, comptes cloud, DNS, secrets, manuels |
+
+**Amont :** [`../12-user-stories-backlog.md`](../12-user-stories-backlog.md) · [`../../03-prios-mvp.md`](../../03-prios-mvp.md) · [`../../02-architecture-cible.md`](../../02-architecture-cible.md) · [`../../05-cahier-des-charges-technique.md`](../../05-cahier-des-charges-technique.md)
+
+---
+
+## Stack infra (décision)
+
+| Couche | Choix | Pourquoi |
+| --- | --- | --- |
+| **App host** | **Render** (Web Service Next) | Node Next simple · HTTPS · preview/PR option · aligné CdCT monolith |
+| **DB** | **Neon** (Postgres) | Serverless PG · branches preview · PITR soft · `$DATABASE_URL` |
+| **CI/CD** | **GitHub Actions** | Lint/typecheck/test/build sur PR · deploy hook Render |
+| **Storage** | S3-compatible (R2 / Render Disk temp → R2/S3) | Vault + photos — à brancher S1 |
+| **Email** | Resend | Ack forms |
+
+**Oui — Render + Neon = bon fit Y1.**  
+**Oui — GitHub Actions = bon fit CI/CD** (pas besoin de Render CI exclusive).
+
+Flow typique :
+
+```
+PR → GitHub Actions (lint · tsc · test · build)
+main merge → Actions → Render deploy (ou Render auto-deploy from main)
+Neon : prod branch + optional preview branch per PR
+```
+
+---
+
+## Carte des sprints
+
+| Sprint | Outcome | Gate |
+| --- | --- | --- |
+| [`S00-fondations`](./S00-fondations/) | Repo Next · Neon · Render · Auth agent · schema seed | App hello + login agent staging |
+| [`S01-listing-bo`](./S01-listing-bo/) | CRUD annonces + mandats + media + publish gate papier | Agent publie listing gated |
+| [`S02-catalogue-public`](./S02-catalogue-public/) | Home · acheter/louer · fiche · WA · SEO schema | Fiche live publique |
+| [`S03-crm-leads`](./S03-crm-leads/) | Forms → Lead · stages · file agent · SLA | Lead form → CRM + notif |
+| [`S04-confiance-polish`](./S04-confiance-polish/) | Agence/guides · map · landings · OG · empty | Gate **Done V0** |
+| [`S05-outils-simus`](./S05-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
+| [`S06-embeds-partenaires`](./S06-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
+
+Ne pas ouvrir S05 avant Done V0 (S04) sauf spike parallèle design.
+
+---
+
+## Convention todo dans chaque fichier
+
+```markdown
+- [ ] Task…
+  - US / EF ref
+  - Done when…
+```
