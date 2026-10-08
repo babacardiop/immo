@@ -1,8 +1,17 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { LoginForm } from "@/components/login-form";
 
-export default async function ConnexionPage() {
+export default function ConnexionPage() {
+  return (
+    <Suspense fallback={<p className="text-[var(--color-muted)]">Chargement…</p>}>
+      <ConnexionContent />
+    </Suspense>
+  );
+}
+
+async function ConnexionContent() {
   const session = await auth();
   if (session?.user) {
     redirect("/espace/agent");

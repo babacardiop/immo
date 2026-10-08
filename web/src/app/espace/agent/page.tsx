@@ -1,8 +1,17 @@
+import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { logoutAction } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 
-export default async function AgentHomePage() {
+export default function AgentHomePage() {
+  return (
+    <Suspense fallback={<p className="text-[var(--color-muted)]">Chargement…</p>}>
+      <AgentHome />
+    </Suspense>
+  );
+}
+
+async function AgentHome() {
   const session = await auth();
 
   return (
