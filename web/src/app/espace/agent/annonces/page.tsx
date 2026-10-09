@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { PaperBadge } from "@/components/paper-badge";
 import { isModeratorOrAbove } from "@/lib/session";
 import { listingPath } from "@/lib/listings/slug";
+import { isSaleLike } from "@/lib/listings/paper";
 
 export default async function AnnoncesListPage() {
   const session = await auth();
@@ -59,7 +60,11 @@ export default async function AnnoncesListPage() {
                     : ""}
                 </p>
               </div>
-              <PaperBadge type={l.paperType} />
+              {isSaleLike(l.transaction) ? (
+                <PaperBadge type={l.paperType} />
+              ) : (
+                <span className="text-xs text-[var(--color-muted)]">Location</span>
+              )}
             </li>
           ))}
         </ul>

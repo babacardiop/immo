@@ -34,10 +34,36 @@ export function canPublishPaper(
   paperType: PaperType | null | undefined,
 ): boolean {
   if (!isSaleLike(transaction)) {
-    // Location: paper optional in V0
+    // Location: paper not used in V0
     return true;
   }
   return !!paperType && PUBLISHABLE_PAPER_TYPES.includes(paperType);
+}
+
+/** Force paper/NICAD cleared for pure rental listings. */
+export function paperFieldsForTransaction(
+  transaction: TransactionType,
+  input: {
+    paperType?: PaperType | null;
+    paperVerifiedLevel?: "DECLARED" | "DOCS_ON_FILE" | "DILIGENCE_DONE";
+    deliberationDisclaimerAck?: boolean;
+    nicad?: string | null;
+  },
+) {
+  if (!isSaleLike(transaction)) {
+    return {
+      paperType: null,
+      paperVerifiedLevel: "DECLARED" as const,
+      deliberationDisclaimerAck: false,
+      nicad: null,
+    };
+  }
+  return {
+    paperType: input.paperType ?? null,
+    paperVerifiedLevel: input.paperVerifiedLevel ?? "DECLARED",
+    deliberationDisclaimerAck: input.deliberationDisclaimerAck ?? false,
+    nicad: input.nicad ?? null,
+  };
 }
 
 export const MIN_PHOTOS_TO_PUBLISH = 3;

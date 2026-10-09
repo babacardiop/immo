@@ -7,6 +7,7 @@ import { requireAgent, isModeratorOrAbove } from "@/lib/session";
 import { rateLimit } from "@/lib/rate-limit";
 import { listingFormSchema } from "@/lib/listings/schema";
 import { canMutateListing } from "@/lib/listings/acl";
+import { paperFieldsForTransaction } from "@/lib/listings/paper";
 import { buildListingSlug, listingPath } from "@/lib/listings/slug";
 import { evaluatePublishGate } from "@/lib/listings/publish-gate";
 import {
@@ -99,6 +100,7 @@ export async function createListingAction(
       return { ok: false, error: "Champs invalides.", code: "VALIDATION" };
     }
     const data = parsed.data;
+    const paper = paperFieldsForTransaction(data.transaction, data);
     const slug = buildListingSlug({
       title: data.title,
       reference: data.reference,
@@ -113,9 +115,9 @@ export async function createListingAction(
         description: data.description,
         transaction: data.transaction,
         propertyType: data.propertyType,
-        paperType: data.paperType ?? null,
-        paperVerifiedLevel: data.paperVerifiedLevel,
-        deliberationDisclaimerAck: data.deliberationDisclaimerAck,
+        paperType: paper.paperType,
+        paperVerifiedLevel: paper.paperVerifiedLevel,
+        deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
         priceFcfa: data.priceFcfa,
         areaM2: data.areaM2 ?? null,
         city: data.city,
@@ -123,7 +125,7 @@ export async function createListingAction(
         addressPublic: data.addressPublic,
         reference: data.reference,
         slug,
-        nicad: data.nicad,
+        nicad: paper.nicad,
         waPhone: data.waPhone,
         negotiable: data.negotiable,
         agentId: user.id,
@@ -169,6 +171,7 @@ export async function updateListingAction(
       return { ok: false, error: "Champs invalides.", code: "VALIDATION" };
     }
     const data = parsed.data;
+    const paper = paperFieldsForTransaction(data.transaction, data);
     const slug = buildListingSlug({
       title: data.title,
       reference: data.reference,
@@ -184,9 +187,9 @@ export async function updateListingAction(
         description: data.description,
         transaction: data.transaction,
         propertyType: data.propertyType,
-        paperType: data.paperType ?? null,
-        paperVerifiedLevel: data.paperVerifiedLevel,
-        deliberationDisclaimerAck: data.deliberationDisclaimerAck,
+        paperType: paper.paperType,
+        paperVerifiedLevel: paper.paperVerifiedLevel,
+        deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
         priceFcfa: data.priceFcfa,
         areaM2: data.areaM2 ?? null,
         city: data.city,
@@ -194,7 +197,7 @@ export async function updateListingAction(
         addressPublic: data.addressPublic,
         reference: data.reference,
         slug,
-        nicad: data.nicad,
+        nicad: paper.nicad,
         waPhone: data.waPhone,
         negotiable: data.negotiable,
         mandate: {
@@ -257,6 +260,26 @@ export async function publishListingAction(
     }
 
     listing = await assertCanMutate(listingId, user.id, user.role);
+
+    // Rentals must not keep stale sale paper/NICAD.
+    const paper = paperFieldsForTransaction(listing.transaction, listing);
+    if (
+      paper.paperType !== listing.paperType ||
+      paper.nicad !== listing.nicad ||
+      paper.deliberationDisclaimerAck !== listing.deliberationDisclaimerAck
+    ) {
+      await prisma.listing.update({
+        where: { id: listingId },
+        data: {
+          paperType: paper.paperType,
+          paperVerifiedLevel: paper.paperVerifiedLevel,
+          deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
+          nicad: paper.nicad,
+        },
+      });
+      listing = await assertCanMutate(listingId, user.id, user.role);
+    }
+
     const gate = evaluatePublishGate(listing);
     if (!gate.ok) {
       return { ok: false, error: gate.message, code: gate.code };

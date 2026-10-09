@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { isModeratorOrAbove } from "@/lib/session";
 import { listingPath } from "@/lib/listings/slug";
+import { isSaleLike } from "@/lib/listings/paper";
 import { ListingForm } from "@/components/listing-form";
 import { ListingPhotos } from "@/components/listing-photos";
 import { PublishControls } from "@/components/publish-controls";
@@ -68,9 +69,11 @@ export default async function AnnonceDetailPage({
           <p className="mt-1 text-sm text-[var(--color-muted)]">
             {listing.status} · /{listing.slug}
           </p>
-          <div className="mt-2">
-            <PaperBadge type={listing.paperType} />
-          </div>
+          {isSaleLike(listing.transaction) ? (
+            <div className="mt-2">
+              <PaperBadge type={listing.paperType} />
+            </div>
+          ) : null}
         </div>
         <PublishControls
           listingId={listing.id}

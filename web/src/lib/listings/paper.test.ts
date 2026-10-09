@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   canPublishPaper,
   isSaleLike,
+  paperFieldsForTransaction,
   paperLabel,
 } from "@/lib/listings/paper";
 
@@ -21,5 +22,16 @@ describe("paper helpers", () => {
     expect(canPublishPaper("SALE", null)).toBe(false);
     expect(canPublishPaper("SALE", "TF")).toBe(true);
     expect(canPublishPaper("RENT", null)).toBe(true);
+  });
+
+  it("clears paper and nicad for RENT", () => {
+    const cleared = paperFieldsForTransaction("RENT", {
+      paperType: "TF",
+      nicad: "1234567890123456",
+      deliberationDisclaimerAck: true,
+    });
+    expect(cleared.paperType).toBeNull();
+    expect(cleared.nicad).toBeNull();
+    expect(cleared.deliberationDisclaimerAck).toBe(false);
   });
 });
