@@ -3,7 +3,14 @@ import { z } from "zod";
 export const listingFormSchema = z.object({
   title: z.string().trim().min(3).max(80),
   description: z.string().trim().min(10).max(20000),
-  transaction: z.enum(["SALE", "RENT", "RENT_TO_OWN", "INSTALLMENT_SALE"]),
+  transaction: z.enum([
+    "SALE",
+    "RENT",
+    "SHORT_TERM_RENT",
+    "RENT_TO_OWN",
+    "INSTALLMENT_SALE",
+  ]),
+  pricePeriod: z.enum(["MONTH", "NIGHT", "WEEK"]).optional(),
   propertyType: z.enum(["LAND", "HOUSE", "APARTMENT", "OFFICE"]),
   paperType: z
     .enum([

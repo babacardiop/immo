@@ -12,6 +12,14 @@ vi.mock("@/app/actions/listings", () => ({
   updateListingAction: vi.fn(async () => ({ ok: false, error: "x" })),
 }));
 
+vi.mock("@/hooks/use-locations", () => ({
+  useLocations: () => ({
+    cities: ["Dakar", "Thiès"],
+    quartiers: [{ name: "Almadies", city: "Dakar" }],
+  }),
+}));
+
+
 afterEach(() => cleanup());
 
 describe("ListingForm", () => {

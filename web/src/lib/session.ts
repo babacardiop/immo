@@ -1,7 +1,8 @@
 import { auth } from "@/lib/auth";
 import type { UserRole } from "@prisma/client";
+import { AGENT_ROLES, isModeratorOrAbove } from "@/lib/roles";
 
-const AGENT_ROLES: UserRole[] = ["AGENT", "MODERATOR", "ADMIN", "GER"];
+export { isModeratorOrAbove };
 
 export async function requireAgent() {
   const session = await auth();
@@ -12,8 +13,4 @@ export async function requireAgent() {
     throw new Error("FORBIDDEN");
   }
   return session.user;
-}
-
-export function isModeratorOrAbove(role: UserRole) {
-  return role === "MODERATOR" || role === "ADMIN" || role === "GER";
 }

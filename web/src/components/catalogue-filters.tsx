@@ -1,11 +1,18 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Autocomplete } from "@/components/ui/autocomplete";
 import type { CatalogueChannel } from "@/lib/listings/public-query";
+import {
+  filterCityNames,
+  filterQuartierEntries,
+} from "@/lib/locations/filter";
+import { formatQuartierWithCity } from "@/lib/locations/format";
+import { useLocations } from "@/hooks/use-locations";
 
 export function CatalogueFilters({
   channel,
@@ -14,6 +21,29 @@ export function CatalogueFilters({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { cities, quartiers } = useLocations();
+
+  const [city, setCity] = useState(searchParams.get("city") ?? "");
+  const [quartier, setQuartier] = useState(searchParams.get("quartier") ?? "");
+
+  const cityOptions = useMemo(
+    () =>
+      filterCityNames(cities, city).map((name) => ({
+        value: name,
+        label: name,
+      })),
+    [cities, city],
+  );
+
+  const quartierOptions = useMemo(
+    () =>
+      filterQuartierEntries(quartiers, quartier, city).map((q) => ({
+        value: q.name,
+        label: formatQuartierWithCity(q.name, q.city),
+        city: q.city,
+      })),
+    [quartiers, quartier, city],
+  );
 
   const apply = useCallback(
     (formData: FormData) => {
@@ -23,6 +53,7 @@ export function CatalogueFilters({
         "quartier",
         "propertyType",
         "paperType",
+        "transaction",
         "priceMin",
         "priceMax",
       ]) {
@@ -42,20 +73,39 @@ export function CatalogueFilters({
     >
       <div>
         <Label htmlFor="city">Ville</Label>
-        <Input
+        <Autocomplete
           id="city"
           name="city"
-          defaultValue={searchParams.get("city") ?? ""}
-          placeholder="Dakar"
+          aria-label="Ville"
+          value={city}
+          onChange={setCity}
+          options={cityOptions}
+          placeholder="Dakar, Thiès…"
+          emptyHint="Aucune ville trouvée"
         />
       </div>
       <div>
         <Label htmlFor="quartier">Quartier</Label>
-        <Input
+        <Autocomplete
           id="quartier"
           name="quartier"
-          defaultValue={searchParams.get("quartier") ?? ""}
-          placeholder="Almadies"
+          aria-label="Quartier"
+          value={quartier}
+          onChange={setQuartier}
+          onSelectOption={(opt) => {
+            setQuartier(opt.value);
+            const match = quartierOptions.find(
+              (o) => o.value === opt.value && o.label === opt.label,
+            );
+            if (match?.city) setCity(match.city);
+          }}
+          options={quartierOptions}
+          placeholder="Almadies · Dakar…"
+          emptyHint={
+            city
+              ? "Aucun quartier pour cette ville"
+              : "Aucun quartier trouvé"
+          }
         />
       </div>
       <div>
@@ -89,7 +139,21 @@ export function CatalogueFilters({
             <option value="DELIBERATION">Délibération</option>
           </select>
         </div>
-      ) : null}
+      ) : (
+        <div>
+          <Label htmlFor="transaction">Type de location</Label>
+          <select
+            id="transaction"
+            name="transaction"
+            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+            defaultValue={searchParams.get("transaction") ?? ""}
+          >
+            <option value="">Toutes</option>
+            <option value="RENT">Location classique</option>
+            <option value="SHORT_TERM_RENT">Courte durée</option>
+          </select>
+        </div>
+      )}
       <div>
         <Label htmlFor="priceMin">Prix min</Label>
         <Input
@@ -115,7 +179,11 @@ export function CatalogueFilters({
         <Button
           type="button"
           variant="ghost"
-          onClick={() => router.push(`/${channel}`)}
+          onClick={() => {
+            setCity("");
+            setQuartier("");
+            router.push(`/${channel}`);
+          }}
         >
           Réinitialiser
         </Button>

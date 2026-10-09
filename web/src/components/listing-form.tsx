@@ -13,7 +13,14 @@ import { listingPath } from "@/lib/listings/slug";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Autocomplete } from "@/components/ui/autocomplete";
 import { PaperBadge } from "@/components/paper-badge";
+import {
+  filterCityNames,
+  filterQuartierEntries,
+} from "@/lib/locations/filter";
+import { formatQuartierWithCity } from "@/lib/locations/format";
+import { useLocations } from "@/hooks/use-locations";
 
 type ListingWithMandate = Listing & { mandate: Mandate | null };
 
@@ -36,8 +43,26 @@ export function ListingForm({
   const [paperType, setPaperType] = useState<PaperType>(
     listing?.paperType ?? "TF",
   );
+  const [city, setCity] = useState(listing?.city ?? "");
+  const [quartierLabel, setQuartierLabel] = useState(
+    listing?.quartierLabel ?? "",
+  );
+  const { cities, quartiers } = useLocations();
 
   const showSalePaperFields = isSaleLike(transaction);
+  const cityOptions = filterCityNames(cities, city).map((name) => ({
+    value: name,
+    label: name,
+  }));
+  const quartierOptions = filterQuartierEntries(
+    quartiers,
+    quartierLabel,
+    city,
+  ).map((q) => ({
+    value: q.name,
+    label: formatQuartierWithCity(q.name, q.city),
+    city: q.city,
+  }));
 
   useEffect(() => {
     if (!state?.ok || !state.slug) return;
@@ -71,7 +96,11 @@ export function ListingForm({
         </div>
         <div>
           <Label htmlFor="priceFcfa">
-            {transaction === "RENT" ? "Loyer (FCFA / mois)" : "Prix (FCFA)"}
+            {transaction === "SHORT_TERM_RENT"
+              ? "Loyer (FCFA / nuit)"
+              : transaction === "RENT"
+                ? "Loyer (FCFA / mois)"
+                : "Prix (FCFA)"}
           </Label>
           <Input
             id="priceFcfa"
@@ -95,6 +124,7 @@ export function ListingForm({
           >
             <option value="SALE">Vente</option>
             <option value="RENT">Location</option>
+            <option value="SHORT_TERM_RENT">Location courte durée</option>
             <option value="RENT_TO_OWN">Location-vente</option>
             <option value="INSTALLMENT_SALE">Vente étalée</option>
           </select>
@@ -162,20 +192,35 @@ export function ListingForm({
 
         <div>
           <Label htmlFor="city">Ville</Label>
-          <Input
+          <Autocomplete
             id="city"
             name="city"
+            aria-label="Ville"
+            value={city}
+            onChange={setCity}
+            options={cityOptions}
+            placeholder="Dakar, Thiès…"
             required
-            defaultValue={listing?.city ?? ""}
           />
         </div>
         <div>
           <Label htmlFor="quartierLabel">Quartier</Label>
-          <Input
+          <Autocomplete
             id="quartierLabel"
             name="quartierLabel"
+            aria-label="Quartier"
+            value={quartierLabel}
+            onChange={setQuartierLabel}
+            onSelectOption={(opt) => {
+              setQuartierLabel(opt.value);
+              const match = quartierOptions.find(
+                (o) => o.value === opt.value && o.label === opt.label,
+              );
+              if (match?.city) setCity(match.city);
+            }}
+            options={quartierOptions}
+            placeholder="Almadies · Dakar…"
             required
-            defaultValue={listing?.quartierLabel ?? ""}
           />
         </div>
         <div className="sm:col-span-2">

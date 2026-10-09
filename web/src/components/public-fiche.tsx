@@ -6,7 +6,13 @@ import {
   publicListingPath,
 } from "@/lib/listings/public-query";
 import { isSaleLike } from "@/lib/listings/paper";
-import { formatFcfa, propertyTypeLabel, transactionLabel } from "@/lib/format";
+import {
+  formatFcfa,
+  pricePeriodSuffix,
+  propertyTypeLabel,
+  transactionLabel,
+} from "@/lib/format";
+import { formatQuartierWithCity } from "@/lib/locations/format";
 import { buildListingJsonLd } from "@/lib/seo/jsonld-listing";
 import { absoluteUrl } from "@/lib/seo/site";
 import { listingInquiryText } from "@/lib/whatsapp";
@@ -53,7 +59,7 @@ export async function PublicFiche({
             {listing.title}
           </h1>
           <p className="mt-2 text-[var(--color-muted)]">
-            {[listing.quartierLabel, listing.city].filter(Boolean).join(" · ")}
+            {formatQuartierWithCity(listing.quartierLabel, listing.city)}
           </p>
           {isSaleLike(listing.transaction) ? (
             <div className="mt-3">
@@ -64,10 +70,15 @@ export async function PublicFiche({
         <div className="text-right">
           <p className="text-2xl font-semibold">
             {formatFcfa(listing.priceFcfa)}
-            {listing.transaction === "RENT" ? (
+            {listing.transaction === "RENT" ||
+            listing.transaction === "SHORT_TERM_RENT" ? (
               <span className="text-base font-normal text-[var(--color-muted)]">
-                {" "}
-                / mois
+                {pricePeriodSuffix(
+                  listing.pricePeriod ??
+                    (listing.transaction === "SHORT_TERM_RENT"
+                      ? "NIGHT"
+                      : "MONTH"),
+                )}
               </span>
             ) : null}
           </p>

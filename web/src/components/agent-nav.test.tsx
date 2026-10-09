@@ -8,7 +8,7 @@ vi.mock("@/app/actions/auth", () => ({
 
 describe("AgentNav", () => {
   it("renders dashboard and annonces links", () => {
-    render(<AgentNav email="agent@evergreen.sn" />);
+    render(<AgentNav email="agent@evergreen.sn" role="AGENT" />);
     expect(
       screen.getByRole("link", { name: /tableau de bord/i }),
     ).toHaveAttribute("href", "/espace/agent");
@@ -17,5 +17,14 @@ describe("AgentNav", () => {
       "/espace/agent/annonces",
     );
     expect(screen.getByText("agent@evergreen.sn")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /^lieux$/i })).not.toBeInTheDocument();
+  });
+
+  it("shows Lieux link for admin", () => {
+    render(<AgentNav email="admin@evergreen.sn" role="ADMIN" />);
+    expect(screen.getByRole("link", { name: /^lieux$/i })).toHaveAttribute(
+      "href",
+      "/espace/agent/lieux",
+    );
   });
 });

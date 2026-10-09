@@ -13,7 +13,10 @@ export const SALE_TRANSACTIONS: TransactionType[] = [
   "RENT_TO_OWN",
 ];
 
-export const RENT_TRANSACTIONS: TransactionType[] = ["RENT"];
+export const RENT_TRANSACTIONS: TransactionType[] = [
+  "RENT",
+  "SHORT_TERM_RENT",
+];
 
 export type CatalogueChannel = "acheter" | "louer";
 
@@ -22,6 +25,8 @@ export type CatalogueFilters = {
   quartier?: string;
   propertyType?: PropertyType;
   paperType?: PaperType;
+  /** Narrow within channel (e.g. SHORT_TERM_RENT on /louer). */
+  transaction?: TransactionType;
   priceMin?: number;
   priceMax?: number;
   cursor?: string;
@@ -51,9 +56,17 @@ export function buildPublicWhere(
   channel: CatalogueChannel,
   filters: CatalogueFilters = {},
 ): Prisma.ListingWhereInput {
+  const allowed = channelTransactions(channel);
+  const transactionFilter =
+    filters.transaction && allowed.includes(filters.transaction)
+      ? filters.transaction
+      : undefined;
+
   const where: Prisma.ListingWhereInput = {
     status: "PUBLISHED",
-    transaction: { in: channelTransactions(channel) },
+    transaction: transactionFilter
+      ? transactionFilter
+      : { in: allowed },
   };
 
   if (filters.city?.trim()) {

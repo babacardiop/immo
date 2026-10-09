@@ -15,13 +15,17 @@ describe("public-query", () => {
     ]);
   });
 
-  it("louer uses RENT only", () => {
-    expect(channelTransactions("louer")).toEqual(["RENT"]);
+  it("louer includes classic and short-term rent", () => {
+    expect(channelTransactions("louer")).toEqual([
+      "RENT",
+      "SHORT_TERM_RENT",
+    ]);
   });
 
   it("maps transaction to channel", () => {
     expect(channelForTransaction("SALE")).toBe("acheter");
     expect(channelForTransaction("RENT")).toBe("louer");
+    expect(channelForTransaction("SHORT_TERM_RENT")).toBe("louer");
     expect(channelForTransaction("RENT_TO_OWN")).toBe("acheter");
   });
 

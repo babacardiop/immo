@@ -26,6 +26,7 @@ enum ListingStatus {
 enum TransactionType {
   SALE
   RENT
+  SHORT_TERM_RENT
   RENT_TO_OWN
   INSTALLMENT_SALE
 }
@@ -64,6 +65,8 @@ enum MandateStatus {
 
 enum PricePeriod {
   MONTH
+  NIGHT
+  WEEK
 }
 
 enum GeoPrecision {
@@ -253,4 +256,33 @@ model Lead {
   assignee   User?      @relation("LeadAssignee", fields: [assigneeId], references: [id])
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+}
+
+/// Thesaurus villes (admin-editable).
+model City {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  active    Boolean    @default(true)
+  sortOrder Int        @default(0)
+  quartiers Quartier[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([active, sortOrder])
+}
+
+/// Thesaurus quartiers rattachés à une ville (admin-editable).
+model Quartier {
+  id        String   @id @default(cuid())
+  name      String
+  cityId    String
+  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  aliases   String[] @default([])
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cityId, name])
+  @@index([active, name])
 }

@@ -5,7 +5,12 @@ import {
   publicListingPath,
 } from "@/lib/listings/public-query";
 import { isSaleLike } from "@/lib/listings/paper";
-import { formatFcfa, propertyTypeLabel } from "@/lib/format";
+import {
+  formatFcfa,
+  pricePeriodSuffix,
+  propertyTypeLabel,
+} from "@/lib/format";
+import { formatQuartierWithCity } from "@/lib/locations/format";
 import { PaperBadge } from "@/components/paper-badge";
 
 export function ListingCard({ listing }: { listing: PublicListItem }) {
@@ -40,10 +45,22 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
         </div>
         <p className="mt-1 text-sm text-[var(--color-muted)]">
           {propertyTypeLabel(listing.propertyType)}
-          {listing.city ? ` · ${listing.city}` : ""}
-          {listing.quartierLabel ? ` · ${listing.quartierLabel}` : ""}
+          {listing.quartierLabel || listing.city
+            ? ` · ${formatQuartierWithCity(listing.quartierLabel, listing.city)}`
+            : ""}
         </p>
-        <p className="mt-2 font-medium">{formatFcfa(listing.priceFcfa)}</p>
+        <p className="mt-2 font-medium">
+          {formatFcfa(listing.priceFcfa)}
+          {listing.transaction === "RENT" ||
+          listing.transaction === "SHORT_TERM_RENT"
+            ? pricePeriodSuffix(
+                listing.pricePeriod ??
+                  (listing.transaction === "SHORT_TERM_RENT"
+                    ? "NIGHT"
+                    : "MONTH"),
+              )
+            : null}
+        </p>
       </Link>
     </article>
   );

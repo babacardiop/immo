@@ -26,6 +26,13 @@ describe("catalogue filters", () => {
     expect(where.paperType).toBeUndefined();
   });
 
+  it("narrows louer to short-term rent", () => {
+    const where = buildPublicWhere("louer", {
+      transaction: "SHORT_TERM_RENT",
+    });
+    expect(where.transaction).toBe("SHORT_TERM_RENT");
+  });
+
   it("parses search params safely", () => {
     const filters = parseCatalogueSearchParams({
       city: "Thiès",

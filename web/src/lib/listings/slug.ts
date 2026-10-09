@@ -22,6 +22,7 @@ export function buildListingSlug(input: {
   const transactionHint: Record<string, string> = {
     SALE: "a-vendre",
     RENT: "a-louer",
+    SHORT_TERM_RENT: "courte-duree",
     RENT_TO_OWN: "location-vente",
     INSTALLMENT_SALE: "vente-etalee",
   };

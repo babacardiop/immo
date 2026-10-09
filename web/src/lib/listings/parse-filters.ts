@@ -1,4 +1,4 @@
-import type { PaperType, PropertyType } from "@prisma/client";
+import type { PaperType, PropertyType, TransactionType } from "@prisma/client";
 import type { CatalogueFilters } from "@/lib/listings/public-query";
 
 const PROPERTY_TYPES = new Set([
@@ -16,6 +16,8 @@ const PAPER_TYPES = new Set([
   "OTHER",
 ]);
 
+const RENT_FILTER_TYPES = new Set(["RENT", "SHORT_TERM_RENT"]);
+
 export function parseCatalogueSearchParams(
   params: Record<string, string | string[] | undefined>,
 ): CatalogueFilters {
@@ -26,6 +28,7 @@ export function parseCatalogueSearchParams(
 
   const propertyType = get("propertyType");
   const paperType = get("paperType");
+  const transaction = get("transaction");
   const priceMin = get("priceMin");
   const priceMax = get("priceMax");
   const cursor = get("cursor");
@@ -38,6 +41,9 @@ export function parseCatalogueSearchParams(
       : undefined,
     paperType: PAPER_TYPES.has(paperType ?? "")
       ? (paperType as PaperType)
+      : undefined,
+    transaction: RENT_FILTER_TYPES.has(transaction ?? "")
+      ? (transaction as TransactionType)
       : undefined,
     priceMin: priceMin ? Number(priceMin) : undefined,
     priceMax: priceMax ? Number(priceMax) : undefined,

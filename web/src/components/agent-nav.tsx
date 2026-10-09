@@ -1,5 +1,7 @@
 import Link from "next/link";
+import type { UserRole } from "@prisma/client";
 import { logoutAction } from "@/app/actions/auth";
+import { isModeratorOrAbove } from "@/lib/roles";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -7,7 +9,13 @@ const links = [
   { href: "/espace/agent/annonces", label: "Annonces" },
 ];
 
-export function AgentNav({ email }: { email?: string | null }) {
+export function AgentNav({
+  email,
+  role,
+}: {
+  email?: string | null;
+  role?: UserRole | null;
+}) {
   return (
     <div className="mb-8 flex flex-col gap-4 border-b border-[var(--color-steel)]/40 pb-4 sm:flex-row sm:items-center sm:justify-between">
       <nav className="flex flex-wrap gap-4 text-sm">
@@ -20,6 +28,14 @@ export function AgentNav({ email }: { email?: string | null }) {
             {l.label}
           </Link>
         ))}
+        {role && isModeratorOrAbove(role) ? (
+          <Link
+            href="/espace/agent/lieux"
+            className="font-medium text-[var(--color-ink)] hover:text-[var(--color-olive)]"
+          >
+            Lieux
+          </Link>
+        ) : null}
       </nav>
       <div className="flex items-center gap-3 text-sm text-[var(--color-muted)]">
         <span>{email}</span>

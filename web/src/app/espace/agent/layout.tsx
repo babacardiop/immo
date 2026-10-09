@@ -18,7 +18,7 @@ async function AgentShell({ children }: { children: React.ReactNode }) {
   const session = await auth();
   return (
     <div>
-      <AgentNav email={session?.user?.email} />
+      <AgentNav email={session?.user?.email} role={session?.user?.role} />
       {children}
     </div>
   );

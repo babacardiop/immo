@@ -25,6 +25,7 @@ export async function CataloguePage({
   if (filters.quartier) qs.set("quartier", filters.quartier);
   if (filters.propertyType) qs.set("propertyType", filters.propertyType);
   if (filters.paperType) qs.set("paperType", filters.paperType);
+  if (filters.transaction) qs.set("transaction", filters.transaction);
   if (filters.priceMin != null) qs.set("priceMin", String(filters.priceMin));
   if (filters.priceMax != null) qs.set("priceMax", String(filters.priceMax));
   if (nextCursor) qs.set("cursor", nextCursor);

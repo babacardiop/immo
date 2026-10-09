@@ -15,6 +15,7 @@ describe("paper helpers", () => {
   it("detects sale-like transactions", () => {
     expect(isSaleLike("SALE")).toBe(true);
     expect(isSaleLike("RENT")).toBe(false);
+    expect(isSaleLike("SHORT_TERM_RENT")).toBe(false);
   });
 
   it("blocks OTHER / empty paper on sale", () => {

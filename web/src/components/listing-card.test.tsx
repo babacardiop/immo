@@ -69,15 +69,17 @@ function item(over: Partial<PublicListItem> = {}): PublicListItem {
 }
 
 describe("ListingCard", () => {
-  it("renders title, price and link", () => {
+  it("renders title, price, link and quartier with city", () => {
     render(<ListingCard listing={item()} />);
     expect(screen.getByText(/terrain almadies/i)).toBeInTheDocument();
+    expect(screen.getByText(/almadies · dakar/i)).toBeInTheDocument();
     expect(screen.getByText(/25[\s\u00a0]?000[\s\u00a0]?000/)).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
       "/acheter/terrain-almadies-eg-t-1",
     );
   });
+
 
   it("shows PaperBadge on sale cards", () => {
     render(<ListingCard listing={item({ paperType: "TF" })} />);

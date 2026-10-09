@@ -11,6 +11,16 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => ({ get }),
 }));
 
+vi.mock("@/hooks/use-locations", () => ({
+  useLocations: () => ({
+    cities: ["Dakar", "Thiès"],
+    quartiers: [
+      { name: "Almadies", city: "Dakar" },
+      { name: "Mermoz", city: "Dakar" },
+    ],
+  }),
+}));
+
 describe("CatalogueFilters", () => {
   beforeEach(() => {
     push.mockReset();
@@ -30,6 +40,18 @@ describe("CatalogueFilters", () => {
     expect(href).toContain("/acheter?");
     expect(href).toContain("city=Dakar");
     expect(href).toContain("quartier=Almadies");
+  });
+
+  it("suggests quartier with city label", async () => {
+    const user = userEvent.setup();
+    render(<CatalogueFilters channel="acheter" />);
+
+    const quartier = screen.getByLabelText(/^quartier$/i);
+    await user.click(quartier);
+    await user.type(quartier, "Alma");
+    expect(
+      await screen.findByRole("option", { name: /almadies · dakar/i }),
+    ).toBeInTheDocument();
   });
 
   it("resets filters", async () => {

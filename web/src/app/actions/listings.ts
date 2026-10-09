@@ -10,6 +10,7 @@ import { canMutateListing } from "@/lib/listings/acl";
 import { paperFieldsForTransaction } from "@/lib/listings/paper";
 import { buildListingSlug, listingPath } from "@/lib/listings/slug";
 import { evaluatePublishGate } from "@/lib/listings/publish-gate";
+import { defaultPricePeriod } from "@/lib/format";
 import {
   deletePublicObject,
   isAllowedImageMime,
@@ -128,6 +129,7 @@ export async function createListingAction(
         paperVerifiedLevel: paper.paperVerifiedLevel,
         deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
         priceFcfa: data.priceFcfa,
+        pricePeriod: defaultPricePeriod(data.transaction),
         areaM2: data.areaM2 ?? null,
         city: data.city,
         quartierLabel: data.quartierLabel,
@@ -200,6 +202,7 @@ export async function updateListingAction(
         paperVerifiedLevel: paper.paperVerifiedLevel,
         deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
         priceFcfa: data.priceFcfa,
+        pricePeriod: defaultPricePeriod(data.transaction),
         areaM2: data.areaM2 ?? null,
         city: data.city,
         quartierLabel: data.quartierLabel,
