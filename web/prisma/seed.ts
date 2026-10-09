@@ -54,9 +54,11 @@ async function seedUsers() {
 }
 
 async function seedLocations() {
-  let cityCount = 0;
-  let quartierCount = 0;
+  // Full replace of thesaurus (ANSD dump is authoritative for seed).
+  await prisma.quartier.deleteMany({});
+  await prisma.city.deleteMany({});
 
+  // Cities first (small).
   for (const entry of SENEGAL_CITIES) {
     const region =
       entry.region || guessRegionForCity(entry.name) || "Dakar";
@@ -65,45 +67,48 @@ async function seedLocations() {
       update: { active: true, region },
       create: { name: entry.name, active: true, region },
     });
-    cityCount += 1;
   }
 
+  const cities = await prisma.city.findMany({
+    select: { id: true, name: true, region: true },
+  });
+  const cityByName = new Map(cities.map((c) => [c.name, c]));
+
+  // Ensure any city referenced only by quartiers exists.
   for (const entry of SENEGAL_QUARTIERS) {
+    if (cityByName.has(entry.city)) continue;
     const region =
       entry.region || guessRegionForCity(entry.city) || "Dakar";
-    let city = await prisma.city.findUnique({ where: { name: entry.city } });
-    if (!city) {
-      city = await prisma.city.create({
-        data: { name: entry.city, active: true, region },
-      });
-      cityCount += 1;
-    } else if (!city.region) {
-      city = await prisma.city.update({
-        where: { id: city.id },
-        data: { region },
-      });
-    }
-
-    await prisma.quartier.upsert({
-      where: {
-        cityId_name: { cityId: city.id, name: entry.name },
-      },
-      update: {
-        active: true,
-        aliases: entry.aliases ?? [],
-      },
-      create: {
-        name: entry.name,
-        cityId: city.id,
-        aliases: entry.aliases ?? [],
-        active: true,
-      },
+    const created = await prisma.city.create({
+      data: { name: entry.city, active: true, region },
     });
-    quartierCount += 1;
+    cityByName.set(created.name, created);
+  }
+
+  const BATCH = 500;
+  let quartierCount = 0;
+  for (let i = 0; i < SENEGAL_QUARTIERS.length; i += BATCH) {
+    const slice = SENEGAL_QUARTIERS.slice(i, i + BATCH);
+    await prisma.quartier.createMany({
+      data: slice.map((entry) => {
+        const city = cityByName.get(entry.city)!;
+        return {
+          name: entry.name,
+          cityId: city.id,
+          aliases: entry.aliases ?? [],
+          active: true,
+        };
+      }),
+      skipDuplicates: true,
+    });
+    quartierCount += slice.length;
+    if ((i / BATCH) % 10 === 0) {
+      console.log(`  quartiers… ${Math.min(i + BATCH, SENEGAL_QUARTIERS.length)}/${SENEGAL_QUARTIERS.length}`);
+    }
   }
 
   console.log(
-    `Seeded locations: ${cityCount} cities, ${quartierCount} quartiers`,
+    `Seeded locations: ${cityByName.size} cities, ${quartierCount} quartiers (upserted/skipped)`,
   );
 }
 

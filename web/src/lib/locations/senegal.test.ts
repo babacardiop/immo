@@ -49,7 +49,9 @@ describe("senegal locations", () => {
     expect(formatLocationHierarchy(q)).toMatch(/almadies/i);
   });
 
-  it("has a large commercial thesaurus", () => {
-    expect(SENEGAL_QUARTIERS.length).toBeGreaterThan(100);
+  it("has ANSD-scale thesaurus", () => {
+    // ANSD RGPH-5 2023 répertoire des localités (~25k).
+    expect(SENEGAL_QUARTIERS.length).toBeGreaterThan(20000);
+    expect(SENEGAL_CITIES.length).toBeGreaterThan(200);
   });
 });
