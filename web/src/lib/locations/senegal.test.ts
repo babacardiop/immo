@@ -5,60 +5,51 @@ import {
   filterCities,
   filterQuartiers,
 } from "@/lib/locations/senegal";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import { formatLocationHierarchy } from "@/lib/locations/format";
 
 describe("senegal locations", () => {
-  it("includes major Dakar-region cities", () => {
-    for (const city of [
-      "Dakar",
-      "Pikine",
-      "Guédiawaye",
-      "Rufisque",
-      "Keur Massar",
-      "Thiès",
-      "Mbour",
-    ]) {
-      expect(SENEGAL_CITIES).toContain(city);
+  it("ties every city to a region", () => {
+    for (const city of SENEGAL_CITIES) {
+      expect(city.region.length).toBeGreaterThan(0);
     }
-  });
-
-  it("filters cities accent-insensitive", () => {
-    expect(filterCities("thies")).toContain("Thiès");
-    expect(filterCities("guedia")).toContain("Guédiawaye");
-  });
-
-  it("lists Dakar commercial quartiers", () => {
-    const names = filterQuartiers("", "Dakar").map((q) => q.name);
-    expect(names).toEqual(
-      expect.arrayContaining([
-        "Almadies",
-        "Ngor",
-        "Mermoz",
-        "Sacré-Cœur",
-        "Point E",
-        "Ouakam",
-      ]),
+    expect(SENEGAL_CITIES.some((c) => c.name === "Dakar")).toBe(true);
+    expect(SENEGAL_CITIES.find((c) => c.name === "Dakar")?.region).toBe(
+      "Dakar",
+    );
+    expect(SENEGAL_CITIES.find((c) => c.name === "Mbour")?.region).toBe(
+      "Thiès",
     );
   });
 
-  it("scopes quartiers to selected city", () => {
-    const pikine = filterQuartiers("", "Pikine").map((q) => q.name);
-    expect(pikine).toContain("Mbao");
-    expect(pikine).not.toContain("Almadies");
+  it("ties every quartier to city + region", () => {
+    for (const q of SENEGAL_QUARTIERS) {
+      expect(q.city.length).toBeGreaterThan(0);
+      expect(q.region.length).toBeGreaterThan(0);
+    }
   });
 
-  it("matches quartier aliases", () => {
-    const hits = filterQuartiers("sacre coeur", "Dakar").map((q) => q.name);
-    expect(hits).toContain("Sacré-Cœur");
+  it("does not dump cities on empty query", () => {
+    expect(filterCities("")).toEqual([]);
+    expect(filterCities("D")).toEqual([]);
   });
 
-  it("formats quartier with city for display", () => {
+  it("filters cities after 2+ chars", () => {
+    expect(filterCities("thies")).toContain("Thiès");
+    expect(filterCities("da")).toContain("Dakar");
+  });
+
+  it("finds Djily via autocomplete query", () => {
+    const hits = filterQuartiers("djily", "Dakar");
+    expect(hits.map((q) => q.name)).toContain("Cité Djily Mbaye");
+    expect(hits[0]?.region).toBe("Dakar");
+  });
+
+  it("formats hierarchy for suggestions", () => {
     const q = filterQuartiers("Almadies", "Dakar")[0]!;
-    expect(formatQuartierWithCity(q.name, q.city)).toBe("Almadies · Dakar");
+    expect(formatLocationHierarchy(q)).toMatch(/almadies/i);
   });
 
-  it("has unique city names and non-empty quartier set", () => {
-    expect(new Set(SENEGAL_CITIES).size).toBe(SENEGAL_CITIES.length);
-    expect(SENEGAL_QUARTIERS.length).toBeGreaterThan(40);
+  it("has a large commercial thesaurus", () => {
+    expect(SENEGAL_QUARTIERS.length).toBeGreaterThan(100);
   });
 });

@@ -8,10 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Autocomplete } from "@/components/ui/autocomplete";
 import type { CatalogueChannel } from "@/lib/listings/public-query";
 import {
-  filterCityNames,
+  filterCityEntries,
   filterQuartierEntries,
 } from "@/lib/locations/filter";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import {
+  formatCityWithRegion,
+  formatLocationHierarchy,
+} from "@/lib/locations/format";
 import { useLocations } from "@/hooks/use-locations";
 
 export function CatalogueFilters({
@@ -28,9 +31,9 @@ export function CatalogueFilters({
 
   const cityOptions = useMemo(
     () =>
-      filterCityNames(cities, city).map((name) => ({
-        value: name,
-        label: name,
+      filterCityEntries(cities, city).map((c) => ({
+        value: c.name,
+        label: formatCityWithRegion(c.name, c.region),
       })),
     [cities, city],
   );
@@ -39,8 +42,9 @@ export function CatalogueFilters({
     () =>
       filterQuartierEntries(quartiers, quartier, city).map((q) => ({
         value: q.name,
-        label: formatQuartierWithCity(q.name, q.city),
+        label: formatLocationHierarchy(q),
         city: q.city,
+        region: q.region,
       })),
     [quartiers, quartier, city],
   );
@@ -80,8 +84,9 @@ export function CatalogueFilters({
           value={city}
           onChange={setCity}
           options={cityOptions}
-          placeholder="Dakar, Thiès…"
+          placeholder="Ex. Dak…"
           emptyHint="Aucune ville trouvée"
+          typeHint="Tapez au moins 2 lettres…"
         />
       </div>
       <div>
@@ -100,12 +105,13 @@ export function CatalogueFilters({
             if (match?.city) setCity(match.city);
           }}
           options={quartierOptions}
-          placeholder="Almadies · Dakar…"
+          placeholder="Ex. Alma… ou Djily…"
           emptyHint={
             city
               ? "Aucun quartier pour cette ville"
               : "Aucun quartier trouvé"
           }
+          typeHint="Tapez au moins 2 lettres (pas de liste complète)…"
         />
       </div>
       <div>

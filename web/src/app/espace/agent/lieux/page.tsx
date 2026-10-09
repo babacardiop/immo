@@ -21,7 +21,9 @@ export default async function LieuxPage() {
     }),
     prisma.quartier.findMany({
       orderBy: [{ name: "asc" }],
-      include: { city: { select: { id: true, name: true } } },
+      include: {
+        city: { select: { id: true, name: true, region: true } },
+      },
     }),
   ]);
 
@@ -29,9 +31,8 @@ export default async function LieuxPage() {
     <div>
       <h1 className="text-3xl font-semibold tracking-tight">Lieux</h1>
       <p className="mt-2 max-w-2xl text-[var(--color-muted)]">
-        Thesaurus villes et quartiers — utilisé dans les filtres catalogue et le
-        formulaire annonce. Les quartiers s’affichent toujours avec leur ville
-        (ex. Almadies · Dakar).
+        Thesaurus hiérarchique région → ville → quartier. Affichage type
+        « Almadies · Dakar · Dakar ».
       </p>
       <div className="mt-8">
         <LieuxAdmin cities={cities} quartiers={quartiers} />

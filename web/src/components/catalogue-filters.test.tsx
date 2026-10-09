@@ -13,10 +13,22 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("@/hooks/use-locations", () => ({
   useLocations: () => ({
-    cities: ["Dakar", "Thiès"],
+    cities: [
+      { name: "Dakar", region: "Dakar" },
+      { name: "Mbour", region: "Thiès" },
+    ],
     quartiers: [
-      { name: "Almadies", city: "Dakar" },
-      { name: "Mermoz", city: "Dakar" },
+      {
+        name: "Almadies",
+        city: "Dakar",
+        region: "Dakar",
+      },
+      {
+        name: "Cité Djily Mbaye",
+        city: "Dakar",
+        region: "Dakar",
+        aliases: ["djily"],
+      },
     ],
   }),
 }));
@@ -42,16 +54,25 @@ describe("CatalogueFilters", () => {
     expect(href).toContain("quartier=Almadies");
   });
 
-  it("suggests quartier with city label", async () => {
+  it("suggests city with region and quartier hierarchy after typing", async () => {
     const user = userEvent.setup();
     render(<CatalogueFilters channel="acheter" />);
 
+    const city = screen.getByLabelText(/^ville$/i);
+    await user.type(city, "Mb");
+    expect(await screen.findByRole("listbox")).toHaveTextContent(
+      /mbour · thiès/i,
+    );
+
+    // Clear partial city so quartier search is not scoped to "Mb".
+    await user.clear(city);
+
     const quartier = screen.getByLabelText(/^quartier$/i);
-    await user.click(quartier);
-    await user.type(quartier, "Alma");
-    expect(
-      await screen.findByRole("option", { name: /almadies · dakar/i }),
-    ).toBeInTheDocument();
+    await user.clear(quartier);
+    await user.type(quartier, "dj");
+    expect(await screen.findByRole("listbox")).toHaveTextContent(
+      /cité djily mbaye · dakar/i,
+    );
   });
 
   it("resets filters", async () => {

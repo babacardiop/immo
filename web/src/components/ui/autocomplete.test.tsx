@@ -4,7 +4,28 @@ import { describe, expect, it, vi } from "vitest";
 import { Autocomplete } from "@/components/ui/autocomplete";
 
 describe("Autocomplete", () => {
-  it("picks an option into the input", async () => {
+  it("does not open a full list on empty focus", async () => {
+    const user = userEvent.setup();
+    render(
+      <Autocomplete
+        id="city"
+        name="city"
+        aria-label="Ville"
+        value=""
+        onChange={vi.fn()}
+        options={[
+          { value: "Dakar", label: "Dakar" },
+          { value: "Thiès", label: "Thiès" },
+        ]}
+      />,
+    );
+
+    await user.click(screen.getByLabelText(/^ville$/i));
+    expect(screen.queryByRole("option")).not.toBeInTheDocument();
+    expect(screen.getByText(/au moins 2 lettres/i)).toBeInTheDocument();
+  });
+
+  it("picks an option into the input when query is ready", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     const onSelectOption = vi.fn();
@@ -13,13 +34,10 @@ describe("Autocomplete", () => {
         id="city"
         name="city"
         aria-label="Ville"
-        value=""
+        value="Da"
         onChange={onChange}
         onSelectOption={onSelectOption}
-        options={[
-          { value: "Dakar", label: "Dakar" },
-          { value: "Thiès", label: "Thiès" },
-        ]}
+        options={[{ value: "Dakar", label: "Dakar" }]}
       />,
     );
 
@@ -38,10 +56,7 @@ describe("Autocomplete", () => {
         aria-label="Ville"
         value="Dakar"
         onChange={onChange}
-        options={[
-          { value: "Dakar", label: "Dakar" },
-          { value: "Thiès", label: "Thiès" },
-        ]}
+        options={[{ value: "Dakar", label: "Dakar" }]}
       />,
     );
     expect(screen.getByLabelText(/^ville$/i)).toHaveValue("Dakar");
@@ -54,11 +69,9 @@ describe("Autocomplete", () => {
         id="quartier"
         name="quartier"
         aria-label="Quartier"
-        value=""
+        value="Al"
         onChange={vi.fn()}
-        options={[
-          { value: "Almadies", label: "Almadies · Dakar" },
-        ]}
+        options={[{ value: "Almadies", label: "Almadies · Dakar" }]}
       />,
     );
     await user.click(screen.getByLabelText(/^quartier$/i));

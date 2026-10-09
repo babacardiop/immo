@@ -12,7 +12,7 @@ import {
   propertyTypeLabel,
   transactionLabel,
 } from "@/lib/format";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import { formatLocationHierarchy } from "@/lib/locations/format";
 import { buildListingJsonLd } from "@/lib/seo/jsonld-listing";
 import { absoluteUrl } from "@/lib/seo/site";
 import { listingInquiryText } from "@/lib/whatsapp";
@@ -59,7 +59,10 @@ export async function PublicFiche({
             {listing.title}
           </h1>
           <p className="mt-2 text-[var(--color-muted)]">
-            {formatQuartierWithCity(listing.quartierLabel, listing.city)}
+            {formatLocationHierarchy({
+              quartier: listing.quartierLabel,
+              city: listing.city,
+            })}
           </p>
           {isSaleLike(listing.transaction) ? (
             <div className="mt-3">

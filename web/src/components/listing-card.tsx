@@ -10,7 +10,7 @@ import {
   pricePeriodSuffix,
   propertyTypeLabel,
 } from "@/lib/format";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import { formatLocationHierarchy } from "@/lib/locations/format";
 import { PaperBadge } from "@/components/paper-badge";
 
 export function ListingCard({ listing }: { listing: PublicListItem }) {
@@ -46,7 +46,10 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
         <p className="mt-1 text-sm text-[var(--color-muted)]">
           {propertyTypeLabel(listing.propertyType)}
           {listing.quartierLabel || listing.city
-            ? ` · ${formatQuartierWithCity(listing.quartierLabel, listing.city)}`
+            ? ` · ${formatLocationHierarchy({
+                quartier: listing.quartierLabel,
+                city: listing.city,
+              })}`
             : ""}
         </p>
         <p className="mt-2 font-medium">

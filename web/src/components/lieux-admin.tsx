@@ -11,18 +11,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import { formatLocationHierarchy } from "@/lib/locations/format";
+import { SENEGAL_REGIONS } from "@/lib/locations/regions";
 
 type CityRow = {
   id: string;
   name: string;
+  region: string;
   _count: { quartiers: number };
 };
 
 type QuartierRow = {
   id: string;
   name: string;
-  city: { id: string; name: string };
+  city: { id: string; name: string; region: string };
 };
 
 export function LieuxAdmin({
@@ -66,9 +68,25 @@ export function LieuxAdmin({
             });
           }}
         >
-          <div className="min-w-[200px] flex-1">
+          <div className="min-w-[160px] flex-1">
             <Label htmlFor="city-name">Ajouter une ville</Label>
             <Input id="city-name" name="name" required placeholder="Ex. Saly" />
+          </div>
+          <div className="min-w-[160px]">
+            <Label htmlFor="city-region">Région</Label>
+            <select
+              id="city-region"
+              name="region"
+              required
+              className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+              defaultValue="Dakar"
+            >
+              {SENEGAL_REGIONS.map((r) => (
+                <option key={r} value={r}>
+                  {r}
+                </option>
+              ))}
+            </select>
           </div>
           <Button type="submit" disabled={pending}>
             Ajouter
@@ -81,7 +99,10 @@ export function LieuxAdmin({
               className="flex items-center justify-between gap-3 px-3 py-2 text-sm"
             >
               <span>
-                {city.name}{" "}
+                {formatLocationHierarchy({
+                  city: city.name,
+                  region: city.region,
+                })}{" "}
                 <span className="text-[var(--color-muted)]">
                   ({city._count.quartiers} quartiers)
                 </span>
@@ -184,7 +205,13 @@ export function LieuxAdmin({
               key={q.id}
               className="flex items-center justify-between gap-3 px-3 py-2 text-sm"
             >
-              <span>{formatQuartierWithCity(q.name, q.city.name)}</span>
+              <span>
+                {formatLocationHierarchy({
+                  quartier: q.name,
+                  city: q.city.name,
+                  region: q.city.region,
+                })}
+              </span>
               <Button
                 type="button"
                 variant="ghost"
@@ -192,7 +219,11 @@ export function LieuxAdmin({
                 onClick={() => {
                   if (
                     !confirm(
-                      `Supprimer ${formatQuartierWithCity(q.name, q.city.name)} ?`,
+                      `Supprimer ${formatLocationHierarchy({
+                        quartier: q.name,
+                        city: q.city.name,
+                        region: q.city.region,
+                      })} ?`,
                     )
                   ) {
                     return;

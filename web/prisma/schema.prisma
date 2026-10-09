@@ -258,10 +258,12 @@ model Lead {
   updatedAt  DateTime   @updatedAt
 }
 
-/// Thesaurus villes (admin-editable).
+/// Thesaurus villes — toujours rattachées à une région (région → ville → quartier).
 model City {
   id        String     @id @default(cuid())
   name      String     @unique
+  /// Région administrative SN (obligatoire).
+  region    String
   active    Boolean    @default(true)
   sortOrder Int        @default(0)
   quartiers Quartier[]
@@ -269,6 +271,7 @@ model City {
   updatedAt DateTime   @updatedAt
 
   @@index([active, sortOrder])
+  @@index([region, name])
 }
 
 /// Thesaurus quartiers rattachés à une ville (admin-editable).

@@ -16,10 +16,17 @@ import { Label } from "@/components/ui/label";
 import { Autocomplete } from "@/components/ui/autocomplete";
 import { PaperBadge } from "@/components/paper-badge";
 import {
-  filterCityNames,
+  AddLocationPanel,
+  AddLocationTrigger,
+} from "@/components/add-location-inline";
+import {
+  filterCityEntries,
   filterQuartierEntries,
 } from "@/lib/locations/filter";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import {
+  formatCityWithRegion,
+  formatLocationHierarchy,
+} from "@/lib/locations/format";
 import { useLocations } from "@/hooks/use-locations";
 
 type ListingWithMandate = Listing & { mandate: Mandate | null };
@@ -47,12 +54,13 @@ export function ListingForm({
   const [quartierLabel, setQuartierLabel] = useState(
     listing?.quartierLabel ?? "",
   );
-  const { cities, quartiers } = useLocations();
+  const [addingLocation, setAddingLocation] = useState(false);
+  const { cities, quartiers, addLocal, refresh } = useLocations();
 
   const showSalePaperFields = isSaleLike(transaction);
-  const cityOptions = filterCityNames(cities, city).map((name) => ({
-    value: name,
-    label: name,
+  const cityOptions = filterCityEntries(cities, city).map((c) => ({
+    value: c.name,
+    label: formatCityWithRegion(c.name, c.region),
   }));
   const quartierOptions = filterQuartierEntries(
     quartiers,
@@ -60,8 +68,9 @@ export function ListingForm({
     city,
   ).map((q) => ({
     value: q.name,
-    label: formatQuartierWithCity(q.name, q.city),
+    label: formatLocationHierarchy(q),
     city: q.city,
+    region: q.region,
   }));
 
   useEffect(() => {
@@ -199,12 +208,20 @@ export function ListingForm({
             value={city}
             onChange={setCity}
             options={cityOptions}
-            placeholder="Dakar, Thiès…"
+            placeholder="Ex. Dak…"
+            typeHint="Tapez au moins 2 lettres…"
             required
           />
         </div>
         <div>
-          <Label htmlFor="quartierLabel">Quartier</Label>
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <Label htmlFor="quartierLabel" className="mb-0">
+              Quartier
+            </Label>
+            {!addingLocation ? (
+              <AddLocationTrigger onClick={() => setAddingLocation(true)} />
+            ) : null}
+          </div>
           <Autocomplete
             id="quartierLabel"
             name="quartierLabel"
@@ -219,10 +236,30 @@ export function ListingForm({
               if (match?.city) setCity(match.city);
             }}
             options={quartierOptions}
-            placeholder="Almadies · Dakar…"
+            placeholder="Ex. Alma… ou Djily…"
+            typeHint="Tapez au moins 2 lettres…"
             required
           />
         </div>
+        {addingLocation ? (
+          <div className="sm:col-span-2">
+            <AddLocationPanel
+              initialCity={city}
+              initialQuartier={quartierLabel}
+              onClose={() => setAddingLocation(false)}
+              onCreated={(created) => {
+                setCity(created.city);
+                setQuartierLabel(created.quartier);
+                addLocal({
+                  name: created.quartier,
+                  city: created.city,
+                  region: created.region,
+                });
+                refresh();
+              }}
+            />
+          </div>
+        ) : null}
         <div className="sm:col-span-2">
           <Label htmlFor="addressPublic">Adresse publique (approx.)</Label>
           <Input

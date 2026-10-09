@@ -4,6 +4,7 @@ import {
   SENEGAL_CITIES,
   SENEGAL_QUARTIERS,
 } from "../src/lib/locations/senegal";
+import { guessRegionForCity } from "../src/lib/locations/regions";
 
 const prisma = new PrismaClient();
 
@@ -33,8 +34,7 @@ async function seedUsers() {
   const adminEmail = (
     process.env.SEED_ADMIN_EMAIL ?? "admin@evergreen.sn"
   ).toLowerCase();
-  const adminPassword =
-    process.env.SEED_ADMIN_PASSWORD ?? password;
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? password;
   const adminHash = await bcrypt.hash(adminPassword, 12);
   const admin = await prisma.user.upsert({
     where: { email: adminEmail },
@@ -57,39 +57,31 @@ async function seedLocations() {
   let cityCount = 0;
   let quartierCount = 0;
 
-  for (const name of SENEGAL_CITIES) {
+  for (const entry of SENEGAL_CITIES) {
+    const region =
+      entry.region || guessRegionForCity(entry.name) || "Dakar";
     await prisma.city.upsert({
-      where: { name },
-      update: { active: true },
-      create: { name, active: true },
+      where: { name: entry.name },
+      update: { active: true, region },
+      create: { name: entry.name, active: true, region },
     });
     cityCount += 1;
   }
 
   for (const entry of SENEGAL_QUARTIERS) {
-    const city = await prisma.city.findUnique({ where: { name: entry.city } });
+    const region =
+      entry.region || guessRegionForCity(entry.city) || "Dakar";
+    let city = await prisma.city.findUnique({ where: { name: entry.city } });
     if (!city) {
-      const created = await prisma.city.create({
-        data: { name: entry.city, active: true },
+      city = await prisma.city.create({
+        data: { name: entry.city, active: true, region },
       });
       cityCount += 1;
-      await prisma.quartier.upsert({
-        where: {
-          cityId_name: { cityId: created.id, name: entry.name },
-        },
-        update: {
-          active: true,
-          aliases: entry.aliases ?? [],
-        },
-        create: {
-          name: entry.name,
-          cityId: created.id,
-          aliases: entry.aliases ?? [],
-          active: true,
-        },
+    } else if (!city.region) {
+      city = await prisma.city.update({
+        where: { id: city.id },
+        data: { region },
       });
-      quartierCount += 1;
-      continue;
     }
 
     await prisma.quartier.upsert({
@@ -110,7 +102,9 @@ async function seedLocations() {
     quartierCount += 1;
   }
 
-  console.log(`Seeded locations: ${cityCount} cities, ${quartierCount} quartiers`);
+  console.log(
+    `Seeded locations: ${cityCount} cities, ${quartierCount} quartiers`,
+  );
 }
 
 async function main() {

@@ -1,15 +1,42 @@
 import { describe, expect, it } from "vitest";
-import { formatQuartierWithCity } from "@/lib/locations/format";
+import {
+  formatCityWithRegion,
+  formatLocationHierarchy,
+} from "@/lib/locations/format";
 
-describe("formatQuartierWithCity", () => {
-  it("joins quartier and city", () => {
-    expect(formatQuartierWithCity("Almadies", "Dakar")).toBe(
-      "Almadies · Dakar",
-    );
+describe("formatLocationHierarchy", () => {
+  it("joins quartier · city · region", () => {
+    expect(
+      formatLocationHierarchy({
+        quartier: "Almadies",
+        city: "Dakar",
+        region: "Dakar",
+      }),
+    ).toBe("Almadies · Dakar");
   });
 
-  it("falls back to single part", () => {
-    expect(formatQuartierWithCity("Almadies", null)).toBe("Almadies");
-    expect(formatQuartierWithCity("", "Dakar")).toBe("Dakar");
+  it("keeps distinct region when different from city", () => {
+    expect(
+      formatLocationHierarchy({
+        quartier: "Saly Nord",
+        city: "Saly",
+        region: "Thiès",
+      }),
+    ).toBe("Saly Nord · Saly · Thiès");
+  });
+
+  it("accepts QuartierEntry.name as quartier", () => {
+    expect(
+      formatLocationHierarchy({
+        name: "Cité Djily Mbaye",
+        city: "Dakar",
+        region: "Dakar",
+      }),
+    ).toBe("Cité Djily Mbaye · Dakar");
+  });
+
+  it("formats city with region", () => {
+    expect(formatCityWithRegion("Mbour", "Thiès")).toBe("Mbour · Thiès");
+    expect(formatCityWithRegion("Dakar", "Dakar")).toBe("Dakar");
   });
 });

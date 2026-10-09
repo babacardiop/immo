@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { AUTOCOMPLETE_MIN_CHARS } from "@/lib/locations/filter";
 
 export type AutocompleteOption = {
   /** Valeur écrite dans l'input à la sélection (souvent le nom seul). */
@@ -20,7 +21,10 @@ type AutocompleteProps = {
   options: AutocompleteOption[];
   placeholder?: string;
   emptyHint?: string;
+  /** Hint when query is too short to search. */
+  typeHint?: string;
   required?: boolean;
+  minChars?: number;
   "aria-label"?: string;
 };
 
@@ -33,13 +37,18 @@ export function Autocomplete({
   options,
   placeholder,
   emptyHint = "Aucun résultat",
+  typeHint,
   required,
+  minChars = AUTOCOMPLETE_MIN_CHARS,
   "aria-label": ariaLabel,
 }: AutocompleteProps) {
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
+
+  const queryReady = value.trim().length >= minChars;
+  const showList = open && queryReady;
 
   useEffect(() => {
     function onDoc(e: MouseEvent) {
@@ -60,11 +69,7 @@ export function Autocomplete({
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
-      setOpen(true);
-      return;
-    }
-    if (!open) return;
+    if (!showList) return;
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -80,6 +85,9 @@ export function Autocomplete({
     }
   }
 
+  const hint =
+    typeHint ?? `Tapez au moins ${minChars} lettres pour chercher…`;
+
   return (
     <div ref={rootRef} className="relative">
       <Input
@@ -87,7 +95,7 @@ export function Autocomplete({
         name={name}
         role="combobox"
         aria-label={ariaLabel}
-        aria-expanded={open}
+        aria-expanded={showList}
         aria-controls={listId}
         aria-autocomplete="list"
         autoComplete="off"
@@ -101,7 +109,7 @@ export function Autocomplete({
         onFocus={() => setOpen(true)}
         onKeyDown={onKeyDown}
       />
-      {open ? (
+      {showList ? (
         <ul
           id={listId}
           role="listbox"
@@ -135,6 +143,10 @@ export function Autocomplete({
             ))
           )}
         </ul>
+      ) : open && !queryReady ? (
+        <p className="absolute z-20 mt-1 w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm text-[var(--color-muted)] shadow-md">
+          {hint}
+        </p>
       ) : null}
     </div>
   );

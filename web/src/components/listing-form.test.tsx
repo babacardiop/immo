@@ -12,12 +12,31 @@ vi.mock("@/app/actions/listings", () => ({
   updateListingAction: vi.fn(async () => ({ ok: false, error: "x" })),
 }));
 
+vi.mock("@/app/actions/locations", () => ({
+  createQuartierOnTheFlyAction: vi.fn(async () => ({
+    ok: true,
+    city: "Dakar",
+    quartier: "X",
+    region: "Dakar",
+  })),
+}));
+
 vi.mock("@/hooks/use-locations", () => ({
   useLocations: () => ({
-    cities: ["Dakar", "Thiès"],
-    quartiers: [{ name: "Almadies", city: "Dakar" }],
+    cities: [
+      { name: "Dakar", region: "Dakar" },
+      { name: "Thiès", region: "Thiès" },
+    ],
+    quartiers: [
+      { name: "Almadies", city: "Dakar", region: "Dakar" },
+    ],
+    addLocal: vi.fn(),
+    refresh: vi.fn(),
   }),
 }));
+
+
+
 
 
 afterEach(() => cleanup());
@@ -30,7 +49,11 @@ describe("ListingForm", () => {
     expect(view.getByLabelText(/référence/i)).toBeRequired();
     expect(view.getByLabelText(/prix/i)).toBeRequired();
     expect(view.getByLabelText(/^ville$/i)).toBeRequired();
-    expect(view.getByLabelText(/quartier/i)).toBeRequired();
+    expect(view.getByRole("combobox", { name: /^quartier$/i })).toBeRequired();
+    expect(
+      view.getByRole("button", { name: /ajouter un quartier/i }),
+    ).toBeInTheDocument();
+
     expect(view.getByLabelText(/description/i)).toBeRequired();
     expect(
       screen.getByRole("button", { name: /créer le brouillon/i }),

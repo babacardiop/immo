@@ -1,12 +1,13 @@
 import { prisma } from "@/lib/prisma";
-import type { QuartierEntry } from "@/lib/locations/senegal";
+import type { CityEntry, QuartierEntry } from "@/lib/locations/types";
 import {
   SENEGAL_CITIES,
   SENEGAL_QUARTIERS,
 } from "@/lib/locations/senegal";
+import { guessRegionForCity } from "@/lib/locations/regions";
 
 export type LocationsSnapshot = {
-  cities: string[];
+  cities: CityEntry[];
   quartiers: QuartierEntry[];
 };
 
@@ -14,8 +15,8 @@ export async function loadLocationsSnapshot(): Promise<LocationsSnapshot> {
   try {
     const cities = await prisma.city.findMany({
       where: { active: true },
-      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-      select: { name: true },
+      orderBy: [{ region: "asc" }, { sortOrder: "asc" }, { name: "asc" }],
+      select: { name: true, region: true },
     });
 
     if (cities.length === 0) {
@@ -28,15 +29,20 @@ export async function loadLocationsSnapshot(): Promise<LocationsSnapshot> {
       select: {
         name: true,
         aliases: true,
-        city: { select: { name: true } },
+        city: { select: { name: true, region: true } },
       },
     });
 
     return {
-      cities: cities.map((c) => c.name),
+      cities: cities.map((c) => ({
+        name: c.name,
+        region: c.region || guessRegionForCity(c.name) || "Dakar",
+      })),
       quartiers: quartiers.map((q) => ({
         name: q.name,
         city: q.city.name,
+        region:
+          q.city.region || guessRegionForCity(q.city.name) || "Dakar",
         aliases: q.aliases,
       })),
     };

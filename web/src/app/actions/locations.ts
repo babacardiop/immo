@@ -4,9 +4,10 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAgent } from "@/lib/session";
 import { isModeratorOrAbove } from "@/lib/roles";
+import { SENEGAL_REGIONS } from "@/lib/locations/regions";
 
 export type LocationActionResult =
-  | { ok: true }
+  | { ok: true; city?: string; quartier?: string; region?: string | null }
   | { ok: false; error: string };
 
 async function requireModerator() {
@@ -30,17 +31,88 @@ export async function createCityAction(
   try {
     await requireModerator();
     const name = String(formData.get("name") ?? "").trim();
+    const regionRaw = String(formData.get("region") ?? "").trim();
     if (name.length < 2) {
       return { ok: false, error: "Nom de ville trop court." };
     }
-    await prisma.city.create({ data: { name } });
+    if (!SENEGAL_REGIONS.includes(regionRaw as never)) {
+      return { ok: false, error: "Région obligatoire." };
+    }
+    await prisma.city.create({ data: { name, region: regionRaw } });
     revalidateLieux();
-    return { ok: true };
+    return { ok: true, city: name, region: regionRaw };
   } catch (e) {
     if (e instanceof Error && e.message === "FORBIDDEN") {
       return { ok: false, error: "Accès refusé." };
     }
     return { ok: false, error: "Ville déjà existante ou erreur." };
+  }
+}
+
+/**
+ * Agent-facing: create quartier (+ city if needed) from the listing form.
+ */
+export async function createQuartierOnTheFlyAction(input: {
+  quartier: string;
+  city: string;
+  region: string;
+}): Promise<LocationActionResult> {
+  try {
+    await requireAgent();
+
+    const quartier = input.quartier.trim();
+    const cityName = input.city.trim();
+    const region = input.region.trim();
+
+    if (quartier.length < 2) {
+      return { ok: false, error: "Nom de quartier trop court." };
+    }
+    if (cityName.length < 2) {
+      return { ok: false, error: "Nom de ville trop court." };
+    }
+    if (!SENEGAL_REGIONS.includes(region as never)) {
+      return { ok: false, error: "Région invalide." };
+    }
+
+    let city = await prisma.city.findUnique({ where: { name: cityName } });
+    if (!city) {
+      city = await prisma.city.create({
+        data: { name: cityName, region, active: true },
+      });
+    } else {
+      // Region is mandatory — keep existing unless empty, else bind to provided.
+      city = await prisma.city.update({
+        where: { id: city.id },
+        data: {
+          active: true,
+          region: city.region || region,
+        },
+      });
+    }
+
+    await prisma.quartier.upsert({
+      where: {
+        cityId_name: { cityId: city.id, name: quartier },
+      },
+      create: {
+        name: quartier,
+        cityId: city.id,
+        active: true,
+      },
+      update: { active: true },
+    });
+
+    revalidateLieux();
+    return { ok: true, city: cityName, quartier, region };
+  } catch (e) {
+    if (e instanceof Error && e.message === "FORBIDDEN") {
+      return { ok: false, error: "Accès refusé." };
+    }
+    if (e instanceof Error && e.message === "UNAUTHORIZED") {
+      return { ok: false, error: "Connexion requise." };
+    }
+    console.error(e);
+    return { ok: false, error: "Impossible d’ajouter ce lieu." };
   }
 }
 
