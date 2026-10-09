@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { PublicFiche } from "@/components/public-fiche";
 import { getPublishedListingBySlug } from "@/lib/listings/public-query";
 import { formatFcfa } from "@/lib/format";
@@ -33,7 +34,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function AcheterFichePage({ params }: Props) {
+export default function AcheterFichePage({ params }: Props) {
+  return (
+    <Suspense
+      fallback={
+        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+          <p className="text-[var(--color-muted)]">Chargement…</p>
+        </main>
+      }
+    >
+      <AcheterFiche params={params} />
+    </Suspense>
+  );
+}
+
+async function AcheterFiche({ params }: Props) {
   const { slug } = await params;
   return <PublicFiche channel="acheter" slug={slug} />;
 }

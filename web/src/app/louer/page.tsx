@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CataloguePage } from "@/components/catalogue-page";
+import { CatalogueSkeleton } from "@/components/catalogue-skeleton";
 import { parseCatalogueSearchParams } from "@/lib/listings/parse-filters";
 
 export const metadata: Metadata = {
@@ -8,7 +10,23 @@ export const metadata: Metadata = {
     "Locations curated au Sénégal — appartements et maisons sélectionnés par l’agence.",
 };
 
-export default async function LouerPage({
+const TITLE = "Louer";
+const SUBTITLE =
+  "Locations sélectionnées — contact WhatsApp pour une visite.";
+
+export default function LouerPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  return (
+    <Suspense fallback={<CatalogueSkeleton title={TITLE} subtitle={SUBTITLE} />}>
+      <LouerCatalogue searchParams={searchParams} />
+    </Suspense>
+  );
+}
+
+async function LouerCatalogue({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -19,8 +37,8 @@ export default async function LouerPage({
   return (
     <CataloguePage
       channel="louer"
-      title="Louer"
-      subtitle="Locations sélectionnées — contact WhatsApp pour une visite."
+      title={TITLE}
+      subtitle={SUBTITLE}
       filters={filters}
     />
   );

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CataloguePage } from "@/components/catalogue-page";
+import { CatalogueSkeleton } from "@/components/catalogue-skeleton";
 import { parseCatalogueSearchParams } from "@/lib/listings/parse-filters";
 
 export const metadata: Metadata = {
@@ -8,7 +10,23 @@ export const metadata: Metadata = {
     "Catalogue curated de biens à vendre au Sénégal — terrains, maisons, appartements, papiers nommés.",
 };
 
-export default async function AcheterPage({
+const TITLE = "Acheter";
+const SUBTITLE =
+  "Biens curated à vendre — pastille papier obligatoire, stock agence.";
+
+export default function AcheterPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  return (
+    <Suspense fallback={<CatalogueSkeleton title={TITLE} subtitle={SUBTITLE} />}>
+      <AcheterCatalogue searchParams={searchParams} />
+    </Suspense>
+  );
+}
+
+async function AcheterCatalogue({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -19,8 +37,8 @@ export default async function AcheterPage({
   return (
     <CataloguePage
       channel="acheter"
-      title="Acheter"
-      subtitle="Biens curated à vendre — pastille papier obligatoire, stock agence."
+      title={TITLE}
+      subtitle={SUBTITLE}
       filters={filters}
     />
   );
