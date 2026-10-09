@@ -5,12 +5,14 @@
 
 ## Todo
 
-- [ ] Schema complet Listing (champs `05`) · PaperBadge · Mandate · MediaAsset
-- [ ] API/Server Actions CRUD listing (agent scoped)
-- [ ] Upload media → S3/R2 public bucket · ACL vault séparée
-- [ ] Gate publish : `statut_papier` ∈ {TF, Bail, Délibération} sinon 422
-- [ ] Soft delete / archive
-- [ ] Rate limit mutations agent
+- [x] Schema complet Listing (champs `05` cœur) · PaperBadge · Mandate · MediaAsset
+- [x] API/Server Actions CRUD listing (agent scoped)
+- [x] Upload media → S3/R2 public bucket · ACL vault séparée
+- [x] Gate publish : `statut_papier` ∈ {TF, Bail, Délibération} sinon reject
+- [x] Soft delete / archive
+- [x] Rate limit mutations agent
+- [x] Photo reorder (sortOrder ↑↓)
+- [x] Location : paperType/NICAD forcés null
 
 ## Refs
 

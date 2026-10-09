@@ -10,6 +10,7 @@ vi.mock("next/navigation", () => ({
 vi.mock("@/app/actions/listings", () => ({
   uploadListingPhotosAction: vi.fn(async () => ({ ok: true, id: "1" })),
   deleteListingPhotoAction: vi.fn(async () => ({ ok: true })),
+  reorderListingPhotoAction: vi.fn(async () => ({ ok: true })),
 }));
 
 afterEach(() => cleanup());

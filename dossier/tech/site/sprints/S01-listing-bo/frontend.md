@@ -2,12 +2,13 @@
 
 ## Todo
 
-- [ ] `/espace/agent` dashboard stub + nav
-- [ ] Liste annonces agent (W-AGT-LIST)
-- [ ] Form create/edit listing (W-AGT-EDIT) champs `05`
-- [ ] Upload photos UI + ordre
-- [ ] Bouton Publier + message erreur gate papier
-- [ ] Badge papier preview
+- [x] `/espace/agent` dashboard stub + nav
+- [x] Liste annonces agent (W-AGT-LIST)
+- [x] Form create/edit listing (W-AGT-EDIT) champs `05` cœur
+- [x] Upload photos UI + ordre (↑↓)
+- [x] Bouton Publier + message erreur gate papier / photos
+- [x] Badge papier preview (masqué en location)
+- [x] Slug URL Expat-style + redirect depuis cuid
 
 ## Refs
 

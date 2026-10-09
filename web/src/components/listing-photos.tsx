@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { MediaAsset } from "@prisma/client";
 import {
   deleteListingPhotoAction,
+  reorderListingPhotoAction,
   uploadListingPhotosAction,
 } from "@/app/actions/listings";
 import { Button } from "@/components/ui/button";
@@ -29,6 +30,19 @@ export function ListingPhotos({
     setPreview(urls);
   }
 
+  function run(action: () => Promise<{ ok: boolean; error?: string }>) {
+    setError(null);
+    startTransition(async () => {
+      try {
+        const res = await action();
+        if (!res.ok) setError(res.error ?? "Erreur");
+        else router.refresh();
+      } catch {
+        setError("Action interrompue. Réessayez.");
+      }
+    });
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <form
@@ -39,20 +53,13 @@ export function ListingPhotos({
           const form = formRef.current;
           if (!form) return;
           const fd = new FormData(form);
-          setError(null);
-          startTransition(async () => {
-            try {
-              const res = await uploadListingPhotosAction(listingId, fd);
-              if (!res.ok) {
-                setError(res.error);
-                return;
-              }
+          run(async () => {
+            const res = await uploadListingPhotosAction(listingId, fd);
+            if (res.ok) {
               setPreview([]);
               formRef.current?.reset();
-              router.refresh();
-            } catch {
-              setError("Upload interrompu. Réessayez.");
             }
+            return res;
           });
         }}
       >
@@ -91,7 +98,7 @@ export function ListingPhotos({
       ) : null}
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {photos.map((p) => (
+        {photos.map((p, index) => (
           <li
             key={p.id}
             className="relative overflow-hidden rounded border border-[var(--color-steel)]/40"
@@ -108,19 +115,39 @@ export function ListingPhotos({
                 Pas d’URL
               </div>
             )}
-            <div className="p-1">
+            <div className="flex flex-col gap-1 p-1">
+              <div className="flex gap-1">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="flex-1 text-xs"
+                  disabled={pending || index === 0}
+                  aria-label="Monter la photo"
+                  onClick={() =>
+                    run(() => reorderListingPhotoAction(p.id, "up"))
+                  }
+                >
+                  ↑
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="flex-1 text-xs"
+                  disabled={pending || index === photos.length - 1}
+                  aria-label="Descendre la photo"
+                  onClick={() =>
+                    run(() => reorderListingPhotoAction(p.id, "down"))
+                  }
+                >
+                  ↓
+                </Button>
+              </div>
               <Button
                 type="button"
                 variant="ghost"
                 className="w-full text-xs"
                 disabled={pending}
-                onClick={() => {
-                  startTransition(async () => {
-                    const res = await deleteListingPhotoAction(p.id);
-                    if (!res.ok) setError(res.error);
-                    else router.refresh();
-                  });
-                }}
+                onClick={() => run(() => deleteListingPhotoAction(p.id))}
               >
                 Supprimer
               </Button>
@@ -129,7 +156,8 @@ export function ListingPhotos({
         ))}
       </ul>
       <p className="text-xs text-[var(--color-muted)]">
-        {photos.length} photo(s) — 3 minimum pour publier.
+        {photos.length} photo(s) — 3 minimum pour publier. Utilisez ↑↓ pour
+        l’ordre (1ʳᵉ = couverture).
       </p>
     </div>
   );

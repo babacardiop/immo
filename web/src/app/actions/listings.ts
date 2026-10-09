@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { requireAgent, isModeratorOrAbove } from "@/lib/session";
+import { requireAgent } from "@/lib/session";
 import { rateLimit } from "@/lib/rate-limit";
 import { listingFormSchema } from "@/lib/listings/schema";
 import { canMutateListing } from "@/lib/listings/acl";
@@ -403,6 +403,61 @@ export async function uploadListingPhotosAction(
   }
 }
 
+export async function reorderListingPhotoAction(
+  mediaId: string,
+  direction: "up" | "down",
+): Promise<ActionResult> {
+  try {
+    const user = await requireAgent();
+    const media = await prisma.mediaAsset.findUnique({
+      where: { id: mediaId },
+      include: { listing: true },
+    });
+    if (!media?.listingId || !media.listing) {
+      return { ok: false, error: "Introuvable." };
+    }
+    if (
+      !canMutateListing({
+        listingAgentId: media.listing.agentId,
+        actorId: user.id,
+        actorRole: user.role,
+      })
+    ) {
+      return { ok: false, error: "Accès refusé.", code: "FORBIDDEN" };
+    }
+
+    const photos = await prisma.mediaAsset.findMany({
+      where: { listingId: media.listingId, kind: "PHOTO" },
+      orderBy: { sortOrder: "asc" },
+    });
+    const index = photos.findIndex((p) => p.id === mediaId);
+    if (index < 0) return { ok: false, error: "Introuvable." };
+    const swapWith = direction === "up" ? index - 1 : index + 1;
+    if (swapWith < 0 || swapWith >= photos.length) {
+      return { ok: true, id: media.listingId, slug: media.listing.slug ?? undefined };
+    }
+
+    const a = photos[index]!;
+    const b = photos[swapWith]!;
+    await prisma.$transaction([
+      prisma.mediaAsset.update({
+        where: { id: a.id },
+        data: { sortOrder: b.sortOrder },
+      }),
+      prisma.mediaAsset.update({
+        where: { id: b.id },
+        data: { sortOrder: a.sortOrder },
+      }),
+    ]);
+
+    revalidateListing(media.listing.slug, media.listingId);
+    return { ok: true, id: media.listingId, slug: media.listing.slug ?? undefined };
+  } catch (e) {
+    console.error(e);
+    return { ok: false, error: "Réordonnancement impossible." };
+  }
+}
+
 export async function deleteListingPhotoAction(
   mediaId: string,
 ): Promise<ActionResult> {
@@ -414,8 +469,11 @@ export async function deleteListingPhotoAction(
     });
     if (!media?.listing) return { ok: false, error: "Introuvable." };
     if (
-      media.listing.agentId !== user.id &&
-      !isModeratorOrAbove(user.role)
+      !canMutateListing({
+        listingAgentId: media.listing.agentId,
+        actorId: user.id,
+        actorRole: user.role,
+      })
     ) {
       return { ok: false, error: "Accès refusé.", code: "FORBIDDEN" };
     }

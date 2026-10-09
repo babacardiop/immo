@@ -1,6 +1,6 @@
-# EverGreen web (S00 fondations)
+# EverGreen web (S00–S01)
 
-Next.js App Router · Prisma · Auth.js · Tailwind
+Next.js App Router · Prisma · Auth.js · Tailwind · R2 media
 
 ## Local setup
 
@@ -26,10 +26,15 @@ Default seed agent: `agent@evergreen.sn` / `ChangeMeStaging1!` (override via `SE
 | --- | --- |
 | `npm run dev` | Dev server |
 | `npm run build` / `start` | Production |
-| `npm run lint` / `typecheck` / `test` | CI gates |
+| `npm run lint` / `typecheck` / `test` | CI gates (Vitest) |
+| `npm run test:e2e` | Playwright soft (needs build + seed; or `E2E_BASE_URL`) |
+| `npm run test:e2e:install` | Install Chromium for Playwright |
 | `npm run db:migrate` | Dev migrations |
 | `npm run db:seed` | Seed staging agent |
 
+Upload limits: [`docs/upload-limits.md`](./docs/upload-limits.md)
+
 ## Render
 
-Root Directory: `web` · Build: `npm ci && npm run build` · Start: `npm start`
+Root Directory: `web` · Build: `npm ci && npm run build` · Start: `npm start`  
+Set all `S3_*` + `AUTH_URL` / `NEXT_PUBLIC_SITE_URL` to the public staging host.
