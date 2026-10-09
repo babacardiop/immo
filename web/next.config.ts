@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  images: {
+    // Listing photos use unoptimized <Image>; allow common R2 public hosts.
+    remotePatterns: [
+      { protocol: "https", hostname: "**.r2.dev" },
+      { protocol: "https", hostname: "**.r2.cloudflarestorage.com" },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {
