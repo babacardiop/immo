@@ -15,6 +15,31 @@ Chaque sprint = dossier avec **5 fichiers** :
 
 ---
 
+## Règle tests (obligatoire)
+
+**Chaque todo `backend.md` / `frontend.md` a au moins un test unitaire (ou d’intégration) nommé dans `*-tests.md`.**  
+Pas de merge Sxx sans : `npm test` + `npm run typecheck` verts en CI.
+
+| Couche | Où vivent les tests | Stack |
+| --- | --- | --- |
+| Domaine / gates / ACL / slug / MIME | `web/src/lib/**/*.test.ts` | Vitest |
+| Route handlers | `web/src/app/api/**/*.test.ts` | Vitest |
+| Composants UI | `web/src/components/**/*.test.tsx` | Vitest + Testing Library |
+| Parcours critiques | `web/e2e/**` (quand ajouté) | Playwright |
+
+Convention todo test :
+
+```markdown
+- [ ] Nom du comportement
+  - File: `web/src/.../foo.test.ts`
+  - Couvre: todo backend/frontend lié
+  - Done when: assert explicite + CI green
+```
+
+**Règle couverture sprint :** avant gate Done, cocher tous les items `*-tests.md` du sprint (unit d’abord ; Playwright soft si listé).
+
+---
+
 ## Stack infra (décision)
 
 | Couche | Choix | Pourquoi |

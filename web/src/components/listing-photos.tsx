@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import Image from "next/image";
+import { useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import type { MediaAsset } from "@prisma/client";
 import {
   deleteListingPhotoAction,
@@ -17,6 +17,8 @@ export function ListingPhotos({
   listingId: string;
   photos: MediaAsset[];
 }) {
+  const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const [preview, setPreview] = useState<string[]>([]);
@@ -30,17 +32,26 @@ export function ListingPhotos({
   return (
     <div className="flex flex-col gap-4">
       <form
+        ref={formRef}
         className="flex flex-col gap-3"
         onSubmit={(e) => {
           e.preventDefault();
-          const fd = new FormData(e.currentTarget);
+          const form = formRef.current;
+          if (!form) return;
+          const fd = new FormData(form);
           setError(null);
           startTransition(async () => {
-            const res = await uploadListingPhotosAction(listingId, fd);
-            if (!res.ok) setError(res.error);
-            else {
+            try {
+              const res = await uploadListingPhotosAction(listingId, fd);
+              if (!res.ok) {
+                setError(res.error);
+                return;
+              }
               setPreview([]);
-              e.currentTarget.reset();
+              formRef.current?.reset();
+              router.refresh();
+            } catch {
+              setError("Upload interrompu. Réessayez.");
             }
           });
         }}
@@ -81,33 +92,39 @@ export function ListingPhotos({
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {photos.map((p) => (
-          <li key={p.id} className="relative overflow-hidden rounded border border-[var(--color-steel)]/40">
+          <li
+            key={p.id}
+            className="relative overflow-hidden rounded border border-[var(--color-steel)]/40"
+          >
             {p.url ? (
-              <Image
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 src={p.url}
                 alt={p.alt ?? ""}
-                width={200}
-                height={150}
                 className="h-28 w-full object-cover"
-                unoptimized
               />
             ) : (
               <div className="flex h-28 items-center justify-center text-xs text-[var(--color-muted)]">
                 Pas d’URL
               </div>
             )}
-            <form
-              className="p-1"
-              action={() => {
-                startTransition(async () => {
-                  await deleteListingPhotoAction(p.id);
-                });
-              }}
-            >
-              <Button type="submit" variant="ghost" className="w-full text-xs">
+            <div className="p-1">
+              <Button
+                type="button"
+                variant="ghost"
+                className="w-full text-xs"
+                disabled={pending}
+                onClick={() => {
+                  startTransition(async () => {
+                    const res = await deleteListingPhotoAction(p.id);
+                    if (!res.ok) setError(res.error);
+                    else router.refresh();
+                  });
+                }}
+              >
                 Supprimer
               </Button>
-            </form>
+            </div>
           </li>
         ))}
       </ul>

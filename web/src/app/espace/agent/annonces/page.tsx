@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { PaperBadge } from "@/components/paper-badge";
 import { isModeratorOrAbove } from "@/lib/session";
+import { listingPath } from "@/lib/listings/slug";
 
 export default async function AnnoncesListPage() {
   const session = await auth();
@@ -46,7 +47,7 @@ export default async function AnnoncesListPage() {
             <li key={l.id} className="flex flex-wrap items-center justify-between gap-3 py-4">
               <div>
                 <Link
-                  href={`/espace/agent/annonces/${l.id}`}
+                  href={listingPath(l.slug ?? l.id)}
                   className="font-medium hover:underline"
                 >
                   {l.title}

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { uploadMandatePdfAction } from "@/app/actions/listings";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,24 +13,35 @@ export function MandatePdfUpload({
   listingId: string;
   docsCount: number;
 }) {
+  const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState(false);
   const [pending, startTransition] = useTransition();
 
   return (
     <form
+      ref={formRef}
       className="flex max-w-md flex-col gap-3"
       onSubmit={(e) => {
         e.preventDefault();
-        const fd = new FormData(e.currentTarget);
+        const form = formRef.current;
+        if (!form) return;
+        const fd = new FormData(form);
         setError(null);
         setOk(false);
         startTransition(async () => {
-          const res = await uploadMandatePdfAction(listingId, fd);
-          if (!res.ok) setError(res.error);
-          else {
+          try {
+            const res = await uploadMandatePdfAction(listingId, fd);
+            if (!res.ok) {
+              setError(res.error);
+              return;
+            }
             setOk(true);
-            e.currentTarget.reset();
+            formRef.current?.reset();
+            router.refresh();
+          } catch {
+            setError("Upload interrompu. Réessayez.");
           }
         });
       }}

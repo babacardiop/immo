@@ -1,13 +1,15 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Listing, Mandate, PaperType } from "@prisma/client";
+import type { Listing, Mandate, PaperType, TransactionType } from "@prisma/client";
 import {
   createListingAction,
   updateListingAction,
   type ActionResult,
 } from "@/app/actions/listings";
+import { isSaleLike } from "@/lib/listings/paper";
+import { listingPath } from "@/lib/listings/slug";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,14 +30,21 @@ export function ListingForm({
     : createListingAction;
 
   const [state, formAction, pending] = useActionState(action, initial);
+  const [transaction, setTransaction] = useState<TransactionType>(
+    listing?.transaction ?? "SALE",
+  );
+  const [paperType, setPaperType] = useState<PaperType>(
+    listing?.paperType ?? "TF",
+  );
+
+  const showSalePaperFields = isSaleLike(transaction);
 
   useEffect(() => {
-    if (state?.ok && state.id && !listing) {
-      router.push(`/espace/agent/annonces/${state.id}`);
+    if (!state?.ok || !state.slug) return;
+    if (!listing || listing.slug !== state.slug) {
+      router.push(listingPath(state.slug));
     }
   }, [state, listing, router]);
-
-  const paperDefault = listing?.paperType ?? "TF";
 
   return (
     <form action={formAction} className="flex max-w-2xl flex-col gap-5">
@@ -61,7 +70,9 @@ export function ListingForm({
           />
         </div>
         <div>
-          <Label htmlFor="priceFcfa">Prix (FCFA)</Label>
+          <Label htmlFor="priceFcfa">
+            {transaction === "RENT" ? "Loyer (FCFA / mois)" : "Prix (FCFA)"}
+          </Label>
           <Input
             id="priceFcfa"
             name="priceFcfa"
@@ -77,7 +88,10 @@ export function ListingForm({
             id="transaction"
             name="transaction"
             className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
-            defaultValue={listing?.transaction ?? "SALE"}
+            value={transaction}
+            onChange={(e) =>
+              setTransaction(e.target.value as TransactionType)
+            }
           >
             <option value="SALE">Vente</option>
             <option value="RENT">Location</option>
@@ -99,40 +113,53 @@ export function ListingForm({
             <option value="OFFICE">Bureau</option>
           </select>
         </div>
-        <div>
-          <Label htmlFor="paperType">Papier</Label>
-          <select
-            id="paperType"
-            name="paperType"
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
-            defaultValue={paperDefault}
-            onChange={() => {
-              /* preview handled below via native; badge uses default */
-            }}
-          >
-            <option value="TF">Titre foncier</option>
-            <option value="BAIL_EMPHYTEOTIQUE">Bail emphytéotique</option>
-            <option value="BAIL_ORDINAIRE">Bail</option>
-            <option value="DELIBERATION">Délibération</option>
-            <option value="OTHER">Autre (non publiable)</option>
-          </select>
-          <div className="mt-2">
-            <PaperBadge type={paperDefault as PaperType} />
-          </div>
-        </div>
-        <div>
-          <Label htmlFor="paperVerifiedLevel">Niveau vérif.</Label>
-          <select
-            id="paperVerifiedLevel"
-            name="paperVerifiedLevel"
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
-            defaultValue={listing?.paperVerifiedLevel ?? "DECLARED"}
-          >
-            <option value="DECLARED">Déclaré</option>
-            <option value="DOCS_ON_FILE">Docs en dossier</option>
-            <option value="DILIGENCE_DONE">Diligence faite</option>
-          </select>
-        </div>
+
+        {showSalePaperFields ? (
+          <>
+            <div>
+              <Label htmlFor="paperType">Papier</Label>
+              <select
+                id="paperType"
+                name="paperType"
+                className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+                value={paperType}
+                onChange={(e) => setPaperType(e.target.value as PaperType)}
+              >
+                <option value="TF">Titre foncier</option>
+                <option value="BAIL_EMPHYTEOTIQUE">Bail emphytéotique</option>
+                <option value="BAIL_ORDINAIRE">Bail</option>
+                <option value="DELIBERATION">Délibération</option>
+                <option value="OTHER">Autre (non publiable)</option>
+              </select>
+              <div className="mt-2">
+                <PaperBadge type={paperType} />
+              </div>
+            </div>
+            <div>
+              <Label htmlFor="paperVerifiedLevel">Niveau vérif.</Label>
+              <select
+                id="paperVerifiedLevel"
+                name="paperVerifiedLevel"
+                className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+                defaultValue={listing?.paperVerifiedLevel ?? "DECLARED"}
+              >
+                <option value="DECLARED">Déclaré</option>
+                <option value="DOCS_ON_FILE">Docs en dossier</option>
+                <option value="DILIGENCE_DONE">Diligence faite</option>
+              </select>
+            </div>
+            <div>
+              <Label htmlFor="nicad">NICAD</Label>
+              <Input
+                id="nicad"
+                name="nicad"
+                maxLength={16}
+                defaultValue={listing?.nicad ?? ""}
+              />
+            </div>
+          </>
+        ) : null}
+
         <div>
           <Label htmlFor="city">Ville</Label>
           <Input
@@ -167,15 +194,6 @@ export function ListingForm({
             type="number"
             step="0.01"
             defaultValue={listing?.areaM2?.toString() ?? ""}
-          />
-        </div>
-        <div>
-          <Label htmlFor="nicad">NICAD</Label>
-          <Input
-            id="nicad"
-            name="nicad"
-            maxLength={16}
-            defaultValue={listing?.nicad ?? ""}
           />
         </div>
         <div>
@@ -247,20 +265,25 @@ export function ListingForm({
             />
           </div>
         </div>
+        <p className="mt-2 text-xs text-[var(--color-muted)]">
+          Pour publier, le statut mandat doit être <strong>Actif</strong>.
+        </p>
       </fieldset>
 
-      <div className="flex items-start gap-2">
-        <input
-          id="deliberationDisclaimerAck"
-          name="deliberationDisclaimerAck"
-          type="checkbox"
-          defaultChecked={listing?.deliberationDisclaimerAck ?? false}
-          className="mt-1 h-4 w-4"
-        />
-        <Label htmlFor="deliberationDisclaimerAck">
-          J’accuse réception : une délibération n’est pas un titre foncier.
-        </Label>
-      </div>
+      {showSalePaperFields && paperType === "DELIBERATION" ? (
+        <div className="flex items-start gap-2">
+          <input
+            id="deliberationDisclaimerAck"
+            name="deliberationDisclaimerAck"
+            type="checkbox"
+            defaultChecked={listing?.deliberationDisclaimerAck ?? false}
+            className="mt-1 h-4 w-4"
+          />
+          <Label htmlFor="deliberationDisclaimerAck">
+            J’accuse réception : une délibération n’est pas un titre foncier.
+          </Label>
+        </div>
+      ) : null}
 
       {state && !state.ok ? (
         <p role="alert" className="text-sm text-red-700">

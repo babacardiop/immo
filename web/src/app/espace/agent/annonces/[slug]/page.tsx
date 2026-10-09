@@ -1,7 +1,8 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { isModeratorOrAbove } from "@/lib/session";
+import { listingPath } from "@/lib/listings/slug";
 import { ListingForm } from "@/components/listing-form";
 import { ListingPhotos } from "@/components/listing-photos";
 import { PublishControls } from "@/components/publish-controls";
@@ -11,14 +12,14 @@ import { MandatePdfUpload } from "@/components/mandate-pdf-upload";
 export default async function AnnonceDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
+  const { slug: param } = await params;
   const session = await auth();
   if (!session?.user?.id) return null;
 
-  const listing = await prisma.listing.findUnique({
-    where: { id },
+  let listing = await prisma.listing.findUnique({
+    where: { slug: param },
     include: {
       mandate: { include: { media: true } },
       media: {
@@ -27,6 +28,24 @@ export default async function AnnonceDetailPage({
       },
     },
   });
+
+  // Back-compat: old cuid URLs → redirect to slug URL
+  if (!listing) {
+    const byId = await prisma.listing.findUnique({
+      where: { id: param },
+      include: {
+        mandate: { include: { media: true } },
+        media: {
+          where: { kind: "PHOTO" },
+          orderBy: { sortOrder: "asc" },
+        },
+      },
+    });
+    if (byId?.slug) {
+      permanentRedirect(listingPath(byId.slug));
+    }
+    listing = byId;
+  }
 
   if (!listing) notFound();
   if (
@@ -47,7 +66,7 @@ export default async function AnnonceDetailPage({
             {listing.title}
           </h1>
           <p className="mt-1 text-sm text-[var(--color-muted)]">
-            {listing.status} · {listing.slug}
+            {listing.status} · /{listing.slug}
           </p>
           <div className="mt-2">
             <PaperBadge type={listing.paperType} />
@@ -58,6 +77,8 @@ export default async function AnnonceDetailPage({
           status={listing.status}
           transaction={listing.transaction}
           paperType={listing.paperType}
+          mandateStatus={listing.mandate?.status ?? null}
+          photoCount={photos.length}
         />
       </div>
 

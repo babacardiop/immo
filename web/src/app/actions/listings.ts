@@ -6,7 +6,8 @@ import { prisma } from "@/lib/prisma";
 import { requireAgent, isModeratorOrAbove } from "@/lib/session";
 import { rateLimit } from "@/lib/rate-limit";
 import { listingFormSchema } from "@/lib/listings/schema";
-import { buildListingSlug } from "@/lib/listings/slug";
+import { canMutateListing } from "@/lib/listings/acl";
+import { buildListingSlug, listingPath } from "@/lib/listings/slug";
 import { evaluatePublishGate } from "@/lib/listings/publish-gate";
 import {
   deletePublicObject,
@@ -16,8 +17,15 @@ import {
 } from "@/lib/storage/r2";
 
 export type ActionResult =
-  | { ok: true; id?: string }
+  | { ok: true; id?: string; slug?: string }
   | { ok: false; error: string; code?: string };
+
+function revalidateListing(slug: string | null | undefined, id: string) {
+  revalidatePath("/espace/agent");
+  revalidatePath("/espace/agent/annonces");
+  if (slug) revalidatePath(listingPath(slug));
+  revalidatePath(listingPath(id)); // legacy id URLs during transition
+}
 
 async function assertCanMutate(listingId: string, userId: string, role: string) {
   const listing = await prisma.listing.findUnique({
@@ -26,8 +34,11 @@ async function assertCanMutate(listingId: string, userId: string, role: string) 
   });
   if (!listing) throw new Error("NOT_FOUND");
   if (
-    listing.agentId !== userId &&
-    !isModeratorOrAbove(role as never)
+    !canMutateListing({
+      listingAgentId: listing.agentId,
+      actorId: userId,
+      actorRole: role as never,
+    })
   ) {
     throw new Error("FORBIDDEN");
   }
@@ -88,7 +99,13 @@ export async function createListingAction(
       return { ok: false, error: "Champs invalides.", code: "VALIDATION" };
     }
     const data = parsed.data;
-    const slug = buildListingSlug(data.title, data.reference);
+    const slug = buildListingSlug({
+      title: data.title,
+      reference: data.reference,
+      city: data.city,
+      transaction: data.transaction,
+      propertyType: data.propertyType,
+    });
 
     const listing = await prisma.listing.create({
       data: {
@@ -122,9 +139,8 @@ export async function createListingAction(
       },
     });
 
-    revalidatePath("/espace/agent");
-    revalidatePath("/espace/agent/annonces");
-    return { ok: true, id: listing.id };
+    revalidateListing(listing.slug, listing.id);
+    return { ok: true, id: listing.id, slug: listing.slug ?? slug };
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === "P2002") {
       return { ok: false, error: "Référence ou slug déjà utilisé." };
@@ -153,7 +169,13 @@ export async function updateListingAction(
       return { ok: false, error: "Champs invalides.", code: "VALIDATION" };
     }
     const data = parsed.data;
-    const slug = buildListingSlug(data.title, data.reference);
+    const slug = buildListingSlug({
+      title: data.title,
+      reference: data.reference,
+      city: data.city,
+      transaction: data.transaction,
+      propertyType: data.propertyType,
+    });
 
     await prisma.listing.update({
       where: { id: listingId },
@@ -193,10 +215,8 @@ export async function updateListingAction(
       },
     });
 
-    revalidatePath("/espace/agent");
-    revalidatePath("/espace/agent/annonces");
-    revalidatePath(`/espace/agent/annonces/${listingId}`);
-    return { ok: true, id: listingId };
+    revalidateListing(slug, listingId);
+    return { ok: true, id: listingId, slug };
   } catch (e) {
     if (e instanceof Error && e.message === "FORBIDDEN") {
       return { ok: false, error: "Accès refusé.", code: "FORBIDDEN" };
@@ -216,7 +236,27 @@ export async function publishListingAction(
       return { ok: false, error: "Trop de publications. Réessayez bientôt." };
     }
 
-    const listing = await assertCanMutate(listingId, user.id, user.role);
+    let listing = await assertCanMutate(listingId, user.id, user.role);
+
+    // Publishing implies an active mandate: create or activate so agents
+    // are not blocked by forgetting to click « Enregistrer » after the dropdown.
+    if (!listing.mandate) {
+      await prisma.mandate.create({
+        data: {
+          listingId,
+          type: "SIMPLE",
+          status: "ACTIVE",
+          agentId: user.id,
+        },
+      });
+    } else if (listing.mandate.status !== "ACTIVE") {
+      await prisma.mandate.update({
+        where: { id: listing.mandate.id },
+        data: { status: "ACTIVE" },
+      });
+    }
+
+    listing = await assertCanMutate(listingId, user.id, user.role);
     const gate = evaluatePublishGate(listing);
     if (!gate.ok) {
       return { ok: false, error: gate.message, code: gate.code };
@@ -230,9 +270,8 @@ export async function publishListingAction(
       },
     });
 
-    revalidatePath("/espace/agent/annonces");
-    revalidatePath(`/espace/agent/annonces/${listingId}`);
-    return { ok: true, id: listingId };
+    revalidateListing(listing.slug, listingId);
+    return { ok: true, id: listingId, slug: listing.slug ?? undefined };
   } catch (e) {
     if (e instanceof Error && e.message === "FORBIDDEN") {
       return { ok: false, error: "Accès refusé.", code: "FORBIDDEN" };
@@ -247,7 +286,7 @@ export async function archiveListingAction(
 ): Promise<ActionResult> {
   try {
     const user = await requireAgent();
-    await assertCanMutate(listingId, user.id, user.role);
+    const listing = await assertCanMutate(listingId, user.id, user.role);
 
     await prisma.listing.update({
       where: { id: listingId },
@@ -257,8 +296,8 @@ export async function archiveListingAction(
       },
     });
 
-    revalidatePath("/espace/agent/annonces");
-    return { ok: true, id: listingId };
+    revalidateListing(listing.slug, listingId);
+    return { ok: true, id: listingId, slug: listing.slug ?? undefined };
   } catch (e) {
     if (e instanceof Error && e.message === "FORBIDDEN") {
       return { ok: false, error: "Accès refusé.", code: "FORBIDDEN" };
@@ -278,9 +317,11 @@ export async function uploadListingPhotosAction(
       return { ok: false, error: "Trop d’uploads. Réessayez bientôt." };
     }
 
-    await assertCanMutate(listingId, user.id, user.role);
+    const listing = await assertCanMutate(listingId, user.id, user.role);
 
-    const files = formData.getAll("photos").filter((f): f is File => f instanceof File);
+    const files = formData
+      .getAll("photos")
+      .filter((f): f is File => f instanceof File && f.size > 0);
     if (files.length === 0) {
       return { ok: false, error: "Aucun fichier." };
     }
@@ -325,8 +366,8 @@ export async function uploadListingPhotosAction(
       order += 1;
     }
 
-    revalidatePath(`/espace/agent/annonces/${listingId}`);
-    return { ok: true, id: listingId };
+    revalidateListing(listing.slug, listingId);
+    return { ok: true, id: listingId, slug: listing.slug ?? undefined };
   } catch (e) {
     if (e instanceof Error && e.message === "MIME_NOT_ALLOWED") {
       return { ok: false, error: "Formats autorisés : JPG, PNG, WebP.", code: "MIME" };
@@ -365,8 +406,8 @@ export async function deleteListingPhotoAction(
     }
 
     await prisma.mediaAsset.delete({ where: { id: mediaId } });
-    revalidatePath(`/espace/agent/annonces/${media.listingId}`);
-    return { ok: true };
+    revalidateListing(media.listing.slug, media.listing.id);
+    return { ok: true, id: media.listing.id, slug: media.listing.slug ?? undefined };
   } catch {
     return { ok: false, error: "Suppression impossible." };
   }
@@ -413,8 +454,8 @@ export async function uploadMandatePdfAction(
       },
     });
 
-    revalidatePath(`/espace/agent/annonces/${listingId}`);
-    return { ok: true, id: listingId };
+    revalidateListing(listing.slug, listingId);
+    return { ok: true, id: listingId, slug: listing.slug ?? undefined };
   } catch (e) {
     console.error(e);
     return { ok: false, error: "Upload vault impossible." };

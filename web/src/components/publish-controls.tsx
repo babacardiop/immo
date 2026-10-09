@@ -1,31 +1,45 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import {
   archiveListingAction,
   publishListingAction,
 } from "@/app/actions/listings";
 import { Button } from "@/components/ui/button";
 import { canPublishPaper } from "@/lib/listings/paper";
-import type { ListingStatus, PaperType, TransactionType } from "@prisma/client";
+import type {
+  ListingStatus,
+  MandateStatus,
+  PaperType,
+  TransactionType,
+} from "@prisma/client";
 
 export function PublishControls({
   listingId,
   status,
   transaction,
   paperType,
+  mandateStatus,
+  photoCount,
 }: {
   listingId: string;
   status: ListingStatus;
   transaction: TransactionType;
   paperType: PaperType | null;
+  mandateStatus: MandateStatus | null;
+  photoCount: number;
 }) {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const paperOk = canPublishPaper(transaction, paperType);
 
   return (
     <div className="flex flex-col gap-3">
+      <p className="text-xs text-[var(--color-muted)]">
+        Mandat DB : {mandateStatus ?? "aucun"} · Photos : {photoCount}/3
+      </p>
       <div className="flex flex-wrap gap-2">
         <Button
           type="button"
@@ -40,6 +54,7 @@ export function PublishControls({
             startTransition(async () => {
               const res = await publishListingAction(listingId);
               if (!res.ok) setError(res.error);
+              else router.refresh();
             });
           }}
         >
@@ -54,6 +69,7 @@ export function PublishControls({
             startTransition(async () => {
               const res = await archiveListingAction(listingId);
               if (!res.ok) setError(res.error);
+              else router.refresh();
             });
           }}
         >
