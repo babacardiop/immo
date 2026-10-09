@@ -26,6 +26,15 @@ function revalidateListing(slug: string | null | undefined, id: string) {
   revalidatePath("/espace/agent/annonces");
   if (slug) revalidatePath(listingPath(slug));
   revalidatePath(listingPath(id)); // legacy id URLs during transition
+  // Public catalogue + fiches (S02)
+  revalidatePath("/");
+  revalidatePath("/acheter");
+  revalidatePath("/louer");
+  if (slug) {
+    revalidatePath(`/acheter/${slug}`);
+    revalidatePath(`/louer/${slug}`);
+  }
+  revalidatePath("/sitemap.xml");
 }
 
 async function assertCanMutate(listingId: string, userId: string, role: string) {

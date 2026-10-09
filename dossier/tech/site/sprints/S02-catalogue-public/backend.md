@@ -5,13 +5,13 @@
 
 ## Todo
 
-- [ ] Query publique : listings `published` only · filtres type/quartier/prix/badge
-- [ ] Pagination / cursor
-- [ ] Fiche by slug · 404 soft
-- [ ] JSON-LD RealEstateListing generator
-- [ ] `sitemap.xml` dynamique fiches + pages fixes
-- [ ] `robots.txt`
-- [ ] ISR/cache tags revalidate on publish
+- [x] Query publique : listings `published` only · filtres type/quartier/prix/badge
+- [x] Pagination / cursor
+- [x] Fiche by slug · 404 soft
+- [x] JSON-LD RealEstateListing generator
+- [x] `sitemap.xml` dynamique fiches + pages fixes
+- [x] `robots.txt`
+- [x] ISR/cache tags revalidate on publish
 
 ## Refs
 
