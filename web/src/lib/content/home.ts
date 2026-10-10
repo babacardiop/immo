@@ -6,7 +6,6 @@ export type HomeTestimonial = {
   quote: string;
   name: string;
   role: string;
-  portraitSrc: string;
 };
 
 export function getHomeStats(): HomeStat[] {
@@ -50,21 +49,18 @@ export function getHomeTestimonials(): HomeTestimonial[] {
         "Équipe claire et réactive. On a trouvé un bien avec le bon papier, sans pression inutile.",
       name: "Aïssatou D.",
       role: "Acquéreuse · Dakar",
-      portraitSrc: "/images/testimonial-portrait.jpg",
     },
     {
       quote:
         "Depuis l’étranger, le suivi WhatsApp et la lecture du dossier m’ont rassuré avant le transfert.",
       name: "Ibrahima N.",
       role: "Diaspora · France",
-      portraitSrc: "/images/testimonial-portrait.jpg",
     },
     {
       quote:
         "Location trouvée rapidement à Mermoz. Transparence sur les charges et les délais.",
       name: "Mamadou S.",
       role: "Locataire",
-      portraitSrc: "/images/testimonial-portrait.jpg",
     },
   ];
 }

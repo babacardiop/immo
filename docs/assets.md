@@ -39,13 +39,10 @@ docs/
 
 | File | Use |
 | --- | --- |
-| `hero-bg.jpg` | Hero background (includes baked-in nav/headline from mockup) |
-| `feature-home-large.jpg` | Story section large home |
-| `feature-home-pool.jpg` | Story section secondary card |
-| `map-discover.jpg` | Map / discover section graphic |
-| `property-01.jpg` … `property-06.jpg` | Premier houses grid (with “For Sale” badge) |
-| `faq-interior.jpg` | FAQ expanded answer thumbnail |
-| `testimonial-portrait.jpg` | Client review portrait |
-| `cta-bg.jpg` | Bottom CTA banner background |
+| `hero-photo.jpg` | Hero — photo seule (crop sans UI Dribbble) |
+| `story-home.jpg` | Story — photo architecture |
+| `discover-photo.jpg` | Discover — photo |
+| `listing-01.jpg` … `listing-06.jpg` | Fallback grille home (sans badge EN) |
+| `hero-bg.jpg` etc. | Archives mockup (ne plus utiliser en prod) |
 
-> Note: crops come from the designed mockup, so some still include UI chrome (badges, text overlays). Prefer them as layout references; replace with clean photography when available.
+> Home prod n’utilise **pas** les crops Dribbble avec chrome EN. Style cible = lean FR (réf. Partenaires / DS).

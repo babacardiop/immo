@@ -8,8 +8,8 @@
 
 ## Outcome
 
-**Fidélité mockup quasi pixel-à-pixel** sur shell + home, **chrome public unifié**.  
-Copy **FR / métier SN**. BO hors scope.
+**Home lean FR** (réf. Partenaires / DS) — **pas** de crops Dribbble avec chrome EN.  
+Shell + pages publiques unifiés. Copy **FR / métier SN**. BO hors scope.
 
 ## Todo
 

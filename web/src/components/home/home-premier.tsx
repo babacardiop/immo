@@ -3,12 +3,12 @@ import { listFeaturedPublic } from "@/lib/listings/public-query";
 import { ListingCard } from "@/components/listing-card";
 
 const FALLBACK = [
-  "/images/property-01.jpg",
-  "/images/property-02.jpg",
-  "/images/property-03.jpg",
-  "/images/property-04.jpg",
-  "/images/property-05.jpg",
-  "/images/property-06.jpg",
+  "/images/listing-01.jpg",
+  "/images/listing-02.jpg",
+  "/images/listing-03.jpg",
+  "/images/listing-04.jpg",
+  "/images/listing-05.jpg",
+  "/images/listing-06.jpg",
 ];
 
 export async function HomePremier() {
@@ -19,17 +19,19 @@ export async function HomePremier() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="font-[family-name:var(--font-brand-serif)] text-3xl font-semibold tracking-tight sm:text-4xl">
-              Explorer nos biens phares
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-leaf)]">
+              Sélection
+            </p>
+            <h2 className="mt-3 font-[family-name:var(--font-brand-serif)] text-3xl font-semibold tracking-tight sm:text-4xl">
+              Biens phares
             </h2>
             <p className="mt-2 max-w-lg text-sm text-[var(--color-muted)]">
-              Chaque annonce offre des critères clairs et un contact direct —
-              stock agence publié.
+              Critères clairs, contact direct — stock agence publié.
             </p>
           </div>
           <Link
             href="/acheter"
-            className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-4 py-2 text-sm font-medium text-[var(--color-bg)]"
+            className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)]"
           >
             Voir tous les biens →
           </Link>

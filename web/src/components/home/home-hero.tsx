@@ -3,43 +3,36 @@ import Link from "next/link";
 
 export function HomeHero() {
   return (
-    <section className="relative min-h-[88vh] w-full overflow-hidden">
-      <Image
-        src="/images/hero-bg.jpg"
-        alt=""
-        fill
-        priority
-        className="object-cover"
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/50" />
+    <section className="relative w-full overflow-hidden bg-[var(--color-ink)]">
+      <div className="relative min-h-[72vh] w-full sm:min-h-[78vh]">
+        <Image
+          src="/images/hero-photo.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-black/25" />
 
-      <div className="relative z-10 mx-auto flex min-h-[88vh] w-full max-w-6xl flex-col justify-end px-6 pb-36 pt-28 sm:pb-40">
-        <div className="flex flex-wrap gap-2">
-          {["Maison", "Appartement", "Terrain"].map((tag) => (
-            <span
-              key={tag}
-              className="rounded-[var(--radius-pill)] bg-white/95 px-3 py-1 text-xs font-medium text-[var(--color-ink)]"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-          <h1 className="max-w-xl font-[family-name:var(--font-brand-serif)] text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+        <div className="relative z-10 mx-auto flex min-h-[72vh] w-full max-w-6xl flex-col justify-end px-6 pb-44 pt-24 sm:min-h-[78vh] sm:pb-48">
+          <p className="text-sm font-medium tracking-wide text-white/80">
+            EverGreen · Sénégal
+          </p>
+          <h1 className="mt-3 max-w-2xl font-[family-name:var(--font-brand-serif)] text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Construisez votre avenir, un bien à la fois.
           </h1>
-          <p className="max-w-md text-base text-white/90 sm:text-lg">
-            Catalogue curated au Sénégal — papiers nommés, contact direct,
-            accompagnement agence.
+          <p className="mt-4 max-w-lg text-base text-white/85 sm:text-lg">
+            Catalogue curated — papiers nommés, contact direct, accompagnement
+            agence.
           </p>
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 z-20 px-4 sm:px-6">
-        <div className="mx-auto max-w-6xl rounded-t-[var(--radius-sheet)] bg-[var(--color-surface)] px-5 py-6 shadow-lg sm:px-8 sm:py-8">
-          <h2 className="text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
-            Trouver le meilleur bien
+      <div className="relative z-20 -mt-28 px-4 sm:-mt-32 sm:px-6">
+        <div className="mx-auto max-w-6xl rounded-[var(--radius-sheet)] border border-[var(--color-steel)]/20 bg-[var(--color-surface)] px-5 py-6 shadow-sm sm:px-8 sm:py-8">
+          <h2 className="text-lg font-semibold text-[var(--color-ink)] sm:text-xl">
+            Trouver un bien
           </h2>
           <form
             action="/acheter"
@@ -84,7 +77,7 @@ export function HomeHero() {
                 className="mt-1 w-full rounded-2xl border-0 bg-[var(--color-bg)] px-3 py-3 text-sm text-[var(--color-ink)]"
               />
             </label>
-            <div className="flex items-end">
+            <div className="flex items-end gap-2">
               <button
                 type="submit"
                 className="w-full rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-4 py-3 text-sm font-medium text-[var(--color-bg)] hover:opacity-90"
@@ -93,28 +86,24 @@ export function HomeHero() {
               </button>
             </div>
           </form>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-[var(--color-muted)]">Filtres :</span>
-            {["Dakar", "Maison", "Terrain", "Appartement"].map((chip) => (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {[
+              { label: "Dakar", href: "/acheter?city=Dakar" },
+              { label: "Maison", href: "/acheter?propertyType=HOUSE" },
+              { label: "Terrain", href: "/acheter?propertyType=LAND" },
+              { label: "Louer", href: "/louer" },
+            ].map((chip) => (
               <Link
-                key={chip}
-                href={
-                  chip === "Dakar"
-                    ? "/acheter?city=Dakar"
-                    : chip === "Maison"
-                      ? "/acheter?propertyType=HOUSE"
-                      : chip === "Terrain"
-                        ? "/acheter?propertyType=LAND"
-                        : "/acheter?propertyType=APARTMENT"
-                }
-                className="rounded-[var(--radius-pill)] border border-[var(--color-steel)]/50 px-3 py-1 text-xs text-[var(--color-ink)] hover:border-[var(--color-leaf)]"
+                key={chip.label}
+                href={chip.href}
+                className="rounded-[var(--radius-pill)] bg-[var(--color-sage)]/40 px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-sage)]/70"
               >
-                {chip}
+                {chip.label}
               </Link>
             ))}
             <Link
               href="/acheter"
-              className="ml-auto rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-4 py-2 text-xs font-medium text-[var(--color-bg)]"
+              className="ml-auto text-xs font-medium text-[var(--color-leaf)] underline-offset-2 hover:underline"
             >
               Voir le catalogue →
             </Link>
