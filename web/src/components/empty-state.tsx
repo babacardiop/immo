@@ -34,7 +34,7 @@ export function EmptyState({
             {resetLabel}
           </Link>
         ) : null}
-        <WhatsAppCta text={waText} label="WhatsApp" />
+        <WhatsAppCta text={waText} label="Contactez-nous" />
       </div>
     </div>
   );

@@ -1,68 +1,44 @@
 import Link from "next/link";
 import { BrandLogo } from "@/components/brand-logo";
 
-const LEFT = [
+const LINKS = [
   { href: "/", label: "Accueil" },
-  { href: "/agence", label: "Agence" },
-  { href: "/acheter", label: "Biens" },
+  { href: "/acheter", label: "Acheter" },
   { href: "/louer", label: "Louer" },
-];
-const RIGHT = [
+  { href: "/agence", label: "Agence" },
   { href: "/guides", label: "Guides" },
   { href: "/contact", label: "Contact" },
-  { href: "/#faq", label: "FAQ" },
-  { href: "/mentions-legales", label: "Mentions" },
-];
+] as const;
 
-/** DS-14 footer */
+/** Lean footer — logo + nav + legal (no heavy CTA band) */
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-[var(--color-steel)]/40 bg-[var(--color-bg)] px-6 py-12 text-sm text-[var(--color-muted)]">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col gap-6 border-b border-[var(--color-steel)]/30 pb-10 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-md font-[family-name:var(--font-brand-serif)] text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl">
-            Découvrez le Sénégal avec un accompagnement expert
-          </h2>
-          <p className="text-[var(--color-muted)]">
-            Dakar · Sénégal
-            <br />
-            Contact via WhatsApp ou formulaire
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center gap-6 py-8 sm:flex-row sm:justify-between">
-          <nav className="flex flex-wrap justify-center gap-4">
-            {LEFT.map((l) => (
-              <Link
-                key={l.href + l.label}
-                href={l.href}
-                className="hover:text-[var(--color-ink)]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-          <BrandLogo />
-          <nav className="flex flex-wrap justify-center gap-4">
-            {RIGHT.map((l) => (
-              <Link
-                key={l.href + l.label}
-                href={l.href}
-                className="hover:text-[var(--color-ink)]"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        <div className="flex flex-col gap-2 border-t border-[var(--color-steel)]/30 pt-6 text-xs sm:flex-row sm:justify-between">
-          <p>© 2026 EverGreen Immobilier. Tous droits réservés.</p>
-          <p>
+    <footer className="mt-auto border-t border-[var(--color-steel)]/30 bg-[var(--color-bg)] px-6 py-8 text-sm text-[var(--color-muted)]">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6">
+        <BrandLogo />
+        <nav
+          className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+          aria-label="Pied de page"
+        >
+          {LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="hover:text-[var(--color-ink)]"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="flex w-full flex-col gap-2 border-t border-[var(--color-steel)]/25 pt-5 text-xs sm:flex-row sm:items-center sm:justify-between">
+          <p>© 2026 EverGreen Immobilier</p>
+          <p className="flex flex-wrap gap-x-3 gap-y-1">
+            <Link href="/mentions-legales" className="hover:text-[var(--color-ink)]">
+              Mentions
+            </Link>
             <Link href="/cgu" className="hover:text-[var(--color-ink)]">
               CGU
             </Link>
-            {" · "}
             <Link
               href="/confidentialite"
               className="hover:text-[var(--color-ink)]"

@@ -8,11 +8,17 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV = [
   { href: "/", label: "Accueil" },
+  { href: "/acheter", label: "Acheter" },
+  { href: "/louer", label: "Louer" },
   { href: "/agence", label: "Agence" },
-  { href: "/acheter", label: "Biens" },
   { href: "/guides", label: "Guides" },
   { href: "/contact", label: "Contact" },
 ] as const;
+
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function SiteHeader() {
   const pathname = usePathname() ?? "/";
@@ -34,17 +40,11 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
         <BrandLogo priority />
         <nav
-          className="hidden items-center gap-1 rounded-[var(--radius-pill)] bg-[var(--color-ink)]/90 px-1.5 py-1 md:flex"
+          className="hidden items-center gap-1 rounded-[var(--radius-pill)] bg-[var(--color-ink)]/90 px-1.5 py-1 lg:flex"
           aria-label="Principale"
         >
           {NAV.map((item) => {
-            const active =
-              item.href === "/"
-                ? pathname === "/"
-                : item.href === "/acheter"
-                  ? pathname.startsWith("/acheter") ||
-                    pathname.startsWith("/louer")
-                  : pathname.startsWith(item.href);
+            const active = isActive(pathname, item.href);
             return (
               <Link
                 key={item.href}
@@ -70,7 +70,7 @@ export function SiteHeader() {
           </Link>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-steel)]/40 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-steel)]/40 lg:hidden"
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -86,7 +86,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal>
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal>
           <button
             type="button"
             className="absolute inset-0 bg-black/40"
@@ -99,13 +99,7 @@ export function SiteHeader() {
           >
             <ul className="mt-10 flex flex-1 flex-col items-center justify-center gap-3">
               {NAV.map((item) => {
-                const active =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : item.href === "/acheter"
-                      ? pathname.startsWith("/acheter") ||
-                        pathname.startsWith("/louer")
-                      : pathname.startsWith(item.href);
+                const active = isActive(pathname, item.href);
                 return (
                   <li key={item.href}>
                     <Link
@@ -121,20 +115,12 @@ export function SiteHeader() {
                   </li>
                 );
               })}
-              <li>
-                <Link
-                  href="/louer"
-                  className="inline-flex min-w-[180px] justify-center rounded-[var(--radius-pill)] px-5 py-2.5 text-base text-white/90"
-                >
-                  Louer
-                </Link>
-              </li>
             </ul>
             <Link
               href="/espace/connexion"
               className="mb-4 inline-flex items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-sage)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)]"
             >
-              Créer un compte / Connexion
+              Connexion
             </Link>
           </nav>
         </div>

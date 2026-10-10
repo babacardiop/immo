@@ -20,6 +20,14 @@ describe("SiteFooter", () => {
     expect(
       screen.getByRole("link", { name: /evergreen immobilier — accueil/i }),
     ).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: /^acheter$/i })).toHaveAttribute(
+      "href",
+      "/acheter",
+    );
+    expect(screen.getByRole("link", { name: /^louer$/i })).toHaveAttribute(
+      "href",
+      "/louer",
+    );
     expect(screen.getByRole("link", { name: /^agence$/i })).toHaveAttribute(
       "href",
       "/agence",
