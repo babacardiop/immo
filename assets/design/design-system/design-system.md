@@ -4,7 +4,7 @@
 **Source visuelle :** mockups `../` (`01|02|03-evergreen-layout-board.png` + `previews/strip-*.jpg`)  
 **Crops photo :** `../../images/`  
 **Eng amont :** `docs/design-tokens.md` · `dossier/tech/site/18-design-system.md` · sitemap `13`  
-**Sprints :** `S05-mockup-fidelity` · `S08-dashboards-reporting`
+**Sprints :** `S05-mockup-fidelity` · `S06-catalogue-carte-geo` · `S09-dashboards-reporting`
 
 > Contrat visuel opérationnel. Boards = screenshots → ce doc + `components/` **infèrent** le reste.  
 > Copy prod = **FR métier SN** (pas les placeholders EN du template).
