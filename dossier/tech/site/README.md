@@ -30,7 +30,7 @@
 
 | Dossier | Statut | Contenu |
 | --- | --- | --- |
-| [`sprints/`](./sprints/) | ✅ | S00–S06 · backend / tests / frontend / infra (Render · Neon · GitHub Actions) |
+| [`sprints/`](./sprints/) | ✅ | S00–S08 · backend / tests / frontend / infra · S05 mockup · S08 dashboards/reporting |
 
 ## Sources `docs/`
 

@@ -72,10 +72,14 @@ Neon : prod branch + optional preview branch per PR
 | [`S02-catalogue-public`](./S02-catalogue-public/) | Home · acheter/louer · fiche · WA · SEO schema | Fiche live publique |
 | [`S03-crm-leads`](./S03-crm-leads/) | Forms → Lead · stages · file agent · SLA | Lead form → CRM + notif |
 | [`S04-confiance-polish`](./S04-confiance-polish/) | Agence/guides · map · landings · OG · empty | Gate **Done V0** |
-| [`S05-outils-simus`](./S05-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
-| [`S06-embeds-partenaires`](./S06-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
+| [`S05-mockup-fidelity`](./S05-mockup-fidelity/) | Shell public = mockup `assets/design/` (home · nav · footer · cards) | Side-by-side strips OK |
+| [`S06-outils-simus`](./S06-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
+| [`S07-embeds-partenaires`](./S07-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
+| [`S08-dashboards-reporting`](./S08-dashboards-reporting/) | Dashboards multi-rôles + reports scoped | ACL UI = `14` · frames DS |
 
-Ne pas ouvrir S05 avant Done V0 (S04) sauf spike parallèle design.
+Ordre : **S05 mockup fidelity tout de suite après Done V0** — avant S06 outils (évite de reconstruire les simus dans l’ancien shell).  
+**S08** après V1 soft / en parallèle design — portails client/landlord = Vague **V3**.  
+Source visuelle public : [`assets/design/`](../../../../assets/design/) · BO : [`design-system/dashboards/`](../../../../assets/design/design-system/dashboards/).
 
 ---
 

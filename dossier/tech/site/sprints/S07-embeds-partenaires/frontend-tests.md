@@ -1,4 +1,4 @@
-# S06 — Frontend tests
+# S07 — Frontend tests
 
 ## Todo
 
