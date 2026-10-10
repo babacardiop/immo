@@ -2,20 +2,20 @@
 
 ## Todo
 
-- [ ] Map mounts without crash (jsdom/leaflet mock)
+- [x] Map mounts without crash (jsdom/leaflet mock)
   - File: `web/src/components/map-view.test.tsx`
-- [ ] Quartier landing CTA to catalogue filtered
+- [x] Quartier landing CTA to catalogue filtered
   - File: `web/src/components/quartier-cta.test.tsx`
-- [ ] Empty states render soft copy
+- [x] Empty states render soft copy
   - File: `web/src/components/empty-state.test.tsx`
-- [ ] Playwright smoke : home → catalogue → fiche → form
+- [x] Playwright smoke : home → catalogue → fiche → form
   - File: `web/e2e/v0-smoke.spec.ts`
-- [ ] Gate checklist Done V0 (manuel + auto soft)
+- [x] Gate checklist Done V0 (manuel + auto soft)
 
 ## Gate Done V0
 
-- [ ] Agent publish gated
-- [ ] Public fiche + WA
-- [ ] Lead → CRM
-- [ ] Agence/guides live
-- [ ] SEO sitemap + JSON-LD
+- [x] Agent publish gated
+- [x] Public fiche + WA
+- [x] Lead → CRM
+- [x] Agence/guides live
+- [x] SEO sitemap + JSON-LD

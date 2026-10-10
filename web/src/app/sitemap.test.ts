@@ -9,6 +9,9 @@ describe("sitemap entries", () => {
     expect(staticSitemapPaths()).toContain("/");
     expect(staticSitemapPaths()).toContain("/acheter");
     expect(staticSitemapPaths()).toContain("/louer");
+    expect(staticSitemapPaths()).toContain("/agence");
+    expect(staticSitemapPaths()).toContain("/guides");
+    expect(staticSitemapPaths()).toContain("/quartiers/mermoz");
   });
 
   it("includes published listings only", () => {

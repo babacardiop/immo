@@ -3,7 +3,9 @@ import { Suspense } from "react";
 import type { CatalogueChannel } from "@/lib/listings/public-query";
 import { listPublicListings } from "@/lib/listings/public-query";
 import type { CatalogueFilters } from "@/lib/listings/public-query";
+import { listMapPins } from "@/lib/listings/map-pins";
 import { CatalogueFilters as FiltersForm } from "@/components/catalogue-filters";
+import { CatalogueMap } from "@/components/catalogue-map";
 import { ListingCard } from "@/components/listing-card";
 import { CatalogueEmpty } from "@/components/catalogue-empty";
 
@@ -18,7 +20,10 @@ export async function CataloguePage({
   subtitle: string;
   filters: CatalogueFilters;
 }) {
-  const { items, nextCursor } = await listPublicListings(channel, filters);
+  const [{ items, nextCursor }, pins] = await Promise.all([
+    listPublicListings(channel, filters),
+    listMapPins(channel, filters),
+  ]);
 
   const qs = new URLSearchParams();
   if (filters.city) qs.set("city", filters.city);
@@ -43,6 +48,8 @@ export async function CataloguePage({
           <FiltersForm channel={channel} />
         </Suspense>
       </div>
+
+      <CatalogueMap pins={pins} channel={channel} />
 
       {items.length === 0 ? (
         <CatalogueEmpty channel={channel} />

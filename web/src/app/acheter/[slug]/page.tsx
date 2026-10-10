@@ -17,7 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     listing.description?.slice(0, 155) ||
     `${listing.title} — ${formatFcfa(listing.priceFcfa)} · ${listing.city ?? "Sénégal"}`;
-  const image = listing.media[0]?.url;
+  const image =
+    listing.media[0]?.url ||
+    absoluteUrl(`/api/og?title=${encodeURIComponent(listing.title)}`);
 
   return {
     title,
@@ -29,7 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: absoluteUrl(`/acheter/${slug}`),
       locale: "fr_SN",
       type: "article",
-      images: image ? [{ url: image }] : undefined,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: listing.title,
+        },
+      ],
     },
   };
 }

@@ -2,13 +2,13 @@
 
 ## Todo
 
-- [ ] Pages `/agence` process + confiance
-- [ ] Guides teasers + glossaire
-- [ ] Leaflet/OSM map catalogue (W-MAP)
-- [ ] Landings `/acheter/[quartier]`
-- [ ] Empty states design
-- [ ] OG share cards preview
-- [ ] Polish mobile nav / sticky WA soft
+- [x] Pages `/agence` process + confiance
+- [x] Guides teasers + glossaire
+- [x] Leaflet/OSM map catalogue (W-MAP)
+- [x] Landings `/quartiers/[slug]` (cœur Dakar ; CTA → catalogue filtré)
+- [x] Empty states design
+- [x] OG share cards preview
+- [x] Polish mobile nav / sticky WA soft
 
 ## Refs
 

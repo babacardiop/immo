@@ -5,11 +5,11 @@
 
 ## Todo
 
-- [ ] CMS-lite ou MDX pages `/agence`, `/guides/*`, glossaire
-- [ ] Landings quartier (static params) · seed Almadies/Plateau/…
-- [ ] Geo fields listing · API bounds for map pins
-- [ ] OG image route ou static 1200×630 per fiche
-- [ ] Empty states API messages i18n FR
+- [x] CMS-lite ou MDX pages `/agence`, `/guides/*`, glossaire
+- [x] Landings quartier (static params) · seed Almadies/Plateau/…
+- [x] Geo fields listing · API bounds for map pins
+- [x] OG image route ou static 1200×630 per fiche
+- [x] Empty states API messages i18n FR
 - [ ] (Should) Partner CTA endpoints soft
 
 ## Refs

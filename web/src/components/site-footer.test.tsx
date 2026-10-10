@@ -5,6 +5,10 @@ import { SiteFooter } from "@/components/site-footer";
 describe("SiteFooter", () => {
   it("renders contact and legal links", () => {
     render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: /^agence$/i })).toHaveAttribute(
+      "href",
+      "/agence",
+    );
     expect(screen.getByRole("link", { name: /^contact$/i })).toHaveAttribute(
       "href",
       "/contact",
