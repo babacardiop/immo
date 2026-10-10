@@ -1,8 +1,8 @@
-# S08 — Backend
+# S09 — Backend
 
 **US :** dashboards + reporting multi-rôles (`14`)  
 **Outcome :** `/espace/*` dashboards livrés · exports / KPI scoped  
-**Après :** S05 fidelity · S06–S07 (peut spike design en parallèle)
+**Après :** S05 fidelity · S06 carte/géo · S07–S08 (peut spike design en parallèle)
 
 ## Todo
 

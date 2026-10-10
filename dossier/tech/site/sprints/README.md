@@ -73,13 +73,14 @@ Neon : prod branch + optional preview branch per PR
 | [`S03-crm-leads`](./S03-crm-leads/) | Forms → Lead · stages · file agent · SLA | Lead form → CRM + notif |
 | [`S04-confiance-polish`](./S04-confiance-polish/) | Agence/guides · map · landings · OG · empty | Gate **Done V0** |
 | [`S05-mockup-fidelity`](./S05-mockup-fidelity/) | Home/shell **quasi pixel** vs strips + chrome public **unifié** | Side-by-side strips + une marque |
-| [`S06-outils-simus`](./S06-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
-| [`S07-embeds-partenaires`](./S07-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
-| [`S08-dashboards-reporting`](./S08-dashboards-reporting/) | Dashboards multi-rôles + reports scoped | ACL UI = `14` · frames DS |
+| [`S06-catalogue-carte-geo`](./S06-catalogue-carte-geo/) | **/acheter · /louer** : toggle **Liste \| Carte** + drill-down **région → ville → quartier** | Map = vue dédiée · géo SN (data existante) |
+| [`S07-outils-simus`](./S07-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
+| [`S08-embeds-partenaires`](./S08-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
+| [`S09-dashboards-reporting`](./S09-dashboards-reporting/) | Dashboards multi-rôles + reports scoped | ACL UI = `14` · frames DS |
 
-Ordre : **S05 mockup fidelity tout de suite après Done V0** — avant S06 outils (évite de reconstruire les simus dans l’ancien shell).  
-**S08** après V1 soft / en parallèle design — portails client/landlord = Vague **V3**.  
-Source visuelle public : [`assets/design/`](../../../../assets/design/) · BO : [`design-system/dashboards/`](../../../../assets/design/design-system/dashboards/).
+Ordre : **S05 fidelity** → **S06 catalogue carte/géo** (avant outils) → S07 outils → S08 embeds (Done V1) → **S09** dashboards.  
+**S09** après V1 soft / en parallèle design — portails client/landlord = Vague **V3**.  
+Source visuelle public : [`assets/design/`](../../../../assets/design/) · catalogue map : `design-system/pages/public/catalogue/*-map` · BO : [`design-system/dashboards/`](../../../../assets/design/design-system/dashboards/).
 
 ---
 

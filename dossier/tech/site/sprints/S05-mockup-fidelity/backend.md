@@ -1,7 +1,7 @@
 # S05 — Backend
 
 **US :** layout fidelity · brand surface (public) · UI unifiée  
-**Outcome :** Home quasi pixel + data sections · chrome unifié · Gate avant S06
+**Outcome :** Home quasi pixel + data sections · chrome unifié · Gate avant S06 catalogue carte/géo
 
 ## Todo
 
