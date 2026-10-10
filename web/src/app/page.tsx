@@ -11,12 +11,14 @@ export default function Home() {
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_20%,var(--color-sage)_0%,transparent_50%),radial-gradient(ellipse_at_80%_60%,#dbe4ee_0%,transparent_45%)] opacity-80"
         />
         <div className="relative mx-auto w-full max-w-5xl">
-          <h1 className="text-5xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-7xl">
+          <p className="font-[family-name:var(--font-brand-serif)] text-5xl font-semibold tracking-tight text-[var(--color-leaf)] sm:text-7xl">
             EverGreen
+          </p>
+          <h1 className="mt-3 max-w-xl text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl">
+            Immobilier au Sénégal — curated, papiers nommés
           </h1>
           <p className="mt-4 max-w-lg text-lg text-[var(--color-muted)]">
-            Agence immobilière full-service au Sénégal — biens curated, papiers
-            nommés, contact direct.
+            Agence full-service — catalogue vérifié, contact direct WhatsApp.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link

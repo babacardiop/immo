@@ -1,10 +1,25 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { SiteFooter } from "@/components/site-footer";
+import { ThemeProvider } from "@/components/theme-provider";
+
+vi.mock("next/image", () => ({
+  default: (props: { alt: string; src: string }) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img alt={props.alt} src={props.src} />
+  ),
+}));
 
 describe("SiteFooter", () => {
   it("renders contact and legal links", () => {
-    render(<SiteFooter />);
+    render(
+      <ThemeProvider>
+        <SiteFooter />
+      </ThemeProvider>,
+    );
+    expect(
+      screen.getByRole("link", { name: /evergreen immobilier — accueil/i }),
+    ).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /^agence$/i })).toHaveAttribute(
       "href",
       "/agence",

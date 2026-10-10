@@ -1,10 +1,10 @@
 # EverGreen — Design system (site)
 
-**Statut :** v1.0 — DS-01 → DS-20 générés  
+**Statut :** v2.0 — composants + **toutes pages / forms / states** + dashboards  
 **Source visuelle :** mockups `../` (`01|02|03-evergreen-layout-board.png` + `previews/strip-*.jpg`)  
 **Crops photo :** `../../images/`  
-**Eng amont :** `docs/design-tokens.md` · `dossier/tech/site/18-design-system.md`  
-**Sprint :** `S05-mockup-fidelity`
+**Eng amont :** `docs/design-tokens.md` · `dossier/tech/site/18-design-system.md` · sitemap `13`  
+**Sprints :** `S05-mockup-fidelity` · `S08-dashboards-reporting`
 
 > Contrat visuel opérationnel. Boards = screenshots → ce doc + `components/` **infèrent** le reste.  
 > Copy prod = **FR métier SN** (pas les placeholders EN du template).
@@ -20,8 +20,11 @@
 | 3 | Palette lock hex (pas purple / pas glow) |
 | 4 | Coins larges (pills · cards 24px · search sheet ~40px) |
 | 5 | 1 CTA primaire fort par section viewport |
-| 6 | Photos = ancre ; chrome UI = ink / sage / white |
-| 7 | Light only Y1 |
+| 6 | Photos = ancre ; chrome UI = ink / sage / leaf |
+| 7 | **3 thèmes** : light · dark · green (`data-theme`) |
+| 8 | Logo = **lockup unique** (feuille + EverGreen + IMMOBILIER) ; favicon = **feuille seule** |
+
+**Brand assets :** [`brand/brand.md`](./brand/brand.md)
 
 ---
 
@@ -239,11 +242,19 @@ Default · focus ring olive · error · select · checkbox/radio.
 
 ---
 
-## 5. Dashboards & reports (BO / portails)
+## 5. Arborescence renforcée (v2)
 
-Layouts **par persona** (densité app, pas marketing) :
+| Branche | Index | Contenu |
+| --- | --- | --- |
+| [`components/`](./components/) | §2 ci-dessus | DS-01…20 atomes |
+| [`pages/`](./pages/INDEX.md) | **toutes les pages** | `public/*` · `espace/*` · chaque feuille = `layout.jpg` |
+| [`forms/`](./forms/INDEX.md) | **tous les formulaires** | leads · simus · BO · portails |
+| [`states/`](./states/INDEX.md) | empty / load / error / toast / gate | |
+| [`dashboards/`](./dashboards/README.md) | personas | dash + reports |
 
-→ [`dashboards/README.md`](./dashboards/README.md)
+Voir aussi [`README.md`](./README.md) pour le schéma dossiers.
+
+## 6. Dashboards & reports
 
 | Dossier | Dashboard | Reports |
 | --- | :---: | :---: |
@@ -254,12 +265,7 @@ Layouts **par persona** (densité app, pas marketing) :
 | [`dashboards/client/`](./dashboards/client/) | ✅ | ❌ |
 | [`dashboards/landlord/`](./dashboards/landlord/) | ✅ | ✅ |
 
-Sprint implémentation : `S08-dashboards-reporting`.
+## 7. Next
 
----
-
-## 6. Next
-
-- S05 → shell public vs DS-01…20  
-- S08 → dashboards/reports vs `dashboards/{persona}/`  
-Signaler toute image à régénérer (ID + note).
+Implémenter contre ces frames (S05 public · S08 BO).  
+Régénérer une frame : indiquer le chemin dossier (ex. `pages/public/outils/mensualite`).
