@@ -2,17 +2,12 @@
 
 ## Todo
 
-- [ ] Pas de nouveau service cloud — Leaflet déjà côté client
+- [x] Pas de nouveau service cloud — Leaflet déjà côté client
+- [x] Seed staging : listings démo géolocalisés (`prisma/seed.ts` → `seedDemoListings`)
 - [ ] Vérifier tiles OSM OK en prod (CSP / connect-src si durci)
-- [ ] Seed / staging : ≥ quelques listings **géolocalisés** (lat/lng) par région clé (Dakar, Thiès…)
-  - Done when: `view=map` non vide sur staging
-- [ ] Monitor soft : perf query agrégats ( Neon explain si lent )
-- [ ] Doc agent BO : renseigner coords à la publication (lien S01 publish gate optionnel)
+- [ ] Monitor soft : perf query agrégats
+- [x] Doc : coords via seed démo ; BO form geoLat/geoLng = follow-up
 
 ## Env
 
-Aucun secret nouveau. Optionnel plus tard : Mapbox/Google — **hors scope S06** (rester OSM/Leaflet).
-
-## Refs
-
-`S04` map soft · `next.config` CSP · Render staging
+Aucun secret nouveau. Mapbox/Google — **hors scope S06**.

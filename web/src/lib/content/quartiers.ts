@@ -155,10 +155,13 @@ export function getQuartierLanding(slug: string): QuartierLanding | null {
 export function quartierCatalogueHref(
   landing: QuartierLanding,
   channel: "acheter" | "louer" = "acheter",
+  view?: "list" | "map",
 ): string {
   const qs = new URLSearchParams({
+    region: landing.region,
     city: landing.city,
     quartier: landing.catalogueQuartier,
   });
+  if (view === "map") qs.set("view", "map");
   return `/${channel}?${qs.toString()}`;
 }

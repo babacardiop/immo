@@ -16,8 +16,9 @@ import {
   formatLocationHierarchy,
 } from "@/lib/locations/format";
 import { useLocations } from "@/hooks/use-locations";
+import { SENEGAL_REGIONS } from "@/lib/locations/regions";
 
-/** DS-17 catalogue filters — pill chrome + full filter grid */
+/** DS-17 catalogue filters — preserves view + region */
 export function CatalogueFilters({
   channel,
 }: {
@@ -27,16 +28,25 @@ export function CatalogueFilters({
   const searchParams = useSearchParams();
   const { cities, quartiers } = useLocations();
 
+  const regionParam = searchParams.get("region") ?? "";
   const [city, setCity] = useState(searchParams.get("city") ?? "");
   const [quartier, setQuartier] = useState(searchParams.get("quartier") ?? "");
 
+  const citiesScoped = useMemo(
+    () =>
+      regionParam
+        ? cities.filter((c) => c.region === regionParam)
+        : cities,
+    [cities, regionParam],
+  );
+
   const cityOptions = useMemo(
     () =>
-      filterCityEntries(cities, city).map((c) => ({
+      filterCityEntries(citiesScoped, city).map((c) => ({
         value: c.name,
         label: formatCityWithRegion(c.name, c.region),
       })),
-    [cities, city],
+    [citiesScoped, city],
   );
 
   const quartierOptions = useMemo(
@@ -53,7 +63,11 @@ export function CatalogueFilters({
   const apply = useCallback(
     (formData: FormData) => {
       const params = new URLSearchParams();
+      const view = searchParams.get("view");
+      if (view === "map") params.set("view", "map");
+
       for (const key of [
+        "region",
         "city",
         "quartier",
         "propertyType",
@@ -68,7 +82,7 @@ export function CatalogueFilters({
       const qs = params.toString();
       router.push(qs ? `/${channel}?${qs}` : `/${channel}`);
     },
-    [channel, router],
+    [channel, router, searchParams],
   );
 
   const selectClass =
@@ -79,6 +93,26 @@ export function CatalogueFilters({
       className="grid gap-3 rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3"
       action={apply}
     >
+      <div>
+        <Label htmlFor="region">Région</Label>
+        <select
+          id="region"
+          name="region"
+          className={selectClass}
+          defaultValue={regionParam}
+          onChange={() => {
+            setCity("");
+            setQuartier("");
+          }}
+        >
+          <option value="">Toutes</option>
+          {SENEGAL_REGIONS.map((r) => (
+            <option key={r} value={r}>
+              {r}
+            </option>
+          ))}
+        </select>
+      </div>
       <div>
         <Label htmlFor="city">Ville</Label>
         <Autocomplete
@@ -192,7 +226,10 @@ export function CatalogueFilters({
           onClick={() => {
             setCity("");
             setQuartier("");
-            router.push(`/${channel}`);
+            const view = searchParams.get("view");
+            router.push(
+              view === "map" ? `/${channel}?view=map` : `/${channel}`,
+            );
           }}
         >
           Réinitialiser

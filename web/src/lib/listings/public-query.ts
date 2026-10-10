@@ -6,6 +6,7 @@ import type {
 } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { isSaleLike } from "@/lib/listings/paper";
+import { cityNamesForRegion } from "@/lib/locations/cities-for-region";
 
 export const SALE_TRANSACTIONS: TransactionType[] = [
   "SALE",
@@ -20,7 +21,10 @@ export const RENT_TRANSACTIONS: TransactionType[] = [
 
 export type CatalogueChannel = "acheter" | "louer";
 
+export type CatalogueView = "list" | "map";
+
 export type CatalogueFilters = {
+  region?: string;
   city?: string;
   quartier?: string;
   propertyType?: PropertyType;
@@ -31,6 +35,8 @@ export type CatalogueFilters = {
   priceMax?: number;
   cursor?: string;
   take?: number;
+  /** UI only — not part of Prisma where. */
+  view?: CatalogueView;
 };
 
 export function channelTransactions(
@@ -71,6 +77,16 @@ export function buildPublicWhere(
 
   if (filters.city?.trim()) {
     where.city = { equals: filters.city.trim(), mode: "insensitive" };
+  } else if (filters.region?.trim()) {
+    const cities = cityNamesForRegion(filters.region.trim());
+    if (cities.length > 0) {
+      where.OR = cities.map((name) => ({
+        city: { equals: name, mode: "insensitive" as const },
+      }));
+    } else {
+      // Unknown region → match nothing
+      where.city = { equals: "__no_region_match__" };
+    }
   }
   if (filters.quartier?.trim()) {
     where.quartierLabel = {

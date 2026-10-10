@@ -15,18 +15,18 @@
 
 ## Todo
 
-- [ ] Toggle Liste | Carte sur catalogue (sticky sous header / barre filtres)
+- [x] Toggle Liste | Carte sur catalogue (sticky sous header / barre filtres)
   - Done when: switch change `view` sans perdre city/quartier/price…
-- [ ] Vue **Liste** = grille cards seule (retirer la carte always-on actuelle)
-- [ ] Vue **Carte** = Map plein panneau + panneau latéral / bottom sheet résultats (mobile)
+- [x] Vue **Liste** = grille cards seule (retirer la carte always-on actuelle)
+- [x] Vue **Carte** = Map plein panneau + panneau latéral / bottom sheet résultats (mobile)
   - Done when: frames `acheter-map` / `louer-map` respectés en composition
-- [ ] Drill-down géo UI : Région → Ville → Quartier
+- [x] Drill-down géo UI : Région → Ville → Quartier
   - Chips ou select en cascade + breadcrumb `Sénégal › Dakar › Almadies`
   - Done when: chaque niveau filtre le catalogue + sync URL (`region`, `city`, `quartier`)
-- [ ] Compteurs soft par niveau (ex. « 12 biens · Dakar ») si data dispo
-- [ ] Deep-link landings `/quartiers/[slug]` → catalogue préfiltré (déjà partiel) + `view=`
-- [ ] Mobile : drawer filtres + carte full-height ; FAB Liste/Carte
-- [ ] Copy FR métier SN (pas EN mockup)
+- [x] Compteurs soft par niveau (ex. « 12 biens · Dakar ») si data dispo
+- [x] Deep-link landings `/quartiers/[slug]` → catalogue préfiltré (déjà partiel) + `view=`
+- [x] Mobile : drawer filtres + carte full-height ; FAB Liste/Carte
+- [x] Copy FR métier SN (pas EN mockup)
 
 ## Refs
 

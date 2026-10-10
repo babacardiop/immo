@@ -112,9 +112,123 @@ async function seedLocations() {
   );
 }
 
+/** Demo geolocated listings so Carte view is non-empty on staging. */
+async function seedDemoListings() {
+  const agentEmail = (
+    process.env.SEED_AGENT_EMAIL ?? "agent@evergreen.sn"
+  ).toLowerCase();
+  const agent = await prisma.user.findUnique({ where: { email: agentEmail } });
+  if (!agent) {
+    console.warn("Skip demo listings: agent not found");
+    return;
+  }
+
+  const demos = [
+    {
+      slug: "villa-almadies-demo",
+      title: "Villa contemporaine — Almadies",
+      transaction: "SALE" as const,
+      propertyType: "HOUSE" as const,
+      paperType: "TF" as const,
+      priceFcfa: 185_000_000,
+      city: "Dakar",
+      quartierLabel: "Almadies",
+      geoLat: 14.7445,
+      geoLng: -17.5252,
+      bedrooms: 5,
+      bathrooms: 4,
+      areaM2: 450,
+    },
+    {
+      slug: "appart-mermoz-demo",
+      title: "Appartement 3 chambres — Mermoz",
+      transaction: "SALE" as const,
+      propertyType: "APARTMENT" as const,
+      paperType: "TF" as const,
+      priceFcfa: 95_000_000,
+      city: "Dakar",
+      quartierLabel: "Mermoz",
+      geoLat: 14.7168,
+      geoLng: -17.4725,
+      bedrooms: 3,
+      bathrooms: 2,
+      areaM2: 120,
+    },
+    {
+      slug: "location-point-e-demo",
+      title: "F3 meublé — Point E",
+      transaction: "RENT" as const,
+      propertyType: "APARTMENT" as const,
+      paperType: null,
+      priceFcfa: 650_000,
+      city: "Dakar",
+      quartierLabel: "Point E",
+      geoLat: 14.6955,
+      geoLng: -17.4612,
+      bedrooms: 3,
+      bathrooms: 2,
+      areaM2: 95,
+    },
+    {
+      slug: "terrain-mbour-demo",
+      title: "Terrain 300 m² — Mbour",
+      transaction: "SALE" as const,
+      propertyType: "LAND" as const,
+      paperType: "DELIBERATION" as const,
+      priceFcfa: 25_000_000,
+      city: "Mbour",
+      quartierLabel: "Centre",
+      geoLat: 14.4112,
+      geoLng: -16.9644,
+      bedrooms: null,
+      bathrooms: null,
+      areaM2: 300,
+    },
+  ];
+
+  for (const d of demos) {
+    await prisma.listing.upsert({
+      where: { slug: d.slug },
+      update: {
+        status: "PUBLISHED",
+        publishedAt: new Date(),
+        geoLat: d.geoLat,
+        geoLng: d.geoLng,
+        city: d.city,
+        quartierLabel: d.quartierLabel,
+        priceFcfa: d.priceFcfa,
+      },
+      create: {
+        slug: d.slug,
+        reference: `DEMO-${d.slug.slice(0, 8).toUpperCase()}`,
+        status: "PUBLISHED",
+        publishedAt: new Date(),
+        transaction: d.transaction,
+        propertyType: d.propertyType,
+        title: d.title,
+        description:
+          "Annonce démo seed — pour tester Liste / Carte et filtres géo.",
+        paperType: d.paperType,
+        priceFcfa: d.priceFcfa,
+        city: d.city,
+        quartierLabel: d.quartierLabel,
+        geoLat: d.geoLat,
+        geoLng: d.geoLng,
+        bedrooms: d.bedrooms,
+        bathrooms: d.bathrooms,
+        areaM2: d.areaM2,
+        agentId: agent.id,
+        deliberationDisclaimerAck: d.paperType === "DELIBERATION",
+      },
+    });
+  }
+  console.log(`Seeded ${demos.length} demo geolocated listings`);
+}
+
 async function main() {
   await seedUsers();
   await seedLocations();
+  await seedDemoListings();
 }
 
 main()

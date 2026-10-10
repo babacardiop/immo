@@ -10,15 +10,15 @@
 
 ## Todo
 
-- [ ] Étendre `CatalogueFilters` + `buildPublicWhere` avec `region` (string exacte, 14 valeurs)
+- [x] Étendre `CatalogueFilters` + `buildPublicWhere` avec `region` (string exacte, 14 valeurs)
   - Done when: filtre région sans city → toutes villes de la région
-- [ ] `listMapPins` respecte `region` + mêmes filtres que la liste
-- [ ] Endpoint ou query d’**agrégats géo** (counts publiés) :
+- [x] `listMapPins` respecte `region` + mêmes filtres que la liste
+- [x] Endpoint ou query d’**agrégats géo** (counts publiés) :
   - par région · par ville (optionnel quartier)
   - Done when: UI peut afficher « n biens » sans N+1
-- [ ] Index / perf soft si besoin (`publishedAt`, `city`, `quartierLabel`, coords)
-- [ ] Valider coords listing pour carte (lat/lng non null) — documenter gap data agent BO
-- [ ] Pas de nouvelle table géo si City/Quartier suffisent ; sinon ADR court
+- [x] Index / perf soft si besoin (`publishedAt`, `city`, `quartierLabel`, coords)
+- [x] Valider coords listing pour carte (lat/lng non null) — documenter gap data agent BO
+- [x] Pas de nouvelle table géo si City/Quartier suffisent ; sinon ADR court
 
 ## Refs
 

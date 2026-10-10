@@ -27,10 +27,11 @@ describe("quartier landings", () => {
     expect(getQuartierLanding("quartier-inexistant")).toBeNull();
   });
 
-  it("builds catalogue CTA with city + quartier filters", () => {
+  it("builds catalogue CTA with region + city + quartier filters", () => {
     const landing = getQuartierLanding("mermoz")!;
     const href = quartierCatalogueHref(landing, "acheter");
     expect(href).toContain("/acheter?");
+    expect(href).toContain("region=Dakar");
     expect(href).toContain("city=Dakar");
     expect(href).toContain("quartier=Mermoz");
   });

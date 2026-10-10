@@ -49,5 +49,40 @@ describe("catalogue filters", () => {
     expect(filters.priceMin).toBe(1000);
     expect(filters.priceMax).toBe(2000);
     expect(filters.cursor).toBe("abc");
+    expect(filters.view).toBe("list");
+  });
+
+  it("parses view=map and valid region", () => {
+    const filters = parseCatalogueSearchParams({
+      view: "map",
+      region: "Dakar",
+    });
+    expect(filters.view).toBe("map");
+    expect(filters.region).toBe("Dakar");
+  });
+
+  it("ignores invalid region", () => {
+    const filters = parseCatalogueSearchParams({ region: "Narnia" });
+    expect(filters.region).toBeUndefined();
+  });
+
+  it("filters by region cities when city omitted", () => {
+    const where = buildPublicWhere("acheter", { region: "Dakar" });
+    expect(where.OR).toEqual(
+      expect.arrayContaining([
+        { city: { equals: "Dakar", mode: "insensitive" } },
+      ]),
+    );
+    expect(where.city).toBeUndefined();
+  });
+
+  it("city filter wins over region", () => {
+    const where = buildPublicWhere("acheter", {
+      region: "Dakar",
+      city: "Mbour",
+    });
+    expect(where.city).toEqual({ equals: "Mbour", mode: "insensitive" });
+    expect(where.OR).toBeUndefined();
   });
 });
+
