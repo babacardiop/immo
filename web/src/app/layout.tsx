@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -44,7 +45,9 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <SiteFooter />
-        <StickyWa />
+        <Suspense fallback={null}>
+          <StickyWa />
+        </Suspense>
       </body>
     </html>
   );
