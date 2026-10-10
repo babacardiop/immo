@@ -2,10 +2,23 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { LoginForm } from "@/components/login-form";
+import { PageShell } from "@/components/page-shell";
 
 export default function ConnexionPage() {
   return (
-    <Suspense fallback={<p className="text-[var(--color-muted)]">Chargement…</p>}>
+    <Suspense
+      fallback={
+        <PageShell
+          crumbs={[
+            { href: "/", label: "Accueil" },
+            { label: "Connexion" },
+          ]}
+          title="Connexion"
+        >
+          <p className="text-[var(--color-muted)]">Chargement…</p>
+        </PageShell>
+      }
+    >
       <ConnexionContent />
     </Suspense>
   );
@@ -18,12 +31,18 @@ async function ConnexionContent() {
   }
 
   return (
-    <div className="flex flex-1 flex-col items-start justify-center">
-      <h1 className="text-3xl font-semibold tracking-tight">Connexion</h1>
-      <p className="mt-2 mb-8 text-[var(--color-muted)]">
-        Accès réservé aux agents, OD et admins.
-      </p>
-      <LoginForm />
-    </div>
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { label: "Connexion" },
+      ]}
+      title="Connexion"
+      description="Accès réservé aux agents, OD et admins."
+      wide={false}
+    >
+      <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-6 sm:p-8">
+        <LoginForm />
+      </div>
+    </PageShell>
   );
 }

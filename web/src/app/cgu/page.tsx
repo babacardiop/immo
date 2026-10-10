@@ -1,10 +1,19 @@
+import { PageShell } from "@/components/page-shell";
+
 export default function CguPage() {
   return (
-    <main className="mx-auto max-w-3xl flex-1 px-6 py-16">
-      <h1 className="text-3xl font-semibold">Conditions générales</h1>
-      <p className="mt-4 text-[var(--color-muted)]">
-        Placeholder — CGU à rédiger.
-      </p>
-    </main>
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { label: "CGU" },
+      ]}
+      title="Conditions générales"
+      description="Placeholder — CGU à rédiger."
+      wide={false}
+    >
+      <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-6 text-sm text-[var(--color-muted)] sm:p-8">
+        Contenu juridique à venir.
+      </div>
+    </PageShell>
   );
 }

@@ -12,7 +12,7 @@ export function ListingGallery({
   const [active, setActive] = useState(0);
   if (images.length === 0) {
     return (
-      <div className="flex aspect-[16/10] items-center justify-center bg-[var(--color-steel)]/20 text-[var(--color-muted)]">
+      <div className="flex aspect-[16/10] items-center justify-center rounded-[var(--radius-card)] bg-[var(--color-steel)]/20 text-[var(--color-muted)]">
         Aucune photo
       </div>
     );
@@ -22,7 +22,7 @@ export function ListingGallery({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="aspect-[16/10] overflow-hidden bg-[var(--color-steel)]/15">
+      <div className="aspect-[16/10] overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-steel)]/15">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={current.url}
@@ -37,9 +37,9 @@ export function ListingGallery({
               key={`${img.url}-${i}`}
               type="button"
               onClick={() => setActive(i)}
-              className={`h-16 w-20 shrink-0 overflow-hidden border-2 ${
+              className={`h-16 w-20 shrink-0 overflow-hidden rounded-lg border-2 ${
                 i === active
-                  ? "border-[var(--color-ink)]"
+                  ? "border-[var(--color-leaf)]"
                   : "border-transparent"
               }`}
               aria-label={`Photo ${i + 1}`}

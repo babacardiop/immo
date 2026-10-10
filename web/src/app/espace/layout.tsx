@@ -3,9 +3,5 @@ export default function EspaceLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 py-10">
-      {children}
-    </div>
-  );
+  return <div className="flex w-full flex-1 flex-col">{children}</div>;
 }

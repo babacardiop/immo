@@ -8,6 +8,7 @@ import { CatalogueFilters as FiltersForm } from "@/components/catalogue-filters"
 import { CatalogueMap } from "@/components/catalogue-map";
 import { ListingCard } from "@/components/listing-card";
 import { CatalogueEmpty } from "@/components/catalogue-empty";
+import { PageShell } from "@/components/page-shell";
 
 export async function CataloguePage({
   channel,
@@ -39,17 +40,21 @@ export async function CataloguePage({
     : null;
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
-      <h1 className="font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight">
-        {title}
-      </h1>
-      <p className="mt-2 max-w-2xl text-[var(--color-muted)]">{subtitle}</p>
-
-      <div className="mt-8">
-        <Suspense fallback={<p className="text-sm text-[var(--color-muted)]">Filtres…</p>}>
-          <FiltersForm channel={channel} />
-        </Suspense>
-      </div>
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { label: title },
+      ]}
+      title={title}
+      description={subtitle}
+    >
+      <Suspense
+        fallback={
+          <p className="text-sm text-[var(--color-muted)]">Filtres…</p>
+        }
+      >
+        <FiltersForm channel={channel} />
+      </Suspense>
 
       <CatalogueMap pins={pins} channel={channel} />
 
@@ -67,12 +72,12 @@ export async function CataloguePage({
         <div className="mt-10 flex justify-center">
           <Link
             href={moreHref}
-            className="rounded-md border border-[var(--color-steel)] px-4 py-2 text-sm"
+            className="rounded-[var(--radius-pill)] border border-[var(--color-steel)] bg-[var(--color-surface)] px-5 py-2.5 text-sm font-medium"
           >
             Voir plus
           </Link>
         </div>
       ) : null}
-    </main>
+    </PageShell>
   );
 }

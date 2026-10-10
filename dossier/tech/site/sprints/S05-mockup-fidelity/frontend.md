@@ -24,6 +24,7 @@ Copy **FR / métier SN**. BO hors scope.
 - [x] `strip-07` Footer mockup tiers
 - [x] Unifier catalogue + fiche cards
 - [x] Unifier chrome pages publiques (agence, guides, contact, quartiers)
+- [x] PageShell + fil d’Ariane — catalogue, fiche, guides, légal, connexion
 - [x] Mobile stack · `next/image` crops in `public/images`
 
 ## Refs

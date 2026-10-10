@@ -25,7 +25,7 @@ export function WhatsAppCta({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex rounded-md bg-[var(--color-sage)] px-4 py-2 text-sm font-medium text-[var(--color-ink)] hover:opacity-90 ${className}`}
+      className={`inline-flex rounded-[var(--radius-pill)] bg-[var(--color-sage)] px-5 py-2.5 text-sm font-medium text-[var(--color-ink)] hover:opacity-90 ${className}`}
     >
       {label}
     </a>

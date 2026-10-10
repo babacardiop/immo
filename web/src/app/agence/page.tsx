@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentBlocks } from "@/components/content-blocks";
+import { PageShell } from "@/components/page-shell";
 import { WhatsAppCta } from "@/components/wa-cta";
 import { getAgencePage } from "@/lib/content/pages";
 import { absoluteUrl, siteUrl } from "@/lib/seo/site";
@@ -41,31 +42,36 @@ export default function AgencePage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16">
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { label: "Agence" },
+      ]}
+      title={page.title}
+      description={page.description}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight">
-        {page.title}
-      </h1>
-      <p className="mt-3 text-lg text-[var(--color-muted)]">{page.description}</p>
-      <ContentBlocks blocks={page.blocks} />
+      <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] px-6 py-8 sm:px-10">
+        <ContentBlocks blocks={page.blocks} />
+      </div>
       <div className="mt-10 flex flex-wrap gap-3">
         <Link
           href="/contact"
-          className="inline-flex rounded-md bg-[var(--color-ink)] px-4 py-2 text-sm text-[var(--color-bg)]"
+          className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)]"
         >
           Nous écrire
         </Link>
         <WhatsAppCta text="Bonjour EverGreen, j’aimerais en savoir plus sur l’agence." />
         <Link
           href="/guides"
-          className="inline-flex rounded-md border border-[var(--color-ink)] px-4 py-2 text-sm"
+          className="inline-flex rounded-[var(--radius-pill)] border border-[var(--color-steel)] bg-[var(--color-surface)] px-5 py-2.5 text-sm font-medium"
         >
           Guides
         </Link>
       </div>
-    </main>
+    </PageShell>
   );
 }

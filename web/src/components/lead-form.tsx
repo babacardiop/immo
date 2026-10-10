@@ -39,7 +39,7 @@ export function LeadForm({
     return (
       <div
         role="status"
-        className="rounded-md border border-[var(--color-sage)]/40 bg-[var(--color-sage)]/10 px-4 py-3 text-sm"
+        className="rounded-[var(--radius-card)] border border-[var(--color-sage)]/40 bg-[var(--color-sage)]/10 px-4 py-3 text-sm"
       >
         Merci — un conseiller vous répond sous <strong>24 h</strong>.
       </div>
@@ -95,7 +95,7 @@ export function LeadForm({
           id="intent"
           name="intent"
           defaultValue={defaultIntent}
-          className="mt-1 w-full rounded-md border border-[var(--color-steel)]/50 bg-white px-3 py-2 text-sm"
+          className="mt-1 w-full rounded-lg border border-[var(--color-steel)]/50 bg-[var(--color-bg)] px-3 py-2 text-sm"
         >
           {LEAD_INTENTS.map((i) => (
             <option key={i} value={i}>
@@ -112,7 +112,7 @@ export function LeadForm({
           name="message"
           rows={3}
           maxLength={2000}
-          className="mt-1 w-full rounded-md border border-[var(--color-steel)]/50 bg-white px-3 py-2 text-sm"
+          className="mt-1 w-full rounded-lg border border-[var(--color-steel)]/50 bg-[var(--color-bg)] px-3 py-2 text-sm"
         />
       </div>
 

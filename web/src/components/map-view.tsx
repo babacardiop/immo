@@ -84,7 +84,7 @@ export function MapView({
     <div
       ref={containerRef}
       data-testid="map-view"
-      className={`h-72 w-full overflow-hidden rounded-md border border-[var(--color-steel)]/40 bg-[var(--color-steel)]/10 ${className}`}
+      className={`h-72 w-full overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-steel)]/10 ${className}`}
       role="region"
       aria-label="Carte des biens"
     />

@@ -20,6 +20,7 @@ import { PaperBadge } from "@/components/paper-badge";
 import { ListingGallery } from "@/components/listing-gallery";
 import { WhatsAppCta } from "@/components/wa-cta";
 import { LeadForm } from "@/components/lead-form";
+import { PageShell } from "@/components/page-shell";
 
 export async function PublicFiche({
   channel,
@@ -40,8 +41,16 @@ export async function PublicFiche({
     .filter((m) => m.url)
     .map((m) => ({ url: m.url!, alt: m.alt }));
 
+  const channelLabel = channel === "acheter" ? "Acheter" : "Louer";
+
   return (
-    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { href: `/${channel}`, label: channelLabel },
+        { label: listing.title },
+      ]}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -49,14 +58,14 @@ export async function PublicFiche({
 
       <ListingGallery images={images} title={listing.title} />
 
-      <div className="mt-8 flex flex-wrap items-start justify-between gap-4">
-        <div>
+      <div className="mt-8 flex flex-wrap items-start justify-between gap-6">
+        <div className="min-w-0 flex-1">
           <p className="text-sm text-[var(--color-muted)]">
             {transactionLabel(listing.transaction)} ·{" "}
             {propertyTypeLabel(listing.propertyType)}
             {listing.reference ? ` · ${listing.reference}` : ""}
           </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h1 className="mt-2 font-[family-name:var(--font-brand-serif)] text-3xl font-semibold tracking-tight sm:text-4xl">
             {listing.title}
           </h1>
           <p className="mt-2 text-[var(--color-muted)]">
@@ -71,8 +80,8 @@ export async function PublicFiche({
             </div>
           ) : null}
         </div>
-        <div className="text-right">
-          <p className="text-2xl font-semibold">
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-5 text-right sm:min-w-[220px]">
+          <p className="text-2xl font-semibold text-[var(--color-ink)]">
             {formatFcfa(listing.priceFcfa)}
             {listing.transaction === "RENT" ||
             listing.transaction === "SHORT_TERM_RENT" ? (
@@ -86,7 +95,7 @@ export async function PublicFiche({
               </span>
             ) : null}
           </p>
-          <div className="mt-3">
+          <div className="mt-4">
             <WhatsAppCta
               text={listingInquiryText({
                 title: listing.title,
@@ -94,14 +103,14 @@ export async function PublicFiche({
                 url: absoluteUrl(path),
               })}
               phoneE164={listing.waPhone}
-              label="Contacter sur WhatsApp"
+              label="WhatsApp"
             />
           </div>
         </div>
       </div>
 
       {listing.description ? (
-        <section className="mt-10 max-w-3xl">
+        <section className="mt-10 rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-6 sm:p-8">
           <h2 className="text-xl font-semibold">Description</h2>
           <p className="mt-3 whitespace-pre-wrap leading-relaxed text-[var(--color-ink)]/90">
             {listing.description}
@@ -109,22 +118,39 @@ export async function PublicFiche({
         </section>
       ) : null}
 
-      <section className="mt-10 grid gap-3 text-sm sm:grid-cols-2">
-        {listing.areaM2 != null ? (
-          <p>
-            <span className="text-[var(--color-muted)]">Surface · </span>
-            {Number(listing.areaM2).toLocaleString("fr-FR")} m²
-          </p>
-        ) : null}
-        {listing.addressPublic ? (
-          <p>
-            <span className="text-[var(--color-muted)]">Adresse · </span>
-            {listing.addressPublic}
-          </p>
-        ) : null}
-      </section>
+      {listing.areaM2 != null ||
+      listing.addressPublic ||
+      listing.bedrooms != null ||
+      listing.bathrooms != null ? (
+        <section className="mt-6 grid gap-3 rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-6 text-sm sm:grid-cols-2">
+          {listing.areaM2 != null ? (
+            <p>
+              <span className="text-[var(--color-muted)]">Surface · </span>
+              {Number(listing.areaM2).toLocaleString("fr-FR")} m²
+            </p>
+          ) : null}
+          {listing.addressPublic ? (
+            <p>
+              <span className="text-[var(--color-muted)]">Adresse · </span>
+              {listing.addressPublic}
+            </p>
+          ) : null}
+          {listing.bedrooms != null ? (
+            <p>
+              <span className="text-[var(--color-muted)]">Chambres · </span>
+              {listing.bedrooms}
+            </p>
+          ) : null}
+          {listing.bathrooms != null ? (
+            <p>
+              <span className="text-[var(--color-muted)]">Salles de bain · </span>
+              {listing.bathrooms}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
 
-      <section className="mt-12 border-t border-[var(--color-steel)]/30 pt-10">
+      <section className="mt-12 rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-6 sm:p-8">
         <h2 className="text-xl font-semibold">Demander des infos</h2>
         <p className="mt-1 text-sm text-[var(--color-muted)]">
           Laissez vos coordonnées — réponse sous 24 h. Ou WhatsApp ci-dessus.
@@ -142,6 +168,6 @@ export async function PublicFiche({
           />
         </div>
       </section>
-    </main>
+    </PageShell>
   );
 }

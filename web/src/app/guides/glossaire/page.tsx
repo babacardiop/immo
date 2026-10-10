@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { PageShell } from "@/components/page-shell";
 import { getGlossaire } from "@/lib/content/pages";
 import { absoluteUrl } from "@/lib/seo/site";
 
@@ -14,24 +14,30 @@ export default function GlossairePage() {
   const entries = getGlossaire();
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
-      <p className="text-sm text-[var(--color-muted)]">
-        <Link href="/guides" className="hover:text-[var(--color-ink)]">
-          Guides
-        </Link>
-      </p>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight">Glossaire</h1>
-      <p className="mt-3 text-[var(--color-muted)]">
-        Les termes que vous verrez sur nos fiches et dans nos échanges.
-      </p>
-      <dl className="mt-10 space-y-6">
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { href: "/guides", label: "Guides" },
+        { label: "Glossaire" },
+      ]}
+      title="Glossaire"
+      description="Les termes que vous verrez sur nos fiches et dans nos échanges."
+    >
+      <dl className="grid gap-4 sm:grid-cols-2">
         {entries.map((e) => (
-          <div key={e.term}>
-            <dt className="text-xl font-medium">{e.term}</dt>
-            <dd className="mt-1 text-[var(--color-muted)]">{e.definition}</dd>
+          <div
+            key={e.term}
+            className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-6"
+          >
+            <dt className="text-lg font-semibold text-[var(--color-ink)]">
+              {e.term}
+            </dt>
+            <dd className="mt-2 text-sm leading-relaxed text-[var(--color-muted)]">
+              {e.definition}
+            </dd>
           </div>
         ))}
       </dl>
-    </main>
+    </PageShell>
   );
 }

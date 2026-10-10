@@ -20,7 +20,7 @@ export function QuartierCta({
     <div className="mt-8 flex flex-wrap gap-3">
       <Link
         href={href}
-        className="inline-flex rounded-md bg-[var(--color-ink)] px-4 py-2 text-sm font-medium text-[var(--color-bg)]"
+        className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)]"
         data-testid="quartier-catalogue-cta"
       >
         {label}

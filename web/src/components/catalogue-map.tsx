@@ -9,7 +9,7 @@ const MapView = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-72 items-center justify-center rounded-md border border-[var(--color-steel)]/40 text-sm text-[var(--color-muted)]">
+      <div className="flex h-72 items-center justify-center rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] text-sm text-[var(--color-muted)]">
         Chargement de la carte…
       </div>
     ),

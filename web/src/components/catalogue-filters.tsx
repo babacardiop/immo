@@ -72,7 +72,7 @@ export function CatalogueFilters({
 
   return (
     <form
-      className="grid gap-3 rounded-md border border-[var(--color-steel)]/40 p-4 sm:grid-cols-2 lg:grid-cols-3"
+      className="grid gap-3 rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3"
       action={apply}
     >
       <div>
@@ -119,7 +119,7 @@ export function CatalogueFilters({
         <select
           id="propertyType"
           name="propertyType"
-          className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-[var(--color-steel)] bg-[var(--color-bg)] px-3 py-2 text-sm"
           defaultValue={searchParams.get("propertyType") ?? ""}
         >
           <option value="">Tous</option>
@@ -135,7 +135,7 @@ export function CatalogueFilters({
           <select
             id="paperType"
             name="paperType"
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-[var(--color-steel)] bg-[var(--color-bg)] px-3 py-2 text-sm"
             defaultValue={searchParams.get("paperType") ?? ""}
           >
             <option value="">Tous</option>
@@ -151,7 +151,7 @@ export function CatalogueFilters({
           <select
             id="transaction"
             name="transaction"
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-[var(--color-steel)] bg-[var(--color-bg)] px-3 py-2 text-sm"
             defaultValue={searchParams.get("transaction") ?? ""}
           >
             <option value="">Toutes</option>

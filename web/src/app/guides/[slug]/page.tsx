@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContentBlocks } from "@/components/content-blocks";
+import { PageShell } from "@/components/page-shell";
 import { getGuidePage, listGuidePages } from "@/lib/content/pages";
 import { absoluteUrl } from "@/lib/seo/site";
 
@@ -50,19 +50,23 @@ export default async function GuidePage({ params }: Props) {
   };
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
+    <PageShell
+      crumbs={[
+        { href: "/", label: "Accueil" },
+        { href: "/guides", label: "Guides" },
+        { label: page.title },
+      ]}
+      title={page.title}
+      description={page.description}
+      wide={false}
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <p className="text-sm text-[var(--color-muted)]">
-        <Link href="/guides" className="hover:text-[var(--color-ink)]">
-          Guides
-        </Link>
-      </p>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight">{page.title}</h1>
-      <p className="mt-3 text-lg text-[var(--color-muted)]">{page.description}</p>
-      <ContentBlocks blocks={page.blocks} />
-    </main>
+      <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] px-6 py-8 sm:px-10">
+        <ContentBlocks blocks={page.blocks} />
+      </div>
+    </PageShell>
   );
 }

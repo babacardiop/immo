@@ -2,7 +2,7 @@ import type { ContentBlock } from "@/lib/content/pages";
 
 export function ContentBlocks({ blocks }: { blocks: ContentBlock[] }) {
   return (
-    <div className="mt-8 space-y-6 text-[var(--color-ink)]">
+    <div className="space-y-6 text-[var(--color-ink)]">
       {blocks.map((block, i) => {
         if (block.type === "p") {
           return (
