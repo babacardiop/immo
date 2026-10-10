@@ -19,6 +19,7 @@ import { listingInquiryText } from "@/lib/whatsapp";
 import { PaperBadge } from "@/components/paper-badge";
 import { ListingGallery } from "@/components/listing-gallery";
 import { WhatsAppCta } from "@/components/wa-cta";
+import { LeadForm } from "@/components/lead-form";
 
 export async function PublicFiche({
   channel,
@@ -121,6 +122,25 @@ export async function PublicFiche({
             {listing.addressPublic}
           </p>
         ) : null}
+      </section>
+
+      <section className="mt-12 border-t border-[var(--color-steel)]/30 pt-10">
+        <h2 className="text-xl font-semibold">Demander des infos</h2>
+        <p className="mt-1 text-sm text-[var(--color-muted)]">
+          Laissez vos coordonnées — réponse sous 24 h. Ou WhatsApp ci-dessus.
+        </p>
+        <div className="mt-4">
+          <LeadForm
+            listingId={listing.id}
+            sourceDetail="form_fiche"
+            defaultIntent={
+              listing.transaction === "RENT" ||
+              listing.transaction === "SHORT_TERM_RENT"
+                ? "rent"
+                : "buy"
+            }
+          />
+        </div>
       </section>
     </main>
   );

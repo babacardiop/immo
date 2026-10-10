@@ -7,11 +7,15 @@ vi.mock("@/app/actions/auth", () => ({
 }));
 
 describe("AgentNav", () => {
-  it("renders dashboard and annonces links", () => {
+  it("renders dashboard, leads and annonces links", () => {
     render(<AgentNav email="agent@evergreen.sn" role="AGENT" />);
     expect(
       screen.getByRole("link", { name: /tableau de bord/i }),
     ).toHaveAttribute("href", "/espace/agent");
+    expect(screen.getByRole("link", { name: /^leads$/i })).toHaveAttribute(
+      "href",
+      "/espace/agent/leads",
+    );
     expect(screen.getByRole("link", { name: /annonces/i })).toHaveAttribute(
       "href",
       "/espace/agent/annonces",

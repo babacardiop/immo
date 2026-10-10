@@ -103,6 +103,14 @@ enum LeadStage {
   OFFER
   WON
   LOST
+  NURTURE
+}
+
+enum LeadEventType {
+  CREATED
+  STAGE_CHANGE
+  NOTE
+  SYSTEM
 }
 
 model User {
@@ -117,9 +125,10 @@ model User {
   sessions      Session[]
   listings      Listing[]
   mandates      Mandate[]
-  assignedLeads Lead[]    @relation("LeadAssignee")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  assignedLeads Lead[]      @relation("LeadAssignee")
+  leadEvents    LeadEvent[] @relation("LeadEventActor")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model Account {
@@ -199,6 +208,7 @@ model Listing {
   agent                     User?              @relation(fields: [agentId], references: [id])
   mandate                   Mandate?
   media                     MediaAsset[]
+  leads                     Lead[]
   publishedAt               DateTime?
   archivedAt                DateTime?
   createdAt                 DateTime           @default(now())
@@ -243,19 +253,52 @@ model MediaAsset {
 }
 
 model Lead {
-  id         String     @id @default(cuid())
-  name       String?
-  email      String?
-  phone      String?
-  source     LeadSource @default(FORM)
-  stage      LeadStage  @default(NEW)
-  intent     String?
-  message    String?    @db.Text
-  listingId  String?
-  assigneeId String?
-  assignee   User?      @relation("LeadAssignee", fields: [assigneeId], references: [id])
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id             String     @id @default(cuid())
+  name           String?
+  email          String?
+  phone          String?
+  source         LeadSource @default(FORM)
+  /// Surface tag e.g. form_fiche · form_contact · wa_fiche
+  sourceDetail   String?
+  stage          LeadStage  @default(NEW)
+  intent         String?
+  message        String?    @db.Text
+  consentContact Boolean    @default(false)
+  listingId      String?
+  listing        Listing?   @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  assigneeId     String?
+  assignee       User?      @relation("LeadAssignee", fields: [assigneeId], references: [id])
+  /// Clock start = createdAt; set when agent first moves off NEW / adds note.
+  firstTouchAt   DateTime?
+  /// Soft SLA deadline (default createdAt + 24h).
+  slaDueAt       DateTime?
+  utmSource      String?
+  utmMedium      String?
+  utmCampaign    String?
+  events         LeadEvent[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([assigneeId, stage, createdAt])
+  @@index([stage, slaDueAt])
+  @@index([listingId])
+  @@index([phone])
+  @@index([email])
+}
+
+model LeadEvent {
+  id         String        @id @default(cuid())
+  leadId     String
+  lead       Lead          @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type       LeadEventType
+  fromStage  LeadStage?
+  toStage    LeadStage?
+  body       String?       @db.Text
+  actorId    String?
+  actor      User?         @relation("LeadEventActor", fields: [actorId], references: [id], onDelete: SetNull)
+  createdAt  DateTime      @default(now())
+
+  @@index([leadId, createdAt])
 }
 
 /// Thesaurus villes — toujours rattachées à une région (région → ville → quartier).

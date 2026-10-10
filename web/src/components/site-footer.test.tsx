@@ -3,8 +3,12 @@ import { describe, expect, it } from "vitest";
 import { SiteFooter } from "@/components/site-footer";
 
 describe("SiteFooter", () => {
-  it("renders legal placeholder links", () => {
+  it("renders contact and legal links", () => {
     render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: /^contact$/i })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
     expect(screen.getByRole("link", { name: /mentions/i })).toHaveAttribute(
       "href",
       "/mentions-legales",

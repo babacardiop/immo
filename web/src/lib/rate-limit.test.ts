@@ -10,4 +10,12 @@ describe("rateLimit", () => {
     expect(blocked.ok).toBe(false);
     if (!blocked.ok) expect(blocked.retryAfterSec).toBeGreaterThan(0);
   });
+
+  it("lead-specific key trips after N posts", () => {
+    const key = `lead:test-${Math.random()}`;
+    for (let i = 0; i < 8; i += 1) {
+      expect(rateLimit(key, 8, 60_000).ok).toBe(true);
+    }
+    expect(rateLimit(key, 8, 60_000).ok).toBe(false);
+  });
 });

@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import {
   SENEGAL_REGIONS,
   guessRegionForCity,
+  type SenegalRegion,
 } from "@/lib/locations/regions";
 
 export function AddLocationTrigger({
@@ -111,7 +112,7 @@ export function AddLocationPanel({
             id="new-region"
             className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
             value={region}
-            onChange={(e) => setRegion(e.target.value)}
+            onChange={(e) => setRegion(e.target.value as SenegalRegion)}
           >
             {SENEGAL_REGIONS.map((r) => (
               <option key={r} value={r}>

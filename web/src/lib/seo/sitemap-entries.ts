@@ -11,7 +11,15 @@ export type SitemapListing = Pick<
 >;
 
 export function staticSitemapPaths(): string[] {
-  return ["/", "/acheter", "/louer", "/mentions-legales", "/cgu", "/confidentialite"];
+  return [
+    "/",
+    "/acheter",
+    "/louer",
+    "/contact",
+    "/mentions-legales",
+    "/cgu",
+    "/confidentialite",
+  ];
 }
 
 export function listingSitemapEntries(listings: SitemapListing[]): {

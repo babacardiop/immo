@@ -2,11 +2,11 @@
 
 ## Todo
 
-- [ ] Form contact fiche + page contact (W-LEAD)
-- [ ] Success / error states
-- [ ] `/espace/agent/leads` file (W-AGT-LEADS)
-- [ ] Stage kanban or list + detail note
-- [ ] Badge SLA overdue soft
+- [x] Form contact fiche + page contact (W-LEAD)
+- [x] Success / error states
+- [x] `/espace/agent/leads` file (W-AGT-LEADS)
+- [x] Stage kanban or list + detail note
+- [x] Badge SLA overdue soft
 
 ## Refs
 

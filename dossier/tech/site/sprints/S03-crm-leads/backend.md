@@ -5,13 +5,13 @@
 
 ## Todo
 
-- [ ] Schema Lead + LeadEvent · stages pipeline `04`
-- [ ] POST form public → create Lead · honeypot · rate limit IP
-- [ ] Link Lead → Listing optional
-- [ ] Agent : list/filter leads · change stage · note
-- [ ] Notif email Resend (agent + ack user soft)
-- [ ] SLA timer field `first_touch_at` · cron/job soft flag overdue
-- [ ] Consent flag + source tracking (EF privacy)
+- [x] Schema Lead + LeadEvent · stages pipeline `04`
+- [x] POST form public → create Lead · honeypot · rate limit IP
+- [x] Link Lead → Listing optional
+- [x] Agent : list/filter leads · change stage · note
+- [x] Notif email Resend (agent + ack user soft)
+- [x] SLA timer field `first_touch_at` · cron/job soft flag overdue
+- [x] Consent flag + source tracking (EF privacy)
 
 ## Refs
 

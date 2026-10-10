@@ -6,6 +6,9 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-5xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p>© 2026 EverGreen</p>
         <nav className="flex flex-wrap gap-4">
+          <Link href="/contact" className="hover:text-[var(--color-ink)]">
+            Contact
+          </Link>
           <Link href="/mentions-legales" className="hover:text-[var(--color-ink)]">
             Mentions légales
           </Link>
