@@ -2,15 +2,17 @@
 
 ## Manuels
 
-- [ ] Confirm `assets/design/**` + `assets/images/**` available in repo for eng (no CDN required for refs)
-- [ ] Hero / CTA / property crops served via `public/` or Next static import — licences OK (`annexes/photos-marque`)
-- [ ] Staging visual QA checklist against strips after deploy
+- [x] `assets/design/**` + `assets/images/**` in repo
+- [x] Crops served via `web/public/images`
+- [ ] Staging visual QA strips + chrome unifié
+- [x] Logo + favicon `web/public/brand/`
 
 ## GitHub Actions
 
-- [ ] Keep unit + typecheck gate
-- [ ] Optional Playwright screenshot job soft (non-blocking)
+- [x] Unit + typecheck gate (existant)
+- [ ] Optional Playwright screenshot soft
 
 ## Done when
 
-- [ ] Staging home reviewed against `assets/design/previews/*` — sign-off GER / design
+- [ ] Staging home sign-off vs strips
+- [ ] Public surface = one brand

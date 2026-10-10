@@ -2,9 +2,9 @@
 
 ## Todo
 
-- [ ] Home content modules resolve (FAQ, stats, testimonials)
+- [x] Home content modules
   - File: `web/src/lib/content/home.test.ts`
-- [ ] Featured listings payload matches card fields needed by mockup grid
-  - File: `web/src/lib/listings/featured.test.ts` (extend or add)
-- [ ] Sitemap / metadata still include home + money paths after redesign
+- [x] Featured listings payload
+  - File: `web/src/lib/listings/featured.test.ts`
+- [x] Sitemap still published-only
   - File: `web/src/app/sitemap.test.ts`

@@ -15,6 +15,9 @@
   --color-surface: #ffffff;
   --color-danger: #b42318;
   --color-success: #3f6212;
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-sheet: 40px;
 
   --background: var(--color-bg);
   --foreground: var(--color-ink);
@@ -33,6 +36,9 @@
   --color-surface: #1a1a14;
   --color-danger: #f97066;
   --color-success: #86cb3c;
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-sheet: 40px;
 
   --background: var(--color-bg);
   --foreground: var(--color-ink);
@@ -51,6 +57,9 @@
   --color-surface: #244a36;
   --color-danger: #f97066;
   --color-success: #86cb3c;
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-sheet: 40px;
 
   --background: var(--color-bg);
   --foreground: var(--color-ink);

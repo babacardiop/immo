@@ -41,12 +41,14 @@ export default function AgencePage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="text-4xl font-semibold tracking-tight">{page.title}</h1>
+      <h1 className="font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight">
+        {page.title}
+      </h1>
       <p className="mt-3 text-lg text-[var(--color-muted)]">{page.description}</p>
       <ContentBlocks blocks={page.blocks} />
       <div className="mt-10 flex flex-wrap gap-3">

@@ -14,8 +14,10 @@ export default function GuidesIndexPage() {
   const guides = listGuidePages();
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
-      <h1 className="text-4xl font-semibold tracking-tight">Guides</h1>
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16">
+      <h1 className="font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight">
+        Guides
+      </h1>
       <p className="mt-3 text-[var(--color-muted)]">
         Repères concrets avant une visite ou un engagement — sans jargon inutile.
       </p>

@@ -1,16 +1,17 @@
 # S05 — Backend
 
-**US :** layout fidelity · brand surface (public)  
-**Outcome :** Shell public pixel-aligned to mockup · **Gate avant S06 outils**
+**US :** layout fidelity · brand surface (public) · UI unifiée  
+**Outcome :** Home quasi pixel + data sections · chrome unifié · Gate avant S06
 
 ## Todo
 
-- [ ] Inventory sections ↔ assets (strip map) — no new product APIs
-- [ ] Featured / premier listings query shaped for mockup grid (beds/baths soft if present)
-- [ ] FAQ + testimonials content CMS-lite (static TS OK) — FR copy, mockup structure
-- [ ] Home sections data: stats, discover CTA targets (`/acheter`, `/louer`, WA)
-- [ ] Keep SEO metadata / OG intact after shell rewrite
+- [x] Inventory sections ↔ assets (strip map)
+- [x] Featured / premier listings query (beds/baths on card)
+- [x] FAQ + testimonials + stats CMS-lite FR
+- [x] Home sections data + CTA targets
+- [x] SEO / OG / sitemap preserved
+- [x] Card fields shared home + catalogue
 
 ## Refs
 
-`assets/design/` · `docs/assets.md` · `docs/design-tokens.md` · `../16` · `../18`
+`assets/design/` · `docs/assets.md` · `docs/design-tokens.md`

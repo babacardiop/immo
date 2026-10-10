@@ -69,9 +69,13 @@ function item(over: Partial<PublicListItem> = {}): PublicListItem {
 }
 
 describe("ListingCard", () => {
-  it("renders title, price, link and quartier with city", () => {
-    render(<ListingCard listing={item()} />);
+  it("renders title, price, badge, link and quartier with city", () => {
+    render(
+      <ListingCard listing={item({ bedrooms: 3, bathrooms: 2 })} />,
+    );
     expect(screen.getByText(/terrain almadies/i)).toBeInTheDocument();
+    expect(screen.getByText(/à vendre/i)).toBeInTheDocument();
+    expect(screen.getByText(/3 ch\./i)).toBeInTheDocument();
     expect(screen.getByText(/almadies · dakar/i)).toBeInTheDocument();
     expect(screen.getByText(/25[\s\u00a0]?000[\s\u00a0]?000/)).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(

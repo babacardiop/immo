@@ -60,7 +60,9 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-full flex-col bg-[var(--color-bg)] text-[var(--color-ink)]">
         <ThemeProvider>
-          <SiteHeader />
+          <Suspense fallback={null}>
+            <SiteHeader />
+          </Suspense>
           {children}
           <SiteFooter />
           <Suspense fallback={null}>

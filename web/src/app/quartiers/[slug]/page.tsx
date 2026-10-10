@@ -62,7 +62,7 @@ export default async function QuartierLandingPage({ params }: Props) {
   };
 
   return (
-    <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -70,7 +70,7 @@ export default async function QuartierLandingPage({ params }: Props) {
       <p className="text-sm text-[var(--color-muted)]">
         {landing.city} · {landing.region}
       </p>
-      <h1 className="mt-2 text-4xl font-semibold tracking-tight">
+      <h1 className="mt-2 font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight">
         {landing.title}
       </h1>
       <p className="mt-3 text-lg text-[var(--color-muted)]">{landing.promise}</p>

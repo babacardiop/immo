@@ -39,8 +39,10 @@ export async function CataloguePage({
     : null;
 
   return (
-    <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-12">
-      <h1 className="text-4xl font-semibold tracking-tight">{title}</h1>
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
+      <h1 className="font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight">
+        {title}
+      </h1>
       <p className="mt-2 max-w-2xl text-[var(--color-muted)]">{subtitle}</p>
 
       <div className="mt-8">
@@ -54,7 +56,7 @@ export async function CataloguePage({
       {items.length === 0 ? (
         <CatalogueEmpty channel={channel} />
       ) : (
-        <div className="mt-10 grid gap-8 sm:grid-cols-2">
+        <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />
           ))}

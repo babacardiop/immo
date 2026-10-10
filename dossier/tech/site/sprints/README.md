@@ -72,7 +72,7 @@ Neon : prod branch + optional preview branch per PR
 | [`S02-catalogue-public`](./S02-catalogue-public/) | Home · acheter/louer · fiche · WA · SEO schema | Fiche live publique |
 | [`S03-crm-leads`](./S03-crm-leads/) | Forms → Lead · stages · file agent · SLA | Lead form → CRM + notif |
 | [`S04-confiance-polish`](./S04-confiance-polish/) | Agence/guides · map · landings · OG · empty | Gate **Done V0** |
-| [`S05-mockup-fidelity`](./S05-mockup-fidelity/) | Shell public = mockup `assets/design/` (home · nav · footer · cards) | Side-by-side strips OK |
+| [`S05-mockup-fidelity`](./S05-mockup-fidelity/) | Home/shell **quasi pixel** vs strips + chrome public **unifié** | Side-by-side strips + une marque |
 | [`S06-outils-simus`](./S06-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
 | [`S07-embeds-partenaires`](./S07-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
 | [`S08-dashboards-reporting`](./S08-dashboards-reporting/) | Dashboards multi-rôles + reports scoped | ACL UI = `14` · frames DS |

@@ -11,7 +11,7 @@ vi.mock("next/image", () => ({
 }));
 
 describe("SiteFooter", () => {
-  it("renders contact and legal links", () => {
+  it("renders brand footer links", () => {
     render(
       <ThemeProvider>
         <SiteFooter />
