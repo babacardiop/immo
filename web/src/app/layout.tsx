@@ -33,8 +33,12 @@ export const metadata: Metadata = {
   },
   description: "Agence immobilière full-service au Sénégal",
   icons: {
-    icon: [{ url: "/brand/favicon.jpg", type: "image/jpeg" }],
-    apple: [{ url: "/brand/favicon.jpg" }],
+    icon: [
+      { url: "/brand/favicon.png", type: "image/png" },
+      { url: "/brand/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/icon-48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: [{ url: "/brand/icon-180.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     locale: "fr_SN",

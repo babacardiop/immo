@@ -8,7 +8,7 @@ test.describe("mockup home", () => {
       page.getByRole("heading", { name: /construisez votre avenir/i }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: /trouver un bien/i }),
+      page.getByRole("heading", { name: /trouver le meilleur bien/i }),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: /questions fréquentes/i }),

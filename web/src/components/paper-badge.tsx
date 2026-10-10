@@ -2,7 +2,7 @@ import type { PaperType } from "@prisma/client";
 import { paperLabel } from "@/lib/listings/paper";
 
 const STYLES: Record<PaperType, string> = {
-  TF: "bg-[var(--color-sage)] text-[var(--color-ink)]",
+  TF: "bg-[var(--color-leaf)] text-white",
   BAIL_EMPHYTEOTIQUE: "bg-[#dbe4ee] text-[var(--color-olive)]",
   BAIL_ORDINAIRE: "bg-[#dbe4ee] text-[var(--color-olive)]",
   DELIBERATION: "bg-[#efe3c8] text-[var(--color-bronze)]",
@@ -16,7 +16,7 @@ export function PaperBadge({
 }) {
   if (!type) {
     return (
-      <span className="inline-flex rounded px-2 py-0.5 text-xs font-medium bg-[var(--color-steel)]/20 text-[var(--color-muted)]">
+      <span className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-steel)]/20 px-2.5 py-0.5 text-xs font-medium text-[var(--color-muted)]">
         Papier manquant
       </span>
     );
@@ -24,7 +24,7 @@ export function PaperBadge({
 
   return (
     <span
-      className={`inline-flex rounded px-2 py-0.5 text-xs font-medium ${STYLES[type]}`}
+      className={`inline-flex rounded-[var(--radius-pill)] px-2.5 py-0.5 text-xs font-medium ${STYLES[type]}`}
     >
       {paperLabel(type)}
     </span>

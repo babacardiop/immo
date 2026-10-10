@@ -13,9 +13,9 @@ export function isTheme(value: unknown): value is Theme {
 export function logoSrcForTheme(theme: Theme): string {
   switch (theme) {
     case "dark":
-      return "/brand/logo-full-on-dark.jpg";
+      return "/brand/logo-full-on-dark.png";
     case "green":
-      return "/brand/logo-full-on-green.jpg";
+      return "/brand/logo-full-on-green.png";
     default:
       return "/brand/logo-full.png";
   }

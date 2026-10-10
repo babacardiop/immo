@@ -25,7 +25,7 @@ export function HomeStory() {
             src="/images/story-home.jpg"
             alt=""
             fill
-            className="object-cover"
+            className="object-cover object-center"
             sizes="(max-width:1024px) 100vw, 50vw"
           />
         </div>
@@ -42,11 +42,11 @@ export function HomeStory() {
             sélection curated à Dakar et en régions.
           </p>
 
-          <ul className="mt-8 space-y-5">
+          <ul className="mt-8 space-y-5 border-t border-[var(--color-steel)]/25 pt-6">
             {POINTS.map((p) => (
               <li key={p.title} className="flex gap-4">
                 <span
-                  className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-sage)]"
+                  className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--color-sage)]"
                   aria-hidden
                 />
                 <div>

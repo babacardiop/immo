@@ -8,7 +8,7 @@ import { CatalogueFilters as FiltersForm } from "@/components/catalogue-filters"
 import { CatalogueMap } from "@/components/catalogue-map";
 import { ListingCard } from "@/components/listing-card";
 import { CatalogueEmpty } from "@/components/catalogue-empty";
-import { PageShell } from "@/components/page-shell";
+import { PageBreadcrumb } from "@/components/page-breadcrumb";
 
 export async function CataloguePage({
   channel,
@@ -35,19 +35,27 @@ export async function CataloguePage({
   if (filters.priceMin != null) qs.set("priceMin", String(filters.priceMin));
   if (filters.priceMax != null) qs.set("priceMax", String(filters.priceMax));
   if (nextCursor) qs.set("cursor", nextCursor);
-  const moreHref = nextCursor
-    ? `/${channel}?${qs.toString()}`
-    : null;
+  const moreHref = nextCursor ? `/${channel}?${qs.toString()}` : null;
 
   return (
-    <PageShell
-      crumbs={[
-        { href: "/", label: "Accueil" },
-        { label: title },
-      ]}
-      title={title}
-      description={subtitle}
-    >
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
+      <PageBreadcrumb
+        items={[
+          { href: "/", label: "Accueil" },
+          { label: title },
+        ]}
+      />
+
+      <header className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-leaf)]">
+          EverGreen · curated Sénégal
+        </p>
+        <h1 className="mt-2 font-[family-name:var(--font-brand-serif)] text-4xl font-semibold tracking-tight text-[var(--color-ink)]">
+          {title}
+        </h1>
+        <p className="mt-3 max-w-2xl text-[var(--color-muted)]">{subtitle}</p>
+      </header>
+
       <Suspense
         fallback={
           <p className="text-sm text-[var(--color-muted)]">Filtres…</p>
@@ -69,15 +77,15 @@ export async function CataloguePage({
       )}
 
       {moreHref ? (
-        <div className="mt-10 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <Link
             href={moreHref}
-            className="rounded-[var(--radius-pill)] border border-[var(--color-steel)] bg-[var(--color-surface)] px-5 py-2.5 text-sm font-medium"
+            className="rounded-[var(--radius-pill)] border border-[var(--color-steel)]/40 bg-[var(--color-surface)] px-6 py-2.5 text-sm font-medium"
           >
             Voir plus
           </Link>
         </div>
       ) : null}
-    </PageShell>
+    </main>
   );
 }

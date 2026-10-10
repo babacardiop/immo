@@ -25,6 +25,8 @@ Shell + pages publiques unifiés. Copy **FR / métier SN**. BO hors scope.
 - [x] Unifier catalogue + fiche cards
 - [x] Unifier chrome pages publiques (agence, guides, contact, quartiers)
 - [x] PageShell + fil d’Ariane — catalogue, fiche, guides, légal, connexion
+- [x] Photos SN réalistes (plus de crops Dribbble zoomés) · logo PNG transparent · favicon feuille
+- [x] Catalogue / fiche alignés DS (cards, split fiche, chips)
 - [x] Mobile stack · `next/image` crops in `public/images`
 
 ## Refs

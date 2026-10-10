@@ -21,36 +21,36 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
   const meta: string[] = [];
   if (listing.bedrooms != null) meta.push(`${listing.bedrooms} ch.`);
   if (listing.bathrooms != null) meta.push(`${listing.bathrooms} sdb`);
-  if (listing.areaM2 != null) meta.push(`${listing.areaM2} m²`);
+  if (listing.areaM2 != null) {
+    meta.push(`${Number(listing.areaM2).toLocaleString("fr-FR")} m²`);
+  }
 
   return (
     <article className="flex flex-col">
       <Link href={href} className="group block">
-        <div className="relative mb-3 aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-steel)]/20">
+        <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-steel)]/15">
           {cover ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={cover}
               alt=""
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
             />
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-[var(--color-muted)]">
               Sans photo
             </div>
           )}
-          <span className="absolute left-3 top-3 rounded-[var(--radius-pill)] bg-white/95 px-3 py-1 text-xs font-medium text-[var(--color-ink)]">
+          <span className="absolute left-3 top-3 rounded-[var(--radius-pill)] bg-white/95 px-3 py-1 text-xs font-medium text-[var(--color-ink)] shadow-sm">
             {badge}
           </span>
         </div>
-        {meta.length > 0 ? (
-          <p className="text-xs text-[var(--color-muted)]">{meta.join(" · ")}</p>
-        ) : (
-          <p className="text-xs text-[var(--color-muted)]">
-            {propertyTypeLabel(listing.propertyType)}
-          </p>
-        )}
-        <div className="mt-1 flex flex-wrap items-start justify-between gap-2">
+
+        <p className="text-xs text-[var(--color-muted)]">
+          {meta.length > 0 ? meta.join(" · ") : propertyTypeLabel(listing.propertyType)}
+        </p>
+
+        <div className="mt-1.5 flex flex-wrap items-center gap-2">
           <h2 className="text-lg font-semibold leading-snug text-[var(--color-ink)] group-hover:underline">
             {listing.title}
           </h2>
@@ -58,7 +58,8 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
             <PaperBadge type={listing.paperType} />
           ) : null}
         </div>
-        <p className="mt-2 font-medium tabular-nums">
+
+        <p className="mt-2 text-lg font-semibold tabular-nums text-[var(--color-ink)]">
           {formatFcfa(listing.priceFcfa)}
           {listing.transaction === "RENT" ||
           listing.transaction === "SHORT_TERM_RENT"
@@ -69,15 +70,15 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
                     : "MONTH"),
               )
             : null}
-          {listing.quartierLabel || listing.city ? (
-            <span className="ml-2 text-sm font-normal text-[var(--color-muted)]">
-              {formatLocationHierarchy({
-                quartier: listing.quartierLabel,
-                city: listing.city,
-              })}
-            </span>
-          ) : null}
         </p>
+        {listing.quartierLabel || listing.city ? (
+          <p className="mt-0.5 text-sm text-[var(--color-muted)]">
+            {formatLocationHierarchy({
+              quartier: listing.quartierLabel,
+              city: listing.city,
+            })}
+          </p>
+        ) : null}
       </Link>
     </article>
   );

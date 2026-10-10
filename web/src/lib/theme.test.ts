@@ -13,6 +13,8 @@ describe("theme", () => {
 
   it("picks logo lockup per theme", () => {
     expect(logoSrcForTheme("light")).toBe("/brand/logo-full.png");
+    expect(logoSrcForTheme("dark")).toBe("/brand/logo-full-on-dark.png");
+    expect(logoSrcForTheme("green")).toBe("/brand/logo-full-on-green.png");
     expect(logoSrcForTheme("dark")).toContain("on-dark");
     expect(logoSrcForTheme("green")).toContain("on-green");
   });

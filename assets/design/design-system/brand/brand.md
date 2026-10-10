@@ -4,10 +4,10 @@
 
 | Asset | Fichier | Usage |
 | --- | --- | --- |
-| **Lockup complet** | `logo-full.png` | Nav, footer, OG soft — **image + texte = un seul logo** |
-| Lockup dark | `logo-full-on-dark.jpg` | Sur fond sombre |
-| Lockup green | `logo-full-on-green.jpg` | Sur fond thème vert |
-| **Favicon** | `favicon.jpg` | **Uniquement l’icône feuille** (pas le wordmark) |
+| **Lockup complet** | `logo-full.png` | Nav, footer — **PNG transparent** (feuille + wordmark) |
+| Lockup dark | `logo-full-on-dark.png` | Sur fond sombre — transparent |
+| Lockup green | `logo-full-on-green.png` | Sur fond thème vert — transparent |
+| **Favicon** | `favicon.png` / `icon-*.png` | **Uniquement l’icône feuille** (pas le wordmark) |
 
 Règles :
 1. Ne jamais séparer feuille et wordmark dans le lockup produit.
