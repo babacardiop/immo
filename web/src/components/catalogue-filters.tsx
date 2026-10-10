@@ -17,6 +17,7 @@ import {
 } from "@/lib/locations/format";
 import { useLocations } from "@/hooks/use-locations";
 
+/** DS-17 catalogue filters — pill chrome + full filter grid */
 export function CatalogueFilters({
   channel,
 }: {
@@ -70,9 +71,12 @@ export function CatalogueFilters({
     [channel, router],
   );
 
+  const selectClass =
+    "w-full rounded-[var(--radius-pill)] border-0 bg-[var(--color-bg)] px-4 py-3 text-sm";
+
   return (
     <form
-      className="grid gap-3 rounded-[var(--radius-card)] border border-[var(--color-steel)]/30 bg-[var(--color-surface)] p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3"
+      className="grid gap-3 rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-3"
       action={apply}
     >
       <div>
@@ -84,7 +88,7 @@ export function CatalogueFilters({
           value={city}
           onChange={setCity}
           options={cityOptions}
-          placeholder="Ex. Dak…"
+          placeholder="Rechercher…"
           emptyHint="Aucune ville trouvée"
           typeHint="Tapez au moins 2 lettres…"
         />
@@ -105,13 +109,13 @@ export function CatalogueFilters({
             if (match?.city) setCity(match.city);
           }}
           options={quartierOptions}
-          placeholder="Ex. Alma… ou Djily…"
+          placeholder="Ex. Almadies…"
           emptyHint={
             city
               ? "Aucun quartier pour cette ville"
               : "Aucun quartier trouvé"
           }
-          typeHint="Tapez au moins 2 lettres (pas de liste complète)…"
+          typeHint="Tapez au moins 2 lettres…"
         />
       </div>
       <div>
@@ -119,7 +123,7 @@ export function CatalogueFilters({
         <select
           id="propertyType"
           name="propertyType"
-          className="w-full rounded-lg border border-[var(--color-steel)] bg-[var(--color-bg)] px-3 py-2 text-sm"
+          className={selectClass}
           defaultValue={searchParams.get("propertyType") ?? ""}
         >
           <option value="">Tous</option>
@@ -135,7 +139,7 @@ export function CatalogueFilters({
           <select
             id="paperType"
             name="paperType"
-            className="w-full rounded-lg border border-[var(--color-steel)] bg-[var(--color-bg)] px-3 py-2 text-sm"
+            className={selectClass}
             defaultValue={searchParams.get("paperType") ?? ""}
           >
             <option value="">Tous</option>
@@ -151,7 +155,7 @@ export function CatalogueFilters({
           <select
             id="transaction"
             name="transaction"
-            className="w-full rounded-lg border border-[var(--color-steel)] bg-[var(--color-bg)] px-3 py-2 text-sm"
+            className={selectClass}
             defaultValue={searchParams.get("transaction") ?? ""}
           >
             <option value="">Toutes</option>

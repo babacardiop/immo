@@ -1,12 +1,14 @@
 import type { PaperType } from "@prisma/client";
 import { paperLabel } from "@/lib/listings/paper";
 
+/** DS-15 pastilles papier */
 const STYLES: Record<PaperType, string> = {
-  TF: "bg-[var(--color-leaf)] text-white",
-  BAIL_EMPHYTEOTIQUE: "bg-[#dbe4ee] text-[var(--color-olive)]",
-  BAIL_ORDINAIRE: "bg-[#dbe4ee] text-[var(--color-olive)]",
-  DELIBERATION: "bg-[#efe3c8] text-[var(--color-bronze)]",
-  OTHER: "bg-[var(--color-steel)]/30 text-[var(--color-muted)]",
+  TF: "bg-[var(--color-olive)] text-[#F5F2E8]",
+  BAIL_EMPHYTEOTIQUE: "bg-[var(--color-steel)] text-[var(--color-ink)]",
+  BAIL_ORDINAIRE: "bg-[var(--color-steel)] text-[var(--color-ink)]",
+  DELIBERATION: "bg-[var(--color-bronze)] text-[#F5F2E8]",
+  OTHER:
+    "border border-[var(--color-steel)] bg-transparent text-[var(--color-ink)]",
 };
 
 export function PaperBadge({
@@ -16,7 +18,7 @@ export function PaperBadge({
 }) {
   if (!type) {
     return (
-      <span className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-steel)]/20 px-2.5 py-0.5 text-xs font-medium text-[var(--color-muted)]">
+      <span className="inline-flex rounded-[var(--radius-pill)] border border-[var(--color-steel)] px-2.5 py-0.5 text-xs font-medium text-[var(--color-muted)]">
         Papier manquant
       </span>
     );

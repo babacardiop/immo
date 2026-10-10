@@ -13,17 +13,12 @@ import {
 import { formatLocationHierarchy } from "@/lib/locations/format";
 import { PaperBadge } from "@/components/paper-badge";
 
+/** DS-04 property card */
 export function ListingCard({ listing }: { listing: PublicListItem }) {
   const channel = channelForTransaction(listing.transaction);
   const href = publicListingPath(channel, listing.slug ?? listing.id);
   const cover = listing.media[0]?.url;
   const badge = isSaleLike(listing.transaction) ? "À vendre" : "À louer";
-  const meta: string[] = [];
-  if (listing.bedrooms != null) meta.push(`${listing.bedrooms} ch.`);
-  if (listing.bathrooms != null) meta.push(`${listing.bathrooms} sdb`);
-  if (listing.areaM2 != null) {
-    meta.push(`${Number(listing.areaM2).toLocaleString("fr-FR")} m²`);
-  }
 
   return (
     <article className="flex flex-col">
@@ -46,8 +41,21 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
           </span>
         </div>
 
-        <p className="text-xs text-[var(--color-muted)]">
-          {meta.length > 0 ? meta.join(" · ") : propertyTypeLabel(listing.propertyType)}
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)]">
+          {listing.bedrooms != null ? (
+            <span>{listing.bedrooms} chambres</span>
+          ) : null}
+          {listing.bathrooms != null ? (
+            <span>{listing.bathrooms} sdb</span>
+          ) : null}
+          {listing.areaM2 != null ? (
+            <span>{Number(listing.areaM2).toLocaleString("fr-FR")} m²</span>
+          ) : null}
+          {listing.bedrooms == null &&
+          listing.bathrooms == null &&
+          listing.areaM2 == null
+            ? propertyTypeLabel(listing.propertyType)
+            : null}
         </p>
 
         <div className="mt-1.5 flex flex-wrap items-center gap-2">

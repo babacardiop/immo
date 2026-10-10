@@ -7,6 +7,7 @@ const TAGS = [
   { label: "Terrain", href: "/acheter?propertyType=LAND" },
 ] as const;
 
+/** DS-05 / DS-06 / DS-07 hero + search sheet + chips */
 export function HomeHero() {
   return (
     <section className="relative w-full overflow-hidden">
@@ -38,8 +39,8 @@ export function HomeHero() {
               Construisez votre avenir, un bien à la fois.
             </h1>
             <p className="max-w-md text-base leading-relaxed text-white/90 sm:text-lg">
-              Catalogue curated au Sénégal — papiers nommés, contact direct,
-              accompagnement agence.
+              Devenez propriétaire de votre monde, une propriété à la fois —
+              catalogue curated au Sénégal.
             </p>
           </div>
         </div>
@@ -48,7 +49,7 @@ export function HomeHero() {
       <div className="relative z-20 -mt-28 px-4 sm:-mt-32 sm:px-6">
         <div className="mx-auto max-w-6xl rounded-t-[var(--radius-sheet)] rounded-b-[var(--radius-card)] bg-[var(--color-surface)] px-5 py-6 shadow-[0_20px_50px_rgba(15,15,9,0.12)] sm:px-8 sm:py-8">
           <h2 className="text-xl font-semibold text-[var(--color-ink)] sm:text-2xl">
-            Trouver le meilleur bien
+            Trouvez le meilleur endroit
           </h2>
           <form
             action="/acheter"
@@ -69,7 +70,16 @@ export function HomeHero() {
               </select>
             </label>
             <label className="block text-xs font-medium text-[var(--color-muted)]">
-              Ville
+              Prix max
+              <input
+                name="priceMax"
+                type="number"
+                placeholder="FCFA"
+                className="mt-1 w-full rounded-2xl border-0 bg-[var(--color-bg)] px-3 py-3.5 text-sm text-[var(--color-ink)]"
+              />
+            </label>
+            <label className="block text-xs font-medium text-[var(--color-muted)]">
+              Emplacement
               <input
                 name="city"
                 placeholder="Dakar…"
@@ -84,36 +94,34 @@ export function HomeHero() {
                 className="mt-1 w-full rounded-2xl border-0 bg-[var(--color-bg)] px-3 py-3.5 text-sm text-[var(--color-ink)]"
               />
             </label>
-            <div className="flex items-end">
-              <button
-                type="submit"
-                className="w-full rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-4 py-3.5 text-sm font-semibold text-[var(--color-bg)] hover:opacity-90"
-              >
-                Rechercher
-              </button>
-            </div>
           </form>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span className="text-xs text-[var(--color-muted)]">Filtres :</span>
+          {/* DS-07 chips + black search CTA */}
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-medium text-[var(--color-muted)]">
+              Filtres :
+            </span>
             {[
-              { label: "Dakar", href: "/acheter?city=Dakar" },
+              { label: "Ville", href: "/acheter?city=Dakar" },
               { label: "Maison", href: "/acheter?propertyType=HOUSE" },
               { label: "Terrain", href: "/acheter?propertyType=LAND" },
-              { label: "Louer", href: "/louer" },
+              {
+                label: "Appartement",
+                href: "/acheter?propertyType=APARTMENT",
+              },
             ].map((chip) => (
               <Link
                 key={chip.label}
                 href={chip.href}
-                className="rounded-[var(--radius-pill)] border border-[var(--color-steel)]/40 bg-[var(--color-bg)] px-3 py-1 text-xs text-[var(--color-ink)] hover:border-[var(--color-leaf)]"
+                className="rounded-[var(--radius-pill)] border border-[var(--color-steel)]/40 bg-[var(--color-bg)] px-3 py-1.5 text-xs text-[var(--color-ink)] hover:border-[var(--color-ink)]"
               >
                 {chip.label}
               </Link>
             ))}
             <Link
               href="/acheter"
-              className="ml-auto text-xs font-medium text-[var(--color-leaf)] underline-offset-2 hover:underline"
+              className="ml-auto inline-flex rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)]"
             >
-              Voir le catalogue →
+              Rechercher les biens
             </Link>
           </div>
         </div>

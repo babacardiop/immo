@@ -4,16 +4,17 @@ import { BrandLogo } from "@/components/brand-logo";
 const LEFT = [
   { href: "/", label: "Accueil" },
   { href: "/agence", label: "Agence" },
-  { href: "/acheter", label: "Acheter" },
+  { href: "/acheter", label: "Biens" },
   { href: "/louer", label: "Louer" },
 ];
 const RIGHT = [
   { href: "/guides", label: "Guides" },
   { href: "/contact", label: "Contact" },
-  { href: "/quartiers/mermoz", label: "Quartiers" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/mentions-legales", label: "Mentions" },
 ];
 
+/** DS-14 footer */
 export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-[var(--color-steel)]/40 bg-[var(--color-bg)] px-6 py-12 text-sm text-[var(--color-muted)]">
@@ -33,7 +34,7 @@ export function SiteFooter() {
           <nav className="flex flex-wrap justify-center gap-4">
             {LEFT.map((l) => (
               <Link
-                key={l.href}
+                key={l.href + l.label}
                 href={l.href}
                 className="hover:text-[var(--color-ink)]"
               >
@@ -45,7 +46,7 @@ export function SiteFooter() {
           <nav className="flex flex-wrap justify-center gap-4">
             {RIGHT.map((l) => (
               <Link
-                key={l.href}
+                key={l.href + l.label}
                 href={l.href}
                 className="hover:text-[var(--color-ink)]"
               >

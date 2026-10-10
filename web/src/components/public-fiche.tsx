@@ -22,6 +22,7 @@ import { WhatsAppCta } from "@/components/wa-cta";
 import { LeadForm } from "@/components/lead-form";
 import { PageBreadcrumb } from "@/components/page-breadcrumb";
 
+/** DS-16 listing fiche */
 export async function PublicFiche({
   channel,
   slug,
@@ -42,15 +43,26 @@ export async function PublicFiche({
     .map((m) => ({ url: m.url!, alt: m.alt }));
 
   const channelLabel = channel === "acheter" ? "Acheter" : "Louer";
-  const meta: string[] = [];
-  if (listing.bedrooms != null) meta.push(`${listing.bedrooms} ch.`);
-  if (listing.bathrooms != null) meta.push(`${listing.bathrooms} sdb`);
-  if (listing.areaM2 != null) {
-    meta.push(`${Number(listing.areaM2).toLocaleString("fr-FR")} m²`);
-  }
+  const statusBadge = isSaleLike(listing.transaction) ? "À vendre" : "À louer";
+  const waText = listingInquiryText({
+    title: listing.title,
+    reference: listing.reference,
+    url: absoluteUrl(path),
+  });
+
+  const specs: { label: string; value: string }[] = [];
+  if (listing.bedrooms != null)
+    specs.push({ label: "Chambres", value: String(listing.bedrooms) });
+  if (listing.bathrooms != null)
+    specs.push({ label: "Salles de bain", value: String(listing.bathrooms) });
+  if (listing.areaM2 != null)
+    specs.push({
+      label: "Surface",
+      value: `${Number(listing.areaM2).toLocaleString("fr-FR")} m²`,
+    });
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8 sm:py-10">
+    <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8 sm:py-10 pb-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -65,7 +77,12 @@ export async function PublicFiche({
       />
 
       <div className="mt-2 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
-        <ListingGallery images={images} title={listing.title} />
+        <div className="relative">
+          <ListingGallery images={images} title={listing.title} />
+          <span className="absolute left-4 top-4 z-10 rounded-[var(--radius-pill)] bg-white/95 px-3 py-1 text-xs font-medium shadow-sm">
+            {statusBadge}
+          </span>
+        </div>
 
         <aside className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-6 sm:p-8">
           <p className="text-sm text-[var(--color-muted)]">
@@ -102,10 +119,17 @@ export async function PublicFiche({
             })}
           </p>
 
-          {meta.length > 0 ? (
-            <p className="mt-4 text-sm text-[var(--color-muted)]">
-              {meta.join(" · ")}
-            </p>
+          {specs.length > 0 ? (
+            <ul className="mt-5 flex flex-wrap gap-4 text-sm text-[var(--color-muted)]">
+              {specs.map((s) => (
+                <li key={s.label}>
+                  <span className="font-medium text-[var(--color-ink)]">
+                    {s.value}
+                  </span>{" "}
+                  {s.label}
+                </li>
+              ))}
+            </ul>
           ) : null}
 
           {listing.description ? (
@@ -119,48 +143,42 @@ export async function PublicFiche({
             </section>
           ) : null}
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#demande"
-              className="inline-flex flex-1 items-center justify-center rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-[var(--color-bg)] min-w-[140px]"
-            >
-              Contacter
-            </a>
-            <WhatsAppCta
-              text={listingInquiryText({
-                title: listing.title,
-                reference: listing.reference,
-                url: absoluteUrl(path),
-              })}
-              phoneE164={listing.waPhone}
-              label="WhatsApp"
-              className="flex-1 justify-center bg-[var(--color-leaf)] text-white min-w-[140px]"
-            />
+          <div className="mt-8" id="demande">
+            <h2 className="text-lg font-semibold">Demander des infos</h2>
+            <div className="mt-3">
+              <LeadForm
+                listingId={listing.id}
+                sourceDetail="form_fiche"
+                defaultIntent={
+                  listing.transaction === "RENT" ||
+                  listing.transaction === "SHORT_TERM_RENT"
+                    ? "rent"
+                    : "buy"
+                }
+                waText={waText}
+              />
+            </div>
           </div>
         </aside>
       </div>
 
-      <section
-        id="demande"
-        className="mt-12 rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-6 sm:p-8"
-      >
-        <h2 className="text-xl font-semibold">Demander des infos</h2>
-        <p className="mt-1 text-sm text-[var(--color-muted)]">
-          Laissez vos coordonnées — réponse sous 24 h. Ou WhatsApp ci-dessus.
-        </p>
-        <div className="mt-4 max-w-md">
-          <LeadForm
-            listingId={listing.id}
-            sourceDetail="form_fiche"
-            defaultIntent={
-              listing.transaction === "RENT" ||
-              listing.transaction === "SHORT_TERM_RENT"
-                ? "rent"
-                : "buy"
-            }
+      {/* Sticky Contacter / WhatsApp bar — DS-16 */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-black/10 bg-[var(--color-ink)] px-4 py-3 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap gap-3">
+          <a
+            href="#demande"
+            className="inline-flex flex-1 items-center justify-center rounded-[var(--radius-pill)] bg-white px-5 py-2.5 text-sm font-medium text-[var(--color-ink)] min-w-[140px]"
+          >
+            Contacter
+          </a>
+          <WhatsAppCta
+            text={waText}
+            phoneE164={listing.waPhone}
+            label="WhatsApp"
+            className="flex-1 justify-center bg-[var(--color-leaf)] text-white min-w-[140px] hover:opacity-90"
           />
         </div>
-      </section>
+      </div>
     </main>
   );
 }

@@ -9,6 +9,7 @@ import { LEAD_INTENTS } from "@/lib/leads/schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { WhatsAppCta } from "@/components/wa-cta";
 
 const initial: LeadActionResult | undefined = undefined;
 
@@ -25,10 +26,12 @@ export function LeadForm({
   listingId,
   sourceDetail = "form_contact",
   defaultIntent = "other",
+  waText = "Bonjour EverGreen — contact site",
 }: {
   listingId?: string;
   sourceDetail?: string;
   defaultIntent?: (typeof LEAD_INTENTS)[number];
+  waText?: string;
 }) {
   const [state, formAction, pending] = useActionState(
     submitLeadAction,
@@ -47,11 +50,10 @@ export function LeadForm({
   }
 
   return (
-    <form action={formAction} className="flex max-w-md flex-col gap-4">
+    <form action={formAction} className="flex w-full max-w-md flex-col gap-4">
       <input type="hidden" name="listingId" value={listingId ?? ""} />
       <input type="hidden" name="sourceDetail" value={sourceDetail} />
 
-      {/* Honeypot — hidden from users, present for bots / a11y-hidden */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
@@ -95,7 +97,7 @@ export function LeadForm({
           id="intent"
           name="intent"
           defaultValue={defaultIntent}
-          className="mt-1 w-full rounded-lg border border-[var(--color-steel)]/50 bg-[var(--color-bg)] px-3 py-2 text-sm"
+          className="mt-1 w-full rounded-2xl border-0 bg-[var(--color-bg)] px-3 py-3 text-sm"
         >
           {LEAD_INTENTS.map((i) => (
             <option key={i} value={i}>
@@ -112,7 +114,7 @@ export function LeadForm({
           name="message"
           rows={3}
           maxLength={2000}
-          className="mt-1 w-full rounded-lg border border-[var(--color-steel)]/50 bg-[var(--color-bg)] px-3 py-2 text-sm"
+          className="mt-1 w-full rounded-2xl border-0 bg-[var(--color-bg)] px-3 py-3 text-sm"
         />
       </div>
 
@@ -135,9 +137,12 @@ export function LeadForm({
         </p>
       ) : null}
 
-      <Button type="submit" disabled={pending}>
-        {pending ? "Envoi…" : "Envoyer"}
-      </Button>
+      <div className="flex flex-wrap gap-3">
+        <Button type="submit" disabled={pending} className="flex-1">
+          {pending ? "Envoi…" : "Envoyer"}
+        </Button>
+        <WhatsAppCta text={waText} label="WhatsApp" className="flex-1 justify-center" />
+      </div>
     </form>
   );
 }
