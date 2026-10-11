@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 /tmp-ansd/
+/tmp-geo/
+tmp-senegal-api.ts
+tmp-tree.json
+tmp-data.json
 
 # debug
 npm-debug.log*

@@ -326,9 +326,19 @@ model Quartier {
   aliases   String[] @default([])
   active    Boolean  @default(true)
   sortOrder Int      @default(0)
+  /// Approximate public pin = quartier center (listings inherit this).
+  centerLat      Float?
+  centerLng      Float?
+  /// OSM | GEONAMES | ADMIN | MANUAL
+  geoSource      String?
+  /// OK | LOW | MISSING
+  geoStatus      String?
+  geoExternalId  String?
+  geoFetchedAt   DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([cityId, name])
   @@index([active, name])
+  @@index([geoStatus])
 }

@@ -85,6 +85,40 @@ async function seedLocations() {
     cityByName.set(created.name, created);
   }
 
+  // Optional free-source geo preseed (tmp-geo/quartier-geo.json from backfill script).
+  const geoByKey = new Map<
+    string,
+    {
+      centerLat: number | null;
+      centerLng: number | null;
+      geoSource: string | null;
+      geoStatus: string | null;
+      geoExternalId: string | null;
+    }
+  >();
+  try {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const geoPath = path.join(process.cwd(), "tmp-geo", "quartier-geo.json");
+    if (fs.existsSync(geoPath)) {
+      const rows = JSON.parse(fs.readFileSync(geoPath, "utf8")) as Array<{
+        name: string;
+        city: string;
+        centerLat: number | null;
+        centerLng: number | null;
+        geoSource: string | null;
+        geoStatus: string | null;
+        geoExternalId: string | null;
+      }>;
+      for (const r of rows) {
+        geoByKey.set(`${r.city}\0${r.name}`, r);
+      }
+      console.log(`  geo preseed loaded: ${geoByKey.size}`);
+    }
+  } catch {
+    /* optional */
+  }
+
   const BATCH = 500;
   let quartierCount = 0;
   for (let i = 0; i < SENEGAL_QUARTIERS.length; i += BATCH) {
@@ -92,11 +126,18 @@ async function seedLocations() {
     await prisma.quartier.createMany({
       data: slice.map((entry) => {
         const city = cityByName.get(entry.city)!;
+        const geo = geoByKey.get(`${entry.city}\0${entry.name}`);
         return {
           name: entry.name,
           cityId: city.id,
           aliases: entry.aliases ?? [],
           active: true,
+          centerLat: geo?.centerLat ?? null,
+          centerLng: geo?.centerLng ?? null,
+          geoSource: geo?.geoSource ?? null,
+          geoStatus: geo?.geoStatus ?? null,
+          geoExternalId: geo?.geoExternalId ?? null,
+          geoFetchedAt: geo?.centerLat != null ? new Date() : null,
         };
       }),
       skipDuplicates: true,
