@@ -27,6 +27,11 @@
     "locations:geocode-nominatim:dry": "tsx --env-file=.env scripts/geocode-quartiers-nominatim.mjs --dry",
     "locations:geocode-nominatim": "tsx --env-file=.env scripts/geocode-quartiers-nominatim.mjs",
     "locations:geocode-nominatim:dakar": "tsx --env-file=.env scripts/geocode-quartiers-nominatim.mjs --city=Dakar",
+    "locations:backfill-geo:hdx:dry": "tsx --env-file=.env scripts/backfill-quartier-geo-hdx.mjs --dry",
+    "locations:backfill-geo:hdx": "tsx --env-file=.env scripts/backfill-quartier-geo-hdx.mjs",
+    "locations:fetch-geosenegal": "tsx tmp-geo/fetch-geosenegal-localites.mjs",
+    "locations:backfill-geo:geosenegal:dry": "tsx --env-file=.env scripts/backfill-quartier-geo-geosenegal.mjs --dry",
+    "locations:backfill-geo:geosenegal": "tsx --env-file=.env scripts/backfill-quartier-geo-geosenegal.mjs",
     "email:smoke": "node --env-file=.env scripts/smoke-resend.mjs",
     "lead:smoke": "node --env-file=.env scripts/smoke-lead.mjs",
     "postinstall": "prisma generate"

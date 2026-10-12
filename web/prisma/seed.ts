@@ -85,36 +85,44 @@ async function seedLocations() {
     cityByName.set(created.name, created);
   }
 
-  // Optional free-source geo preseed (tmp-geo/quartier-geo.json from backfill script).
-  const geoByKey = new Map<
-    string,
-    {
-      centerLat: number | null;
-      centerLng: number | null;
-      geoSource: string | null;
-      geoStatus: string | null;
-      geoExternalId: string | null;
-    }
-  >();
+  // Optional geo preseed from backfill artefacts (OSM/GeoNames + HDX).
+  type GeoRow = {
+    name: string;
+    city: string;
+    centerLat: number | null;
+    centerLng: number | null;
+    geoSource: string | null;
+    geoStatus: string | null;
+    geoExternalId: string | null;
+  };
+  const geoByKey = new Map<string, GeoRow>();
   try {
     const fs = await import("node:fs");
     const path = await import("node:path");
-    const geoPath = path.join(process.cwd(), "tmp-geo", "quartier-geo.json");
-    if (fs.existsSync(geoPath)) {
-      const rows = JSON.parse(fs.readFileSync(geoPath, "utf8")) as Array<{
-        name: string;
-        city: string;
-        centerLat: number | null;
-        centerLng: number | null;
-        geoSource: string | null;
-        geoStatus: string | null;
-        geoExternalId: string | null;
-      }>;
+    const load = (rel: string, pick?: (raw: unknown) => GeoRow[]) => {
+      const p = path.join(process.cwd(), rel);
+      if (!fs.existsSync(p)) return;
+      const raw = JSON.parse(fs.readFileSync(p, "utf8"));
+      const rows = pick ? pick(raw) : (raw as GeoRow[]);
       for (const r of rows) {
-        geoByKey.set(`${r.city}\0${r.name}`, r);
+        if (r.centerLat == null || r.centerLng == null) continue;
+        const key = `${r.city}\0${r.name}`;
+        const prev = geoByKey.get(key);
+        // Prefer OK over LOW; HDX/OSM over ADMIN.
+        if (prev?.geoStatus === "OK" && r.geoStatus !== "OK") continue;
+        geoByKey.set(key, r);
       }
-      console.log(`  geo preseed loaded: ${geoByKey.size}`);
-    }
+    };
+    load("tmp-geo/quartier-geo.json");
+    load("tmp-geo/hdx-matches.json", (raw) => {
+      const m = raw as { matches?: GeoRow[] };
+      return m.matches ?? [];
+    });
+    load("tmp-geo/geosenegal-matches.json", (raw) => {
+      const m = raw as { matches?: GeoRow[] };
+      return m.matches ?? [];
+    });
+    console.log(`  geo preseed loaded: ${geoByKey.size}`);
   } catch {
     /* optional */
   }
