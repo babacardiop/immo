@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Geist, Geist_Mono, Libre_Bodoni } from "next/font/google";
+import { DM_Sans, Geist_Mono, Syne } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { StickyWa } from "@/components/sticky-wa";
@@ -9,9 +9,10 @@ import { ThemeScript } from "@/components/theme-script";
 import { siteUrl } from "@/lib/seo/site";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -19,10 +20,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const brandSerif = Libre_Bodoni({
+const brandDisplay = Syne({
   variable: "--font-brand-serif",
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -57,7 +58,7 @@ export default function RootLayout({
       lang="fr"
       data-theme="light"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${brandSerif.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${geistMono.variable} ${brandDisplay.variable} h-full antialiased`}
     >
       <head>
         <ThemeScript />
@@ -68,7 +69,9 @@ export default function RootLayout({
             <SiteHeader />
           </Suspense>
           {children}
-          <SiteFooter />
+          <Suspense fallback={null}>
+            <SiteFooter />
+          </Suspense>
           <Suspense fallback={null}>
             <StickyWa />
           </Suspense>

@@ -78,7 +78,7 @@
   --color-leaf: var(--color-leaf);
   --color-leaf-bright: var(--color-leaf-bright);
   --color-surface: var(--color-surface);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-brand-serif);
 }
@@ -86,6 +86,6 @@
 body {
   background: var(--color-bg);
   color: var(--color-ink);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
 }

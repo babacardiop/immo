@@ -15,6 +15,7 @@ export function CatalogueViewToggle({
   const hrefFor = (view: CatalogueView) => {
     const qs = new URLSearchParams(searchParams.toString());
     qs.delete("cursor");
+    qs.delete("page");
     if (view === "list") qs.delete("view");
     else qs.set("view", "map");
     const s = qs.toString();
@@ -34,7 +35,7 @@ export function CatalogueViewToggle({
         href={hrefFor("list")}
         className={`${base} ${
           active === "list"
-            ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
+            ? "bg-[#0f0f09] text-white"
             : "text-[var(--color-muted)] hover:text-[var(--color-ink)]"
         }`}
         aria-current={active === "list" ? "page" : undefined}
@@ -45,7 +46,7 @@ export function CatalogueViewToggle({
         href={hrefFor("map")}
         className={`${base} ${
           active === "map"
-            ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
+            ? "bg-[#0f0f09] text-white"
             : "text-[var(--color-muted)] hover:text-[var(--color-ink)]"
         }`}
         aria-current={active === "map" ? "page" : undefined}

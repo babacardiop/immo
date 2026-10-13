@@ -16,40 +16,58 @@ export default async function AgentHomePage() {
     counts.map((c) => [c.status, c._count]),
   ) as Record<string, number>;
 
+  const published = byStatus.PUBLISHED ?? 0;
+  const drafts = byStatus.DRAFT ?? 0;
+  const archived = byStatus.ARCHIVED ?? 0;
+
   return (
     <div>
-      <h1 className="text-3xl font-semibold tracking-tight">Espace agent</h1>
-      <p className="mt-2 text-[var(--color-muted)]">
-        Bonjour {session?.user?.email} · rôle {session?.user?.role}
-      </p>
+      <header className="mb-8">
+        <h1 className="font-[family-name:var(--font-brand-serif)] text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+          Bonjour
+        </h1>
+        <p className="mt-2 text-[var(--color-muted)]">
+          Voici un aperçu de votre activité · {session?.user?.email}
+        </p>
+      </header>
 
-      <dl className="mt-8 grid max-w-lg grid-cols-3 gap-4 text-sm">
-        <div>
-          <dt className="text-[var(--color-muted)]">Brouillons</dt>
-          <dd className="text-2xl font-semibold">{byStatus.DRAFT ?? 0}</dd>
+      <dl className="grid gap-4 sm:grid-cols-3">
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-5">
+          <dt className="text-sm text-[var(--color-muted)]">Annonces live</dt>
+          <dd className="mt-1 text-3xl font-semibold tabular-nums">
+            {published}
+          </dd>
         </div>
-        <div>
-          <dt className="text-[var(--color-muted)]">Publiés</dt>
-          <dd className="text-2xl font-semibold">{byStatus.PUBLISHED ?? 0}</dd>
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-5">
+          <dt className="text-sm text-[var(--color-muted)]">Brouillons</dt>
+          <dd className="mt-1 text-3xl font-semibold tabular-nums">{drafts}</dd>
         </div>
-        <div>
-          <dt className="text-[var(--color-muted)]">Archivés</dt>
-          <dd className="text-2xl font-semibold">{byStatus.ARCHIVED ?? 0}</dd>
+        <div className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-5">
+          <dt className="text-sm text-[var(--color-muted)]">Archivés</dt>
+          <dd className="mt-1 text-3xl font-semibold tabular-nums">
+            {archived}
+          </dd>
         </div>
       </dl>
 
       <div className="mt-8 flex flex-wrap gap-3">
         <Link
           href="/espace/agent/annonces/nouveau"
-          className="inline-flex rounded-md bg-[var(--color-ink)] px-4 py-2 text-sm font-medium text-[var(--color-bg)]"
+          className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-ink)] px-5 py-2.5 text-sm font-medium text-white"
         >
           Nouvelle annonce
         </Link>
         <Link
           href="/espace/agent/annonces"
-          className="inline-flex rounded-md bg-[var(--color-sage)] px-4 py-2 text-sm font-medium text-[var(--color-ink)]"
+          className="inline-flex rounded-[var(--radius-pill)] bg-[var(--color-sage)] px-5 py-2.5 text-sm font-medium text-[var(--color-ink)]"
         >
           Voir mes annonces
+        </Link>
+        <Link
+          href="/espace/agent/leads"
+          className="inline-flex rounded-[var(--radius-pill)] border border-[var(--color-steel)]/40 bg-[var(--color-surface)] px-5 py-2.5 text-sm font-medium text-[var(--color-ink)]"
+        >
+          Mes leads
         </Link>
       </div>
     </div>

@@ -36,7 +36,7 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
               Sans photo
             </div>
           )}
-          <span className="absolute left-3 top-3 rounded-[var(--radius-pill)] bg-white/95 px-3 py-1 text-xs font-medium text-[var(--color-ink)] shadow-sm">
+          <span className="absolute left-3 top-3 rounded-[var(--radius-pill)] bg-[var(--color-olive)] px-3 py-1 text-xs font-medium text-white shadow-sm">
             {badge}
           </span>
         </div>
@@ -67,7 +67,7 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
           ) : null}
         </div>
 
-        <p className="mt-2 text-lg font-semibold tabular-nums text-[var(--color-ink)]">
+        <p className="mt-2 text-lg font-semibold tabular-nums text-[var(--color-olive)]">
           {formatFcfa(listing.priceFcfa)}
           {listing.transaction === "RENT" ||
           listing.transaction === "SHORT_TERM_RENT"
@@ -79,6 +79,15 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
               )
             : null}
         </p>
+        {listing.transaction === "RENT" &&
+        listing.alsoShortTerm &&
+        listing.shortTermPriceFcfa != null ? (
+          <p className="mt-0.5 text-sm tabular-nums text-[var(--color-muted)]">
+            + {formatFcfa(listing.shortTermPriceFcfa)}
+            {pricePeriodSuffix(listing.shortTermPricePeriod ?? "NIGHT")} courte
+            durée
+          </p>
+        ) : null}
         {listing.quartierLabel || listing.city ? (
           <p className="mt-0.5 text-sm text-[var(--color-muted)]">
             {formatLocationHierarchy({

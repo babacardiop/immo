@@ -5,10 +5,11 @@ import { CatalogueFilters } from "@/components/catalogue-filters";
 
 const push = vi.fn();
 const get = vi.fn((_key: string) => null as string | null);
+const getAll = vi.fn((_key: string) => [] as string[]);
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push }),
-  useSearchParams: () => ({ get }),
+  useSearchParams: () => ({ get, getAll }),
 }));
 
 vi.mock("@/hooks/use-locations", () => ({
@@ -37,12 +38,25 @@ describe("CatalogueFilters", () => {
   beforeEach(() => {
     push.mockReset();
     get.mockReturnValue(null);
+    getAll.mockReturnValue([]);
+  });
+
+  it("keeps regions inside Filtres, collapsed by default", async () => {
+    const user = userEvent.setup();
+    render(<CatalogueFilters channel="acheter" />);
+
+    await user.click(screen.getByRole("button", { name: /^filtres/i }));
+    expect(screen.queryByRole("checkbox", { name: /dakar/i })).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: /^régions/i }));
+    expect(screen.getByRole("checkbox", { name: /dakar/i })).toBeInTheDocument();
   });
 
   it("updates URL query on submit", async () => {
     const user = userEvent.setup();
     render(<CatalogueFilters channel="acheter" />);
 
+    await user.click(screen.getByRole("button", { name: /^filtres/i }));
     await user.type(screen.getByLabelText(/^ville$/i), "Dakar");
     await user.type(screen.getByLabelText(/^quartier$/i), "Almadies");
     await user.click(screen.getByRole("button", { name: /filtrer/i }));
@@ -58,13 +72,13 @@ describe("CatalogueFilters", () => {
     const user = userEvent.setup();
     render(<CatalogueFilters channel="acheter" />);
 
+    await user.click(screen.getByRole("button", { name: /^filtres/i }));
     const city = screen.getByLabelText(/^ville$/i);
     await user.type(city, "Mb");
     expect(await screen.findByRole("listbox")).toHaveTextContent(
       /mbour · thiès/i,
     );
 
-    // Clear partial city so quartier search is not scoped to "Mb".
     await user.clear(city);
 
     const quartier = screen.getByLabelText(/^quartier$/i);
@@ -78,6 +92,7 @@ describe("CatalogueFilters", () => {
   it("resets filters", async () => {
     const user = userEvent.setup();
     render(<CatalogueFilters channel="louer" />);
+    await user.click(screen.getByRole("button", { name: /^filtres/i }));
     await user.click(screen.getByRole("button", { name: /réinitialiser/i }));
     expect(push).toHaveBeenCalledWith("/louer");
   });

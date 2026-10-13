@@ -28,6 +28,25 @@ export function parseCatalogueView(
   return value === "map" ? "map" : "list";
 }
 
+/** Collect region values from Next searchParams (supports repeats + commas). */
+export function parseRegionList(
+  raw: string | string[] | undefined,
+): string[] {
+  const parts = Array.isArray(raw)
+    ? raw.flatMap((v) => String(v).split(","))
+    : typeof raw === "string"
+      ? raw.split(",")
+      : [];
+  const unique: string[] = [];
+  for (const part of parts) {
+    const trimmed = part.trim();
+    if (isSenegalRegion(trimmed) && !unique.includes(trimmed)) {
+      unique.push(trimmed);
+    }
+  }
+  return unique;
+}
+
 export function parseCatalogueSearchParams(
   params: Record<string, string | string[] | undefined>,
 ): CatalogueFilters {
@@ -41,12 +60,13 @@ export function parseCatalogueSearchParams(
   const transaction = get("transaction");
   const priceMin = get("priceMin");
   const priceMax = get("priceMax");
-  const cursor = get("cursor");
-  const regionRaw = get("region")?.trim();
+  const pageRaw = get("page");
+  const pageNum = pageRaw ? Number(pageRaw) : NaN;
   const view = parseCatalogueView(get("view"));
+  const regions = parseRegionList(params.region);
 
   return {
-    region: isSenegalRegion(regionRaw) ? regionRaw : undefined,
+    regions: regions.length > 0 ? regions : undefined,
     city: get("city") || undefined,
     quartier: get("quartier") || undefined,
     propertyType: PROPERTY_TYPES.has(propertyType ?? "")
@@ -60,7 +80,10 @@ export function parseCatalogueSearchParams(
       : undefined,
     priceMin: priceMin ? Number(priceMin) : undefined,
     priceMax: priceMax ? Number(priceMax) : undefined,
-    cursor: cursor || undefined,
+    page:
+      Number.isFinite(pageNum) && pageNum >= 1
+        ? Math.floor(pageNum)
+        : undefined,
     view,
   };
 }
@@ -72,7 +95,9 @@ export function catalogueFiltersToSearchParams(
 ): URLSearchParams {
   const qs = new URLSearchParams();
   if (filters.view && filters.view !== "list") qs.set("view", filters.view);
-  if (filters.region) qs.set("region", filters.region);
+  for (const region of filters.regions ?? []) {
+    qs.append("region", region);
+  }
   if (filters.city) qs.set("city", filters.city);
   if (filters.quartier) qs.set("quartier", filters.quartier);
   if (filters.propertyType) qs.set("propertyType", filters.propertyType);
@@ -80,7 +105,9 @@ export function catalogueFiltersToSearchParams(
   if (filters.transaction) qs.set("transaction", filters.transaction);
   if (filters.priceMin != null) qs.set("priceMin", String(filters.priceMin));
   if (filters.priceMax != null) qs.set("priceMax", String(filters.priceMax));
-  if (filters.cursor) qs.set("cursor", filters.cursor);
+  if (filters.page != null && filters.page > 1) {
+    qs.set("page", String(filters.page));
+  }
   if (extra) {
     for (const [k, v] of Object.entries(extra)) {
       if (v) qs.set(k, v);

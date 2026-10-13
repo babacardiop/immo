@@ -9,7 +9,7 @@ export default function AgentSectionLayout({
 }) {
   return (
     <Suspense
-      fallback={<p className="text-[var(--color-muted)]">Chargement…</p>}
+      fallback={<p className="p-6 text-[var(--color-muted)]">Chargement…</p>}
     >
       <AgentShell>{children}</AgentShell>
     </Suspense>
@@ -19,9 +19,13 @@ export default function AgentSectionLayout({
 async function AgentShell({ children }: { children: React.ReactNode }) {
   const session = await auth();
   return (
-    <div className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+    <div className="flex min-h-full flex-1 flex-col bg-[var(--color-bg)] lg:flex-row">
       <AgentNav email={session?.user?.email} role={session?.user?.role} />
-      {children}
+      <div className="flex min-w-0 flex-1 flex-col">
+        <div className="mx-auto w-full max-w-5xl flex-1 px-5 py-8 sm:px-8 sm:py-10">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

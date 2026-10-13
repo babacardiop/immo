@@ -191,6 +191,13 @@ model Listing {
   installmentMonths         Int?
   installmentDownFcfa       Int?
   negotiable                Boolean            @default(false)
+  /** When transaction=RENT: also offer short-term stay. */
+  alsoShortTerm             Boolean            @default(false)
+  shortTermPriceFcfa        Int?
+  shortTermPricePeriod      PricePeriod?
+  minStayDays               Int?
+  /** Short-term / furnished stays — null when N/A. */
+  furnished                 Boolean?
   city                      String?
   quartierLabel             String?
   addressPublic             String?

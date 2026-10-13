@@ -97,12 +97,9 @@ export default async function AnnonceDetailPage({
 
       <section>
         <h2 className="mb-4 text-xl font-semibold">Mandat PDF (vault)</h2>
-        <MandatePdfUpload
-          listingId={listing.id}
-          docsCount={vaultDocs.length}
-        />
+        <MandatePdfUpload listingId={listing.id} docs={vaultDocs} />
         <p className="mt-2 text-xs text-[var(--color-muted)]">
-          {vaultDocs.length} document(s) vault — non listable publiquement.
+          Documents privés — visibles uniquement dans l’espace agent.
         </p>
       </section>
     </div>

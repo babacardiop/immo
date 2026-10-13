@@ -6,7 +6,7 @@ import type {
 } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { isSaleLike } from "@/lib/listings/paper";
-import { cityNamesForRegion } from "@/lib/locations/cities-for-region";
+import { cityNamesForRegions } from "@/lib/locations/cities-for-region";
 
 export const SALE_TRANSACTIONS: TransactionType[] = [
   "SALE",
@@ -24,7 +24,8 @@ export type CatalogueChannel = "acheter" | "louer";
 export type CatalogueView = "list" | "map";
 
 export type CatalogueFilters = {
-  region?: string;
+  /** One or more Senegal régions (multi-select). */
+  regions?: string[];
   city?: string;
   quartier?: string;
   propertyType?: PropertyType;
@@ -33,11 +34,16 @@ export type CatalogueFilters = {
   transaction?: TransactionType;
   priceMin?: number;
   priceMax?: number;
-  cursor?: string;
+  /** 1-based page for list view. */
+  page?: number;
   take?: number;
+  /** @deprecated prefer page — kept for older links */
+  cursor?: string;
   /** UI only — not part of Prisma where. */
   view?: CatalogueView;
 };
+
+export const CATALOGUE_PAGE_SIZE = 24;
 
 export function channelTransactions(
   channel: CatalogueChannel,
@@ -70,19 +76,34 @@ export function buildPublicWhere(
 
   const where: Prisma.ListingWhereInput = {
     status: "PUBLISHED",
-    transaction: transactionFilter
-      ? transactionFilter
-      : { in: allowed },
   };
+
+  const and: Prisma.ListingWhereInput[] = [];
+
+  // Courte durée filter also includes RENT listings flagged alsoShortTerm
+  if (transactionFilter === "SHORT_TERM_RENT") {
+    and.push({
+      OR: [
+        { transaction: "SHORT_TERM_RENT" },
+        { transaction: "RENT", alsoShortTerm: true },
+      ],
+    });
+  } else if (transactionFilter) {
+    where.transaction = transactionFilter;
+  } else {
+    where.transaction = { in: allowed };
+  }
 
   if (filters.city?.trim()) {
     where.city = { equals: filters.city.trim(), mode: "insensitive" };
-  } else if (filters.region?.trim()) {
-    const cities = cityNamesForRegion(filters.region.trim());
+  } else if (filters.regions && filters.regions.length > 0) {
+    const cities = cityNamesForRegions(filters.regions);
     if (cities.length > 0) {
-      where.OR = cities.map((name) => ({
-        city: { equals: name, mode: "insensitive" as const },
-      }));
+      and.push({
+        OR: cities.map((name) => ({
+          city: { equals: name, mode: "insensitive" as const },
+        })),
+      });
     } else {
       // Unknown region → match nothing
       where.city = { equals: "__no_region_match__" };
@@ -106,6 +127,8 @@ export function buildPublicWhere(
     if (filters.priceMax != null) where.priceFcfa.lte = filters.priceMax;
   }
 
+  if (and.length > 0) where.AND = and;
+
   return where;
 }
 
@@ -124,25 +147,33 @@ export type PublicListItem = Prisma.ListingGetPayload<{
 export async function listPublicListings(
   channel: CatalogueChannel,
   filters: CatalogueFilters = {},
-): Promise<{ items: PublicListItem[]; nextCursor: string | null }> {
-  const take = Math.min(Math.max(filters.take ?? 12, 1), 48);
+): Promise<{
+  items: PublicListItem[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+}> {
+  const pageSize = Math.min(
+    Math.max(filters.take ?? CATALOGUE_PAGE_SIZE, 1),
+    48,
+  );
+  const requestedPage = Math.max(1, filters.page ?? 1);
   const where = buildPublicWhere(channel, filters);
 
-  const rows = await prisma.listing.findMany({
+  const total = await prisma.listing.count({ where });
+  const totalPages = Math.max(1, Math.ceil(total / pageSize) || 1);
+  const page = Math.min(requestedPage, totalPages);
+
+  const items = await prisma.listing.findMany({
     where,
     include: listInclude,
     orderBy: [{ publishedAt: "desc" }, { id: "desc" }],
-    take: take + 1,
-    ...(filters.cursor
-      ? { cursor: { id: filters.cursor }, skip: 1 }
-      : {}),
+    skip: (page - 1) * pageSize,
+    take: pageSize,
   });
 
-  const hasMore = rows.length > take;
-  const items = hasMore ? rows.slice(0, take) : rows;
-  const nextCursor = hasMore ? (items[items.length - 1]?.id ?? null) : null;
-
-  return { items, nextCursor };
+  return { items, total, page, pageSize, totalPages };
 }
 
 export async function getPublishedListingBySlug(slug: string) {

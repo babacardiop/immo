@@ -10,6 +10,7 @@ import {
 } from "@/app/actions/listings";
 import { isSaleLike } from "@/lib/listings/paper";
 import { listingPath } from "@/lib/listings/slug";
+import { RENTAL_AMENITIES, offersShortTerm } from "@/lib/listings/amenities";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,6 +34,9 @@ type ListingWithMandate = Listing & { mandate: Mandate | null };
 
 const initial: ActionResult | null = null;
 
+const selectClass =
+  "w-full rounded-2xl border border-[var(--color-steel)]/55 bg-[var(--color-surface)] px-3 py-3 text-sm outline-none transition focus:border-[var(--color-olive)] focus:ring-2 focus:ring-[var(--color-olive)]/25";
+
 export function ListingForm({
   listing,
 }: {
@@ -47,6 +51,16 @@ export function ListingForm({
   const [transaction, setTransaction] = useState<TransactionType>(
     listing?.transaction ?? "SALE",
   );
+  const [alsoShortTerm, setAlsoShortTerm] = useState(
+    listing?.alsoShortTerm ?? false,
+  );
+  const [furnished, setFurnished] = useState<"" | "true" | "false">(
+    listing?.furnished == null
+      ? ""
+      : listing.furnished
+        ? "true"
+        : "false",
+  );
   const [paperType, setPaperType] = useState<PaperType>(
     listing?.paperType ?? "TF",
   );
@@ -58,6 +72,12 @@ export function ListingForm({
   const { cities, quartiers, addLocal, refresh } = useLocations();
 
   const showSalePaperFields = isSaleLike(transaction);
+  const showShortBlock =
+    transaction === "SHORT_TERM_RENT" ||
+    (transaction === "RENT" && alsoShortTerm);
+  const showDualToggle = transaction === "RENT";
+  const isShortOnly = transaction === "SHORT_TERM_RENT";
+
   const cityOptions = filterCityEntries(cities, city).map((c) => ({
     value: c.name,
     label: formatCityWithRegion(c.name, c.region),
@@ -79,6 +99,10 @@ export function ListingForm({
       router.push(listingPath(state.slug));
     }
   }, [state, listing, router]);
+
+  useEffect(() => {
+    if (transaction !== "RENT") setAlsoShortTerm(false);
+  }, [transaction]);
 
   return (
     <form action={formAction} className="flex max-w-2xl flex-col gap-5">
@@ -104,28 +128,11 @@ export function ListingForm({
           />
         </div>
         <div>
-          <Label htmlFor="priceFcfa">
-            {transaction === "SHORT_TERM_RENT"
-              ? "Loyer (FCFA / nuit)"
-              : transaction === "RENT"
-                ? "Loyer (FCFA / mois)"
-                : "Prix (FCFA)"}
-          </Label>
-          <Input
-            id="priceFcfa"
-            name="priceFcfa"
-            type="number"
-            required
-            min={1}
-            defaultValue={listing?.priceFcfa ?? ""}
-          />
-        </div>
-        <div>
           <Label htmlFor="transaction">Transaction</Label>
           <select
             id="transaction"
             name="transaction"
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+            className={selectClass}
             value={transaction}
             onChange={(e) =>
               setTransaction(e.target.value as TransactionType)
@@ -139,11 +146,44 @@ export function ListingForm({
           </select>
         </div>
         <div>
+          <Label htmlFor="priceFcfa">
+            {isShortOnly
+              ? "Tarif courte durée (FCFA)"
+              : transaction === "RENT"
+                ? "Loyer longue durée (FCFA / mois)"
+                : "Prix (FCFA)"}
+          </Label>
+          <Input
+            id="priceFcfa"
+            name="priceFcfa"
+            type="number"
+            required
+            min={1}
+            defaultValue={listing?.priceFcfa ?? ""}
+          />
+        </div>
+        {isShortOnly ? (
+          <div>
+            <Label htmlFor="pricePeriod">Période</Label>
+            <select
+              id="pricePeriod"
+              name="pricePeriod"
+              className={selectClass}
+              defaultValue={listing?.pricePeriod ?? "NIGHT"}
+              required
+            >
+              <option value="NIGHT">Par nuit</option>
+              <option value="WEEK">Par semaine</option>
+              <option value="MONTH">Par mois</option>
+            </select>
+          </div>
+        ) : null}
+        <div>
           <Label htmlFor="propertyType">Type de bien</Label>
           <select
             id="propertyType"
             name="propertyType"
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+            className={selectClass}
             defaultValue={listing?.propertyType ?? "LAND"}
           >
             <option value="LAND">Terrain</option>
@@ -153,6 +193,123 @@ export function ListingForm({
           </select>
         </div>
 
+        {showDualToggle ? (
+          <div className="sm:col-span-2 flex items-start gap-2 rounded-xl border border-[var(--color-steel)]/40 bg-[var(--color-surface)] px-4 py-3">
+            <input
+              id="alsoShortTerm"
+              name="alsoShortTerm"
+              type="checkbox"
+              checked={alsoShortTerm}
+              onChange={(e) => setAlsoShortTerm(e.target.checked)}
+              className="mt-1 h-4 w-4"
+            />
+            <div>
+              <Label htmlFor="alsoShortTerm" className="mb-0">
+                Aussi disponible en courte durée
+              </Label>
+              <p className="mt-0.5 text-xs text-[var(--color-muted)]">
+                Ajoute un tarif jour/semaine/mois et un séjour minimum.
+              </p>
+            </div>
+          </div>
+        ) : null}
+
+        {showShortBlock ? (
+          <fieldset className="sm:col-span-2 rounded-xl border border-[var(--color-steel)]/50 bg-[var(--color-surface)] p-4">
+            <legend className="px-1 text-sm font-semibold">
+              Courte durée
+              {offersShortTerm({ transaction, alsoShortTerm }) && !isShortOnly
+                ? " (en plus du loyer mensuel)"
+                : ""}
+            </legend>
+            <div className="mt-2 grid gap-4 sm:grid-cols-2">
+              {!isShortOnly ? (
+                <>
+                  <div>
+                    <Label htmlFor="shortTermPriceFcfa">
+                      Tarif courte durée (FCFA)
+                    </Label>
+                    <Input
+                      id="shortTermPriceFcfa"
+                      name="shortTermPriceFcfa"
+                      type="number"
+                      min={1}
+                      required
+                      defaultValue={listing?.shortTermPriceFcfa ?? ""}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="shortTermPricePeriod">Période</Label>
+                    <select
+                      id="shortTermPricePeriod"
+                      name="shortTermPricePeriod"
+                      className={selectClass}
+                      defaultValue={listing?.shortTermPricePeriod ?? "NIGHT"}
+                      required
+                    >
+                      <option value="NIGHT">Par nuit</option>
+                      <option value="WEEK">Par semaine</option>
+                      <option value="MONTH">Par mois</option>
+                    </select>
+                  </div>
+                </>
+              ) : null}
+              <div>
+                <Label htmlFor="minStayDays">Séjour minimum (jours)</Label>
+                <Input
+                  id="minStayDays"
+                  name="minStayDays"
+                  type="number"
+                  min={1}
+                  required
+                  defaultValue={listing?.minStayDays ?? ""}
+                />
+              </div>
+              <div>
+                <Label htmlFor="furnished">Meublé</Label>
+                <select
+                  id="furnished"
+                  name="furnished"
+                  className={selectClass}
+                  value={furnished}
+                  onChange={(e) =>
+                    setFurnished(e.target.value as "" | "true" | "false")
+                  }
+                  required
+                >
+                  <option value="" disabled>
+                    Choisir…
+                  </option>
+                  <option value="true">Oui</option>
+                  <option value="false">Non</option>
+                </select>
+              </div>
+              {furnished === "true" ? (
+                <div className="sm:col-span-2">
+                  <p className="mb-2 text-sm font-medium">Commodités</p>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {RENTAL_AMENITIES.map((a) => (
+                      <label
+                        key={a.id}
+                        className="flex items-center gap-2 text-sm"
+                      >
+                        <input
+                          type="checkbox"
+                          name="amenities"
+                          value={a.id}
+                          defaultChecked={listing?.amenities?.includes(a.id)}
+                          className="h-4 w-4"
+                        />
+                        {a.label}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </fieldset>
+        ) : null}
+
         {showSalePaperFields ? (
           <>
             <div>
@@ -160,7 +317,7 @@ export function ListingForm({
               <select
                 id="paperType"
                 name="paperType"
-                className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+                className={selectClass}
                 value={paperType}
                 onChange={(e) => setPaperType(e.target.value as PaperType)}
               >
@@ -179,7 +336,7 @@ export function ListingForm({
               <select
                 id="paperVerifiedLevel"
                 name="paperVerifiedLevel"
-                className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+                className={selectClass}
                 defaultValue={listing?.paperVerifiedLevel ?? "DECLARED"}
               >
                 <option value="DECLARED">Déclaré</option>
@@ -304,13 +461,13 @@ export function ListingForm({
             name="description"
             required
             rows={6}
-            className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+            className={`${selectClass} min-h-[8rem]`}
             defaultValue={listing?.description ?? ""}
           />
         </div>
       </div>
 
-      <fieldset className="rounded-md border border-[var(--color-steel)]/50 p-4">
+      <fieldset className="rounded-xl border border-[var(--color-steel)]/50 bg-[var(--color-surface)] p-4">
         <legend className="px-1 text-sm font-medium">Mandat</legend>
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
@@ -318,7 +475,7 @@ export function ListingForm({
             <select
               id="mandateType"
               name="mandateType"
-              className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+              className={selectClass}
               defaultValue={listing?.mandate?.type ?? "SIMPLE"}
             >
               <option value="SIMPLE">Simple</option>
@@ -330,7 +487,7 @@ export function ListingForm({
             <select
               id="mandateStatus"
               name="mandateStatus"
-              className="w-full rounded-md border border-[var(--color-steel)] bg-white px-3 py-2 text-sm"
+              className={selectClass}
               defaultValue={listing?.mandate?.status ?? "DRAFT"}
             >
               <option value="DRAFT">Brouillon</option>

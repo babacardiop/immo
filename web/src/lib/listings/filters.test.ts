@@ -26,11 +26,43 @@ describe("catalogue filters", () => {
     expect(where.paperType).toBeUndefined();
   });
 
-  it("narrows louer to short-term rent", () => {
+  it("narrows louer to short-term rent (incl. dual RENT)", () => {
     const where = buildPublicWhere("louer", {
       transaction: "SHORT_TERM_RENT",
     });
-    expect(where.transaction).toBe("SHORT_TERM_RENT");
+    expect(where.transaction).toBeUndefined();
+    expect(where.AND).toEqual(
+      expect.arrayContaining([
+        {
+          OR: [
+            { transaction: "SHORT_TERM_RENT" },
+            { transaction: "RENT", alsoShortTerm: true },
+          ],
+        },
+      ]),
+    );
+  });
+
+  it("combines short-term filter with region cities", () => {
+    const where = buildPublicWhere("louer", {
+      transaction: "SHORT_TERM_RENT",
+      regions: ["Dakar"],
+    });
+    expect(where.AND).toEqual(
+      expect.arrayContaining([
+        {
+          OR: [
+            { transaction: "SHORT_TERM_RENT" },
+            { transaction: "RENT", alsoShortTerm: true },
+          ],
+        },
+        expect.objectContaining({
+          OR: expect.arrayContaining([
+            { city: { equals: "Dakar", mode: "insensitive" } },
+          ]),
+        }),
+      ]),
+    );
   });
 
   it("parses search params safely", () => {
@@ -40,7 +72,7 @@ describe("catalogue filters", () => {
       paperType: "NOT_A_PAPER",
       priceMin: "1000",
       priceMax: ["2000"],
-      cursor: "abc",
+      page: "3",
     });
 
     expect(filters.city).toBe("Thiès");
@@ -48,7 +80,7 @@ describe("catalogue filters", () => {
     expect(filters.paperType).toBeUndefined();
     expect(filters.priceMin).toBe(1000);
     expect(filters.priceMax).toBe(2000);
-    expect(filters.cursor).toBe("abc");
+    expect(filters.page).toBe(3);
     expect(filters.view).toBe("list");
   });
 
@@ -58,31 +90,63 @@ describe("catalogue filters", () => {
       region: "Dakar",
     });
     expect(filters.view).toBe("map");
-    expect(filters.region).toBe("Dakar");
+    expect(filters.regions).toEqual(["Dakar"]);
+  });
+
+  it("parses multiple regions", () => {
+    const filters = parseCatalogueSearchParams({
+      region: ["Dakar", "Thiès"],
+    });
+    expect(filters.regions).toEqual(["Dakar", "Thiès"]);
+  });
+
+  it("parses comma-separated regions", () => {
+    const filters = parseCatalogueSearchParams({
+      region: "Dakar,Thiès",
+    });
+    expect(filters.regions).toEqual(["Dakar", "Thiès"]);
   });
 
   it("ignores invalid region", () => {
     const filters = parseCatalogueSearchParams({ region: "Narnia" });
-    expect(filters.region).toBeUndefined();
+    expect(filters.regions).toBeUndefined();
   });
 
   it("filters by region cities when city omitted", () => {
-    const where = buildPublicWhere("acheter", { region: "Dakar" });
-    expect(where.OR).toEqual(
+    const where = buildPublicWhere("acheter", { regions: ["Dakar"] });
+    expect(where.AND).toEqual(
       expect.arrayContaining([
-        { city: { equals: "Dakar", mode: "insensitive" } },
+        {
+          OR: expect.arrayContaining([
+            { city: { equals: "Dakar", mode: "insensitive" } },
+          ]),
+        },
       ]),
     );
     expect(where.city).toBeUndefined();
   });
 
+  it("unions cities across multiple regions", () => {
+    const where = buildPublicWhere("acheter", {
+      regions: ["Dakar", "Thiès"],
+    });
+    const geoOr = (where.AND as { OR: unknown }[])?.find(
+      (clause) => Array.isArray(clause.OR) && clause.OR.length > 5,
+    );
+    expect(geoOr?.OR).toEqual(
+      expect.arrayContaining([
+        { city: { equals: "Dakar", mode: "insensitive" } },
+        { city: { equals: "Mbour", mode: "insensitive" } },
+      ]),
+    );
+  });
+
   it("city filter wins over region", () => {
     const where = buildPublicWhere("acheter", {
-      region: "Dakar",
+      regions: ["Dakar"],
       city: "Mbour",
     });
     expect(where.city).toEqual({ equals: "Mbour", mode: "insensitive" });
-    expect(where.OR).toBeUndefined();
+    expect(where.AND).toBeUndefined();
   });
 });
-

@@ -13,10 +13,12 @@ import { evaluatePublishGate } from "@/lib/listings/publish-gate";
 import { defaultPricePeriod } from "@/lib/format";
 import {
   deletePublicObject,
+  deleteVaultObject,
   isAllowedImageMime,
   uploadListingPhoto,
   uploadMandatePdf,
 } from "@/lib/storage/r2";
+import { parseAmenitiesForm } from "@/lib/listings/amenities";
 
 export type ActionResult =
   | { ok: true; id?: string; slug?: string }
@@ -56,11 +58,31 @@ async function assertCanMutate(listingId: string, userId: string, role: string) 
   return listing;
 }
 
+function parseFurnished(formData: FormData): boolean | null {
+  const v = String(formData.get("furnished") ?? "");
+  if (v === "true") return true;
+  if (v === "false") return false;
+  return null;
+}
+
 function parseForm(formData: FormData) {
+  const transaction = String(formData.get("transaction") ?? "SALE");
+  const alsoShortTerm =
+    formData.get("alsoShortTerm") === "on" ||
+    formData.get("alsoShortTerm") === "true";
+  const needsShort =
+    transaction === "SHORT_TERM_RENT" ||
+    (transaction === "RENT" && alsoShortTerm);
+
+  const pricePeriodRaw = formData.get("pricePeriod");
+  const shortPeriodRaw = formData.get("shortTermPricePeriod");
+  const minStayRaw = formData.get("minStayDays");
+  const shortPriceRaw = formData.get("shortTermPriceFcfa");
+
   const raw = {
     title: String(formData.get("title") ?? ""),
     description: String(formData.get("description") ?? ""),
-    transaction: String(formData.get("transaction") ?? "SALE"),
+    transaction,
     propertyType: String(formData.get("propertyType") ?? "LAND"),
     paperType: formData.get("paperType")
       ? String(formData.get("paperType"))
@@ -72,6 +94,7 @@ function parseForm(formData: FormData) {
       formData.get("deliberationDisclaimerAck") === "on" ||
       formData.get("deliberationDisclaimerAck") === "true",
     priceFcfa: formData.get("priceFcfa"),
+    pricePeriod: pricePeriodRaw ? String(pricePeriodRaw) : undefined,
     areaM2: formData.get("areaM2") || null,
     city: String(formData.get("city") ?? ""),
     quartierLabel: String(formData.get("quartierLabel") ?? ""),
@@ -89,9 +112,36 @@ function parseForm(formData: FormData) {
     negotiable:
       formData.get("negotiable") === "on" ||
       formData.get("negotiable") === "true",
+    alsoShortTerm: transaction === "RENT" ? alsoShortTerm : false,
+    shortTermPriceFcfa:
+      needsShort && shortPriceRaw ? shortPriceRaw : null,
+    shortTermPricePeriod:
+      needsShort && shortPeriodRaw ? String(shortPeriodRaw) : null,
+    minStayDays: needsShort && minStayRaw ? minStayRaw : null,
+    furnished: needsShort ? parseFurnished(formData) : null,
+    amenities: needsShort ? parseAmenitiesForm(formData) : [],
   };
 
   return listingFormSchema.safeParse(raw);
+}
+
+function rentPersistFields(data: import("@/lib/listings/schema").ListingFormValues) {
+  const isShortOnly = data.transaction === "SHORT_TERM_RENT";
+  const isDual = data.transaction === "RENT" && data.alsoShortTerm;
+  const needsShort = isShortOnly || isDual;
+
+  return {
+    alsoShortTerm: isDual,
+    shortTermPriceFcfa: isDual ? (data.shortTermPriceFcfa ?? null) : null,
+    shortTermPricePeriod: isDual ? (data.shortTermPricePeriod ?? null) : null,
+    minStayDays: needsShort ? (data.minStayDays ?? null) : null,
+    furnished: needsShort ? (data.furnished ?? null) : null,
+    amenities: needsShort ? data.amenities : [],
+    pricePeriod: defaultPricePeriod(
+      data.transaction,
+      isShortOnly ? (data.pricePeriod ?? null) : null,
+    ),
+  };
 }
 
 export async function createListingAction(
@@ -119,6 +169,7 @@ export async function createListingAction(
       propertyType: data.propertyType,
     });
 
+    const rent = rentPersistFields(data);
     const listing = await prisma.listing.create({
       data: {
         title: data.title,
@@ -129,7 +180,13 @@ export async function createListingAction(
         paperVerifiedLevel: paper.paperVerifiedLevel,
         deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
         priceFcfa: data.priceFcfa,
-        pricePeriod: defaultPricePeriod(data.transaction),
+        pricePeriod: rent.pricePeriod,
+        alsoShortTerm: rent.alsoShortTerm,
+        shortTermPriceFcfa: rent.shortTermPriceFcfa,
+        shortTermPricePeriod: rent.shortTermPricePeriod,
+        minStayDays: rent.minStayDays,
+        furnished: rent.furnished,
+        amenities: rent.amenities,
         areaM2: data.areaM2 ?? null,
         city: data.city,
         quartierLabel: data.quartierLabel,
@@ -191,6 +248,7 @@ export async function updateListingAction(
       propertyType: data.propertyType,
     });
 
+    const rent = rentPersistFields(data);
     await prisma.listing.update({
       where: { id: listingId },
       data: {
@@ -202,7 +260,13 @@ export async function updateListingAction(
         paperVerifiedLevel: paper.paperVerifiedLevel,
         deliberationDisclaimerAck: paper.deliberationDisclaimerAck,
         priceFcfa: data.priceFcfa,
-        pricePeriod: defaultPricePeriod(data.transaction),
+        pricePeriod: rent.pricePeriod,
+        alsoShortTerm: rent.alsoShortTerm,
+        shortTermPriceFcfa: rent.shortTermPriceFcfa,
+        shortTermPricePeriod: rent.shortTermPricePeriod,
+        minStayDays: rent.minStayDays,
+        furnished: rent.furnished,
+        amenities: rent.amenities,
         areaM2: data.areaM2 ?? null,
         city: data.city,
         quartierLabel: data.quartierLabel,
@@ -544,6 +608,7 @@ export async function uploadMandatePdfAction(
         url: null,
         mimeType: uploaded.mimeType,
         sizeBytes: uploaded.sizeBytes,
+        alt: file.name || "mandat.pdf",
       },
     });
 
@@ -552,5 +617,51 @@ export async function uploadMandatePdfAction(
   } catch (e) {
     console.error(e);
     return { ok: false, error: "Upload vault impossible." };
+  }
+}
+
+export async function deleteMandatePdfAction(
+  mediaId: string,
+): Promise<ActionResult> {
+  try {
+    const user = await requireAgent();
+    const media = await prisma.mediaAsset.findUnique({
+      where: { id: mediaId },
+      include: {
+        mandate: { include: { listing: true } },
+      },
+    });
+    if (!media?.mandate?.listing) {
+      return { ok: false, error: "Introuvable." };
+    }
+    const listing = media.mandate.listing;
+    if (
+      !canMutateListing({
+        listingAgentId: listing.agentId,
+        actorId: user.id,
+        actorRole: user.role,
+      })
+    ) {
+      return { ok: false, error: "Accès refusé.", code: "FORBIDDEN" };
+    }
+    if (media.storage !== "VAULT" || media.kind !== "DOCUMENT") {
+      return { ok: false, error: "Document invalide." };
+    }
+
+    try {
+      await deleteVaultObject(media.key);
+    } catch (e) {
+      console.error("Vault delete failed", e);
+    }
+
+    await prisma.mediaAsset.delete({ where: { id: mediaId } });
+    revalidateListing(listing.slug, listing.id);
+    return {
+      ok: true,
+      id: listing.id,
+      slug: listing.slug ?? undefined,
+    };
+  } catch {
+    return { ok: false, error: "Suppression impossible." };
   }
 }

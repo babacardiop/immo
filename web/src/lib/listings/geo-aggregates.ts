@@ -17,8 +17,14 @@ export async function countPublishedByRegion(
   channel: CatalogueChannel,
   filters: CatalogueFilters = {},
 ): Promise<GeoCount[]> {
-  const { region: _r, city: _c, quartier: _q, view: _v, cursor: _cu, ...rest } =
-    filters;
+  const {
+    regions: _r,
+    city: _c,
+    quartier: _q,
+    view: _v,
+    cursor: _cu,
+    ...rest
+  } = filters;
   const where = buildPublicWhere(channel, rest);
 
   const rows = await prisma.listing.groupBy({

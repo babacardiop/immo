@@ -10,8 +10,13 @@ import {
   formatFcfa,
   pricePeriodSuffix,
   propertyTypeLabel,
+  rentTypeLabel,
   transactionLabel,
 } from "@/lib/format";
+import {
+  amenityLabel,
+  offersShortTerm,
+} from "@/lib/listings/amenities";
 import { formatLocationHierarchy } from "@/lib/locations/format";
 import { buildListingJsonLd } from "@/lib/seo/jsonld-listing";
 import { absoluteUrl } from "@/lib/seo/site";
@@ -61,6 +66,13 @@ export async function PublicFiche({
       value: `${Number(listing.areaM2).toLocaleString("fr-FR")} m²`,
     });
 
+  const shortStay = offersShortTerm(listing);
+  const isDual =
+    listing.transaction === "RENT" && Boolean(listing.alsoShortTerm);
+  const typeLine = isSaleLike(listing.transaction)
+    ? transactionLabel(listing.transaction)
+    : rentTypeLabel(listing);
+
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8 sm:py-10 pb-28">
       <script
@@ -79,26 +91,25 @@ export async function PublicFiche({
       <div className="mt-2 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
         <div className="relative">
           <ListingGallery images={images} title={listing.title} />
-          <span className="absolute left-4 top-4 z-10 rounded-[var(--radius-pill)] bg-white/95 px-3 py-1 text-xs font-medium shadow-sm">
+          <span className="absolute left-4 top-4 z-10 rounded-[var(--radius-pill)] bg-[var(--color-olive)] px-3 py-1 text-xs font-medium text-white shadow-sm">
             {statusBadge}
           </span>
         </div>
 
         <aside className="rounded-[var(--radius-card)] border border-[var(--color-steel)]/25 bg-[var(--color-surface)] p-6 sm:p-8">
           <p className="text-sm text-[var(--color-muted)]">
-            {transactionLabel(listing.transaction)} ·{" "}
-            {propertyTypeLabel(listing.propertyType)}
+            {typeLine} · {propertyTypeLabel(listing.propertyType)}
             {listing.reference ? ` · ${listing.reference}` : ""}
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <h1 className="font-[family-name:var(--font-brand-serif)] text-3xl font-semibold tracking-tight text-[var(--color-ink)]">
+            <h1 className="font-[family-name:var(--font-brand-serif)] text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
               {listing.title}
             </h1>
             {isSaleLike(listing.transaction) ? (
               <PaperBadge type={listing.paperType} />
             ) : null}
           </div>
-          <p className="mt-3 text-3xl font-semibold tabular-nums">
+          <p className="mt-3 text-3xl font-semibold tabular-nums text-[var(--color-olive)]">
             {formatFcfa(listing.priceFcfa)}
             {listing.transaction === "RENT" ||
             listing.transaction === "SHORT_TERM_RENT" ? (
@@ -112,6 +123,15 @@ export async function PublicFiche({
               </span>
             ) : null}
           </p>
+          {isDual && listing.shortTermPriceFcfa != null ? (
+            <p className="mt-1 text-lg font-semibold tabular-nums text-[var(--color-ink)]">
+              {formatFcfa(listing.shortTermPriceFcfa)}
+              <span className="text-sm font-normal text-[var(--color-muted)]">
+                {pricePeriodSuffix(listing.shortTermPricePeriod ?? "NIGHT")}{" "}
+                · courte durée
+              </span>
+            </p>
+          ) : null}
           <p className="mt-1 text-[var(--color-muted)]">
             {formatLocationHierarchy({
               quartier: listing.quartierLabel,
@@ -120,16 +140,70 @@ export async function PublicFiche({
           </p>
 
           {specs.length > 0 ? (
-            <ul className="mt-5 flex flex-wrap gap-4 text-sm text-[var(--color-muted)]">
+            <ul className="mt-5 flex flex-wrap gap-5 text-sm text-[var(--color-muted)]">
               {specs.map((s) => (
-                <li key={s.label}>
-                  <span className="font-medium text-[var(--color-ink)]">
+                <li key={s.label} className="flex flex-col gap-0.5">
+                  <span className="text-base font-semibold tabular-nums text-[var(--color-ink)]">
                     {s.value}
-                  </span>{" "}
-                  {s.label}
+                  </span>
+                  <span className="text-xs">{s.label}</span>
                 </li>
               ))}
             </ul>
+          ) : null}
+
+          {shortStay ? (
+            <section className="mt-6 border-t border-[var(--color-steel)]/25 pt-6">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--color-muted)]">
+                Location courte durée
+              </h2>
+              <dl className="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+                <div>
+                  <dt className="text-[var(--color-muted)]">Type de location</dt>
+                  <dd className="font-medium text-[var(--color-ink)]">
+                    {rentTypeLabel(listing)}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[var(--color-muted)]">Meublé</dt>
+                  <dd className="font-medium text-[var(--color-ink)]">
+                    {listing.furnished == null
+                      ? "—"
+                      : listing.furnished
+                        ? "Oui"
+                        : "Non"}
+                  </dd>
+                </div>
+                {listing.minStayDays != null ? (
+                  <div>
+                    <dt className="text-[var(--color-muted)]">
+                      Séjour minimum
+                    </dt>
+                    <dd className="font-medium text-[var(--color-ink)]">
+                      {listing.minStayDays} jour
+                      {listing.minStayDays > 1 ? "s" : ""}
+                    </dd>
+                  </div>
+                ) : null}
+              </dl>
+              {listing.furnished && listing.amenities.length > 0 ? (
+                <div className="mt-4">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">
+                    Commodités
+                  </p>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {listing.amenities.map((id) => (
+                      <li
+                        key={id}
+                        className="rounded-[var(--radius-pill)] bg-[var(--color-bg)] px-3 py-1 text-xs font-medium text-[var(--color-ink)]"
+                      >
+                        {amenityLabel(id)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </section>
           ) : null}
 
           {listing.description ? (

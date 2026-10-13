@@ -10,12 +10,16 @@ vi.mock("leaflet", () => {
   const marker = {
     addTo: vi.fn().mockReturnThis(),
     bindPopup: vi.fn().mockReturnThis(),
+    on: vi.fn().mockReturnThis(),
+    getElement: vi.fn(() => null),
   };
   return {
     default: {
       map: vi.fn(() => map),
       tileLayer: vi.fn(() => ({ addTo: vi.fn() })),
       marker: vi.fn(() => marker),
+      divIcon: vi.fn(() => ({})),
+      control: { zoom: vi.fn(() => ({ addTo: vi.fn() })) },
       Icon: {
         Default: {
           prototype: {},
@@ -26,6 +30,8 @@ vi.mock("leaflet", () => {
     map: vi.fn(() => map),
     tileLayer: vi.fn(() => ({ addTo: vi.fn() })),
     marker: vi.fn(() => marker),
+    divIcon: vi.fn(() => ({})),
+    control: { zoom: vi.fn(() => ({ addTo: vi.fn() })) },
     Icon: {
       Default: {
         prototype: {},

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/brand-logo";
 
 const LINKS = [
@@ -12,6 +15,9 @@ const LINKS = [
 
 /** Lean footer — logo + nav + legal (no heavy CTA band) */
 export function SiteFooter() {
+  const pathname = usePathname() ?? "/";
+  if (pathname.startsWith("/espace/agent")) return null;
+
   return (
     <footer className="mt-auto border-t border-[var(--color-steel)]/30 bg-[var(--color-bg)] px-6 py-8 text-sm text-[var(--color-muted)]">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6">

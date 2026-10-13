@@ -1,5 +1,6 @@
 import {
   DeleteObjectCommand,
+  GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
@@ -127,6 +128,34 @@ export async function deletePublicObject(key: string) {
       Key: key,
     }),
   );
+}
+
+export async function deleteVaultObject(key: string) {
+  await getR2Client().send(
+    new DeleteObjectCommand({
+      Bucket: requireEnv("S3_BUCKET_VAULT"),
+      Key: key,
+    }),
+  );
+}
+
+export async function getVaultObjectBuffer(key: string): Promise<{
+  bytes: Buffer;
+  contentType: string;
+}> {
+  const res = await getR2Client().send(
+    new GetObjectCommand({
+      Bucket: requireEnv("S3_BUCKET_VAULT"),
+      Key: key,
+    }),
+  );
+  const body = res.Body;
+  if (!body) throw new Error("EMPTY_OBJECT");
+  const bytes = Buffer.from(await body.transformToByteArray());
+  return {
+    bytes,
+    contentType: res.ContentType ?? "application/pdf",
+  };
 }
 
 export function isAllowedImageMime(mime: string) {

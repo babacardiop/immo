@@ -45,7 +45,7 @@ export async function listMapPins(
       geoLng: true,
       transaction: true,
     },
-    take: 200,
+    take: 800,
     orderBy: { publishedAt: "desc" },
   });
 
