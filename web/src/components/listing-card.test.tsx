@@ -36,6 +36,7 @@ function item(over: Partial<PublicListItem> = {}): PublicListItem {
     minStayDays: null,
     furnished: null,
     city: "Dakar",
+    communeLabel: null,
     quartierLabel: "Almadies",
     addressPublic: null,
     geoLat: null,
@@ -80,13 +81,28 @@ describe("ListingCard", () => {
     );
     expect(screen.getByText(/terrain almadies/i)).toBeInTheDocument();
     expect(screen.getByText(/à vendre/i)).toBeInTheDocument();
-    expect(screen.getByText(/3 ch\./i)).toBeInTheDocument();
+    expect(screen.getByText(/3 chambres/i)).toBeInTheDocument();
     expect(screen.getByText(/almadies · dakar/i)).toBeInTheDocument();
     expect(screen.getByText(/25[\s\u00a0]?000[\s\u00a0]?000/)).toBeInTheDocument();
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
       "/acheter/terrain-almadies-eg-t-1",
     );
+  });
+
+  it("shows quartier · commune · city when communeLabel set", () => {
+    render(
+      <ListingCard
+        listing={item({
+          quartierLabel: "Cité Djily Mbaye",
+          communeLabel: "Yoff",
+          city: "Dakar",
+        })}
+      />,
+    );
+    expect(
+      screen.getByText(/cité djily mbaye · yoff · dakar/i),
+    ).toBeInTheDocument();
   });
 
 

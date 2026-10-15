@@ -36,6 +36,7 @@ export const listingFormSchema = z
     priceFcfa: z.coerce.number().int().positive(),
     areaM2: z.coerce.number().positive().optional().nullable(),
     city: z.string().trim().min(2).max(80),
+    communeLabel: z.string().trim().min(2).max(120).optional().nullable(),
     quartierLabel: z.string().trim().min(2).max(120),
     addressPublic: z.string().trim().max(200).optional().nullable(),
     reference: z.string().trim().min(3).max(40),

@@ -254,7 +254,21 @@ Règles lead magnet → `06`.
 | EF-POR-02 | Portail client locataire : prochain loyer, quittances, panne | Must | V3 |
 | EF-POR-03 | Portail acquéreur étalé : échéancier, % payé | Should | V3+ |
 | EF-POR-04 | État des lieux digital | Must | V3 |
-| EF-POR-05 | Paiement loyer Wave/OM soft | Could | V3+ |
+| EF-POR-05 | Paiement **loyer + caution** Wave/OM via plateforme (checkout + webhook) | Must | V3+ · **S11** |
+| EF-POR-06 | **Assignation** bien ↔ user (`landlord` / `candidate` / `tenant` / `buyer` / …) | Must | V3 · S08 |
+| EF-POR-07 | Staff configure **exigences dossier** (pièces + conditions) par listing / template | Must | V3 · S08 |
+| EF-POR-08 | Candidat **assigné** soumet candidature + uploads ; notice « docs visibles uniquement par EverGreen » | Must | V3 · S08 |
+| EF-POR-09 | Inbox revue staff (métadonnées + **viewer docs**) ; landlord métadonnées **sans** fichiers | Must | V3 · S08 |
+| EF-POR-10 | **Accept** : `candidate` → `tenant` · clôture autres · **débloque portail locataire** | Must | V3 · S08 |
+| EF-POR-11 | Mode décision : `agency_decides` (recommandé) \| `landlord_decides` (sans accès vault) | Must | V3 · S08 |
+| EF-POR-12 | Motifs de refus catalogue (anti-discrimination) + audit | Must | V3 · S08 |
+| EF-POR-13 | Demande **visite** site → crée **Lead/Prospect** (pas de compte auto) | Must | V3 · S08 |
+| EF-POR-14 | Staff crée compte client **from scratch** ou **depuis un prospect** puis assigne `candidate` | Must | V3 · S08 |
+| EF-POR-15 | Vault docs candidature : lecture fichiers **personnel EverGreen + candidat (own)** uniquement — landlord **deny** | Must | V3 · S08 |
+| EF-PAY-01 | Split frais : PSP (~1 % Wave/OM) + commission EverGreen **0,1 %** · net → `payee` | Must | V3+ · S11 |
+| EF-PAY-02 | Ledger paiements **append-only** (immuable) · quittance hashée | Must | V3+ · S11 |
+| EF-PAY-03 | Rôle / capa **`payments_ops`** : seuls ces agents listent le ledger agence | Must | V3+ · S11 |
+| EF-PAY-04 | Détail d’un paiement : **payeur + bénéficiaire + `payments_ops`** uniquement | Must | V3+ · S11 |
 
 ### 5.8 Module Diaspora — `EF-DIA`
 
@@ -351,7 +365,7 @@ Identité, téléphone, pièces mandat, évent. justificatifs locataires (V3) �
 | INT-03 | Leaflet / OSM | Cartes fiche & liste | V0 | Should |
 | INT-04 | Analytics (events) | `wa_click`, `sim_complete`, funnels | V0–1 | Must |
 | INT-05 | Stockage fichiers | Photos + PDF | V0 | Must |
-| INT-06 | Wave / Orange Money | Loyers / acomptes soft | V3+ | Could |
+| INT-06 | Wave / Orange Money | Loyers + caution plateforme · webhooks · S11 | V3+ | Must |
 | INT-07 | WA Cloud API | Inbox partagée scale | post-V0 | Should si volume |
 | INT-08 | CRM externe (HubSpot…) | Option si table saturée | later | Could |
 | INT-09 | Lab API indices | Observatoire | V7 | Must si L4 |

@@ -199,6 +199,8 @@ model Listing {
   /** Short-term / furnished stays — null when N/A. */
   furnished                 Boolean?
   city                      String?
+  /** Commune / arrondissement (thesaurus middle layer). */
+  communeLabel              String?
   quartierLabel             String?
   addressPublic             String?
   geoLat                    Float?
@@ -308,28 +310,44 @@ model LeadEvent {
   @@index([leadId, createdAt])
 }
 
-/// Thesaurus villes — toujours rattachées à une région (région → ville → quartier).
+/// Thesaurus villes — rattachées à une région (région → ville → commune → quartier).
 model City {
-  id        String     @id @default(cuid())
-  name      String     @unique
+  id        String    @id @default(cuid())
+  name      String    @unique
   /// Région administrative SN (obligatoire).
   region    String
+  active    Boolean   @default(true)
+  sortOrder Int       @default(0)
+  communes  Commune[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([active, sortOrder])
+  @@index([region, name])
+}
+
+/// Thesaurus communes / arrondissements rattachés à une ville.
+model Commune {
+  id        String     @id @default(cuid())
+  name      String
+  cityId    String
+  city      City       @relation(fields: [cityId], references: [id], onDelete: Cascade)
   active    Boolean    @default(true)
   sortOrder Int        @default(0)
   quartiers Quartier[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
-  @@index([active, sortOrder])
-  @@index([region, name])
+  @@unique([cityId, name])
+  @@index([active, name])
 }
 
-/// Thesaurus quartiers rattachés à une ville (admin-editable).
+/// Thesaurus quartiers / localités rattachés à une commune.
 model Quartier {
   id        String   @id @default(cuid())
   name      String
-  cityId    String
-  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  communeId String
+  commune   Commune  @relation(fields: [communeId], references: [id], onDelete: Cascade)
   aliases   String[] @default([])
   active    Boolean  @default(true)
   sortOrder Int      @default(0)
@@ -345,7 +363,7 @@ model Quartier {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([cityId, name])
+  @@unique([communeId, name])
   @@index([active, name])
   @@index([geoStatus])
 }

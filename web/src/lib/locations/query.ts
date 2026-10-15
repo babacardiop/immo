@@ -1,13 +1,19 @@
 import { prisma } from "@/lib/prisma";
-import type { CityEntry, QuartierEntry } from "@/lib/locations/types";
+import type {
+  CityEntry,
+  CommuneEntry,
+  QuartierEntry,
+} from "@/lib/locations/types";
 import {
   SENEGAL_CITIES,
+  SENEGAL_COMMUNES,
   SENEGAL_QUARTIERS,
 } from "@/lib/locations/senegal";
 import { guessRegionForCity } from "@/lib/locations/regions";
 
 export type LocationsSnapshot = {
   cities: CityEntry[];
+  communes: CommuneEntry[];
   quartiers: QuartierEntry[];
 };
 
@@ -20,33 +26,65 @@ export async function loadLocationsSnapshot(): Promise<LocationsSnapshot> {
     });
 
     if (cities.length === 0) {
-      return { cities: SENEGAL_CITIES, quartiers: SENEGAL_QUARTIERS };
+      return {
+        cities: SENEGAL_CITIES,
+        communes: SENEGAL_COMMUNES,
+        quartiers: SENEGAL_QUARTIERS,
+      };
     }
 
-    const quartiers = await prisma.quartier.findMany({
-      where: { active: true },
-      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-      select: {
-        name: true,
-        aliases: true,
-        city: { select: { name: true, region: true } },
-      },
-    });
+    const [communes, quartiers] = await Promise.all([
+      prisma.commune.findMany({
+        where: { active: true },
+        orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+        select: {
+          name: true,
+          city: { select: { name: true, region: true } },
+        },
+      }),
+      prisma.quartier.findMany({
+        where: { active: true },
+        orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+        select: {
+          name: true,
+          aliases: true,
+          commune: {
+            select: {
+              name: true,
+              city: { select: { name: true, region: true } },
+            },
+          },
+        },
+      }),
+    ]);
 
     return {
       cities: cities.map((c) => ({
         name: c.name,
         region: c.region || guessRegionForCity(c.name) || "Dakar",
       })),
+      communes: communes.map((c) => ({
+        name: c.name,
+        city: c.city.name,
+        region:
+          c.city.region || guessRegionForCity(c.city.name) || "Dakar",
+      })),
       quartiers: quartiers.map((q) => ({
         name: q.name,
-        city: q.city.name,
+        commune: q.commune.name,
+        city: q.commune.city.name,
         region:
-          q.city.region || guessRegionForCity(q.city.name) || "Dakar",
+          q.commune.city.region ||
+          guessRegionForCity(q.commune.city.name) ||
+          "Dakar",
         aliases: q.aliases,
       })),
     };
   } catch {
-    return { cities: SENEGAL_CITIES, quartiers: SENEGAL_QUARTIERS };
+    return {
+      cities: SENEGAL_CITIES,
+      communes: SENEGAL_COMMUNES,
+      quartiers: SENEGAL_QUARTIERS,
+    };
   }
 }

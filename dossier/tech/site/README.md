@@ -30,7 +30,7 @@
 
 | Dossier | Statut | Contenu |
 | --- | --- | --- |
-| [`sprints/`](./sprints/) | ✅ | S00–S08 · backend / tests / frontend / infra · S05 mockup · S08 dashboards/reporting |
+| [`sprints/`](./sprints/) | ✅ | S00–S11 · backend / tests / frontend / infra · S05 mockup · S08 candidatures · S09 embeds · S10 dashboards · **S11 paiements plateforme** |
 
 ## Sources `docs/`
 

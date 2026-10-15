@@ -75,12 +75,16 @@ Neon : prod branch + optional preview branch per PR
 | [`S05-mockup-fidelity`](./S05-mockup-fidelity/) | Home/shell **quasi pixel** vs strips + chrome public **unifié** | Side-by-side strips + une marque |
 | [`S06-catalogue-carte-geo`](./S06-catalogue-carte-geo/) | **/acheter · /louer** : toggle **Liste \| Carte** + drill-down **région → ville → quartier** | Map = vue dédiée · géo SN (data existante) |
 | [`S07-outils-simus`](./S07-outils-simus/) | `/outils` + 3 simus ungated | 3 calc live |
-| [`S08-embeds-partenaires`](./S08-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
-| [`S09-dashboards-reporting`](./S09-dashboards-reporting/) | Dashboards multi-rôles + reports scoped | ACL UI = `14` · frames DS |
+| [`S08-candidatures-location`](./S08-candidatures-location/) | Visite→prospect→compte→**candidat**→docs (**staff-only**)→accept→**portail locataire** | Flow location complet · vault interdit aux proprio |
+| [`S09-embeds-partenaires`](./S09-embeds-partenaires/) | Embeds fiche · PartnerLead · piliers CTA | Gate **Done V1** |
+| [`S10-dashboards-reporting`](./S10-dashboards-reporting/) | Dashboards multi-rôles + reports scoped | ACL UI = `14` · frames DS · data S08 |
+| [`S11-paiements-plateforme`](./S11-paiements-plateforme/) | Loyer + caution via Wave/OM · split frais · ledger immuable · rôle `payments_ops` | Checkout live · quittance · ACL 3 parties |
 
-Ordre : **S05 fidelity** → **S06 catalogue carte/géo** (avant outils) → S07 outils → S08 embeds (Done V1) → **S09** dashboards.  
-**S09** après V1 soft / en parallèle design — portails client/landlord = Vague **V3**.  
-Source visuelle public : [`assets/design/`](../../../../assets/design/) · catalogue map : `design-system/pages/public/catalogue/*-map` · BO : [`design-system/dashboards/`](../../../../assets/design/design-system/dashboards/).
+Ordre : **S05 fidelity** → **S06 catalogue carte/géo** → S07 outils → **S08 candidatures/assignations** (V3-critique, débloque portails) → S09 embeds (**Done V1**) → **S10** dashboards → **S11** paiements plateforme.  
+**S08** peut démarrer dès listings + auth stables ; il **ne remplace pas** Done V1 (reste S09).  
+**S10** consomme les `PropertyAssignment` / baux créés en S08 — portails client/landlord = Vague **V3**.  
+**S11** consomme Lease/tenant S08 + widgets S10 · KYB Wave/OM requis · add-on [`54`](../../../../docs/add-ons/specs/03-location-gestion/54-paiements-plateforme-loyer-caution.md).  
+Source visuelle public : [`assets/design/`](../../../../assets/design/) · candidatures : `design-system/forms/{dossier-exigences,candidature-location,assignation-bien}/` + `pages/espace/*/candidature*` · paiements : `forms/paiement-loyer-caution/` + `pages/espace/*/paiement*` · BO : [`design-system/dashboards/`](../../../../assets/design/design-system/dashboards/).
 
 ---
 

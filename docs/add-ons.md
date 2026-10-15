@@ -1,6 +1,6 @@
 # Add-ons & services annexes
 
-**Specs détaillées (1 fichier / add-on) :** [`docs/add-ons/README.md`](./add-ons/README.md) — **52** specs en **7 catégories**.
+**Specs détaillées (1 fichier / add-on) :** [`docs/add-ons/README.md`](./add-ons/README.md) — **53** specs en **7 catégories**.
 
 **Partenaires & commissions d’apport :** [`docs/partenaires.md`](./partenaires.md) → fiches en **5 catégories** dans [`docs/partenaires/README.md`](./partenaires/README.md).
 
@@ -78,6 +78,7 @@ UI EverGreen : même design que le simulateur de **mensualité terrain** → par
 
 | Add-on | Description | Monetization | Priorité |
 | --- | --- | --- | --- |
+| **Candidature & dossier location** | Exigences pièces · postuler · inbox bailleur · **sélection locataire** · assignation portail | Inclus location / gestion | **P0** |
 | **Caution locative digitale** | Avance de caution, remboursement échelonné — partenariat type [Cautiona](https://aps.sn/une-fintech-mise-sur-la-digitalisation-pour-faciliter-lacces-au-logement/) | Referral fee | **P1** |
 | **Report / lissage de loyer** | Aide ponctuelle locataire solvable | Partenaire fintech | P2 |
 | **État des lieux digital** | Photos + checklist + signature | Inclus gestion / upsell | **P1** |
@@ -231,7 +232,7 @@ Recherche appart/maison
   → Visite / réservation
   → Caution digitale (partenaire) + assurance MRH
   → Bail + état des lieux digital (dashboard)
-  → Paiement Wave/OM + quittances
+  → Paiement Wave/OM plateforme (loyer/caution · 0,1 % · ledger S11) + quittances
   → Maintenance (clim, plomberie) via ticket
   → Après 12 mois à l’heure → offre Axe 2/3 (terrain étalé / loc-vente)
 ```

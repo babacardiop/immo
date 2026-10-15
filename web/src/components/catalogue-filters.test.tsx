@@ -21,11 +21,13 @@ vi.mock("@/hooks/use-locations", () => ({
     quartiers: [
       {
         name: "Almadies",
+        commune: "Ngor",
         city: "Dakar",
         region: "Dakar",
       },
       {
         name: "Cité Djily Mbaye",
+        commune: "Yoff",
         city: "Dakar",
         region: "Dakar",
         aliases: ["djily"],
@@ -85,7 +87,7 @@ describe("CatalogueFilters", () => {
     await user.clear(quartier);
     await user.type(quartier, "dj");
     expect(await screen.findByRole("listbox")).toHaveTextContent(
-      /cité djily mbaye · dakar/i,
+      /cité djily mbaye · yoff · dakar/i,
     );
   });
 

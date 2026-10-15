@@ -304,7 +304,7 @@ function loadCommercialExtras() {
 }
 
 function generate(rows) {
-  /** @type {Map<string, {name:string,city:string,region:string,aliases?:string[]}>} */
+  /** @type {Map<string, {name:string,commune:string,city:string,region:string,aliases?:string[]}>} */
   const quartiers = new Map();
   /** @type {Map<string, string>} city → region */
   const cities = new Map();
@@ -312,16 +312,17 @@ function generate(rows) {
   for (const r of rows) {
     const regionKey = foldKey(r[0] || "");
     const departement = r[1] || "";
-    const commune = r[3] || "";
+    const communeRaw = r[3] || "";
     const quartierRaw = r[4] || "";
     if (!quartierRaw) continue;
     const region = REGION_LABEL[regionKey] ?? titleCaseFr(r[0]);
-    const city = resolveCity(commune, departement, regionKey);
+    const city = resolveCity(communeRaw, departement, regionKey);
+    const commune = communeRaw ? titleCaseFr(communeRaw) : city;
     const name = titleCaseFr(quartierRaw);
     if (name.length < 2) continue;
-    const key = `${foldKey(city)}||${foldKey(name)}`;
+    const key = `${foldKey(city)}||${foldKey(commune)}||${foldKey(name)}`;
     if (!quartiers.has(key)) {
-      quartiers.set(key, { name, city, region });
+      quartiers.set(key, { name, commune, city, region });
     }
     if (!cities.has(city)) cities.set(city, region);
   }
@@ -330,29 +331,31 @@ function generate(rows) {
   const commercialPath = path.join(ROOT, "src/lib/locations/senegal-quartiers-seed.commercial.ts");
   // inline merge of known market names not always in ANSD:
   const EXTRA = [
-    { name: "Almadies", city: "Dakar", region: "Dakar", aliases: ["les almadies"] },
-    { name: "Cité Djily Mbaye", city: "Dakar", region: "Dakar", aliases: ["djily mbaye", "djily", "cite djily mbaye"] },
-    { name: "Liberté 6", city: "Dakar", region: "Dakar", aliases: ["liberte 6"] },
-    { name: "Liberté 6 Extension", city: "Dakar", region: "Dakar", aliases: ["l6 extension", "liberte 6 extension"] },
-    { name: "Point E", city: "Dakar", region: "Dakar", aliases: ["point-e"] },
-    { name: "Sacré-Cœur", city: "Dakar", region: "Dakar", aliases: ["sacre-coeur", "sacre coeur"] },
-    { name: "Mermoz", city: "Dakar", region: "Dakar" },
-    { name: "VDN", city: "Dakar", region: "Dakar", aliases: ["voie de degagement nord"] },
-    { name: "Scat Urbam", city: "Dakar", region: "Dakar", aliases: ["scat"] },
-    { name: "Saly Nord", city: "Saly", region: "Thiès" },
-    { name: "Saly Sud", city: "Saly", region: "Thiès" },
-    { name: "Nianing", city: "Mbour", region: "Thiès" },
-    { name: "Warang", city: "Mbour", region: "Thiès" },
-    { name: "Pointe Sarène", city: "Mbour", region: "Thiès", aliases: ["pointe sarene"] },
+    { name: "Almadies", commune: "Ngor", city: "Dakar", region: "Dakar", aliases: ["les almadies"] },
+    { name: "Cité Djily Mbaye", commune: "Yoff", city: "Dakar", region: "Dakar", aliases: ["djily mbaye", "djily", "cite djily mbaye"] },
+    { name: "Liberté 6", commune: "Sicap Liberté", city: "Dakar", region: "Dakar", aliases: ["liberte 6"] },
+    { name: "Liberté 6 Extension", commune: "Sicap Liberté", city: "Dakar", region: "Dakar", aliases: ["l6 extension", "liberte 6 extension"] },
+    { name: "Point E", commune: "Fann Point E Amitie", city: "Dakar", region: "Dakar", aliases: ["point-e"] },
+    { name: "Sacré-Cœur", commune: "Mermoz Sacre Coeur", city: "Dakar", region: "Dakar", aliases: ["sacre-coeur", "sacre coeur"] },
+    { name: "Mermoz", commune: "Mermoz Sacre Coeur", city: "Dakar", region: "Dakar" },
+    { name: "VDN", commune: "Patte D'Oie", city: "Dakar", region: "Dakar", aliases: ["voie de degagement nord"] },
+    { name: "Scat Urbam", commune: "Parcelles Assainies", city: "Dakar", region: "Dakar", aliases: ["scat"] },
+    { name: "Ouakam", commune: "Ouakam", city: "Dakar", region: "Dakar" },
+    { name: "Saly Nord", commune: "Saly", city: "Saly", region: "Thiès" },
+    { name: "Saly Sud", commune: "Saly", city: "Saly", region: "Thiès" },
+    { name: "Nianing", commune: "Mbour", city: "Mbour", region: "Thiès" },
+    { name: "Warang", commune: "Mbour", city: "Mbour", region: "Thiès" },
+    { name: "Pointe Sarène", commune: "Mbour", city: "Mbour", region: "Thiès", aliases: ["pointe sarene"] },
   ];
   for (const e of EXTRA) {
-    const key = `${foldKey(e.city)}||${foldKey(e.name)}`;
+    const key = `${foldKey(e.city)}||${foldKey(e.commune)}||${foldKey(e.name)}`;
     if (!quartiers.has(key)) {
       quartiers.set(key, e);
     } else {
       const cur = quartiers.get(key);
       // Prefer market spelling (accents) from EXTRA when ANSD is ASCII-only.
       cur.name = e.name;
+      cur.commune = e.commune;
       cur.aliases = [
         ...new Set([...(cur.aliases ?? []), ...(e.aliases ?? [])]),
       ];
@@ -368,6 +371,8 @@ function generate(rows) {
     if (r) return r;
     const c = a.city.localeCompare(b.city, "fr");
     if (c) return c;
+    const co = a.commune.localeCompare(b.commune, "fr");
+    if (co) return co;
     return a.name.localeCompare(b.name, "fr");
   });
 
@@ -382,16 +387,18 @@ function emitSeedTs(quartierList) {
   const lines = [
     `export type QuartierSeedEntry = {`,
     `  name: string;`,
+    `  commune: string;`,
     `  city: string;`,
     `  region: string;`,
     `  aliases?: string[];`,
     `};`,
     ``,
     `/**`,
-    ` * Thesaurus région → ville → quartier.`,
+    ` * Thesaurus région → ville → commune → quartier.`,
     ` * Source principale : ANSD RGPH-5 2023 répertoire des localités`,
     ` * (https://www.ansd.sn/donnees-recensements) + cités marché manquantes.`,
     ` * Généré par scripts/fetch-ansd-localites.mjs — ne pas éditer à la main.`,
+    ` * Après fetch, lancer scripts/enrich-seed-communes.mjs si besoin.`,
     ` */`,
     `export const SENEGAL_QUARTIERS_SEED: QuartierSeedEntry[] = [`,
   ];
@@ -400,7 +407,7 @@ function emitSeedTs(quartierList) {
       ? `, aliases: ${JSON.stringify(q.aliases)}`
       : "";
     lines.push(
-      `  { name: ${JSON.stringify(q.name)}, city: ${JSON.stringify(q.city)}, region: ${JSON.stringify(q.region)}${aliases} },`,
+      `  { name: ${JSON.stringify(q.name)}, commune: ${JSON.stringify(q.commune)}, city: ${JSON.stringify(q.city)}, region: ${JSON.stringify(q.region)}${aliases} },`,
     );
   }
   lines.push(`];`, ``);

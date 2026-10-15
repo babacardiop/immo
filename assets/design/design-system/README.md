@@ -18,4 +18,4 @@ design-system/
 
 **Sources :** `assets/design/` mockups · `dossier/tech/site/13` sitemap · `03` wire IDs · `14` RBAC.
 
-**Sprints :** S05 (public fidelity) · S08 (dashboards/reports) · impl pages/forms au fil des sprints produits.
+**Sprints :** S05 (public fidelity) · S08 (candidatures / assignations) · S10 (dashboards/reports) · S11 (paiements loyer/caution plateforme) · impl pages/forms au fil des sprints produits.

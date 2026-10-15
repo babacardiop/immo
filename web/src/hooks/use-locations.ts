@@ -1,14 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import type { CityEntry, QuartierEntry } from "@/lib/locations/types";
+import type {
+  CityEntry,
+  CommuneEntry,
+  QuartierEntry,
+} from "@/lib/locations/types";
 import {
   SENEGAL_CITIES,
+  SENEGAL_COMMUNES,
   SENEGAL_QUARTIERS,
 } from "@/lib/locations/senegal";
 
 export function useLocations() {
   const [cities, setCities] = useState<CityEntry[]>(SENEGAL_CITIES);
+  const [communes, setCommunes] =
+    useState<CommuneEntry[]>(SENEGAL_COMMUNES);
   const [quartiers, setQuartiers] =
     useState<QuartierEntry[]>(SENEGAL_QUARTIERS);
   const [version, setVersion] = useState(0);
@@ -30,10 +37,27 @@ export function useLocations() {
         a.name.localeCompare(b.name, "fr"),
       );
     });
+    setCommunes((prev) => {
+      const exists = prev.some(
+        (c) =>
+          c.name.toLowerCase() === entry.commune.toLowerCase() &&
+          c.city.toLowerCase() === entry.city.toLowerCase(),
+      );
+      if (exists) return prev;
+      return [
+        ...prev,
+        { name: entry.commune, city: entry.city, region: entry.region },
+      ].sort(
+        (a, b) =>
+          a.city.localeCompare(b.city, "fr") ||
+          a.name.localeCompare(b.name, "fr"),
+      );
+    });
     setQuartiers((prev) => {
       const exists = prev.some(
         (q) =>
           q.name.toLowerCase() === entry.name.toLowerCase() &&
+          q.commune.toLowerCase() === entry.commune.toLowerCase() &&
           q.city.toLowerCase() === entry.city.toLowerCase(),
       );
       return exists ? prev : [entry, ...prev];
@@ -55,6 +79,7 @@ export function useLocations() {
             ),
           );
         }
+        if (data.communes?.length) setCommunes(data.communes);
         if (data.quartiers?.length) setQuartiers(data.quartiers);
       })
       .catch(() => {
@@ -65,10 +90,11 @@ export function useLocations() {
     };
   }, [version]);
 
-  return { cities, quartiers, refresh, addLocal };
+  return { cities, communes, quartiers, refresh, addLocal };
 }
 
 type LocationsSnapshotLike = {
   cities?: Array<string | CityEntry>;
+  communes?: CommuneEntry[];
   quartiers?: QuartierEntry[];
 };

@@ -147,12 +147,15 @@ Aligné sprints `site/12` :
 | 5 | Confiance | Agence how · guide TF · legal · SEO schema |
 | 6 | Polish V0 | Map should · landings · OG · empty states |
 | **Gate** | **Done V0** | KPI §2.1 |
-| 7 | Outils | `/outils` · 3 simus · disc · events |
-| 8 | Embeds + P | Fiche terrain embeds · PartnerLead · CTA P |
-| 9 | Contenu V1 | 2 piliers + CTAs |
-| **Gate** | **Done V1** | KPI §2.2 · message hub OK |
+| 7 | Outils | `/outils` · 3 simus · disc · events · **S07** |
+| 8 | **Candidatures / assignations** | Exigences · postuler · inbox · sélection · portail scope · **S08** (V3, parallèle OK) |
+| 9 | Embeds + P | Fiche terrain embeds · PartnerLead · CTA P · **S09** |
+| 10 | Contenu V1 | 2 piliers + CTAs |
+| **Gate** | **Done V1** | KPI §2.2 · message hub OK (après S09) |
+| 11 | Dashboards | Multi-rôles + reports · **S10** (consomme S08) |
+| 12 | Paiements plateforme | Loyer + caution Wave/OM · 0,1 % · ledger · **S11** |
 
-Ne pas démarrer bloc 7 avant Gate V0 (sauf spike design parallèle).
+Ne pas démarrer bloc 7 avant Gate V0 (sauf spike design parallèle). S08 peut démarrer dès listings+auth stables. S11 après tenant/Lease + KYB PSP.
 
 ---
 
@@ -176,7 +179,7 @@ Recette CdCF R1–R12 (`site/11`) = checklist QA MVP.
 | Diligence funnel · frais acquisition outil | V2 |
 | Pack diaspora inspection / POA / multi-devise | V4 |
 | Observatoire / carte prix | V7 / L4 |
-| Paiements Wave/OM prod | V3+ |
+| Paiements Wave/OM prod (loyer/caution S11) | V3+ |
 | App native · i18n EN | — |
 | Crawl lab scale | post-V0 spike only |
 | Marketplace / WL / MFI | V8+ |

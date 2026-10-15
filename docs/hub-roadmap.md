@@ -156,7 +156,10 @@ Légende : **F** = feature produit cœur · **A** = add-on · **P** = partenaire
 
 | Type | Item | Spec / fiche |
 | --- | --- | --- |
-| **F** | Portail locataire + proprio (loyers, quittances) | `positioning` portails |
+| **F** | **Visite → prospect → compte → candidat → docs (staff-only) → accept → portail locataire** | sprint `S08` · add-on `53` |
+| **F** | Assignation landlord / portefeuille + dashboards scoped | sprint `S08`+`S10` · `positioning` portails |
+| **F** | Dashboards / reports (après tenant activé) | sprint `S10` |
+| **F** | **Paiements plateforme** loyer + caution (Wave/OM · 0,1 % · ledger immuable · `payments_ops`) | sprint `S11` · add-on `54` |
 | **A** | État des lieux digital | `03-location…/12-…` |
 | **A** | Caution locative (lead partenaire) | `03-location…/11-…` |
 | **A** | Assurance MRH + PNO (CTA) | `03-location…/13–14` |
@@ -164,7 +167,8 @@ Légende : **F** = feature produit cœur · **A** = add-on · **P** = partenaire
 | **P** | Fintech caution *(ou process manuel)* | `…/23-fintech-caution` |
 | **C** | Pilier louer à Dakar + gestion proprio | blog M5 |
 
-**KPI :** mandats de gestion, % loyers collectés digital, polices assurance, activation caution.
+**Prérequis portail :** sans S08 (assignation + review candidatures), les dashboards proprio/locataire restent vides.  
+**KPI :** mandats de gestion, `application_submitted`, `time_to_select`, % loyers collectés digital, polices assurance, activation caution.
 
 ---
 
@@ -263,7 +267,7 @@ Sinon : **approfondir** V1–V4 (meilleure conversion, plus de contenu, 2ᵉ con
 | **0** | S0–6 | Socle catalogue | 0 | 0 | Site + mandats + agent |
 | **1** | M1–2 | Acheteur terrain | 3–4 | 3 (BTP, archi, notaire) | `/outils`, embeds fiche |
 | **2** | M3–4 | Sécuriser / papiers | 4 | 2 (formalités, géomètre) | Checklist diligence |
-| **3** | M5–6 | Location / gestion | 3–4 | 2 (assureur, caution) | Portails L / P |
+| **3** | M5–6 | Location / gestion | 4–5 | 2 (assureur, caution) | S08 candidatures · S10 portails · **S11 paiements** |
 | **4** | M7–8 | Diaspora | 4 | 1–2 (inspecteur) | Multi-devise, POA |
 | **5** | M9–10 | Gros tickets | 3 | 2 (financier, crédit) | Estimation vendeur |
 | **6** | M11–12 | Chantier / confort | 4 | 2 (énergie, VRD?) | Suivi chantier |

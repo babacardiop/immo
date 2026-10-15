@@ -32,14 +32,17 @@ export function AddLocationTrigger({
 
 export function AddLocationPanel({
   initialCity,
+  initialCommune,
   initialQuartier,
   onCreated,
   onClose,
 }: {
   initialCity?: string;
+  initialCommune?: string;
   initialQuartier?: string;
   onCreated: (created: {
     city: string;
+    commune: string;
     quartier: string;
     region: string;
   }) => void;
@@ -48,6 +51,7 @@ export function AddLocationPanel({
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [quartier, setQuartier] = useState(initialQuartier ?? "");
+  const [commune, setCommune] = useState(initialCommune ?? "");
   const [city, setCity] = useState(initialCity ?? "");
   const [region, setRegion] = useState(
     () => guessRegionForCity(initialCity ?? "") ?? "Dakar",
@@ -55,10 +59,11 @@ export function AddLocationPanel({
 
   useEffect(() => {
     setQuartier(initialQuartier ?? "");
+    setCommune(initialCommune ?? "");
     setCity(initialCity ?? "");
     setRegion(guessRegionForCity(initialCity ?? "") ?? "Dakar");
     setError(null);
-  }, [initialCity, initialQuartier]);
+  }, [initialCity, initialCommune, initialQuartier]);
 
   return (
     <div className="rounded-md border border-[var(--color-steel)]/50 bg-[var(--color-sage)]/15 p-4">
@@ -66,8 +71,8 @@ export function AddLocationPanel({
         <div>
           <h3 className="text-sm font-semibold">Nouveau quartier</h3>
           <p className="mt-0.5 text-xs text-[var(--color-muted)]">
-            Quartier + ville + région — ajouté au thesaurus pour tous les
-            agents.
+            Quartier + commune + ville + région — ajouté au thesaurus pour tous
+            les agents.
           </p>
         </div>
         <Button
@@ -80,7 +85,7 @@ export function AddLocationPanel({
         </Button>
       </div>
 
-      <div className="mt-3 grid gap-3 sm:grid-cols-3">
+      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <Label htmlFor="new-quartier">Quartier</Label>
           <Input
@@ -88,6 +93,16 @@ export function AddLocationPanel({
             value={quartier}
             onChange={(e) => setQuartier(e.target.value)}
             placeholder="Cité Djily Mbaye"
+            required
+          />
+        </div>
+        <div>
+          <Label htmlFor="new-commune">Commune</Label>
+          <Input
+            id="new-commune"
+            value={commune}
+            onChange={(e) => setCommune(e.target.value)}
+            placeholder="Yoff"
             required
           />
         </div>
@@ -138,6 +153,7 @@ export function AddLocationPanel({
             startTransition(async () => {
               const res = await createQuartierOnTheFlyAction({
                 quartier,
+                commune: commune || city,
                 city,
                 region,
               });
@@ -147,6 +163,7 @@ export function AddLocationPanel({
               }
               onCreated({
                 city: res.city!,
+                commune: res.commune ?? (commune || city),
                 quartier: res.quartier!,
                 region: res.region ?? region,
               });

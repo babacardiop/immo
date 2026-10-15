@@ -24,5 +24,13 @@ Chaque dossier = `layout.jpg`.
 | `simu-estimation/` | Inputs estimation | `/outils/estimation` |
 | `profil-agent/` | Profil / WA / horaires | agent profil |
 | `search-catalogue/` | Search card hero / catalogue | home · hubs |
+| `demande-visite/` | Visite fiche → crée **prospect** | `/louer/[slug]` · **S08 #1** |
+| `creer-compte-client/` | Compte scratch **ou** depuis prospect | agent lead detail · **S08 #3** |
+| `assignation-bien/` | Assigner rôle **candidat** / landlord / buyer… | agent/OD · **S08 #4** |
+| `dossier-exigences/` | Pièces + conditions (staff) | agent listing · **S08** |
+| `candidature-location/` | Dépôt docs + **disclaimer staff-only** | candidat assigné · **S08 #5** |
+| `paiement-loyer-caution/` | Checkout Wave/OM + **récap frais** (PSP + EverGreen 0,1 %) | locataire tenant · **S11** |
 
-**Règles forms :** 3–4 champs max leads publics · consent RGPD · focus ring olive · erreurs `ds-20` · toast succès.
+**Règles forms :** 3–4 champs max leads publics · consent RGPD · focus ring olive · erreurs `ds-20` · toast succès.  
+**S08 :** forms dossier/candidature peuvent dépasser 4 champs (parcours auth portail, pas lead public).  
+**S11 :** récap frais non dismissible avant redirect PSP.

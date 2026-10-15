@@ -14,15 +14,28 @@ export default async function LieuxPage() {
     redirect("/espace/agent");
   }
 
-  const [cities, quartiers] = await Promise.all([
+  const [cities, communes, quartiers] = await Promise.all([
     prisma.city.findMany({
       orderBy: [{ name: "asc" }],
-      include: { _count: { select: { quartiers: true } } },
+      include: { _count: { select: { communes: true } } },
+    }),
+    prisma.commune.findMany({
+      orderBy: [{ name: "asc" }],
+      include: {
+        city: { select: { id: true, name: true, region: true } },
+        _count: { select: { quartiers: true } },
+      },
     }),
     prisma.quartier.findMany({
       orderBy: [{ name: "asc" }],
       include: {
-        city: { select: { id: true, name: true, region: true } },
+        commune: {
+          select: {
+            id: true,
+            name: true,
+            city: { select: { id: true, name: true, region: true } },
+          },
+        },
       },
     }),
   ]);
@@ -31,11 +44,15 @@ export default async function LieuxPage() {
     <div>
       <h1 className="text-3xl font-semibold tracking-tight">Lieux</h1>
       <p className="mt-2 max-w-2xl text-[var(--color-muted)]">
-        Thesaurus hiérarchique région → ville → quartier. Affichage type
-        « Almadies · Dakar · Dakar ».
+        Thesaurus hiérarchique région → ville → commune → quartier. Affichage
+        type « Cité Djily Mbaye · Yoff · Dakar ».
       </p>
       <div className="mt-8">
-        <LieuxAdmin cities={cities} quartiers={quartiers} />
+        <LieuxAdmin
+          cities={cities}
+          communes={communes}
+          quartiers={quartiers}
+        />
       </div>
     </div>
   );

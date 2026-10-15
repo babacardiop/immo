@@ -193,18 +193,30 @@ EMAIL_LEADS_TO=leads@domaine.sn
 
 - Mobile money **dominant** (&gt;70 % online via Wave/OM — bench Kolonell)  
 - Cartes = niche  
-- Wave Business : Checkout sessions + webhooks HMAC · fee ~**1 %** (cap) · KYB NINEA/RCCM **5–10 j**  
-- Orange Money Web Payment : OAuth + `/webpayment` · `notif_url` + **polling** recommandé · KYB **7–15 j**
+- Wave Business : Checkout sessions + webhooks HMAC · fee marchand ~**1 %** (cap) · KYB NINEA/RCCM **5–10 j**  
+- Orange Money Web Payment : OAuth + `/webpayment` · `notif_url` + **polling** recommandé · KYB **7–15 j**  
+- OM officiel : **gratuit pour le client payeur** ; commission marchand ~**1 %** (pas 0 % côté EverGreen) — confirmer contrat KYB
 
 ### 4.2 Ce qu’on paie (et ce qu’on ne paie pas)
 
 | Cas | Canal | Vague |
 | --- | --- | :---: |
-| Loyers → agence (gestion) | Wave + OM API | **V3** |
+| **Loyers + caution** via plateforme → payee (landlord / gestion) | Wave + OM API · **S11** | **V3+** |
 | Frais dossier / acompte **structuré** agence | Wave/OM ou lien | V1–2 soft |
 | Commission / packs services | Facture + MM | Ops |
 | Séquestre / notaire | **Hors** Wave vendeur — circuit notaire | Continu |
 | Achat bien → **vendeur perso** | **INTERDIT** produit | — |
+
+### 4.2bis Split frais plateforme (S11)
+
+| Ligne | Taux indicatif | Qui |
+| --- | ---: | --- |
+| Frais PSP Wave | ~1 % | Wave |
+| Frais PSP Orange Money | ~1 % marchand | Orange |
+| Commission **EverGreen** | **0,1 %** | Plateforme |
+| Net | reste | `payee` (landlord / compte configuré) |
+
+Ledger **append-only** · ACL : payeur + payee + rôle `payments_ops` seulement. Spec : add-on **54**.
 
 ### 4.3 Phasage technique
 
@@ -212,18 +224,19 @@ EMAIL_LEADS_TO=leads@domaine.sn
 | --- | --- |
 | **V0** | Pas de checkout site obligatoire · virement / Wave **Business** manuel tracké CRM |
 | **V1 soft** | Payment **links** merchant (Wave Business) pour frais dossier |
-| **V3** | Dual API : `createPaymentSession(provider, amount, orderId)` · webhooks · statut `Payment` en DB |
+| **V3 / S11** | Dual API checkout · webhooks · `Payment` + `PaymentLedgerEntry` immuable · quittance · fees 0,1 % |
 | **V3+** | Payouts reversement proprio (Wave Payout) — conformité KYB renforcée |
 
-### 4.4 Architecture cible (V3)
+### 4.4 Architecture cible (V3 / S11)
 
 ```
-Client → POST /api/payments/checkout {provider, amount, purpose, leaseId?}
-       ← { redirectUrl }
+Client → POST /api/payments/checkout {provider, purpose: rent|deposit, dueId}
+       ← { redirectUrl, feePreview }
 Client → Wave / OM hosted page
 Provider → POST /api/payments/webhook/{wave|om}  (verify signature)
-       → mark Payment paid (idempotent)
-       → update CRM / portail quittance
+       → mark Payment paid (idempotent) + append ledger (immutable)
+       → allocate net_payee · platform_fee 0.1% · provider_fee
+       → quittance + notifs payeur/payee
 ```
 
 | Règle | |
@@ -231,12 +244,13 @@ Provider → POST /api/payments/webhook/{wave|om}  (verify signature)
 | Montants | Entiers **XOF** |
 | Source of truth | **Webhook** (pas seulement return_url) |
 | OM | Polling status si notif flaky |
-| Idempotency | `order_id` unique · replay safe |
+| Idempotency | `order_id` / `provider_event_id` unique · replay safe |
 | Secrets | Jamais dans le browser |
+| Mutabilité | Paid + ledger entries = **INSERT only** |
 
 ### 4.5 Modèle `Payment` (min)
 
-`id` · `provider` wave\|om · `amount_xof` · `purpose` (rent\|fee\|other) · `status` · `external_id` · `lead_or_lease_id` · `paid_at`
+`id` · `provider` wave\|om · `amount_xof` · `purpose` (rent\|deposit\|fee) · `provider_fee_xof` · `platform_fee_xof` · `net_payee_xof` · `payer_user_id` · `payee_user_id` · `status` · `external_id` · `lease_id` · `paid_at` · `quittance_hash`
 
 ### 4.6 Env
 
@@ -254,7 +268,16 @@ PAYMENTS_CANCEL_URL=
 
 - NINEA + RCCM pour merchant APIs  
 - Compte settlement bancaire  
-- Paralléliser KYB **avant** sprint V3  
+- Paralléliser KYB **avant** sprint V3 / **S11**  
+- Runbook détaillé inscription Wave + OM + canaux (bouton · QR · SMS/WA) → `sprints/S11-paiements-plateforme/infra.md`
+
+### 4.8 Canaux checkout (S11)
+
+| Canal | MoSCoW | Note |
+| --- | :---: | --- |
+| Bouton → redirect hosted Wave/OM | Must | Parcours portail locataire |
+| QR code (`checkoutUrl`) | Must | Scan mobile / point de vente soft |
+| Lien SMS / WhatsApp (TTL) | Should | Même URL · jamais numéro Wave perso landlord |
 
 ---
 

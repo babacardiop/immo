@@ -507,11 +507,24 @@ Stories **Later/Icebox** — affiner au kickoff vague. Format court.
 
 | ID | Story | MoSCoW | Pts | EF |
 | --- | --- | :---: | ---: | --- |
-| US-V3-01 | En tant que BAI, je veux voir loyers/retards/docs sur `/espace/proprio`, afin de suivre mon bien | Must | 8 | EF-POR-01 |
-| US-V3-02 | En tant que LOC, je veux voir mon prochain loyer et quittances, afin de payer sereinement | Must | 8 | EF-POR-02 |
+| US-V3-00 | En tant que prospect, je veux **demander une visite** sur le site, afin d’être rappelé — et devenir un **prospect** CRM | Must | 3 | EF-POR-13 · S08 |
+| US-V3-00a | En tant qu’AGT, je veux **créer un compte** client from scratch ou depuis un prospect, afin de digitaliser le dossier | Must | 5 | EF-POR-14 · S08 |
+| US-V3-00b | En tant qu’AGT, je veux **assigner un bien en candidat**, afin qu’il puisse déposer les pièces requises | Must | 5 | EF-POR-06 · S08 |
+| US-V3-00c | En tant qu’AGT, je veux configurer les **exigences dossier**, afin d’avoir des pièces comparables | Must | 3 | EF-POR-07 · S08 |
+| US-V3-00d | En tant que candidat assigné, je veux **déposer mes documents** en sachant qu’**EverGreen seul** les voit (pas le proprio), afin de candidater sereinement | Must | 8 | EF-POR-08/15 · S08 |
+| US-V3-00e | En tant qu’AGT, je veux **lire les pièces** et shortlist/reject/accept, afin de sélectionner le locataire | Must | 8 | EF-POR-09/10 · S08 |
+| US-V3-00f | En tant que BAI, je veux suivre le **statut** des candidatures (sans ouvrir les fichiers), afin de rester informé | Must | 3 | EF-POR-09/15 · S08 |
+| US-V3-00g | En tant que candidat **accepté**, je veux que mon **portail locataire** se débloque pour ce bien, afin de suivre bail/loyers | Must | 5 | EF-POR-10 · S08→S10 |
+| US-V3-01 | En tant que BAI, je veux voir loyers/retards/docs sur `/espace/proprio`, afin de suivre mon bien | Must | 8 | EF-POR-01 · S10 |
+| US-V3-02 | En tant que LOC, je veux voir mon prochain loyer et quittances, afin de payer sereinement | Must | 8 | EF-POR-02 · S10 |
 | US-V3-03 | En tant qu’AGT, je veux faire un EDL digital (photos+PDF), afin de sécuriser entrée/sortie | Must | 8 | EF-POR-04 |
 | US-V3-04 | En tant que LOC/BAI, je veux un CTA caution/assurance, afin d’être couvert via partenaire | Should | 3 | EF-PAR-05 |
 | US-V3-05 | En tant qu’acquéreur étalé, je veux mon échéancier et % payé, afin de suivre mon accession | Should | 5 | EF-POR-03 |
+| US-V3-10 | En tant que LOC, je veux **payer mon loyer ou ma caution** via Wave/OM sur la plateforme, afin d’avoir une quittance | Must | 8 | EF-POR-05 · EF-PAY-01 · S11 |
+| US-V3-11 | En tant que LOC, je veux voir le **détail des frais** (PSP + EverGreen 0,1 %) avant de payer, afin de comprendre le net au proprio | Must | 3 | EF-PAY-01 · S11 |
+| US-V3-12 | En tant que BAI, je veux voir les **paiements reçus** (net + quittance) de mes biens, afin de suivre les encaissements | Must | 5 | EF-PAY-04 · S11 |
+| US-V3-13 | En tant qu’agent **`payments_ops`**, je veux consulter le **ledger** immuable des paiements plateforme, afin d’auditer sans falsifier | Must | 5 | EF-PAY-02/03 · S11 |
+| US-V3-14 | En tant qu’agent **sans** `payments_ops`, je ne dois **pas** voir les paiements, afin de limiter la surface sensible | Must | 3 | EF-PAY-03/04 · S11 |
 
 ### 4.3 Vague 4 — E-DIA
 
@@ -555,10 +568,15 @@ Stories **Later/Icebox** — affiner au kickoff vague. Format court.
 | **S2** | US-V0-01, 02, 10, 11, 41 | Catalogue public crédible |
 | **S3** | US-V0-20, 21, 22, 23, 34 | CRM + SLA |
 | **S4** | US-V0-03, 40, 13, Should 14/15/35/42 | Confiance + polish V0 |
-| **S5** | US-V1-01…04 | 3 simus live |
-| **S6** | US-V1-05, 06, 10, 11 | Embeds + PartnerLead + contenu |
+| **S5** | fidelity mockup | Chrome public unifié |
+| **S6** | catalogue carte/géo | Map + drill-down SN |
+| **S7** | US-V1-01…04 | 3 simus live |
+| **S8** | US-V3-00…00e | Assignation · candidatures · sélection locataire |
+| **S9** | US-V1-05, 06, 10, 11 | Embeds + PartnerLead + contenu (**Done V1**) |
+| **S10** | US-V3-01, 02 (+ dashboards BO) | Dashboards / reports scoped |
+| **S11** | US-V3-10…14 | Paiements loyer/caution plateforme · ledger · ACL |
 
-Ajuster selon capacité ; **ne pas** ouvrir E-SEC tant que Done V1 non atteint (`10`).
+Ajuster selon capacité ; **ne pas** ouvrir E-SEC tant que Done V1 non atteint (`10`). S08 (V3) peut avancer en parallèle dès auth+listings stables. S11 après S08 tenant + KYB PSP.
 
 ---
 

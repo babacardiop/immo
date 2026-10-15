@@ -1,6 +1,6 @@
 # Dashboards & reports — par persona
 
-**Sprint :** `S09-dashboards-reporting`  
+**Sprints :** `S08-candidatures-location` (assignation · inbox candidatures) · `S10-dashboards-reporting` (widgets / reports)  
 **RBAC :** `dossier/tech/site/14-matrice-droits-roles.md`  
 **Shell public marketing ≠** ces layouts (densité BO / portail).
 

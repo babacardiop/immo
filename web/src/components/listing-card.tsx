@@ -88,10 +88,11 @@ export function ListingCard({ listing }: { listing: PublicListItem }) {
             durée
           </p>
         ) : null}
-        {listing.quartierLabel || listing.city ? (
+        {listing.quartierLabel || listing.communeLabel || listing.city ? (
           <p className="mt-0.5 text-sm text-[var(--color-muted)]">
             {formatLocationHierarchy({
               quartier: listing.quartierLabel,
+              commune: listing.communeLabel,
               city: listing.city,
             })}
           </p>

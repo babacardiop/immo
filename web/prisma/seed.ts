@@ -2,6 +2,7 @@ import { PrismaClient, UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import {
   SENEGAL_CITIES,
+  SENEGAL_COMMUNES,
   SENEGAL_QUARTIERS,
 } from "../src/lib/locations/senegal";
 import { guessRegionForCity } from "../src/lib/locations/regions";
@@ -56,6 +57,7 @@ async function seedUsers() {
 async function seedLocations() {
   // Full replace of thesaurus (ANSD dump is authoritative for seed).
   await prisma.quartier.deleteMany({});
+  await prisma.commune.deleteMany({});
   await prisma.city.deleteMany({});
 
   // Cities first (small).
@@ -74,8 +76,8 @@ async function seedLocations() {
   });
   const cityByName = new Map(cities.map((c) => [c.name, c]));
 
-  // Ensure any city referenced only by quartiers exists.
-  for (const entry of SENEGAL_QUARTIERS) {
+  // Ensure any city referenced only by quartiers/communes exists.
+  for (const entry of [...SENEGAL_COMMUNES, ...SENEGAL_QUARTIERS]) {
     if (cityByName.has(entry.city)) continue;
     const region =
       entry.region || guessRegionForCity(entry.city) || "Dakar";
@@ -85,10 +87,57 @@ async function seedLocations() {
     cityByName.set(created.name, created);
   }
 
+  // Communes under cities.
+  const communeKey = (city: string, name: string) => `${city}\0${name}`;
+  const communeByKey = new Map<string, { id: string; name: string; cityId: string }>();
+  const communeRows = new Map<string, { name: string; cityId: string }>();
+  for (const entry of SENEGAL_COMMUNES) {
+    const city = cityByName.get(entry.city);
+    if (!city) continue;
+    communeRows.set(communeKey(entry.city, entry.name), {
+      name: entry.name,
+      cityId: city.id,
+    });
+  }
+  for (const entry of SENEGAL_QUARTIERS) {
+    const city = cityByName.get(entry.city);
+    if (!city) continue;
+    const key = communeKey(entry.city, entry.commune);
+    if (!communeRows.has(key)) {
+      communeRows.set(key, { name: entry.commune, cityId: city.id });
+    }
+  }
+
+  const communeList = [...communeRows.values()];
+  const COMMUNE_BATCH = 500;
+  for (let i = 0; i < communeList.length; i += COMMUNE_BATCH) {
+    const slice = communeList.slice(i, i + COMMUNE_BATCH);
+    await prisma.commune.createMany({
+      data: slice.map((c) => ({
+        name: c.name,
+        cityId: c.cityId,
+        active: true,
+      })),
+      skipDuplicates: true,
+    });
+  }
+
+  const communes = await prisma.commune.findMany({
+    select: { id: true, name: true, cityId: true, city: { select: { name: true } } },
+  });
+  for (const c of communes) {
+    communeByKey.set(communeKey(c.city.name, c.name), {
+      id: c.id,
+      name: c.name,
+      cityId: c.cityId,
+    });
+  }
+
   // Optional geo preseed from backfill artefacts (OSM/GeoNames + HDX).
   type GeoRow = {
     name: string;
     city: string;
+    commune?: string;
     centerLat: number | null;
     centerLng: number | null;
     geoSource: string | null;
@@ -132,22 +181,27 @@ async function seedLocations() {
   for (let i = 0; i < SENEGAL_QUARTIERS.length; i += BATCH) {
     const slice = SENEGAL_QUARTIERS.slice(i, i + BATCH);
     await prisma.quartier.createMany({
-      data: slice.map((entry) => {
-        const city = cityByName.get(entry.city)!;
-        const geo = geoByKey.get(`${entry.city}\0${entry.name}`);
-        return {
-          name: entry.name,
-          cityId: city.id,
-          aliases: entry.aliases ?? [],
-          active: true,
-          centerLat: geo?.centerLat ?? null,
-          centerLng: geo?.centerLng ?? null,
-          geoSource: geo?.geoSource ?? null,
-          geoStatus: geo?.geoStatus ?? null,
-          geoExternalId: geo?.geoExternalId ?? null,
-          geoFetchedAt: geo?.centerLat != null ? new Date() : null,
-        };
-      }),
+      data: slice
+        .map((entry) => {
+          const commune = communeByKey.get(
+            communeKey(entry.city, entry.commune),
+          );
+          if (!commune) return null;
+          const geo = geoByKey.get(`${entry.city}\0${entry.name}`);
+          return {
+            name: entry.name,
+            communeId: commune.id,
+            aliases: entry.aliases ?? [],
+            active: true,
+            centerLat: geo?.centerLat ?? null,
+            centerLng: geo?.centerLng ?? null,
+            geoSource: geo?.geoSource ?? null,
+            geoStatus: geo?.geoStatus ?? null,
+            geoExternalId: geo?.geoExternalId ?? null,
+            geoFetchedAt: geo?.centerLat != null ? new Date() : null,
+          };
+        })
+        .filter((r): r is NonNullable<typeof r> => r != null),
       skipDuplicates: true,
     });
     quartierCount += slice.length;
@@ -157,7 +211,7 @@ async function seedLocations() {
   }
 
   console.log(
-    `Seeded locations: ${cityByName.size} cities, ${quartierCount} quartiers (upserted/skipped)`,
+    `Seeded locations: ${cityByName.size} cities, ${communeByKey.size} communes, ${quartierCount} quartiers`,
   );
 }
 

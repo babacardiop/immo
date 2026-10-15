@@ -22,6 +22,7 @@ import {
 } from "@/components/add-location-inline";
 import {
   filterCityEntries,
+  filterCommuneEntries,
   filterQuartierEntries,
 } from "@/lib/locations/filter";
 import {
@@ -65,11 +66,14 @@ export function ListingForm({
     listing?.paperType ?? "TF",
   );
   const [city, setCity] = useState(listing?.city ?? "");
+  const [communeLabel, setCommuneLabel] = useState(
+    listing?.communeLabel ?? "",
+  );
   const [quartierLabel, setQuartierLabel] = useState(
     listing?.quartierLabel ?? "",
   );
   const [addingLocation, setAddingLocation] = useState(false);
-  const { cities, quartiers, addLocal, refresh } = useLocations();
+  const { cities, communes, quartiers, addLocal, refresh } = useLocations();
 
   const showSalePaperFields = isSaleLike(transaction);
   const showShortBlock =
@@ -82,14 +86,31 @@ export function ListingForm({
     value: c.name,
     label: formatCityWithRegion(c.name, c.region),
   }));
+  const communeOptions = filterCommuneEntries(
+    communes,
+    communeLabel,
+    city,
+  ).map((c) => ({
+    value: c.name,
+    label: formatLocationHierarchy({
+      commune: c.name,
+      city: c.city,
+      region: c.region,
+    }),
+    city: c.city,
+  }));
   const quartierOptions = filterQuartierEntries(
     quartiers,
     quartierLabel,
     city,
+    undefined,
+    undefined,
+    communeLabel || null,
   ).map((q) => ({
     value: q.name,
     label: formatLocationHierarchy(q),
     city: q.city,
+    commune: q.commune,
     region: q.region,
   }));
 
@@ -363,11 +384,34 @@ export function ListingForm({
             name="city"
             aria-label="Ville"
             value={city}
-            onChange={setCity}
+            onChange={(v) => {
+              setCity(v);
+              setCommuneLabel("");
+            }}
             options={cityOptions}
             placeholder="Ex. Dak…"
             typeHint="Tapez au moins 2 lettres…"
             required
+          />
+        </div>
+        <div>
+          <Label htmlFor="communeLabel">Commune</Label>
+          <Autocomplete
+            id="communeLabel"
+            name="communeLabel"
+            aria-label="Commune"
+            value={communeLabel}
+            onChange={setCommuneLabel}
+            onSelectOption={(opt) => {
+              setCommuneLabel(opt.value);
+              const match = communeOptions.find(
+                (o) => o.value === opt.value && o.label === opt.label,
+              );
+              if (match?.city) setCity(match.city);
+            }}
+            options={communeOptions}
+            placeholder="Ex. Yoff…"
+            typeHint="Tapez au moins 2 lettres…"
           />
         </div>
         <div>
@@ -391,6 +435,7 @@ export function ListingForm({
                 (o) => o.value === opt.value && o.label === opt.label,
               );
               if (match?.city) setCity(match.city);
+              if (match?.commune) setCommuneLabel(match.commune);
             }}
             options={quartierOptions}
             placeholder="Ex. Alma… ou Djily…"
@@ -402,13 +447,16 @@ export function ListingForm({
           <div className="sm:col-span-2">
             <AddLocationPanel
               initialCity={city}
+              initialCommune={communeLabel}
               initialQuartier={quartierLabel}
               onClose={() => setAddingLocation(false)}
               onCreated={(created) => {
                 setCity(created.city);
+                setCommuneLabel(created.commune);
                 setQuartierLabel(created.quartier);
                 addLocal({
                   name: created.quartier,
+                  commune: created.commune,
                   city: created.city,
                   region: created.region,
                 });

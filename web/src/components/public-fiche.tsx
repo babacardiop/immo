@@ -135,6 +135,7 @@ export async function PublicFiche({
           <p className="mt-1 text-[var(--color-muted)]">
             {formatLocationHierarchy({
               quartier: listing.quartierLabel,
+              commune: listing.communeLabel,
               city: listing.city,
             })}
           </p>

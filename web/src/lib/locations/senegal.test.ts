@@ -21,8 +21,9 @@ describe("senegal locations", () => {
     );
   });
 
-  it("ties every quartier to city + region", () => {
+  it("ties every quartier to commune + city + region", () => {
     for (const q of SENEGAL_QUARTIERS) {
+      expect(q.commune.length).toBeGreaterThan(0);
       expect(q.city.length).toBeGreaterThan(0);
       expect(q.region.length).toBeGreaterThan(0);
     }
@@ -38,10 +39,14 @@ describe("senegal locations", () => {
     expect(filterCities("da")).toContain("Dakar");
   });
 
-  it("finds Djily via autocomplete query", () => {
+  it("finds Djily via autocomplete query under Yoff", () => {
     const hits = filterQuartiers("djily", "Dakar");
-    expect(hits.map((q) => q.name)).toContain("Cité Djily Mbaye");
-    expect(hits[0]?.region).toBe("Dakar");
+    const djily = hits.find((q) => q.name === "Cité Djily Mbaye");
+    expect(djily?.commune).toBe("Yoff");
+    expect(djily?.region).toBe("Dakar");
+    expect(formatLocationHierarchy(djily!)).toBe(
+      "Cité Djily Mbaye · Yoff · Dakar",
+    );
   });
 
   it("formats hierarchy for suggestions", () => {

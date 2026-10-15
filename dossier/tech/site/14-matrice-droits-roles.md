@@ -70,6 +70,7 @@ Un user peut cumuler rôles (union des permissions) — ex. OD + agent terrain r
 | `moderator` | Qualité, SLA, exceptions publish, assign | `/espace/agent` (+ droits) | Secrets infra · casser audit |
 | `ger` | Vue pipeline, commissions, KPI | BO lecture+finance soft | Config technique quotidienne |
 | `admin` | Users, rôles, integ, feature flags | Admin / settings | Closer deals à la place des agents (sauf urgence) |
+| `payments_ops` | Ledger paiements plateforme (loyer/caution) | `/espace/agent/paiements` | Muter un paiement paid · closer deals |
 
 ### 2.3 Hiérarchie (héritage soft)
 
@@ -195,27 +196,53 @@ Contenu éditorial : M/G/Ad (ou workflow externe Notion→MD) — Agent **ne** p
 
 | Permission | V | C | L | A | M | G | Ad |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `portal.client.access` | ○ | ● | ○ | ○ | ●‖ | ●‖ | ●‖ |
-| `portal.landlord.access` | ○ | ○ | ● | ○ | ●‖ | ●‖ | ●‖ |
-| `rent.ledger.read` | ○ | ◐ | ◐ | ◐# | ● | ● | ● |
-| `rent.receipt.read` | ○ | ◐ | ◐ | ◐# | ● | ● | ● |
-| `ticket.panne.create` | ○ | ● | ○ | ● | ● | ● | ● |
-| `edl.create` (état des lieux) | ○ | ○ | ○ | ● | ● | ● | ● |
-| `edl.read` | ○ | ◐ | ◐ | ◐ | ● | ● | ● |
+| portal.client.access | ○ | ● | ○ | ○ | ●‖ | ●‖ | ●‖ |
+| portal.landlord.access | ○ | ○ | ● | ○ | ●‖ | ●‖ | ●‖ |
+| lead.visit_request.create (public) | ● | ● | ○ | ○ | ○ | ○ | ○ |
+| users.create_client (scratch / from lead) | ○ | ○ | ○ | ◐# | ● | ● | ● |
+| assignment.invite (candidate / landlord / buyer) | ○ | ○ | ○ | ◐# | ● | ● | ● |
+| assignment.accept | ○ | ● | ● | ● | ● | ● | ● |
+| assignment.revoke | ○ | ○ | ○ | ○ | ● | ● | ● |
+| application.requirements.manage | ○ | ○ | ○ | ◐# | ● | ● | ● |
+| application.requirements.read | ○ | ◐ cand. | ◐¶ | ◐# | ● | ● | ● |
+| application.create / submit (si assignment candidate) | ○ | ● | ○ | ○ | ●‖ | ●‖ | ●‖ |
+| application.list (inbox métadonnées) | ○ | ◐ own | ◐¶ | ◐# | ● | ● | ● |
+| application.review (shortlist / request docs) | ○ | ○ | ○ | ◐# | ● | ● | ● |
+| application.accept (sélection → tenant) | ○ | ○ | ◐† | ◐‡ | ● | ● | ● |
+| application.reject | ○ | ○ | ○ | ◐# | ● | ● | ● |
+| application.docs.read (fichiers vault) | ○ | ◐ own | **○** | ◐# | ● | ● | ● |
+| rent.ledger.read (après tenant) | ○ | ◐ | ◐ | ◐# | ● | ● | ● |
+| rent.receipt.read | ○ | ◐ | ◐ | ◐# | ● | ● | ● |
+| ticket.panne.create | ○ | ● | ○ | ● | ● | ● | ● |
+| edl.create (état des lieux) | ○ | ○ | ○ | ● | ● | ● | ● |
+| edl.read | ○ | ◐ | ◐ | ◐ | ● | ● | ● |
 
 ‖ Impersonation / « view as » OD : **⚠** audit + motif · pas usage agent.  
-# Agent : biens/dossiers **assignés** seulement.
+# Agent : biens/dossiers **assignés** seulement.  
+¶ Landlord : métadonnées candidature / % complétude / synthèse agent seulement — **jamais** les fichiers (`application.docs.read` = ○).  
+† `landlord_decides` : confirme sélection **sans** accès vault.  
+‡ `agency_decides` (recommandé) : staff accept après lecture docs.
+
+**Règle vault S08 :** seuls le **personnel EverGreen** (A/M/G/Ad) et le candidat (ses propres uploads) lisent les pièces. Le propriétaire est exclu par design.
 
 ### 5.7 Finance / commissions
 
-| Permission | V | C | L | A | M | G | Ad |
-| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `commissions.read` | ○ | ○ | ○ | ◐ own | ● | ● | ● |
-| `commissions.update` | ○ | ○ | ○ | ○ | ● | ● | ○* |
-| `finance.export` | ○ | ○ | ○ | ○ | ○ | ● | ⚠ |
-| `payouts.manage` (Wave V3+) | ○ | ○ | ○ | ○ | ● | ● | ● |
+| Permission | V | C | L | A | M | G | Ad | PO |
+| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `commissions.read` | ○ | ○ | ○ | ◐ own | ● | ● | ● | ◐ |
+| `commissions.update` | ○ | ○ | ○ | ○ | ● | ● | ○* | ○ |
+| `finance.export` | ○ | ○ | ○ | ○ | ○ | ● | ⚠ | ◐ |
+| `payouts.manage` (Wave V3+) | ○ | ○ | ○ | ○ | ● | ● | ● | ◐ |
+| `payments.checkout` | ○ | ● own | ○ | ○ | ○ | ○ | ⚠ | ○ |
+| `payments.read` (détail) | ○ | ◐ own† | ◐ own† | ○ | ○ | ○ | ⚠ | ● |
+| `payments.ledger.read` (liste agence) | ○ | ○ | ○ | ○ | ○‡ | ◐ | ⚠ | ● |
+| `payments.ledger.mutate` | ○ | ○ | ○ | ○ | ○ | ○ | ○ | ○ |
 
-\* Admin technique ne « corrige » pas les commissions sans rôle G/M.
+\* Admin technique ne « corrige » pas les commissions sans rôle G/M.  
+**PO** = capability / rôle **`payments_ops`** (cumulable avec agent ; **pas** default).  
+† Détail d’un paiement : **payeur** (`client`) **ou** **bénéficiaire** (`landlord` / payee) **ou** `payments_ops` — sinon **403**.  
+‡ OD/GER n’héritent **pas** automatiquement du ledger paiements — assigner `payments_ops` (ou override rare documenté).  
+**Immutabilité :** aucune permission n’autorise UPDATE/DELETE d’un `Payment` paid ni d’une `PaymentLedgerEntry` — contre-écriture (`PaymentAdjustment`) seulement.
 
 ### 5.8 Admin système
 
@@ -256,10 +283,16 @@ Contenu éditorial : M/G/Ad (ou workflow externe Notion→MD) — Agent **ne** p
 | `/espace/connexion` | ● | ● | ● | ● | ● | ● | ● |
 | `/espace/client/**` | ○ | ● | ○ | ○ | ⚠ | ⚠ | ⚠ |
 | `/espace/proprio/**` | ○ | ○ | ● | ○ | ⚠ | ⚠ | ⚠ |
+| `/espace/proprio/paiements/**` | ○ | ○ | ● own | ○ | ⚠ | ⚠ | ⚠ |
+| `/espace/client/paiements/**` | ○ | ● own | ○ | ○ | ⚠ | ⚠ | ⚠ |
+| `/espace/agent/paiements/**` | ○ | ○ | ○ | ○§ | ○§ | ○§ | ⚠ |
 | `/espace/agent/**` | ○ | ○ | ○ | ● | ● | ● | ● |
 | `/espace/admin/**` (settings) | ○ | ○ | ○ | ○ | ○ | ○ | ● |
 | API `/api/agent/**` | ○ | ○ | ○ | ● | ● | ● | ● |
+| API `/api/payments/**` | ○ | ◐ own | ◐ own | ○§ | ○§ | ○§ | ⚠ |
 | API `/api/admin/**` | ○ | ○ | ○ | ○ | ○ | ○ | ● |
+
+§ Route paiements BO / API ledger : **uniquement** si `payments_ops` (`payments.ledger.read`).
 
 Middleware : session + `role` claim · 401 unauth · 403 role mismatch · **jamais** 200 vide trompeur sur data privée.
 
@@ -269,6 +302,8 @@ Middleware : session + `role` claim · 401 unauth · 403 role mismatch · **jama
 
 | Cas | Décision |
 | --- | --- |
+| Paiement paid | **Jamais** UPDATE montant/statut métier — adjustment append-only seulement |
+| Agent sans `payments_ops` | Pas de nav Paiements · API ledger **403** |
 | Agent quitte | Leads `owner` réassignés OD · historique société conservé |
 | Lead non assigné | Visible **M/G** · file « unowned » · pas caché agent |
 | Deux agents sur un deal | `deals` co-assign · notes communes · pas double livre |
@@ -300,7 +335,7 @@ Middleware : session + `role` claim · 401 unauth · 403 role mismatch · **jama
 | **V0** | visitor · agent · moderator · admin · gates publish · leads own/all |
 | **V1** | partner_leads · commissions read own |
 | **V2** | diligence · boost policy · export élargi G |
-| **V3** | client · landlord portals · rent ledger scopes · panne tickets |
+| **V3** | client · landlord portals · **assignments + candidatures (S08)** · rent ledger scopes · panne tickets |
 | **V4+** | tags diaspora · impersonation controls renforcés |
 | **V8+** | partner portal optionnel |
 

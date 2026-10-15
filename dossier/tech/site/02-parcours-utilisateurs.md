@@ -143,9 +143,14 @@ Price-drop / multi-post concurrent → **lead radar** interne (L3) : appeler Mar
 
 ```
 Recherche loyer → /louer + filtres
-    → fiche → WA visite → visite → dossier / caution
-    → bail + EDL → emménagement
-    → /espace/client (V3) : quittances, prochain loyer, panne
+    → fiche → « Demander une visite » → Lead/Prospect créé  ← S08 #1
+    → visite terrain · intérêt
+    → staff crée compte (scratch OU depuis prospect)         ← S08 #3
+    → staff assigne bien en rôle « candidat »                ← S08 #4
+    → dépôt docs (notice : visible EverGreen seulement)      ← S08 #5
+    → staff revue pièces · shortlist / accept                ← S08 #6–7
+    → accept → candidate→tenant · portail locataire débloqué
+    → bail + EDL · /espace/client : quittances, panne
     → (upsell) bon payeur → contenu terrain étalé
 ```
 
@@ -154,20 +159,22 @@ Recherche loyer → /louer + filtres
 | Stage | Actions | Touchpoints | Emotion | Friction | Réponse |
 | --- | --- | --- | --- | --- | --- |
 | **D** | FB/CoinAfrique/WA | `/louer` · cards | Pression déménagement | Annonces fake | Catalogue curated |
-| **E** | Compare loyer · quartier · état | Fiche · map · guide louer | Méfiance caution | Avances abusives | Transparence charges / caution |
-| **C** | Visite + dossier | WA · form léger | Stress concurrence | Ghosting proprio | SLA agent · créneaux |
-| **T** | Signe bail · paie caution | EDL digital (V3) · caution partenaire | Soulagement | Litige état lieux | Photos datées EDL |
-| **A** | Paie loyer mensuel | Portail client · Wave/OM | Routine / irritation retard | Relances floues | Quittance auto · historique |
+| **E** | Compare · demande **visite** (→ prospect) | Fiche · form visite | Méfiance caution | Avances abusives | Lead CRM + SLA rappel |
+| **C** | Visite · compte créé · **candidat** assigné · dépôt docs | Compte · assignation · form candidature + disclaimer | Stress concurrence | Ghosting · fuite docs | Staff-only vault · inbox agent |
+| **T** | Accept staff → portail locataire · bail · caution | Accept · EDL · caution P | Soulagement | Litige état lieux | Photos EDL · role `tenant` |
+| **A** | Paie loyer / caution via **plateforme** | Portail client · Wave/OM · split frais · S11 | Routine | Relances floues · Wave perso | Quittance auto · ledger immuable |
 
 ### 3.4 Moments de vérité
 
 1. Visite = photos réelles  
-2. EDL contradictoire évité (preuves)  
-3. 1ʳᵉ quittance dans l’espace client  
+2. Compte + assignation candidat clairs  
+3. Disclaimer « docs visibles uniquement par EverGreen » à l’upload  
+4. Notification acceptée + **portail locataire débloqué**  
+5. 1ʳᵉ quittance  
 
 ### 3.5 KPI
 
-`visite_location` · `bail_signe` · `loyer_on_time` · `upsell_accession_click`
+`visit_requested` · `lead_converted` · `candidate_assigned` · `application_submitted` · `tenant_activated` · `bail_signe` · `loyer_on_time` · `upsell_accession_click`
 
 ### 3.6 Upsell (A)
 
@@ -191,8 +198,10 @@ Crise (impayé / cousin opaque) ou anticipation
     → /gerer ou contenu anti-arnaque (Ibrahima)
     → demande audit → RDV / appel
     → mandat gestion (~7–10 %)
-    → reprise : EDL, bail, locataire
-    → /espace/proprio : loyers, retards, reversements
+    → assignation biens → /espace/proprio (portefeuille)  ← S08
+    → exigences dossier + inbox candidatures + sélection
+    → reprise : EDL, bail, locataire (assignment tenant)
+    → loyers, retards, reversements (S10 reports)
     → renouvellement si mois 1–2 impeccables
 ```
 
@@ -201,9 +210,9 @@ Crise (impayé / cousin opaque) ou anticipation
 | Stage | Actions | Touchpoints | Emotion | Friction | Réponse |
 | --- | --- | --- | --- | --- | --- |
 | **D** | BO / WA / Google « gestion locative Dakar » | `/gerer` · témoignages · guides C/D | Fatigue | « Agences chères » | Valeur = cash + transparence |
-| **E** | Compare % · demande reporting | Landing · exemples quittances / portal mock | Scepticisme | Opacité concurrente | Démo reporting |
-| **C** | Audit bien | Form `/gerer/demande` · appel | Espoir | Peur perdre contrôle | Audit écrit + rôles famille clarifiés (Ibrahima) |
-| **T** | Signe mandat | Contrat · handover clés/docs | Anxiété transition | Locataire « ami » | Script reprise ferme |
+| **E** | Compare % · demande reporting | Landing · exemples quittances / portal mock | Scepticisme | Opacité concurrente | Démo reporting + inbox candidatures |
+| **C** | Audit bien · invite portail | Form `/gerer/demande` · assignation | Espoir | Peur perdre contrôle | Audit écrit + rôles famille clarifiés |
+| **T** | Signe mandat · configure exigences · choisit locataire | Exigences · candidatures · accept | Anxiété transition | Locataire « ami » · dossiers WA | Review process S08 |
 | **A** | Suit reversements | Portail · WA digest mensuel | Confiance ↑ si OK | Vacance / impayé | Relances process · report |
 
 ### 4.4 Moments de vérité

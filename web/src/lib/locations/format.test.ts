@@ -5,10 +5,22 @@ import {
 } from "@/lib/locations/format";
 
 describe("formatLocationHierarchy", () => {
-  it("joins quartier · city · region", () => {
+  it("joins quartier · commune · city and drops duplicate region", () => {
+    expect(
+      formatLocationHierarchy({
+        quartier: "Cité Djily Mbaye",
+        commune: "Yoff",
+        city: "Dakar",
+        region: "Dakar",
+      }),
+    ).toBe("Cité Djily Mbaye · Yoff · Dakar");
+  });
+
+  it("dedupes when commune equals city", () => {
     expect(
       formatLocationHierarchy({
         quartier: "Almadies",
+        commune: "Dakar",
         city: "Dakar",
         region: "Dakar",
       }),
@@ -19,6 +31,7 @@ describe("formatLocationHierarchy", () => {
     expect(
       formatLocationHierarchy({
         quartier: "Saly Nord",
+        commune: "Saly",
         city: "Saly",
         region: "Thiès",
       }),
@@ -29,10 +42,11 @@ describe("formatLocationHierarchy", () => {
     expect(
       formatLocationHierarchy({
         name: "Cité Djily Mbaye",
+        commune: "Yoff",
         city: "Dakar",
         region: "Dakar",
       }),
-    ).toBe("Cité Djily Mbaye · Dakar");
+    ).toBe("Cité Djily Mbaye · Yoff · Dakar");
   });
 
   it("formats city with region", () => {

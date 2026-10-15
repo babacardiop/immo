@@ -110,8 +110,8 @@ NAP = identique schema `RealEstateAgent` (`08`).
 | Shell | Base | Nav app |
 | --- | --- | --- |
 | Agent | `/espace/agent` | Dashboard · Leads · Mandats · Annonces · Dossiers · Docs · Partenaires · Tâches · Profil |
-| Proprio | `/espace/proprio` | Biens · Loyers · Docs · Messages Soft |
-| Client | `/espace/client` | Bail/Échéancier · Quittances · Panne · Docs |
+| Proprio | `/espace/proprio` | Biens · **Candidatures** · Loyers · Docs · Messages Soft |
+| Client | `/espace/client` | **Candidatures** · Bail/Échéancier · Quittances · Panne · Docs |
 
 Chrome marketing **réduit** (logo + logout + WA support) — pas la nav Acheter/Louer.
 
@@ -313,14 +313,27 @@ Légende priorité : **P0** ship vague · **P1** should · **P2** could · **—
 
 | URL | Qui | Vague |
 | --- | --- | :---: |
-| `/espace/proprio` | BAI dashboard | V3 |
-| `/espace/proprio/biens` | Liste | V3 |
-| `/espace/proprio/loyers` | Encaissements | V3 |
+| `/espace/proprio` | BAI dashboard | V3 · S10 |
+| `/espace/proprio/biens` | Liste (scope assignments) | V3 · S08 |
+| `/espace/proprio/candidatures` | Inbox métadonnées (sans docs) | V3 · S08 |
+| `/espace/proprio/candidatures/[id]` | Suivi statut / synthèse — **pas** de fichiers | V3 · S08 |
+| `/espace/proprio/loyers` | Encaissements (widgets) | V3 · S10 |
+| `/espace/proprio/paiements` | Paiements digitaux reçus | V3+ · **S11** |
+| `/espace/proprio/paiements/[id]` | Détail + quittance (own) | V3+ · S11 |
 | `/espace/proprio/docs` | Docs | V3 |
-| `/espace/client` | LOC / acquéreur | V3 |
-| `/espace/client/loyers` | Quittances | V3 |
+| `/espace/client` | LOC / acquéreur | V3 · S10 |
+| `/espace/client/candidatures` | Dépôt / suivi candidat (pre-tenant) | V3 · S08 |
+| `/espace/client/loyers` | Prochain loyer / CTA payer | V3 · S10 |
+| `/espace/client/paiements` | Historique own + checkout | V3+ · **S11** |
+| `/espace/client/paiements/[id]` | Détail + quittance (own) | V3+ · S11 |
 | `/espace/client/echeancier` | Étalé | V3+ |
 | `/espace/client/panne` | Ticket | V3 |
+| `/espace/agent/leads/[id]` | CTA créer compte depuis prospect | V3 · S08 |
+| `/espace/agent/clients/nouveau` | Créer compte scratch / from lead | V3 · S08 |
+| `/espace/agent/candidatures` | Inbox staff | V3 · S08 |
+| `/espace/agent/candidatures/[id]` | Revue **avec** viewer docs + accept | V3 · S08 |
+| `/espace/agent/paiements` | Ledger agence (`payments_ops` only) | V3+ · **S11** |
+| `/espace/agent/paiements/[id]` | Ledger detail immuable | V3+ · S11 |
 
 ---
 

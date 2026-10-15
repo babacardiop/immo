@@ -97,6 +97,9 @@ function parseForm(formData: FormData) {
     pricePeriod: pricePeriodRaw ? String(pricePeriodRaw) : undefined,
     areaM2: formData.get("areaM2") || null,
     city: String(formData.get("city") ?? ""),
+    communeLabel: formData.get("communeLabel")
+      ? String(formData.get("communeLabel"))
+      : null,
     quartierLabel: String(formData.get("quartierLabel") ?? ""),
     addressPublic: formData.get("addressPublic")
       ? String(formData.get("addressPublic"))
@@ -189,6 +192,7 @@ export async function createListingAction(
         amenities: rent.amenities,
         areaM2: data.areaM2 ?? null,
         city: data.city,
+        communeLabel: data.communeLabel ?? null,
         quartierLabel: data.quartierLabel,
         addressPublic: data.addressPublic,
         reference: data.reference,
@@ -269,6 +273,7 @@ export async function updateListingAction(
         amenities: rent.amenities,
         areaM2: data.areaM2 ?? null,
         city: data.city,
+        communeLabel: data.communeLabel ?? null,
         quartierLabel: data.quartierLabel,
         addressPublic: data.addressPublic,
         reference: data.reference,

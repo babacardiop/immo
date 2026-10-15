@@ -1,4 +1,8 @@
-import type { CityEntry, QuartierEntry } from "@/lib/locations/types";
+import type {
+  CityEntry,
+  CommuneEntry,
+  QuartierEntry,
+} from "@/lib/locations/types";
 import { formatLocationHierarchy } from "@/lib/locations/format";
 
 export const AUTOCOMPLETE_MIN_CHARS = 2;
@@ -6,6 +10,8 @@ export const AUTOCOMPLETE_RESULT_LIMIT = 25;
 
 export function fold(s: string): string {
   return s
+    .replace(/œ/gi, "oe")
+    .replace(/æ/gi, "ae")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
@@ -58,18 +64,61 @@ export function filterCityNames(
   return filterCityEntries(entries, query, limit, minChars).map((c) => c.name);
 }
 
-/** Autocomplete quartiers — scoped by city when set. */
+/** Autocomplete communes — scoped by city when set. */
+export function filterCommuneEntries(
+  pool: CommuneEntry[],
+  query: string,
+  city?: string | null,
+  limit = AUTOCOMPLETE_RESULT_LIMIT,
+  minChars = AUTOCOMPLETE_MIN_CHARS,
+): CommuneEntry[] {
+  let scoped = pool;
+  const cityKey = city?.trim() ? fold(city) : "";
+  if (cityKey) {
+    scoped = pool.filter((e) => fold(e.city) === cityKey);
+  }
+
+  const q = fold(query);
+  if (q.length < minChars) return [];
+
+  return scoped
+    .map((entry) => ({
+      entry,
+      rank: Math.min(
+        rankMatch(entry.name, q),
+        rankMatch(entry.city, q),
+        rankMatch(entry.region, q),
+      ),
+    }))
+    .filter((x) => x.rank < 99)
+    .sort(
+      (a, b) =>
+        a.rank - b.rank ||
+        a.entry.name.localeCompare(b.entry.name, "fr", {
+          sensitivity: "base",
+        }),
+    )
+    .slice(0, limit)
+    .map((x) => x.entry);
+}
+
+/** Autocomplete quartiers — scoped by city (and optional commune). */
 export function filterQuartierEntries(
   pool: QuartierEntry[],
   query: string,
   city?: string | null,
   limit = AUTOCOMPLETE_RESULT_LIMIT,
   minChars = AUTOCOMPLETE_MIN_CHARS,
+  commune?: string | null,
 ): QuartierEntry[] {
   let scoped = pool;
   const cityKey = city?.trim() ? fold(city) : "";
   if (cityKey) {
     scoped = pool.filter((e) => fold(e.city) === cityKey);
+  }
+  const communeKey = commune?.trim() ? fold(commune) : "";
+  if (communeKey) {
+    scoped = scoped.filter((e) => fold(e.commune) === communeKey);
   }
 
   const q = fold(query);
@@ -80,6 +129,7 @@ export function filterQuartierEntries(
       const label = formatLocationHierarchy(entry);
       let rank = Math.min(
         rankMatch(entry.name, q),
+        rankMatch(entry.commune, q),
         rankMatch(entry.city, q),
         rankMatch(entry.region, q),
         rankMatch(label, q),
@@ -101,7 +151,7 @@ export function filterQuartierEntries(
   const seen = new Set<string>();
   const unique: QuartierEntry[] = [];
   for (const { entry } of scored) {
-    const key = `${fold(entry.name)}|${fold(entry.city)}`;
+    const key = `${fold(entry.name)}|${fold(entry.commune)}|${fold(entry.city)}`;
     if (seen.has(key)) continue;
     seen.add(key);
     unique.push(entry);

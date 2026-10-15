@@ -352,7 +352,11 @@ HF / marque → Vague design `15`–`18` **après** alignement sur cet inventair
 | --- | --- |
 | **S1** | Shell · Home · Acheter liste · Card · Fiche · WA · Legal · Agent CRUD |
 | **S2** | Louer hub+fiche · Filtres papier · Map toggle · Gérer+form · Agence how/contact · Guide TF |
-| **S3 V1** | Outils hub · 3 simus · embeds fiche terrain · Guide construction · events analytics |
+| **S7** | Outils hub · 3 simus |
+| **S8** | Assignation · exigences dossier · candidature · inbox proprio/agent · sélection locataire · mes candidatures |
+| **S9** | Embeds fiche · PartnerLead · piliers |
+| **S10** | Dashboards multi-rôles + reports |
+| **S11** | Paiements loyer/caution plateforme (Wave/OM · ledger) |
 
 ---
 

@@ -10,7 +10,7 @@ Organisées par **catégorie**. Overview : [`docs/add-ons.md`](../add-ons.md).
 | --- | --- | --- |
 | [`specs/01-outils-simulateurs/`](./specs/01-outils-simulateurs/) | Outils & simulateurs | 8 |
 | [`specs/02-terrain-construction/`](./specs/02-terrain-construction/) | Terrain & construction | 11 |
-| [`specs/03-location-gestion/`](./specs/03-location-gestion/) | Location & gestion | 15 |
+| [`specs/03-location-gestion/`](./specs/03-location-gestion/) | Location & gestion | 17 |
 | [`specs/04-vente-accession/`](./specs/04-vente-accession/) | Vente, closing & accession | 7 |
 | [`specs/05-diaspora-confiance/`](./specs/05-diaspora-confiance/) | Diaspora & confiance | 5 |
 | [`specs/06-energie-confort/`](./specs/06-energie-confort/) | Énergie & confort | 3 |
@@ -65,6 +65,8 @@ Bail, caution, EDL, assurances, portail proprio, maintenance, colocation, saison
 | 14 | Assurance PNO | P1 | [`14-assurance-pno.md`](./specs/03-location-gestion/14-assurance-pno.md) |
 | 22 | Portail multi-biens propriétaire | P1 | [`22-portail-multi-biens.md`](./specs/03-location-gestion/22-portail-multi-biens.md) |
 | 23 | Garant / scoring locataire | P1 | [`23-scoring-locataire.md`](./specs/03-location-gestion/23-scoring-locataire.md) |
+| 53 | **Candidature & dossier location (review)** | **P0** | [`53-candidature-dossier-location.md`](./specs/03-location-gestion/53-candidature-dossier-location.md) |
+| 54 | **Paiements plateforme loyer & caution** (Wave/OM · 0,1 % · ledger) | **P0** | [`54-paiements-plateforme-loyer-caution.md`](./specs/03-location-gestion/54-paiements-plateforme-loyer-caution.md) |
 | 29 | Report / lissage de loyer | P2 | [`29-report-loyer.md`](./specs/03-location-gestion/29-report-loyer.md) |
 | 30 | Déménagement / ménage | P2 | [`30-demenagement-menage.md`](./specs/03-location-gestion/30-demenagement-menage.md) |
 | 31 | Pack meublé / kit premier logement | P2 | [`31-pack-meuble.md`](./specs/03-location-gestion/31-pack-meuble.md) |
