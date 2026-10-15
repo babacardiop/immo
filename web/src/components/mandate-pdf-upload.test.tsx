@@ -8,11 +8,12 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("@/app/actions/listings", () => ({
   uploadMandatePdfAction: vi.fn(),
+  deleteMandatePdfAction: vi.fn(),
 }));
 
 describe("MandatePdfUpload", () => {
   it("accepts pdf only", () => {
-    render(<MandatePdfUpload listingId="1" docsCount={0} />);
+    render(<MandatePdfUpload listingId="1" docs={[]} />);
     const input = screen.getByLabelText(/pdf mandat/i);
     expect(input).toHaveAttribute("accept", "application/pdf");
   });
