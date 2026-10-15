@@ -1,4 +1,4 @@
-# Roadmap features — Mapping ↔ vagues hub
+﻿# Roadmap features — Mapping ↔ vagues hub
 
 **Document :** Dossier · Tech · Site · 10  
 **Statut :** v1.0 — sept. 2026  
@@ -163,8 +163,8 @@ IDs `FEAT-Vn-xx` → backlog `12`. Refs pages → `01` · écrans → `03` · CR
 | FEAT-V3-00a | F | Compte client **scratch** ou **depuis prospect** | Must | BO agent | S08 · EF-POR-14 |
 | FEAT-V3-00b | F | Assignation rôle **`candidate`** (+ landlord/buyer) | Must | Ouvre dépôt docs | S08 · EF-POR-06 |
 | FEAT-V3-00c | F | Exigences + dépôt docs + **vault staff-only** (pas landlord) + accept → **tenant / portail** | Must | Disclaimer upload · revue agent | S08 · add-on **53** |
-| FEAT-V3-01 | F | Portail proprio `/espace/proprio` | Must | Loyers · quittances · candidatures | `01` · S10 |
-| FEAT-V3-02 | F | Portail locataire `/espace/client` | Must | Voir loyer · docs · mes candidatures | `01` · S10 |
+| FEAT-V3-01 | F | Portail proprio `/espace/proprio` | Must | Loyers · quittances · candidatures | `01` · S11 |
+| FEAT-V3-02 | F | Portail locataire `/espace/client` | Must | Voir loyer · docs · mes candidatures | `01` · S11 |
 | FEAT-V3-03 | A | État des lieux digital | Must | Photos + PDF | add-on 12 |
 | FEAT-V3-04 | A | Caution locative (lead P) | Should | Fintech ou manuel | 11 |
 | FEAT-V3-05 | A | Assurance MRH + PNO CTA | Should | — | 13–14 |
@@ -172,15 +172,18 @@ IDs `FEAT-Vn-xx` → backlog `12`. Refs pages → `01` · écrans → `03` · CR
 | FEAT-V3-07 | P | Fintech caution (ou process manuel) | Should | — | — |
 | FEAT-V3-08 | F | CRM mandats de gestion | Must | Stages location · lien candidature | `04` |
 | FEAT-V3-09 | C | Pilier louer Dakar + gestion proprio | Must | — | blog M5 |
-| FEAT-V3-10 | F | Paiement **loyer + caution** via plateforme (Wave/OM) | Must | Split PSP + EverGreen **0,1 %** · ledger immuable | `07` · add-on **54** · **S11** |
-| FEAT-V3-11 | F | Rôle **`payments_ops`** + ACL détail (payeur · payee · ops) | Must | Agents sans rôle = deny | `14` · S11 |
-| FEAT-V3-12 | F | Quittances PDF + journal append-only | Must | Impossible d’altérer un paid | S11 |
+| FEAT-V3-20 | F | **Property ≠ Listing** · historique cycles · republish | Must | Courte + classique | add-on **55** · **S09** |
+| FEAT-V3-21 | F | Commodités structure (qty : chambres, WC, balcon ×N…) | Must | Sur Property | S09 |
+| FEAT-V3-22 | F | Offre incluse courte durée (clim, wifi, meublé…) | Must | Sur Listing short | S09 |
+| FEAT-V3-10 | F | Paiement **loyer + caution** via plateforme (Wave/OM) | Must | Split PSP + EverGreen **0,1 %** · ledger immuable | `07` · add-on **54** · **S12** |
+| FEAT-V3-11 | F | Rôle **`payments_ops`** + ACL détail (payeur · payee · ops) | Must | Agents sans rôle = deny | `14` · S12 |
+| FEAT-V3-12 | F | Quittances PDF + journal append-only | Must | Impossible d’altérer un paid | S12 |
 
 **Lab sync :** L1 wrap / L2 prep · IX-RENT proto interne.  
-**Sprint build :** `S08-candidatures-location` → `S10-dashboards-reporting` → **`S11-paiements-plateforme`** (S09 = Done V1 embeds).  
-**Won’t V3 :** saisonnier · colocation marketplace · scoring ML full (`23` plus tard) · auto-debit récurrent full.
+**Sprint build :** `S08` → **`S09-property-listing-cycles`** → `S10` embeds (Done V1) → `S11-dashboards-reporting` → **`S12-paiements-plateforme`**.  
+**Won’t V3 :** saisonnier calendrier full · colocation marketplace · scoring ML full (`23` plus tard) · auto-debit récurrent full.
 
-**Done gate V3 :** assignation live · review candidatures · portails alimentés · ≥ mandats gestion · EDL PDF · P assureur · **paiement digital loyer/caution + quittance**.
+**Done gate V3 :** assignation live · review candidatures · **Property/Listing cycles + republish** · portails alimentés · ≥ mandats gestion · EDL PDF · P assureur · **paiement digital loyer/caution + quittance**.
 
 ---
 

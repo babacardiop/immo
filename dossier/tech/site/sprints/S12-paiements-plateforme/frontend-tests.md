@@ -1,4 +1,4 @@
-# S11 — Frontend tests
+﻿# S12 — Frontend tests
 
 ## Todo
 
@@ -25,7 +25,7 @@
 - [ ] Playwright soft : tenant checkout → webhook mock → quittance visible client + landlord + payments_ops ; plain agent 403
   - File: `web/e2e/paiements-plateforme.spec.ts`
 
-## Gate Done S11 (frontend)
+## Gate Done S12 (frontend)
 
 - [ ] Checkout + listes + détails 3 personas
 - [ ] ACL UI = matrice `14` payments

@@ -1,6 +1,6 @@
-# Page — Ledger paiements (staff `payments_ops`)
+﻿# Page — Ledger paiements (staff `payments_ops`)
 
-**Sprint :** `S11-paiements-plateforme`  
+**Sprint :** `S12-paiements-plateforme`  
 **Route :** `/espace/agent/paiements`  
 **Frame :** [`layout.jpg`](./layout.jpg)  
 **ACL :** visible **uniquement** si `payments.ledger.read` — sinon nav absente + 403

@@ -355,8 +355,10 @@ HF / marque → Vague design `15`–`18` **après** alignement sur cet inventair
 | **S7** | Outils hub · 3 simus |
 | **S8** | Assignation · exigences dossier · candidature · inbox proprio/agent · sélection locataire · mes candidatures |
 | **S9** | Embeds fiche · PartnerLead · piliers |
-| **S10** | Dashboards multi-rôles + reports |
-| **S11** | Paiements loyer/caution plateforme (Wave/OM · ledger) |
+| **S09** | Property ≠ Listing · republish · commodités |
+| **S10** | Embeds partenaires (Done V1) |
+| **S11** | Dashboards multi-rôles + reports |
+| **S12** | Paiements loyer/caution plateforme (Wave/OM · ledger) |
 
 ---
 

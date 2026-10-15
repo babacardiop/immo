@@ -29,8 +29,13 @@ Chaque dossier = `layout.jpg`.
 | `assignation-bien/` | Assigner rôle **candidat** / landlord / buyer… | agent/OD · **S08 #4** |
 | `dossier-exigences/` | Pièces + conditions (staff) | agent listing · **S08** |
 | `candidature-location/` | Dépôt docs + **disclaimer staff-only** | candidat assigné · **S08 #5** |
-| `paiement-loyer-caution/` | Checkout Wave/OM + **récap frais** (PSP + EverGreen 0,1 %) | locataire tenant · **S11** |
+| `paiement-loyer-caution/` | Checkout Wave/OM + **récap frais** (PSP + EverGreen 0,1 %) | locataire tenant · **S12** |
+| `property-create/` | Créer **Property** durable (structure qty) | agent · **S09** |
+| `listing-republish/` | Nouveau **cycle Listing** depuis Property | agent · **S09** |
+| `commodites-structure/` | Chambres · WC · balcon ×N… | Property · **S09** |
+| `commodites-offre-courte/` | Includes séjour (clim, wifi…) | Listing short · **S09** |
 
 **Règles forms :** 3–4 champs max leads publics · consent RGPD · focus ring olive · erreurs `ds-20` · toast succès.  
 **S08 :** forms dossier/candidature peuvent dépasser 4 champs (parcours auth portail, pas lead public).  
-**S11 :** récap frais non dismissible avant redirect PSP.
+**S09 :** Property ≠ Listing · qty structure vs includes courte durée.  
+**S12 :** récap frais non dismissible avant redirect PSP.

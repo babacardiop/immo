@@ -1,4 +1,4 @@
-# S11 — Infra
+﻿# S12 — Infra
 
 **Inclut l’onboarding marchand Wave + Orange Money** (KYB → API keys → webhooks → sandbox → prod) **et** les canaux de paiement (bouton redirect · QR · lien SMS/WhatsApp).
 
@@ -32,7 +32,7 @@ Secrets **uniquement** Render / vault — jamais commit.
 
 ---
 
-## 2. Runbook inscription marchand (manuels — bloquant S11 prod)
+## 2. Runbook inscription marchand (manuels — bloquant S12 prod)
 
 ### 2.1 Prérequis légaux (agence)
 
@@ -63,7 +63,7 @@ Secrets **uniquement** Render / vault — jamais commit.
 
 ### 2.4 Paralléliser
 
-- [ ] Lancer KYB Wave **et** OM **avant** le code freeze S11 (gate ops)
+- [ ] Lancer KYB Wave **et** OM **avant** le code freeze S12 (gate ops)
 - [ ] Checklist sign-off OD/GER : « sandbox dual provider vert »
 
 ---
@@ -72,7 +72,7 @@ Secrets **uniquement** Render / vault — jamais commit.
 
 Tous les canaux créent le **même** `Payment` pending + `redirectUrl` / `checkoutUrl` issu de l’API Wave ou OM. Source of truth = **webhook** (pas le clic seul).
 
-| Canal | Qui déclenche | UX | S11 |
+| Canal | Qui déclenche | UX | S12 |
 | --- | --- | --- | :---: |
 | **A. Bouton in-app** | Locataire sur `/espace/client` | Choisit Wave/OM → CTA → **redirect** page hébergée PSP | **Must** |
 | **B. QR code** | Locataire (écran) ou agent (imprimé / montrait) | QR encode `checkoutUrl` ou deep-link app → scan → paye sur Wave/OM | **Must** |

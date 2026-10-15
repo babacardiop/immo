@@ -34,7 +34,7 @@ Noflaye / SysSamba / Diavix — table stakes gestion.
 
 ## 7. Spec fonctionnelle
 
-- Agrégats paiements Wave/OM (**S11** ledger · net + frais)
+- Agrégats paiements Wave/OM (**S12** ledger · net + frais)
 - liste retards
 
 ## 8. Données
@@ -62,7 +62,7 @@ Exactitude compta.
 ## 13. Phasing
 
 - **v0 (S08) :** `PropertyAssignment` + candidatures / sélection — sans ça le portail reste vide → voir [`53-candidature-dossier-location.md`](./53-candidature-dossier-location.md)
-- **v1 (S10) :** Liste + loyers + widgets dashboard
+- **v1 (S11) :** Liste + loyers + widgets dashboard
 - **Plus tard :** ROI/fiscal export
 
 ## 14. Sources

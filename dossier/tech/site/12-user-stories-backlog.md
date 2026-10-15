@@ -514,17 +514,22 @@ Stories **Later/Icebox** — affiner au kickoff vague. Format court.
 | US-V3-00d | En tant que candidat assigné, je veux **déposer mes documents** en sachant qu’**EverGreen seul** les voit (pas le proprio), afin de candidater sereinement | Must | 8 | EF-POR-08/15 · S08 |
 | US-V3-00e | En tant qu’AGT, je veux **lire les pièces** et shortlist/reject/accept, afin de sélectionner le locataire | Must | 8 | EF-POR-09/10 · S08 |
 | US-V3-00f | En tant que BAI, je veux suivre le **statut** des candidatures (sans ouvrir les fichiers), afin de rester informé | Must | 3 | EF-POR-09/15 · S08 |
-| US-V3-00g | En tant que candidat **accepté**, je veux que mon **portail locataire** se débloque pour ce bien, afin de suivre bail/loyers | Must | 5 | EF-POR-10 · S08→S10 |
-| US-V3-01 | En tant que BAI, je veux voir loyers/retards/docs sur `/espace/proprio`, afin de suivre mon bien | Must | 8 | EF-POR-01 · S10 |
-| US-V3-02 | En tant que LOC, je veux voir mon prochain loyer et quittances, afin de payer sereinement | Must | 8 | EF-POR-02 · S10 |
+| US-V3-00g | En tant que candidat **accepté**, je veux que mon **portail locataire** se débloque pour ce bien, afin de suivre bail/loyers | Must | 5 | EF-POR-10 · S08→S11 |
+| US-V3-01 | En tant que BAI, je veux voir loyers/retards/docs sur `/espace/proprio`, afin de suivre mon bien | Must | 8 | EF-POR-01 · S11 |
+| US-V3-02 | En tant que LOC, je veux voir mon prochain loyer et quittances, afin de payer sereinement | Must | 8 | EF-POR-02 · S11 |
 | US-V3-03 | En tant qu’AGT, je veux faire un EDL digital (photos+PDF), afin de sécuriser entrée/sortie | Must | 8 | EF-POR-04 |
 | US-V3-04 | En tant que LOC/BAI, je veux un CTA caution/assurance, afin d’être couvert via partenaire | Should | 3 | EF-PAR-05 |
 | US-V3-05 | En tant qu’acquéreur étalé, je veux mon échéancier et % payé, afin de suivre mon accession | Should | 5 | EF-POR-03 |
-| US-V3-10 | En tant que LOC, je veux **payer mon loyer ou ma caution** via Wave/OM sur la plateforme, afin d’avoir une quittance | Must | 8 | EF-POR-05 · EF-PAY-01 · S11 |
-| US-V3-11 | En tant que LOC, je veux voir le **détail des frais** (PSP + EverGreen 0,1 %) avant de payer, afin de comprendre le net au proprio | Must | 3 | EF-PAY-01 · S11 |
-| US-V3-12 | En tant que BAI, je veux voir les **paiements reçus** (net + quittance) de mes biens, afin de suivre les encaissements | Must | 5 | EF-PAY-04 · S11 |
-| US-V3-13 | En tant qu’agent **`payments_ops`**, je veux consulter le **ledger** immuable des paiements plateforme, afin d’auditer sans falsifier | Must | 5 | EF-PAY-02/03 · S11 |
-| US-V3-14 | En tant qu’agent **sans** `payments_ops`, je ne dois **pas** voir les paiements, afin de limiter la surface sensible | Must | 3 | EF-PAY-03/04 · S11 |
+| US-V3-20 | En tant qu’AGT, je veux un **Property** distinct des annonces, afin de republier le même bien plusieurs fois | Must | 8 | EF-CAT-PROP-01 · S09 |
+| US-V3-21 | En tant qu’AGT, je veux **republier** après courte durée ou fin de bail, afin de remettre en loc sans tout recréer | Must | 5 | EF-CAT-PROP-02 · S09 |
+| US-V3-22 | En tant qu’AGT, je veux saisir **balcon ×N, WC, chambres**, afin d’afficher la structure du bien | Must | 3 | EF-CAT-PROP-03 · S09 |
+| US-V3-23 | En tant qu’AGT, je veux cocher **ce qui est inclus** en courte durée (clim, wifi…), afin d’informer le voyageur | Must | 3 | EF-CAT-PROP-04 · S09 |
+| US-V3-24 | En tant qu’AGT, je veux voir l’**historique des publications** d’un bien, afin de tracer les cycles | Must | 3 | EF-CAT-PROP-05 · S09 |
+| US-V3-10 | En tant que LOC, je veux **payer mon loyer ou ma caution** via Wave/OM sur la plateforme, afin d’avoir une quittance | Must | 8 | EF-POR-05 · EF-PAY-01 · S12 |
+| US-V3-11 | En tant que LOC, je veux voir le **détail des frais** (PSP + EverGreen 0,1 %) avant de payer, afin de comprendre le net au proprio | Must | 3 | EF-PAY-01 · S12 |
+| US-V3-12 | En tant que BAI, je veux voir les **paiements reçus** (net + quittance) de mes biens, afin de suivre les encaissements | Must | 5 | EF-PAY-04 · S12 |
+| US-V3-13 | En tant qu’agent **`payments_ops`**, je veux consulter le **ledger** immuable des paiements plateforme, afin d’auditer sans falsifier | Must | 5 | EF-PAY-02/03 · S12 |
+| US-V3-14 | En tant qu’agent **sans** `payments_ops`, je ne dois **pas** voir les paiements, afin de limiter la surface sensible | Must | 3 | EF-PAY-03/04 · S12 |
 
 ### 4.3 Vague 4 — E-DIA
 
@@ -572,11 +577,12 @@ Stories **Later/Icebox** — affiner au kickoff vague. Format court.
 | **S6** | catalogue carte/géo | Map + drill-down SN |
 | **S7** | US-V1-01…04 | 3 simus live |
 | **S8** | US-V3-00…00e | Assignation · candidatures · sélection locataire |
-| **S9** | US-V1-05, 06, 10, 11 | Embeds + PartnerLead + contenu (**Done V1**) |
-| **S10** | US-V3-01, 02 (+ dashboards BO) | Dashboards / reports scoped |
-| **S11** | US-V3-10…14 | Paiements loyer/caution plateforme · ledger · ACL |
+| **S09** | US-V3-20…24 | Property ≠ Listing · republish · commodités |
+| **S10** | US-V1-05, 06, 10, 11 | Embeds + PartnerLead + contenu (**Done V1**) |
+| **S11** | US-V3-01, 02 (+ dashboards BO) | Dashboards / reports scoped |
+| **S12** | US-V3-10…14 | Paiements loyer/caution plateforme · ledger · ACL |
 
-Ajuster selon capacité ; **ne pas** ouvrir E-SEC tant que Done V1 non atteint (`10`). S08 (V3) peut avancer en parallèle dès auth+listings stables. S11 après S08 tenant + KYB PSP.
+Ajuster selon capacité ; **ne pas** ouvrir E-SEC tant que Done V1 non atteint (`10`). S08 (V3) peut avancer en parallèle dès auth+listings stables. S09 après S01/S08 soft. S12 après S08 tenant + KYB PSP.
 
 ---
 

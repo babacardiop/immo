@@ -162,7 +162,7 @@ Recherche loyer → /louer + filtres
 | **E** | Compare · demande **visite** (→ prospect) | Fiche · form visite | Méfiance caution | Avances abusives | Lead CRM + SLA rappel |
 | **C** | Visite · compte créé · **candidat** assigné · dépôt docs | Compte · assignation · form candidature + disclaimer | Stress concurrence | Ghosting · fuite docs | Staff-only vault · inbox agent |
 | **T** | Accept staff → portail locataire · bail · caution | Accept · EDL · caution P | Soulagement | Litige état lieux | Photos EDL · role `tenant` |
-| **A** | Paie loyer / caution via **plateforme** | Portail client · Wave/OM · split frais · S11 | Routine | Relances floues · Wave perso | Quittance auto · ledger immuable |
+| **A** | Paie loyer / caution via **plateforme** | Portail client · Wave/OM · split frais · S12 | Routine | Relances floues · Wave perso | Quittance auto · ledger immuable |
 
 ### 3.4 Moments de vérité
 
@@ -201,7 +201,7 @@ Crise (impayé / cousin opaque) ou anticipation
     → assignation biens → /espace/proprio (portefeuille)  ← S08
     → exigences dossier + inbox candidatures + sélection
     → reprise : EDL, bail, locataire (assignment tenant)
-    → loyers, retards, reversements (S10 reports)
+    → loyers, retards, reversements (S11 reports)
     → renouvellement si mois 1–2 impeccables
 ```
 

@@ -1,6 +1,6 @@
-# Page — Paiements reçus (proprio)
+﻿# Page — Paiements reçus (proprio)
 
-**Sprint :** `S11-paiements-plateforme`  
+**Sprint :** `S12-paiements-plateforme`  
 **Route :** `/espace/proprio/paiements` (alias soft `/loyers`)  
 **Frame :** [`layout.jpg`](./layout.jpg)
 

@@ -1,8 +1,8 @@
-# S11 — Backend
+﻿# S12 — Backend
 
 **US :** US-V3-10…14 · EF-POR-05 / EF-PAY-*  
 **Outcome :** paiements **loyer** + **caution** via Wave / OM sur la plateforme · split frais · ledger **immuable** · ACL `payments_ops` + payeur + bénéficiaire  
-**Avant :** S08 (tenant + Lease) · S10 (portails) · KYB Wave/OM ops  
+**Avant :** S08 (tenant + Lease) · S11 (portails) · KYB Wave/OM ops  
 **Après :** quittances live · % loyers digitaux · monétisation 0,1 %  
 **Vague :** V3+  
 **Spec :** [`54-paiements-plateforme-loyer-caution.md`](../../../../../docs/add-ons/specs/03-location-gestion/54-paiements-plateforme-loyer-caution.md)
@@ -111,4 +111,4 @@ Alternative mandat : locataire paie face + fees — flag `feeBearer=payer|payee`
 
 ## Refs
 
-`../07` · `../14` · `../19` · add-on **54** · DS forms/pages S11
+`../07` · `../14` · `../19` · add-on **54** · DS forms/pages S12

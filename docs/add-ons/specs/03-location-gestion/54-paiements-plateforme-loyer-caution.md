@@ -1,4 +1,4 @@
-# Paiements plateforme — loyer & caution
+﻿# Paiements plateforme — loyer & caution
 
 | Champ | Valeur |
 | --- | --- |
@@ -6,7 +6,7 @@
 | **Priorité** | **P0** (Vague 3+) |
 | **Catégorie** | Location / Fintech |
 | **Synthèse** | Locataire paie **loyer** ou **caution** via Wave / Orange Money **sur la plateforme** ; split frais (PSP + EverGreen 0,1 %) ; net vers le **bénéficiaire configuré** (landlord / compte payout) ; **ledger immuable** ; ACL stricte (rôle payments + payeur + bénéficiaire). |
-| **Sprint** | `S11-paiements-plateforme` |
+| **Sprint** | `S12-paiements-plateforme` |
 
 ## 1. Problème client
 
@@ -41,7 +41,7 @@
 ## 4. Flow — paiement via plateforme
 
 ```
-0. Ops : KYB Wave Business + Orange Money → API keys + webhooks (infra S11)
+0. Ops : KYB Wave Business + Orange Money → API keys + webhooks (infra S12)
 1. Bail / échéance active (Lease + assignment tenant)
        OU demande caution post-accept
 2. Locataire (ou lien partagé) ouvre checkout plateforme
@@ -64,7 +64,7 @@
        → net_to_payee crédité ; fees enregistrées
 ```
 
-**Interdit :** paiement Wave **vendeur** (parcours vente / diaspora) — hors scope S11 ; reste séquestre notaire.  
+**Interdit :** paiement Wave **vendeur** (parcours vente / diaspora) — hors scope S12 ; reste séquestre notaire.  
 **Interdit :** SMS/WA avec numéro perso du landlord — uniquement lien plateforme.
 
 ## 5. Split d’un transfert (exemple)
@@ -155,7 +155,7 @@ Role / capability: payments_ops  → permissions payments.ledger.read | payments
 
 | Phase | Contenu |
 | --- | --- |
-| **S11 v1** | Checkout loyer + caution · dual Wave/OM · ledger immuable · ACL · quittance · UI portails + BO payments_ops |
+| **S12 v1** | Checkout loyer + caution · dual Wave/OM · ledger immuable · ACL · quittance · UI portails + BO payments_ops |
 | **Plus tard** | Auto-debit soft · multi-payeurs · payouts instant · hash chain forte · refunds structurés |
 
 ## 13. Design system
@@ -165,7 +165,7 @@ Role / capability: payments_ops  → permissions payments.ledger.read | payments
 
 ## Refs
 
-`dossier/tech/site/07-integrations.md` · `14-matrice-droits-roles.md` · sprint `S11-paiements-plateforme` · S08 bail/tenant · S10 widgets.
+`dossier/tech/site/07-integrations.md` · `14-matrice-droits-roles.md` · sprint `S12-paiements-plateforme` · S08 bail/tenant · S11 widgets.
 
 ---
 

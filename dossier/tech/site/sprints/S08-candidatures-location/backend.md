@@ -3,8 +3,8 @@
 **US :** US-V3-00…00e · EF-POR-06…14  
 **Outcome :** parcours **visite → prospect → compte → candidat → dépôt docs → accept → portail locataire**  
 **Avant :** S01 listings + auth · S03 leads  
-**Après / consommé par :** S10 dashboards · **S11 paiements** (Lease / tenant)  
-**Vague :** V3 (ne bloque pas Done V1 = S09)
+**Après / consommé par :** S09 Property cycles · S11 dashboards · **S12 paiements** (Lease / tenant)  
+**Vague :** V3 (ne bloque pas Done V1 = S10 embeds)
 
 ---
 
@@ -105,7 +105,7 @@
   3. assignment `candidate` → `tenant` (active)
   4. `Lease` soft
   5. listing → `under_offer` / `rented`
-  6. **portail locataire débloqué** pour ce bien (widgets S10)
+  6. **portail locataire débloqué** pour ce bien (widgets S11)
   7. notifs candidat + landlord
 - [ ] Mode mandat : `agency_decides` (défaut recommandé — staff a vu les docs) · `landlord_decides` (landlord confirme sur **synthèse** sans voir fichiers)
 - [ ] Events `visit_requested` · `lead_converted` · `candidate_assigned` · `application_*` · `tenant_activated`

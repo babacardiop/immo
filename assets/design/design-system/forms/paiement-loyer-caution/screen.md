@@ -1,6 +1,6 @@
-# Form — Paiement loyer / caution (plateforme)
+﻿# Form — Paiement loyer / caution (plateforme)
 
-**Sprint :** `S11-paiements-plateforme`  
+**Sprint :** `S12-paiements-plateforme`  
 **Prérequis :** assignment `tenant` + échéance ouverte (loyer ou caution)  
 **Frame :** [`layout.jpg`](./layout.jpg)
 

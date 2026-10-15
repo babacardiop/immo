@@ -17,7 +17,7 @@
 | 6a | Revue docs (staff) | `pages/espace/agent/candidature-detail/` + viewer |
 | 6b | Suivi proprio (sans docs) | `pages/espace/proprio/candidatures/` + detail **sans** viewer fichiers |
 | 7 | Accept | Modal staff → débloque portail locataire |
-| 8 | Portail locataire | `/espace/client` bien visible (S10 widgets) |
+| 8 | Portail locataire | `/espace/client` bien visible (S11 widgets) |
 
 ---
 

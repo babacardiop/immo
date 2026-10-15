@@ -149,13 +149,14 @@ Aligné sprints `site/12` :
 | **Gate** | **Done V0** | KPI §2.1 |
 | 7 | Outils | `/outils` · 3 simus · disc · events · **S07** |
 | 8 | **Candidatures / assignations** | Exigences · postuler · inbox · sélection · portail scope · **S08** (V3, parallèle OK) |
-| 9 | Embeds + P | Fiche terrain embeds · PartnerLead · CTA P · **S09** |
-| 10 | Contenu V1 | 2 piliers + CTAs |
-| **Gate** | **Done V1** | KPI §2.2 · message hub OK (après S09) |
-| 11 | Dashboards | Multi-rôles + reports · **S10** (consomme S08) |
-| 12 | Paiements plateforme | Loyer + caution Wave/OM · 0,1 % · ledger · **S11** |
+| 9 | **Property ≠ Listing + commodités** | Cycles · republish · qty / offre courte · **S09** |
+| 10 | Embeds + P | Fiche terrain embeds · PartnerLead · CTA P · **S10** |
+| 11 | Contenu V1 | 2 piliers + CTAs |
+| **Gate** | **Done V1** | KPI §2.2 · message hub OK (après S10) |
+| 12 | Dashboards | Multi-rôles + reports · **S11** (consomme S08/S09) |
+| 13 | Paiements plateforme | Loyer + caution Wave/OM · 0,1 % · ledger · **S12** |
 
-Ne pas démarrer bloc 7 avant Gate V0 (sauf spike design parallèle). S08 peut démarrer dès listings+auth stables. S11 après tenant/Lease + KYB PSP.
+Ne pas démarrer bloc 7 avant Gate V0 (sauf spike design parallèle). S08 peut démarrer dès listings+auth stables. S09 après S01/S08 soft. S12 après tenant/Lease + KYB PSP.
 
 ---
 

@@ -20,7 +20,10 @@ export const budgetTotalInputSchema = z.object({
   construction: constructionInputSchema.partial().optional(),
 });
 
-export type BudgetTotalInput = z.infer<typeof budgetTotalInputSchema>;
+/** Parsed shape (defaults applied). Callers may omit defaulted fields. */
+export type BudgetTotalParsed = z.infer<typeof budgetTotalInputSchema>;
+export type BudgetTotalInput = Partial<BudgetTotalParsed> &
+  Pick<BudgetTotalParsed, "prixTerrain">;
 
 export type BudgetTotalResult = {
   prixTerrain: number;

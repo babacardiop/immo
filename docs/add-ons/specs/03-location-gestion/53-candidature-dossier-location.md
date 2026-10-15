@@ -31,7 +31,7 @@ Agence curated SN : la visite précède le dossier. Les pièces (CNI, bulletins)
 | **Staff EverGreen** (agent / OD / GER) | Convertit prospect, assigne, **lit les docs**, review, accept |
 | **Landlord** | Voit statut / % / synthèse — **jamais les fichiers** |
 
-**Synergies :** CRM leads `04` · portail `22` · scoring `23` (plus tard) · caution `11` · paiements plateforme `54` / **S11** · EDL `12` · S10 dashboards.
+**Synergies :** CRM leads `04` · portail `22` · scoring `23` (plus tard) · caution `11` · Property cycles `55` / **S09** · paiements `54` / **S12** · EDL `12` · S11 dashboards.
 
 ## 4. Flow — actions consignées
 
@@ -116,7 +116,7 @@ PropertyAssignment.role =
 ```
 
 - `candidate` : dépôt docs **uniquement** (pas loyers / panne locataire)
-- `tenant` : débloque portail locataire (S10)
+- `tenant` : débloque portail locataire (S11)
 - Accept = promotion `candidate` → `tenant` (audit)
 
 ### 7.4 Confidentialité documents (non négociable)
@@ -187,7 +187,8 @@ Inclus mandat location/gestion. Réduit time-to-let + conformité docs.
 | Phase | Contenu |
 | --- | --- |
 | **S08** | Flow #1–#8 complet · staff-only docs · disclaimer |
-| **S10** | Widgets portail locataire / proprio sur data S08 |
+| **S09** | Property cycles (bien durable) — listing actif pour candidature |
+| **S11** | Widgets portail locataire / proprio sur data S08/S09 |
 | **Plus tard** | Scoring `23` · caution auto |
 
 ## 14. Sources

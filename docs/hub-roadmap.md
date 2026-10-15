@@ -157,9 +157,10 @@ Légende : **F** = feature produit cœur · **A** = add-on · **P** = partenaire
 | Type | Item | Spec / fiche |
 | --- | --- | --- |
 | **F** | **Visite → prospect → compte → candidat → docs (staff-only) → accept → portail locataire** | sprint `S08` · add-on `53` |
-| **F** | Assignation landlord / portefeuille + dashboards scoped | sprint `S08`+`S10` · `positioning` portails |
-| **F** | Dashboards / reports (après tenant activé) | sprint `S10` |
-| **F** | **Paiements plateforme** loyer + caution (Wave/OM · 0,1 % · ledger immuable · `payments_ops`) | sprint `S11` · add-on `54` |
+| **F** | Assignation landlord / portefeuille + dashboards scoped | sprint `S08`+`S11` · `positioning` portails |
+| **F** | Dashboards / reports (après tenant activé) | sprint `S11` |
+| **F** | **Property ≠ Listing** · republish · commodités qty / offre courte | sprint `S09` · add-on `55` |
+| **F** | **Paiements plateforme** loyer + caution (Wave/OM · 0,1 % · ledger immuable · `payments_ops`) | sprint `S12` · add-on `54` |
 | **A** | État des lieux digital | `03-location…/12-…` |
 | **A** | Caution locative (lead partenaire) | `03-location…/11-…` |
 | **A** | Assurance MRH + PNO (CTA) | `03-location…/13–14` |
@@ -267,7 +268,7 @@ Sinon : **approfondir** V1–V4 (meilleure conversion, plus de contenu, 2ᵉ con
 | **0** | S0–6 | Socle catalogue | 0 | 0 | Site + mandats + agent |
 | **1** | M1–2 | Acheteur terrain | 3–4 | 3 (BTP, archi, notaire) | `/outils`, embeds fiche |
 | **2** | M3–4 | Sécuriser / papiers | 4 | 2 (formalités, géomètre) | Checklist diligence |
-| **3** | M5–6 | Location / gestion | 4–5 | 2 (assureur, caution) | S08 candidatures · S10 portails · **S11 paiements** |
+| **3** | M5–6 | Location / gestion | 4–5 | 2 (assureur, caution) | S08 · **S09 Property** · S11 portails · **S12 paiements** |
 | **4** | M7–8 | Diaspora | 4 | 1–2 (inspecteur) | Multi-devise, POA |
 | **5** | M9–10 | Gros tickets | 3 | 2 (financier, crédit) | Estimation vendeur |
 | **6** | M11–12 | Chantier / confort | 4 | 2 (énergie, VRD?) | Suivi chantier |

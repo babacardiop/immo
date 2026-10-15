@@ -1,4 +1,4 @@
-# S11 — Frontend
+﻿# S12 — Frontend
 
 **US :** US-V3-10…14  
 **DS :** `forms/paiement-loyer-caution/` · `pages/espace/{client,proprio,agent}/paiement*`
@@ -35,7 +35,7 @@
 - [ ] Copy anti-confusion : « Gratuit pour vous chez OM/Wave » vs frais marchand affichés côté plateforme
 - [ ] Jamais CTA « paie le vendeur en Wave » sur surfaces vente
 - [ ] States empty / loading / error DS
-- [ ] Side-by-side vs frames DS S11
+- [ ] Side-by-side vs frames DS S12
 
 ## Refs
 

@@ -1,6 +1,6 @@
-# Page — Mes paiements (locataire)
+﻿# Page — Mes paiements (locataire)
 
-**Sprint :** `S11-paiements-plateforme`  
+**Sprint :** `S12-paiements-plateforme`  
 **Route :** `/espace/client/paiements`  
 **Frame :** [`layout.jpg`](./layout.jpg)
 

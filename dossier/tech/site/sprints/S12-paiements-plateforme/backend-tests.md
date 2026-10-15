@@ -1,4 +1,4 @@
-# S11 — Backend tests
+﻿# S12 — Backend tests
 
 ## Todo
 
@@ -30,7 +30,7 @@
 - [ ] QR endpoint denied for plain agent without payments_ops / not party
   - File: `web/src/lib/payments/payment-acl.test.ts`
 
-## Gate Done S11 (backend)
+## Gate Done S12 (backend)
 
 - [ ] Dual provider checkout + webhook path staging
 - [ ] Immutability + ACL tests green

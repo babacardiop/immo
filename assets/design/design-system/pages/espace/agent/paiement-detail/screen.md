@@ -1,6 +1,6 @@
-# Page — Détail paiement + ledger (staff `payments_ops`)
+﻿# Page — Détail paiement + ledger (staff `payments_ops`)
 
-**Sprint :** `S11-paiements-plateforme`  
+**Sprint :** `S12-paiements-plateforme`  
 **Route :** `/espace/agent/paiements/[id]`  
 **Frame :** [`layout.jpg`](./layout.jpg)
 

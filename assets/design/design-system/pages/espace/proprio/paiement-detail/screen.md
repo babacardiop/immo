@@ -1,6 +1,6 @@
-# Page — Détail paiement (proprio)
+﻿# Page — Détail paiement (proprio)
 
-**Sprint :** `S11-paiements-plateforme`  
+**Sprint :** `S12-paiements-plateforme`  
 **Route :** `/espace/proprio/paiements/[id]`  
 **Frame :** [`layout.jpg`](./layout.jpg)
 

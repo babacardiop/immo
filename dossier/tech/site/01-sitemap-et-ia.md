@@ -104,16 +104,17 @@ Bench agences / portails 2025–26 : sticky nav 2 niveaux · fil d’Ariane fich
 │   └── [slug]/
 ├── espace/                           ← auth
 │   ├── connexion/
-│   ├── proprio/                      ← V3 · S08 candidatures + S10 dash
+│   ├── proprio/                      ← V3 · S08 candidatures + S11 dash
 │   │   ├── biens/[id]/exigences/
 │   │   ├── candidatures/[id]/
-│   │   └── paiements/[id]/          ← S11 encaissements
+│   │   └── paiements/[id]/          ← S12 encaissements
 │   ├── client/                       ← locataire / acquéreur V3+
 │   │   ├── candidatures/             ← S08
-│   │   └── paiements/[id]/           ← S11 loyer/caution
+│   │   └── paiements/[id]/           ← S12 loyer/caution
 │   └── agent/                        ← back-office V0 minimal
+│       ├── biens/[propertyId]/      ← S09 Property + cycles
 │       ├── candidatures/             ← S08 médiation
-│       └── paiements/[id]/           ← S11 · payments_ops only
+│       └── paiements/[id]/           ← S12 · payments_ops only
 ├── legal/
 │   ├── mentions-legales/
 │   ├── confidentialite/

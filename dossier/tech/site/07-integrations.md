@@ -1,4 +1,4 @@
-# Intégrations — WhatsApp, paiements, maps, email
+﻿# Intégrations — WhatsApp, paiements, maps, email
 
 **Document :** Dossier · Tech · Site · 07  
 **Statut :** v1.0 — sept. 2026  
@@ -201,13 +201,13 @@ EMAIL_LEADS_TO=leads@domaine.sn
 
 | Cas | Canal | Vague |
 | --- | --- | :---: |
-| **Loyers + caution** via plateforme → payee (landlord / gestion) | Wave + OM API · **S11** | **V3+** |
+| **Loyers + caution** via plateforme → payee (landlord / gestion) | Wave + OM API · **S12** | **V3+** |
 | Frais dossier / acompte **structuré** agence | Wave/OM ou lien | V1–2 soft |
 | Commission / packs services | Facture + MM | Ops |
 | Séquestre / notaire | **Hors** Wave vendeur — circuit notaire | Continu |
 | Achat bien → **vendeur perso** | **INTERDIT** produit | — |
 
-### 4.2bis Split frais plateforme (S11)
+### 4.2bis Split frais plateforme (S12)
 
 | Ligne | Taux indicatif | Qui |
 | --- | ---: | --- |
@@ -224,10 +224,10 @@ Ledger **append-only** · ACL : payeur + payee + rôle `payments_ops` seulement.
 | --- | --- |
 | **V0** | Pas de checkout site obligatoire · virement / Wave **Business** manuel tracké CRM |
 | **V1 soft** | Payment **links** merchant (Wave Business) pour frais dossier |
-| **V3 / S11** | Dual API checkout · webhooks · `Payment` + `PaymentLedgerEntry` immuable · quittance · fees 0,1 % |
+| **V3 / S12** | Dual API checkout · webhooks · `Payment` + `PaymentLedgerEntry` immuable · quittance · fees 0,1 % |
 | **V3+** | Payouts reversement proprio (Wave Payout) — conformité KYB renforcée |
 
-### 4.4 Architecture cible (V3 / S11)
+### 4.4 Architecture cible (V3 / S12)
 
 ```
 Client → POST /api/payments/checkout {provider, purpose: rent|deposit, dueId}
@@ -268,10 +268,10 @@ PAYMENTS_CANCEL_URL=
 
 - NINEA + RCCM pour merchant APIs  
 - Compte settlement bancaire  
-- Paralléliser KYB **avant** sprint V3 / **S11**  
-- Runbook détaillé inscription Wave + OM + canaux (bouton · QR · SMS/WA) → `sprints/S11-paiements-plateforme/infra.md`
+- Paralléliser KYB **avant** sprint V3 / **S12**  
+- Runbook détaillé inscription Wave + OM + canaux (bouton · QR · SMS/WA) → `sprints/S12-paiements-plateforme/infra.md`
 
-### 4.8 Canaux checkout (S11)
+### 4.8 Canaux checkout (S12)
 
 | Canal | MoSCoW | Note |
 | --- | :---: | --- |

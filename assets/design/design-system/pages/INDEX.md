@@ -76,16 +76,17 @@ Collages : `_misc-collage.jpg`, `outils/_secondary-collage.jpg`, `espace/agent/_
 | `espace/proprio/*` | biens · loyers · docs · candidatures (**S08**, sans docs fichiers) |
 | `espace/proprio/candidatures/` | inbox métadonnées |
 | `espace/proprio/candidature-detail/` | suivi **sans** viewer docs |
-| `espace/proprio/paiements/` | encaissements digitaux (**S11**) |
-| `espace/proprio/paiement-detail/` | détail + quittance · lecture seule (**S11**) |
+| `espace/proprio/paiements/` | encaissements digitaux (**S12**) |
+| `espace/proprio/paiement-detail/` | détail + quittance · lecture seule (**S12**) |
 | `espace/client/*` | candidatures → puis loyers après tenant |
 | `espace/client/mes-candidatures/` | dépôt / suivi candidat |
-| `espace/client/paiements/` | historique own + CTA payer (**S11**) |
-| `espace/client/paiement-detail/` | détail + quittance own (**S11**) |
+| `espace/client/paiements/` | historique own + CTA payer (**S12**) |
+| `espace/client/paiement-detail/` | détail + quittance own (**S12**) |
 | `espace/agent/candidatures/` | inbox staff |
 | `espace/agent/candidature-detail/` | revue **avec** viewer docs + accept |
-| `espace/agent/paiements/` | ledger agence — **`payments_ops` only** (**S11**) |
-| `espace/agent/paiement-detail/` | timeline ledger immuable (**S11**) |
+| `espace/agent/paiements/` | ledger agence — **`payments_ops` only** (**S12**) |
+| `espace/agent/paiement-detail/` | timeline ledger immuable (**S12**) |
+| `espace/agent/property-detail/` | Property + **historique publications** · republish (**S09**) |
 | `espace/ger/*` | pipeline · commissions |
 | `espace/admin/*` | users · roles · flags |
 | `espace/moderator/*` | assignations · qualité |

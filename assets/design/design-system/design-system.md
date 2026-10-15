@@ -1,10 +1,10 @@
-# EverGreen — Design system (site)
+﻿# EverGreen — Design system (site)
 
 **Statut :** v2.0 — composants + **toutes pages / forms / states** + dashboards  
 **Source visuelle :** mockups `../` (`01|02|03-evergreen-layout-board.png` + `previews/strip-*.jpg`)  
 **Crops photo :** `../../images/`  
 **Eng amont :** `docs/design-tokens.md` · `dossier/tech/site/18-design-system.md` · sitemap `13`  
-**Sprints :** `S05-mockup-fidelity` · `S06-catalogue-carte-geo` · `S08-candidatures-location` · `S10-dashboards-reporting` · `S11-paiements-plateforme`
+**Sprints :** `S05-mockup-fidelity` · `S06-catalogue-carte-geo` · `S08-candidatures-location` · `S09-property-listing-cycles` · `S10-embeds-partenaires` · `S11-dashboards-reporting` · `S12-paiements-plateforme`
 
 > Contrat visuel opérationnel. Boards = screenshots → ce doc + `components/` **infèrent** le reste.  
 > Copy prod = **FR métier SN** (pas les placeholders EN du template).
@@ -267,5 +267,5 @@ Voir aussi [`README.md`](./README.md) pour le schéma dossiers.
 
 ## 7. Next
 
-Implémenter contre ces frames (S05 public · S08 candidatures/assignations · S10 dashboards BO · S11 paiements plateforme).  
+Implémenter contre ces frames (S05 public · S08 candidatures · S09 Property/Listing · S11 dashboards BO · S12 paiements).  
 Régénérer une frame : indiquer le chemin dossier (ex. `pages/public/outils/mensualite`).

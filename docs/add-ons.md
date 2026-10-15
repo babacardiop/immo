@@ -232,7 +232,7 @@ Recherche appart/maison
   → Visite / réservation
   → Caution digitale (partenaire) + assurance MRH
   → Bail + état des lieux digital (dashboard)
-  → Paiement Wave/OM plateforme (loyer/caution · 0,1 % · ledger S11) + quittances
+  → Paiement Wave/OM plateforme (loyer/caution · 0,1 % · ledger S12) + quittances
   → Maintenance (clim, plomberie) via ticket
   → Après 12 mois à l’heure → offre Axe 2/3 (terrain étalé / loc-vente)
 ```
