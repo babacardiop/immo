@@ -15,6 +15,7 @@ const PRIMARY_NAV = [
 
 /** Secondary — Agence / content / contact (and future Blog, Partenariat). */
 const MORE_NAV = [
+  { href: "/outils", label: "Outils" },
   { href: "/agence", label: "Agence" },
   { href: "/guides", label: "Guides" },
   { href: "/contact", label: "Contact" },

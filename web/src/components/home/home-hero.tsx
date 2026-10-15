@@ -28,7 +28,7 @@ export function HomeHero() {
               <Link
                 key={tag.label}
                 href={tag.href}
-                className="rounded-[var(--radius-pill)] bg-white/95 px-3.5 py-1.5 text-xs font-medium text-[var(--color-ink)] backdrop-blur"
+                className="rounded-[var(--radius-pill)] bg-white/95 px-3.5 py-1.5 text-xs font-medium text-[#0f0f09] backdrop-blur"
               >
                 {tag.label}
               </Link>
