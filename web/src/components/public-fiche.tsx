@@ -25,6 +25,7 @@ import { PaperBadge } from "@/components/paper-badge";
 import { ListingGallery } from "@/components/listing-gallery";
 import { WhatsAppCta } from "@/components/wa-cta";
 import { LeadForm } from "@/components/lead-form";
+import { VisitRequestForm } from "@/components/leads/visit-request-form";
 import { PageBreadcrumb } from "@/components/page-breadcrumb";
 
 /** DS-16 listing fiche */
@@ -219,20 +220,29 @@ export async function PublicFiche({
           ) : null}
 
           <div className="mt-8" id="demande">
-            <h2 className="text-lg font-semibold">Demander des infos</h2>
-            <div className="mt-3">
-              <LeadForm
-                listingId={listing.id}
-                sourceDetail="form_fiche"
-                defaultIntent={
-                  listing.transaction === "RENT" ||
-                  listing.transaction === "SHORT_TERM_RENT"
-                    ? "rent"
-                    : "buy"
-                }
-                waText={waText}
-              />
-            </div>
+            {channel === "louer" ? (
+              <>
+                <h2 className="text-lg font-semibold">Demander une visite</h2>
+                <p className="mt-1 text-sm text-[var(--color-muted)]">
+                  Sans créer de compte — un conseiller vous rappelle.
+                </p>
+                <div className="mt-3">
+                  <VisitRequestForm listingId={listing.id} />
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="text-lg font-semibold">Demander des infos</h2>
+                <div className="mt-3">
+                  <LeadForm
+                    listingId={listing.id}
+                    sourceDetail="form_fiche"
+                    defaultIntent="buy"
+                    waText={waText}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </aside>
       </div>

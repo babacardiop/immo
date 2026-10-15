@@ -11,6 +11,7 @@
 | ---: | --- | --- |
 | 1 | Demande visite site | Fiche `/louer/[slug]` + form visite (lead) — crée prospect |
 | 2 | Lead dans CRM | `/espace/agent/leads/[id]` — stage visite / intéressé |
+| 2b | Visites offline / prévues + clôture outcome | `/espace/agent/visites` · widget dashboard · close form |
 | 3 | Créer compte (scratch \| depuis prospect) | `forms/creer-compte-client/` · CTA depuis lead |
 | 4 | Assigner bien comme **candidat** | `forms/assignation-bien/` rôle = Candidat |
 | 5 | Dépôt documents | `forms/candidature-location/` + **bandeau confidentialité staff-only** |
@@ -29,6 +30,14 @@
   - Champs : nom · tel · email · créneau · message · consent
   - Done when: success → « Votre demande est enregistrée » · **Lead créé** (pas de compte)
 - [ ] Afficher liste indicative « Pièces souvent demandées » (lecture seule, pas upload public)
+
+### 1bis. Visites agent (offline / prévues)
+
+- [x] Page `/espace/agent/visites` : **consigner visite terrain** (prospect + bien) · planifier · à clôturer · journal prospect↔biens
+- [x] Sélecteur de bien (titre / réf / ville) — pas d’ID brut
+- [x] Widget dashboard « Prochaines visites » + compteur à clôturer
+- [x] Nav agent **Visites**
+- [x] Lead detail : biens visités · autre bien terrain · close SCHEDULED · planifier · log immédiat
 
 ### 2. Créer compte client
 

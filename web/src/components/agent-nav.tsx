@@ -9,6 +9,8 @@ import { isModeratorOrAbove } from "@/lib/roles";
 const links = [
   { href: "/espace/agent", label: "Tableau de bord", exact: true },
   { href: "/espace/agent/leads", label: "Leads" },
+  { href: "/espace/agent/visites", label: "Visites" },
+  { href: "/espace/agent/candidatures", label: "Candidatures" },
   { href: "/espace/agent/annonces", label: "Annonces" },
 ] as const;
 

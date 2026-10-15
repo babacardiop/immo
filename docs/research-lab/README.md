@@ -38,6 +38,7 @@ Ensemble = études “gold” publiables + outils calibrés + leads.
 - [`../positioning.md`](../positioning.md)  
 - [`../blog/strategie.md`](../blog/strategie.md) — études → contenu public  
 - [`../../dossier/etude-de-marche/`](../../dossier/etude-de-marche/README.md) — synthèse marché + **parcours foncier / DGSCOS**  
+- [`../../dossier/tech/research-lab/sprints/`](../../dossier/tech/research-lab/sprints/README.md) — recon auth/BD + todos sprints liaison hub  
 - Add-ons nourris : estimation vendeur, carte prix/m², simu construction, diligence  
 
 **Veille foncier État à croiser :** NICAD/eNICAD, SGF, SIFCOM, ICAS, plaintes DGSCOS (zones chaudes), délais AC réels — voir `data-sources.md` §F et `dossier/…/06`. 

@@ -11,6 +11,7 @@
 | 05 | [`05-pipeline-data.md`](./05-pipeline-data.md) | ✅ | Collecte → publication |
 | 06 | [`06-gouvernance-sources.md`](./06-gouvernance-sources.md) | ✅ | Citation, fraîcheur |
 | 07 | [`07-roadmap-lab.md`](./07-roadmap-lab.md) | ✅ | Alignement vagues + blog |
+| — | [`sprints/README.md`](./sprints/README.md) | ✅ | Recon auth/BD + backlog liaison hub |
 
 ## Déjà dans `docs/research-lab/` (référencer)
 

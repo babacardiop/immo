@@ -16,6 +16,10 @@ describe("AgentNav", () => {
       "href",
       "/espace/agent/leads",
     );
+    expect(screen.getByRole("link", { name: /^visites$/i })).toHaveAttribute(
+      "href",
+      "/espace/agent/visites",
+    );
     expect(screen.getByRole("link", { name: /annonces/i })).toHaveAttribute(
       "href",
       "/espace/agent/annonces",

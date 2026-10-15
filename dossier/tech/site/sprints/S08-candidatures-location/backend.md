@@ -13,7 +13,7 @@
 | # | Action | Qui | Système |
 | ---: | --- | --- | --- |
 | **1** | Demande de **visite** sur le site (fiche `/louer/[slug]` ou form) | Prospect (visitor) | Crée un **Lead / Prospect** (`source=visit_request`, listing lié) — **obligatoire** |
-| **2** | Visite réalisée · intérêt confirmé | Agent | Lead stage → `interested` / `visit_done` (CRM S03) |
+| **2** | Visite **réalisée** + **post-mortem** | Agent | `VisitReport` (quand · qui · outcome · motif) · stage CRM |
 | **3a** | **Créer un compte** from scratch (email/tel + invite) | Agent / OD | `User` + rôle `client` · lien optionnel `leadId` |
 | **3b** | **Créer un compte depuis un prospect** | Agent / OD | Convert Lead → User (prérempli) · même lead `converted_user_id` |
 | **4** | **Assigner le bien en tant que `candidate`** | Agent / OD | `PropertyAssignment(role=candidate, status=active)` · ouvre dépôt docs **uniquement** pour ce bien |
@@ -36,6 +36,16 @@
   - Done when: submit public → row CRM + notif agent · **pas** de compte user auto
 - [ ] Idempotence soft : même tel+listing ouvert → update lead plutôt que doublon agressif
   - Done when: tests dedupe
+
+### 1bis. Visites offline / prévues + post-mortem (`VisitReport`)
+
+- [x] Planifier / logger visite reçue offline : `status=SCHEDULED` · `source` (OFFLINE|PHONE|WALK_IN|WHATSAPP) · `scheduledAt` · **prospect (nom+tél) + `listingId` obligatoires**
+- [x] Consigner visite terrain (autre bien vu sur place) : `logFieldVisitAction` · réutilise lead par téléphone · 1 VisitReport = 1 bien
+- [x] Clôturer avec outcome : `status=COMPLETED` · `conductedAt` · **bien effectif** · `outcome` · motif · notes
+  - Outcomes : `NOT_INTERESTED` (+ motif) · `CONTINUE` · `VISIT_OTHER_RENTALS` · `NEEDS_TIME` · `NO_SHOW` · `OTHER`
+  - Done when: dashboard agent + lead detail · event CRM · stage auto (LOST / QUALIFIED / NURTURE)
+- [x] Logger visite déjà faite (raccourci COMPLETED immédiat) avec bien sélectionnable
+- [x] Historique multi-visites / multi-biens sur le même prospect
 
 ### 2. Compte client (scratch | depuis prospect)
 

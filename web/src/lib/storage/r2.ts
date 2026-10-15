@@ -121,6 +121,53 @@ export async function uploadMandatePdf(input: UploadVaultInput) {
   };
 }
 
+export type UploadApplicationDocInput = {
+  applicationId: string;
+  requirementCode: string;
+  bytes: Buffer;
+  mimeType: string;
+};
+
+const ALLOWED_APP_DOC_MIME = new Set([
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+]);
+
+/** Max 8 Mo per application document. */
+export const APPLICATION_DOC_MAX_BYTES = 8 * 1024 * 1024;
+
+export async function uploadApplicationDocument(
+  input: UploadApplicationDocInput,
+) {
+  if (!ALLOWED_APP_DOC_MIME.has(input.mimeType)) {
+    throw new Error("MIME_NOT_ALLOWED");
+  }
+  if (input.bytes.byteLength > APPLICATION_DOC_MAX_BYTES) {
+    throw new Error("FILE_TOO_LARGE");
+  }
+
+  const safeCode = input.requirementCode.replace(/[^a-z0-9_-]/gi, "_");
+  const key = `applications/${input.applicationId}/${safeCode}/${randomUUID()}.${extForMime(input.mimeType)}`;
+  const bucket = requireEnv("S3_BUCKET_VAULT");
+
+  await getR2Client().send(
+    new PutObjectCommand({
+      Bucket: bucket,
+      Key: key,
+      Body: input.bytes,
+      ContentType: input.mimeType,
+    }),
+  );
+
+  return {
+    key,
+    url: null as string | null,
+    mimeType: input.mimeType,
+    sizeBytes: input.bytes.byteLength,
+  };
+}
+
 export async function deletePublicObject(key: string) {
   await getR2Client().send(
     new DeleteObjectCommand({

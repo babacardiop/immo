@@ -12,6 +12,8 @@ enum UserRole {
   MODERATOR
   ADMIN
   GER
+  CLIENT
+  LANDLORD
 }
 
 enum ListingStatus {
@@ -113,6 +115,70 @@ enum LeadEventType {
   SYSTEM
 }
 
+enum AssignmentRole {
+  LANDLORD
+  CO_LANDLORD
+  CANDIDATE
+  TENANT
+  BUYER
+  GUARANTOR
+}
+
+enum AssignmentStatus {
+  INVITED
+  ACTIVE
+  ENDED
+  REVOKED
+  PROMOTED
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  SHORTLISTED
+  ACCEPTED
+  REJECTED
+  WITHDRAWN
+  EXPIRED
+}
+
+enum LeaseStatus {
+  DRAFT
+  ACTIVE
+  ENDED
+  CANCELLED
+}
+
+enum DecisionMode {
+  AGENCY_DECIDES
+  LANDLORD_DECIDES
+}
+
+/// Suite donnée par le prospect après visite réalisée (post-mortem).
+enum VisitOutcome {
+  NOT_INTERESTED
+  CONTINUE
+  VISIT_OTHER_RENTALS
+  NEEDS_TIME
+  NO_SHOW
+  OTHER
+}
+
+enum VisitStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum VisitSource {
+  ONLINE_REQUEST
+  OFFLINE
+  PHONE
+  WALK_IN
+  WHATSAPP
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -120,13 +186,21 @@ model User {
   emailVerified DateTime?
   image         String?
   passwordHash  String?
+  phone         String?
   role          UserRole  @default(AGENT)
+  /// Lead converted into this client account (S08).
+  convertedFromLeadId String? @unique
+  convertedFromLead   Lead?   @relation("LeadConvertedUser", fields: [convertedFromLeadId], references: [id], onDelete: SetNull)
   accounts      Account[]
   sessions      Session[]
   listings      Listing[]
   mandates      Mandate[]
   assignedLeads Lead[]      @relation("LeadAssignee")
   leadEvents    LeadEvent[] @relation("LeadEventActor")
+  visitReportsConducted VisitReport[] @relation("VisitConductedBy")
+  propertyAssignments PropertyAssignment[]
+  rentalApplications  RentalApplication[]
+  leasesAsTenant      Lease[] @relation("LeaseTenant")
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
@@ -218,6 +292,12 @@ model Listing {
   mandate                   Mandate?
   media                     MediaAsset[]
   leads                     Lead[]
+  visitReports              VisitReport[]
+  propertyAssignments       PropertyAssignment[]
+  requirementSets           ApplicationRequirementSet[]
+  rentalApplications        RentalApplication[]
+  leases                    Lease[]
+  decisionMode              DecisionMode       @default(AGENCY_DECIDES)
   publishedAt               DateTime?
   archivedAt                DateTime?
   createdAt                 DateTime           @default(now())
@@ -267,16 +347,22 @@ model Lead {
   email          String?
   phone          String?
   source         LeadSource @default(FORM)
-  /// Surface tag e.g. form_fiche · form_contact · wa_fiche
+  /// Surface tag e.g. form_fiche · form_contact · wa_fiche · form_visite
   sourceDetail   String?
+  /// prospect | client soft — visit flow marks prospect
+  leadType       String?
   stage          LeadStage  @default(NEW)
   intent         String?
+  /// Preferred visit slot (free text / ISO soft)
+  preferredSlot  String?
   message        String?    @db.Text
   consentContact Boolean    @default(false)
   listingId      String?
   listing        Listing?   @relation(fields: [listingId], references: [id], onDelete: SetNull)
   assigneeId     String?
   assignee       User?      @relation("LeadAssignee", fields: [assigneeId], references: [id])
+  convertedUser  User?      @relation("LeadConvertedUser")
+  visitReports   VisitReport[]
   /// Clock start = createdAt; set when agent first moves off NEW / adds note.
   firstTouchAt   DateTime?
   /// Soft SLA deadline (default createdAt + 24h).
@@ -293,6 +379,7 @@ model Lead {
   @@index([listingId])
   @@index([phone])
   @@index([email])
+  @@index([leadType, stage])
 }
 
 model LeadEvent {
@@ -308,6 +395,39 @@ model LeadEvent {
   createdAt  DateTime      @default(now())
 
   @@index([leadId, createdAt])
+}
+
+/// Visite planifiée ou réalisée (online / offline) + post-mortem à la clôture.
+model VisitReport {
+  id              String       @id @default(cuid())
+  leadId          String
+  lead            Lead         @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  listingId       String?
+  listing         Listing?     @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  status          VisitStatus  @default(SCHEDULED)
+  source          VisitSource  @default(ONLINE_REQUEST)
+  /// Agent responsable (prévu ou qui a fait la visite)
+  conductedById   String
+  conductedBy     User         @relation("VisitConductedBy", fields: [conductedById], references: [id])
+  /// Créneau prévu (offline / planifié)
+  scheduledAt     DateTime?
+  /// Quand la visite a effectivement eu lieu (à la clôture)
+  conductedAt     DateTime?
+  outcome         VisitOutcome?
+  /// Motifs si NOT_INTERESTED / OTHER / etc.
+  outcomeMotif    String?      @db.Text
+  /// Notes agent (ambiance, objections…)
+  agentNotes      String?      @db.Text
+  /// Soft: prospect veut voir d’autres biens (si VISIT_OTHER_RENTALS)
+  wantsOtherListings Boolean   @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([leadId, scheduledAt])
+  @@index([conductedById, status, scheduledAt])
+  @@index([status, scheduledAt])
+  @@index([listingId])
+  @@index([outcome])
 }
 
 /// Thesaurus villes — rattachées à une région (région → ville → commune → quartier).
@@ -366,4 +486,103 @@ model Quartier {
   @@unique([communeId, name])
   @@index([active, name])
   @@index([geoStatus])
+}
+
+/// Lien user ↔ listing (landlord / candidate / tenant / …) — S08.
+model PropertyAssignment {
+  id        String           @id @default(cuid())
+  listingId String
+  listing   Listing          @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      AssignmentRole
+  status    AssignmentStatus @default(INVITED)
+  note      String?          @db.Text
+  createdById String?
+  applications RentalApplication[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  @@index([listingId, role, status])
+  @@index([userId, role, status])
+  @@unique([listingId, userId, role])
+}
+
+/// Template / set d'exigences dossier pour un listing.
+model ApplicationRequirementSet {
+  id        String   @id @default(cuid())
+  listingId String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  name      String   @default("Standard SN")
+  /// JSON array: { code, label, required, kind: file|condition }[]
+  itemsJson String   @db.Text
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listingId, active])
+}
+
+model RentalApplication {
+  id                   String            @id @default(cuid())
+  listingId            String
+  listing              Listing           @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId               String
+  user                 User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignmentId         String
+  assignment           PropertyAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  status               ApplicationStatus @default(DRAFT)
+  /// 0–100 vs exigences required
+  completenessPct      Int               @default(0)
+  /// Agent-facing summary for landlord (no file refs)
+  agentSummary         String?           @db.Text
+  privacyNoticeVersion String?
+  privacyAcceptedAt    DateTime?
+  dueAt                DateTime?
+  reviewedAt           DateTime?
+  decidedAt            DateTime?
+  rejectReason         String?
+  documents            ApplicationDocument[]
+  lease                Lease?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+
+  @@index([listingId, status])
+  @@index([userId, status])
+  @@index([assignmentId])
+}
+
+model ApplicationDocument {
+  id            String            @id @default(cuid())
+  applicationId String
+  application   RentalApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  /// Requirement code e.g. cni · pay_stubs_3
+  requirementCode String
+  storageKey    String            @unique
+  mimeType      String
+  sizeBytes     Int?
+  originalName  String?
+  uploadedById  String?
+  createdAt     DateTime          @default(now())
+
+  @@index([applicationId, requirementCode])
+}
+
+model Lease {
+  id            String      @id @default(cuid())
+  listingId     String
+  listing       Listing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  tenantUserId  String
+  tenant        User        @relation("LeaseTenant", fields: [tenantUserId], references: [id])
+  applicationId String?     @unique
+  application   RentalApplication? @relation(fields: [applicationId], references: [id], onDelete: SetNull)
+  status        LeaseStatus @default(DRAFT)
+  startDate     DateTime?
+  endDate       DateTime?
+  rentFcfa      Int?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([listingId, status])
+  @@index([tenantUserId, status])
 }
