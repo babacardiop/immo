@@ -1,19 +1,28 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { logoutAction } from "@/app/actions/auth";
 
-export default async function ClientLayout({
+export default function ClientSectionLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  return (
+    <Suspense
+      fallback={<p className="p-6 text-[var(--color-muted)]">Chargement…</p>}
+    >
+      <ClientShell>{children}</ClientShell>
+    </Suspense>
+  );
+}
+
+async function ClientShell({ children }: { children: React.ReactNode }) {
   const session = await auth();
   if (!session?.user) redirect("/espace/connexion");
   if (session.user.role !== "CLIENT") {
-    if (
-      session.user.role === "LANDLORD"
-    ) {
+    if (session.user.role === "LANDLORD") {
       redirect("/espace/proprio");
     }
     redirect("/espace/agent");

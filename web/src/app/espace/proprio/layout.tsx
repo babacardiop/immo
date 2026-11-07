@@ -1,14 +1,25 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { logoutAction } from "@/app/actions/auth";
 import { AGENT_ROLES } from "@/lib/roles";
 
-export default async function ProprioLayout({
+export default function ProprioSectionLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  return (
+    <Suspense
+      fallback={<p className="p-6 text-[var(--color-muted)]">Chargement…</p>}
+    >
+      <ProprioShell>{children}</ProprioShell>
+    </Suspense>
+  );
+}
+
+async function ProprioShell({ children }: { children: React.ReactNode }) {
   const session = await auth();
   if (!session?.user) redirect("/espace/connexion");
   if (AGENT_ROLES.includes(session.user.role)) {
