@@ -6,6 +6,7 @@ import { z } from "zod";
 import type { UserRole } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { authConfig } from "@/lib/auth.config";
+import { canAccessHub } from "@/lib/roles";
 import "next-auth/jwt";
 
 const credentialsSchema = z.object({
@@ -62,6 +63,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           user.passwordHash,
         );
         if (!valid) return null;
+        // Lab-only analysts sign in to the lab app, never the hub.
+        if (!canAccessHub(user.role)) return null;
 
         return {
           id: user.id,

@@ -1,0 +1,239 @@
+// EverGreen Research Lab — LAB database only (evergreen_lab).
+// Never put hub business tables here; never point this at DATABASE_URL.
+// Users live in the hub DB: store hub user IDs as plain strings (no FK).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("LAB_DATABASE_URL")
+  directUrl = env("LAB_DATABASE_URL_UNPOOLED")
+}
+
+enum SourceKind {
+  CLASSIFIEDS // petites annonces généralistes (Expat-Dakar, CoinAfrique…)
+  PORTAL // portail immo dédié
+  AGENCY // site d'une agence
+  AGGREGATOR // portail international / méta
+  DIRECTORY // annuaire d'agences (sert à découvrir d'autres sources)
+  SOCIAL // réseaux sociaux — hors périmètre
+}
+
+enum SourceStatus {
+  CANDIDATE // découvert, pas encore sondé
+  PROBED // sondé automatiquement, en attente de revue humaine (ToS)
+  APPROVED // revue OK, connecteur à écrire
+  ACTIVE // connecteur en production
+  PAUSED
+  EXCLUDED // décision : on ne crawle pas (ToS, anti-bot, Facebook…)
+  DEAD // domaine / site inaccessible
+}
+
+/// Technical verdict from the automated probe. ToS still needs a human.
+enum CrawlVerdict {
+  OK // robots autorise, HTML serveur avec annonces, pas d'anti-bot
+  CAUTION // possible mais avec réserves (CSR, crawl-delay, peu de signaux)
+  NO // robots interdit, anti-bot, 403…
+}
+
+enum RenderMode {
+  SERVER // annonces présentes dans le HTML
+  EMBEDDED_JSON // __NEXT_DATA__ / __NUXT__ / JSON-LD exploitable
+  CLIENT // rendu JS uniquement
+  UNKNOWN
+}
+
+enum Transaction {
+  SALE
+  RENT
+  UNKNOWN
+}
+
+enum IngestKind {
+  CRAWL
+  CSV_IMPORT
+}
+
+enum IngestStatus {
+  RUNNING
+  SUCCEEDED
+  PARTIAL
+  FAILED
+}
+
+model Source {
+  id      String     @id @default(cuid())
+  slug    String     @unique
+  name    String
+  /// Site root (scheme + host). robots.txt is resolved from it.
+  baseUrl String
+  /// Page where listings are browsed (category/search page) — what the probe tests.
+  listingUrl String?
+  kind       SourceKind
+  country    String       @default("SN")
+  status     SourceStatus @default(CANDIDATE)
+  /// 0 = top priority (doc strategy P0), 3 = nice to have.
+  priority   Int          @default(2)
+  enabled    Boolean      @default(false)
+
+  // Latest probe summary (history in SourceProbe)
+  verdict          CrawlVerdict?
+  verdictReasons   String[]
+  renderMode       RenderMode?
+  robotsAllowed    Boolean?
+  crawlDelaySec    Int?
+  sitemapUrls      String[]
+  antiBot          String?
+  lastProbedAt     DateTime?
+
+  // Human review
+  tosUrl      String?
+  tosReviewed Boolean   @default(false)
+  tosNotes    String?
+  notes       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  probes   SourceProbe[]
+  runs     IngestRun[]
+  listings ListingRaw[]
+
+  @@index([status])
+  @@index([verdict])
+}
+
+/// One automated crawlability check (robots + homepage + listing page).
+model SourceProbe {
+  id        String   @id @default(cuid())
+  sourceId  String
+  source    Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  probedAt  DateTime @default(now())
+  userAgent String
+
+  dnsOk          Boolean
+  robotsStatus   Int?
+  robotsAllowed  Boolean?
+  crawlDelaySec  Int?
+  sitemapUrls    String[]
+  pageStatus     Int?
+  pageUrl        String?
+  finalUrl       String?
+  pageBytes      Int?
+  durationMs     Int?
+  antiBot        String?
+  renderMode     RenderMode?
+  priceHits      Int?
+  linkCount      Int?
+  hasJsonLd      Boolean?
+  verdict        CrawlVerdict
+  reasons        String[]
+  error          String?
+
+  @@index([sourceId, probedAt])
+}
+
+model IngestRun {
+  id         String       @id @default(cuid())
+  sourceId   String
+  source     Source       @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  kind       IngestKind
+  status     IngestStatus @default(RUNNING)
+  startedAt  DateTime     @default(now())
+  finishedAt DateTime?
+  fetched    Int          @default(0)
+  inserted   Int          @default(0)
+  updated    Int          @default(0)
+  errors     Int          @default(0)
+  /// Hub User.id of whoever triggered it (null = scheduler).
+  triggeredById String?
+  notes      String?
+
+  listings ListingRaw[]
+
+  @@index([sourceId, startedAt])
+}
+
+/// One ad as seen on one source. Cross-source dedup (PropertyEntity) comes in S3.
+/// Minimisation: no seller phone / email stored. No verbatim republication.
+model ListingRaw {
+  id         String  @id @default(cuid())
+  sourceId   String
+  source     Source  @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  externalId String
+  url        String
+  lastRunId  String?
+  lastRun    IngestRun? @relation(fields: [lastRunId], references: [id], onDelete: SetNull)
+
+  firstSeenAt DateTime  @default(now())
+  lastSeenAt  DateTime  @default(now())
+  removedAt   DateTime?
+  postedAt    DateTime?
+
+  title        String?
+  transaction  Transaction @default(UNKNOWN)
+  propertyType String?
+  /// Price normalised to XOF (FCFA). Raw text kept for audit.
+  priceXof     BigInt?
+  priceRaw     String?
+  surfaceM2    Float?
+  rooms        Int?
+  bedrooms     Int?
+  bathrooms    Int?
+
+  city         String?
+  locationRaw  String?
+  quartierId   String?
+  quartier     Quartier? @relation(fields: [quartierId], references: [id], onDelete: SetNull)
+  lat          Float?
+  lng          Float?
+
+  sellerType   String? // agence / particulier / promoteur
+  agencyName   String?
+  photoCount   Int?
+  photoHashes  String[]
+
+  /// SHA-256 of the normalised fields — detects edits / price drops.
+  contentHash  String
+  /// Object storage key of the raw HTML/JSON payload (lab-raw bucket).
+  payloadKey   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sourceId, externalId])
+  @@index([quartierId, transaction])
+  @@index([lastSeenAt])
+}
+
+/// Dakar / SN neighbourhood thesaurus (aliases for messy ad locations).
+model Quartier {
+  id      String   @id @default(cuid())
+  slug    String   @unique
+  name    String
+  commune String?
+  city    String
+  region  String?
+  aliases String[]
+  lat     Float?
+  lng     Float?
+  /// Matching hub location id, if any (join in app code).
+  hubLocationId String?
+
+  listings ListingRaw[]
+}
+
+model LabAuditLog {
+  id       String   @id @default(cuid())
+  at       DateTime @default(now())
+  /// Hub User.id
+  actorId  String?
+  action   String
+  entity   String
+  entityId String?
+  meta     Json?
+
+  @@index([entity, entityId])
+}

@@ -14,6 +14,8 @@ enum UserRole {
   GER
   CLIENT
   LANDLORD
+  /// Research Lab analyst — lab app only, no hub back-office.
+  RESEARCH_LAB
 }
 
 enum ListingStatus {
@@ -188,6 +190,8 @@ model User {
   passwordHash  String?
   phone         String?
   role          UserRole  @default(AGENT)
+  /// Opt-in access to the Research Lab app for hub staff (OD/GER/ADMIN).
+  labAccess     Boolean   @default(false)
   /// Lead converted into this client account (S08).
   convertedFromLeadId String? @unique
   convertedFromLead   Lead?   @relation("LeadConvertedUser", fields: [convertedFromLeadId], references: [id], onDelete: SetNull)

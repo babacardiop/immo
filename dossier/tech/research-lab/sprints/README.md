@@ -302,28 +302,37 @@ Légende : `P0` critique · `P1` important · `P2` nice · `[ ]` ouvert.
 
 ### Sprint S0 — Cadrage & fondations auth/data (1–2 sem.)
 
-- [ ] **S0.1** Valider décisions D1–D7 (réunion courte GER + tech) — *P0*
-- [ ] **S0.2** Créer database Postgres `evergreen_lab` (même projet Neon/cluster) + `LAB_DATABASE_URL` / `LAB_DATABASE_URL_UNPOOLED` — *P0*
-- [ ] **S0.3** Scaffold app `lab/` (Next App Router + TS + Tailwind aligné design tokens) — *P0*
-- [ ] **S0.4** Prisma hub : ajouter `RESEARCH_LAB` à `UserRole` **et/ou** `labAccess Boolean @default(false)` — migration — *P0*
-- [ ] **S0.5** Mettre à jour `roles.ts`, `14-matrice-droits-roles.md`, seeds — *P0*
-- [ ] **S0.6** Auth lab Option B : Credentials → `prismaHub` + `canAccessLab` + page `/connexion` — *P0*
-- [ ] **S0.7** Middleware lab : refuser CLIENT/LANDLORD ; redirect login — *P0*
-- [ ] **S0.8** Seed user de test `role=RESEARCH_LAB` (local only) — *P0*
-- [ ] **S0.9** Documenter env `.env.example` lab (sans secrets) — *P1*
+- [x] **S0.1** Valider décisions D1–D7 — D1–D4 adoptées 23/11/2026 (voir journal) (réunion courte GER + tech) — *P0*
+- [x] **S0.2** Créer database Postgres `evergreen_lab` (même projet Neon/cluster) + `LAB_DATABASE_URL` / `LAB_DATABASE_URL_UNPOOLED` — *P0*
+- [x] **S0.3** Scaffold app `lab/` (Next App Router + TS + Tailwind aligné design tokens) — *P0*
+- [x] **S0.4** Prisma hub : ajouter `RESEARCH_LAB` à `UserRole` **et/ou** `labAccess Boolean @default(false)` — migration — *P0*
+- [ ] **S0.5** Mettre à jour `roles.ts` ✅, `14-matrice-droits-roles.md` ⏳, seeds (n/a) — *P0*
+- [x] **S0.6** Auth lab Option B : Credentials → `prismaHub` + `canAccessLab` + page `/connexion` — *P0*
+- [x] **S0.7** Middleware lab : refuser CLIENT/LANDLORD ; redirect login — *P0*
+- [x] ~~**S0.8** Seed user de test `role=RESEARCH_LAB`~~ — remplacé : l’ADMIN hub est le compte de test (un seul compte pour les deux sites)
+- [x] **S0.9** Documenter env `.env.example` lab (sans secrets) — *P1*
 - [ ] **S0.10** Lien navigation hub → lab (OD/ADMIN only, feature flag) — *P2*
 
 ### Sprint S1 — Schéma lab minimal + UI coquille (1–2 sem.)
 
-- [ ] **S1.1** Prisma lab : `Source`, `ListingRaw`, `Quartier` (thesaurus), `IngestRun` — *P0*
-- [ ] **S1.2** Migrations lab isolées (`lab/prisma/migrations`) — *P0*
-- [ ] **S1.3** UI shell : layout, nav (Sources · Raw · Review · Indices · Admin) — *P0*
+- [x] **S1.1** Prisma lab : `Source`, `ListingRaw`, `Quartier` (thesaurus), `IngestRun` (+ `SourceProbe`, `LabAuditLog`) — *P0*
+- [x] **S1.2** Migrations lab isolées (`lab/prisma/migrations`) — *P0*
+- [~] **S1.3** UI shell (Sources + Annonces faits ; Review/Indices en placeholder) : layout, nav (Sources · Raw · Review · Indices · Admin) — *P0*
 - [ ] **S1.4** Écran Sources CRUD (nom, baseUrl, enabled, notes ToS) — *P1*
 - [ ] **S1.5** Import CSV manuel → `ListingRaw` (spike sans crawl) — *P0* (valide le modèle avant connecteur)
 - [ ] **S1.6** Audit log lab (qui a importé / mergé) — *P1*
 - [ ] **S1.7** Bucket S3/MinIO `lab-raw` + helper upload checksum SHA-256 — *P1*
 
-### Sprint S2 — Spike L1 connecteur (post Vague 0 hub live)
+### Sprint S1b — Découverte & sondage des sources (ajouté 23/11/2026)
+
+- [x] Liste candidate v0 (25 sites, `lab/src/lib/sources/seed.ts`) — Facebook **exclu** (décision)
+- [x] Sonde polie `npm run sources:probe` : robots.txt + 1 page, UA identifié, 2 s entre requêtes → verdict OK / CAUTION / NO dans `Source` + historique `SourceProbe`
+- [ ] Relecture CGU manuelle des sources OK avant connecteur
+- [ ] Corriger `listingUrl` des CAUTION (page de recherche réelle) puis re-sonder
+- [ ] Récolte d’agences depuis les annuaires (au-senegal, senego) → nouvelles sources
+- [ ] Page `/bot` publique sur evergreen.sn (contact du crawler)
+
+### Sprint S2 — Spike L1 connecteur (avancé : démarrage avant Vague 0 hub, décision 23/11/2026)
 
 Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md)).
 
@@ -441,6 +450,7 @@ Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md))
 
 | Date | Note |
 | --- | --- |
+| 2026-11-23 | S0 livré : DB `evergreen_lab` (Neon staging, même projet), rôle `RESEARCH_LAB` + `labAccess` (migration hub), app `lab/` (Next 16.4.6, port 3001), login option B via rôle SQL `lab_hub_reader` (SELECT colonnes User only). Un seul compte : ADMIN hub = accès lab. Lab-only bloqués au login hub. 25 sources sondées : 6 OK · 5 CAUTION · 13 NO. Crawl avancé avant Vague 0 (décision produit). |
 | 2026-10-15 | Création dossier `sprints/` + README recon v0 (puis déplacé sous `dossier/tech/research-lab/`). Auth hub = JWT + Credentials + `UserRole` sans lab. Reco : **hub DB pour auth**, **lab DB pour data**, login Credentials dual en MVP, SSO cookie plus tard. |
 
 ---
