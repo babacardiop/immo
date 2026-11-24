@@ -24,7 +24,9 @@ describe("green-acres", () => {
     });
     expect(r[1]).toMatchObject({ propertyType: "terrain", priceXof: null, priceRaw: "Prix sur demande" });
   });
-  it("always reads the single reachable page", () => {
-    expect(greenAcres.pageUrl(1)).toBe(greenAcres.pageUrl(5));
+  it("walks the public sort orders", () => {
+    expect(greenAcres.pageUrl(1)).toBe("https://www.green-acres.fr/maison-a-vendre?searchQuery=cn-sn&order=relevance");
+    expect(greenAcres.pageUrl(2)).toContain("order=price_i");
+    expect(greenAcres.pageUrl(8)).toContain("order=date_d");
   });
 });

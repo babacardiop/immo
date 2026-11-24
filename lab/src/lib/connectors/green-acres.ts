@@ -6,7 +6,7 @@ import type { Connector, ParsedListing } from "@/lib/connectors/types";
  * Green-Acres Sénégal (green-acres.fr, searchQuery=cn-sn) — "572 annonces", mostly Petite Côte agencies.
  * ⚠ Only the first 24 ads are reachable: further pages load through /AdvertListingActions/… and
  * /Search/LoadAdvertsForNavigation, both Disallowed in robots.txt; ?p= / ?page= are ignored.
- * So this connector reads one page. Cards: data-advertid, base64 link in data-o, price "… XOF",
+ * This connector reads the 8 public sort orders instead. Cards: data-advertid, base64 link in data-o, price "… XOF",
  * localisation, tags (Type de bien, Chambres, Surface habitable).
  * ⚠ ToS: reproduction forbidden — product-owner override 24/11/2026 (internal research only).
  */
@@ -52,9 +52,18 @@ export function parseGreenAcresIndex(html: string): ParsedListing[] {
   return out;
 }
 
+/**
+ * Each public sort order shows a different first-24 slice (price ↑/↓, surface ↑/↓, €/m² ↑/↓,
+ * newest): 8 ordinary GETs of the robots-allowed public page reach the extremes of the 572.
+ * (Paging the rest would need the site's internal listing endpoints — not used.)
+ */
+export const GREEN_ACRES_ORDERS = ["relevance", "price_i", "price_d", "surface_i", "surface_d", "price_by_surface_i", "price_by_surface_d", "date_d"] as const;
+
 export const greenAcres: Connector = {
   slug: "green-acres-sn",
-  // Page 2+ would need robots-disallowed endpoints: return the same page, the ingest sees no new ads and stops.
-  pageUrl: () => `${BASE}/maison-a-vendre?searchQuery=cn-sn`,
+  // Past the last order → repeat the default page: nothing new, the crawl ends at --pages=8.
+  pageUrl: (page) => `${BASE}/maison-a-vendre?searchQuery=cn-sn&order=${GREEN_ACRES_ORDERS[Math.max(page, 1) - 1] ?? "relevance"}`,
   parseIndex: (html) => parseGreenAcresIndex(html),
+  // Each order is its own slice: a slice with nothing new must not end the crawl.
+  continueOnEmpty: true,
 };
