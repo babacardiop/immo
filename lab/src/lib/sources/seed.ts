@@ -65,6 +65,16 @@ export const SEED_SOURCES: SeedSource[] = [
   { slug: "espacevilla", name: "Espace Villa", baseUrl: "https://immobilier.espacevilla.com", kind: "PORTAL", priority: 2, notes: "« 1000+ annonces » selon snippets ; 406 sur UA non navigateur — vérif manuelle." },
   { slug: "jamesedition-sn", name: "JamesEdition Sénégal", baseUrl: "https://www.jamesedition.com", listingUrl: "https://www.jamesedition.com/real_estate/senegal", kind: "AGGREGATOR", priority: 3, notes: "Anti-bot (403)." },
   { slug: "properstar-sn", name: "Properstar Sénégal", baseUrl: "https://www.properstar.com", listingUrl: "https://www.properstar.com/senegal/buy/apartment-house", kind: "AGGREGATOR", priority: 3, notes: "Anti-bot (403), crawl-delay 10." },
+  // Discovery round 3 (24/11/2026, web search) — unverified until probed
+  { slug: "2simmo", name: "2Simmo", baseUrl: "https://www.2simmobilier.com", kind: "AGENCY", priority: 3 },
+  { slug: "3h-immobilier", name: "3H Immobilier", baseUrl: "https://3h-immobilier.com", kind: "AGENCY", priority: 3 },
+  { slug: "expat-afrique-sn", name: "Expat-Afrique Sénégal", baseUrl: "https://expat-afrique.com", listingUrl: "https://expat-afrique.com/senegal/dakar", kind: "PORTAL", priority: 3 },
+  { slug: "diwaan-immo", name: "Diwaan Immo", baseUrl: "https://www.diwaan-immo.com", kind: "PORTAL", priority: 3 },
+  { slug: "immothies-dakar", name: "Immothiès-Dakar", baseUrl: "https://immothies-dakar.com", listingUrl: "https://immothies-dakar.com/villa-a-vendre-dakar/", kind: "AGENCY", priority: 3 },
+  { slug: "immo-star-dakar", name: "Immo Star", baseUrl: "https://www.agence-immobiliere-dakar.com", kind: "AGENCY", priority: 3 },
+  { slug: "jurilux-immo", name: "Jurilux Immo", baseUrl: "https://jurilux-immo.com", kind: "AGENCY", priority: 3 },
+  { slug: "immolagune", name: "Immolagune", baseUrl: "https://www.immolagune.com", listingUrl: "https://www.immolagune.com/immobilier-senegal/terrain-asc.php", kind: "AGENCY", priority: 3 },
+  { slug: "pa-senegal", name: "PA Sénégal (petites annonces)", baseUrl: "https://www.pa-senegal.com", kind: "CLASSIFIEDS", priority: 3 },
   // Out of scope by decision
   { slug: "facebook", name: "Facebook (groupes / Marketplace)", baseUrl: "https://www.facebook.com", kind: "SOCIAL", priority: 3, status: "EXCLUDED", notes: "Exclu : CGU + bannissement quasi immédiat. Décision nov. 2026." },
 ];
