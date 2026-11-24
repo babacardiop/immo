@@ -151,7 +151,9 @@ export async function runIngest(connector: Connector, opts: IngestOptions) {
       for (const d of needDetail) await fetchDetail(d.id, d.url);
       log(`page ${page}: ${listings.length} annonces, ${newOnPage} nouvelles, détails ${stats.details}/${maxDetails}`);
       stale = newOnPage === 0 ? stale + 1 : 0;
-      if (opts.stopAfterStalePages && stale >= opts.stopAfterStalePages && stats.details >= maxDetails) {
+      // Segmented connectors (rent then sale, one segment per type…) are bounded by their page plan:
+      // a stale run inside one segment must not skip the next segments.
+      if (opts.stopAfterStalePages && !connector.continueOnEmpty && stale >= opts.stopAfterStalePages && stats.details >= maxDetails) {
         notes = `${stale} pages sans nouveauté — arrêt`;
         break;
       }
