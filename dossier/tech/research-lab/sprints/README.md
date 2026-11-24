@@ -327,7 +327,7 @@ Légende : `P0` critique · `P1` important · `P2` nice · `[ ]` ouvert.
 
 - [x] Liste candidate v0 (25 sites, `lab/src/lib/sources/seed.ts`) — Facebook **exclu** (décision)
 - [x] Sonde polie `npm run sources:probe` : robots.txt + 1 page, UA identifié, 2 s entre requêtes → verdict OK / CAUTION / NO dans `Source` + historique `SourceProbe`
-- [ ] Relecture CGU manuelle des sources OK avant connecteur
+- [~] Relecture CGU manuelle des sources OK avant connecteur — Expat-Dakar ✅ (approuvé, usage interne) · CoinAfrique ❌ (CGU interdisent robots + extraction → EXCLUDED) · autres OK à faire
 - [ ] Corriger `listingUrl` des CAUTION (page de recherche réelle) puis re-sonder
 - [ ] Récolte d’agences depuis les annuaires (au-senegal, senego) → nouvelles sources
 - [ ] Page `/bot` publique sur evergreen.sn (contact du crawler)
@@ -336,18 +336,18 @@ Légende : `P0` critique · `P1` important · `P2` nice · `[ ]` ouvert.
 
 Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md)).
 
-- [ ] **S2.1** Choisir **1** source HTML P0 (Expat **ou** Immobilier-au-SN) + lire ToS — *P0*
-- [ ] **S2.2** Worker Python : fetch + parse + idempotence `externalId` — *P0*
-- [ ] **S2.3** Land 300 rows dans `ListingRaw` — *P0*
-- [ ] **S2.4** UI Raw browser (filtres quartier / prix / date) — *P1*
+- [x] **S2.1** Choisir **1** source HTML P0 (Expat **ou** Immobilier-au-SN) + lire ToS — *P0* → **Expat-Dakar**
+- [x] **S2.2** Worker ~~Python~~ **TypeScript** (spike : même runtime + Prisma que l’app ; D6 Python reste ouvert pour ML/volume) : fetch poli + parse + idempotence `externalId` — `npm run crawl` — *P0*
+- [x] **S2.3** Land 300 rows dans `ListingRaw` — *P0* → 307 annonces le 24/11/2026 (30 pages, 0 erreur)
+- [~] **S2.4** UI Raw browser (filtres quartier / prix / date) — *P1* (liste sans filtres)
 - [ ] **S2.5** Dédup **intra-source** manuelle ou semi (Excel/UI) — *P0*
 - [ ] **S2.6** Photo-hash sur 50 paires (pHash) — rapport précision — *P1*
-- [ ] **S2.7** Mini rapport médiane 2–3 quartiers Z1 — *P0*
+- [x] **S2.7** Mini rapport médiane 2–3 quartiers Z1 — *P0* → page `/marche` (médianes par quartier × transaction × type, n ≥ 5)
 - [ ] **S2.8** Go / No-Go L2 écrit (ADR dans ce dossier) — *P0*
 
 ### Sprint S3 — Dédup + PropertyEntity + review queue
 
-- [ ] **S3.1** Modèles `PropertyEntity`, `ListingObservation`, `MatchReview` — *P0*
+- [ ] **S3.1** Modèles `PropertyEntity`, ~~`ListingObservation`~~ (fait en S2 : historique prix/édition), `MatchReview` — *P0*
 - [ ] **S3.2** Blocking (quartier + type + m²±20 %) + score — *P0*
 - [ ] **S3.3** Auto-merge ≥0,90 · queue 0,70–0,89 — *P0*
 - [ ] **S3.4** Lab UI review (approve / reject / merge) — *P0*
@@ -450,6 +450,7 @@ Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md))
 
 | Date | Note |
 | --- | --- |
+| 2026-11-24 | S2 spike : CGU lues — CoinAfrique exclu (interdit robots/extraction), Expat-Dakar approuvé usage interne. Connecteur Expat (pages index uniquement, attributs `data-t-listing_*`, jamais de téléphone), `PoliteFetcher` (robots par URL, ≥5 s + jitter, arrêt + auto-pause sur 403/429/anti-bot), `ListingObservation` avancé depuis S3. 1er run : 307 annonces. Limite connue : meublés mélangent prix nuit / mois. |
 | 2026-11-23 | S0 livré : DB `evergreen_lab` (Neon staging, même projet), rôle `RESEARCH_LAB` + `labAccess` (migration hub), app `lab/` (Next 16.4.6, port 3001), login option B via rôle SQL `lab_hub_reader` (SELECT colonnes User only). Un seul compte : ADMIN hub = accès lab. Lab-only bloqués au login hub. 25 sources sondées : 6 OK · 5 CAUTION · 13 NO. Crawl avancé avant Vague 0 (décision produit). |
 | 2026-10-15 | Création dossier `sprints/` + README recon v0 (puis déplacé sous `dossier/tech/research-lab/`). Auth hub = JWT + Credentials + `UserRole` sans lab. Reco : **hub DB pour auth**, **lab DB pour data**, login Credentials dual en MVP, SSO cookie plus tard. |
 

@@ -15,7 +15,8 @@
     "sources:seed": "tsx --env-file=.env scripts/seed-sources.ts",
     "sources:probe": "tsx --env-file=.env scripts/probe-sources.ts",
     "hub:create-reader": "node scripts/create-hub-reader.mjs",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "crawl": "tsx --env-file=.env scripts/crawl.ts"
   },
   "dependencies": {
     "@prisma/client": "6.19.3",

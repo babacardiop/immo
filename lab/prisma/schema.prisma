@@ -203,9 +203,26 @@ model ListingRaw {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  observations ListingObservation[]
+
   @@unique([sourceId, externalId])
   @@index([quartierId, transaction])
   @@index([lastSeenAt])
+}
+
+/// One row each time an ad is first seen or its content changes (price drops, edits).
+/// Pulled forward from S3 so history is never lost by overwriting ListingRaw.
+model ListingObservation {
+  id          String     @id @default(cuid())
+  listingId   String
+  listing     ListingRaw @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  runId       String?
+  observedAt  DateTime   @default(now())
+  priceXof    BigInt?
+  surfaceM2   Float?
+  contentHash String
+
+  @@index([listingId, observedAt])
 }
 
 /// Dakar / SN neighbourhood thesaurus (aliases for messy ad locations).
