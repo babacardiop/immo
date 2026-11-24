@@ -1,10 +1,12 @@
 import type { Connector } from "@/lib/connectors/types";
 import { annoncesImmoSenegal } from "@/lib/connectors/annonces-immo-senegal";
+import { appartSn } from "@/lib/connectors/appart-sn";
 import { arkadia } from "@/lib/connectors/arkadia";
 import { coinAfrique } from "@/lib/connectors/coinafrique";
 import { diwaan } from "@/lib/connectors/diwaan";
 import { espaceVilla } from "@/lib/connectors/espacevilla";
 import { expatDakar } from "@/lib/connectors/expat-dakar";
+import { greenAcres } from "@/lib/connectors/green-acres";
 import { habita } from "@/lib/connectors/habita";
 import { immobilierSn } from "@/lib/connectors/immobilier-sn";
 import { immoSenegal } from "@/lib/connectors/immo-senegal";
@@ -38,6 +40,9 @@ export const CONNECTORS: Connector[] = [
   immoSenegal,
   immolux,
   immooz,
-  // diwaan-immo: ToS forbid collection/exploitation — runIngest refuses until tosReviewed (owner go).
+  // diwaan-immo: ToS override by product owner 24/11/2026 (collection/exploitation clause).
   diwaan,
+  // appart-sn, green-acres-sn: ToS override by product owner 24/11/2026.
+  appartSn,
+  greenAcres,
 ];
