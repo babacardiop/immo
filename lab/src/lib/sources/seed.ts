@@ -81,6 +81,12 @@ export const SEED_SOURCES: SeedSource[] = [
   { slug: "snimmo", name: "Snimmo", baseUrl: "https://snimmo.sn", kind: "AGENCY", priority: 3 },
   { slug: "lasignature-sn", name: "La Signature Immobilière", baseUrl: "https://lasignature.sn", kind: "AGENCY", priority: 3 },
   { slug: "dorgoo-sn", name: "Dorgoo", baseUrl: "http://www.dorgoo.sn", listingUrl: "http://www.dorgoo.sn/immobilier-dakar-senegal.html", kind: "CLASSIFIEDS", priority: 3, notes: "Annonces anciennes (2022) selon recherche." },
+  // Discovery round 5 (24/11/2026, web search)
+  { slug: "orosira-sn", name: "OroSira Immo", baseUrl: "https://immo.orosira.com", kind: "PORTAL", priority: 3 },
+  { slug: "senespace", name: "Senespace", baseUrl: "https://www.senespace.com", kind: "PORTAL", priority: 3, notes: "Fondé 2025, agents + diaspora." },
+  { slug: "hybride-immo", name: "Hybride Immo", baseUrl: "https://hybrideimmo.com", kind: "AGENCY", priority: 3 },
+  { slug: "ziama-dakar", name: "Ziama-Dakar", baseUrl: "https://www.ziama-dakar.com", kind: "AGENCY", priority: 3 },
+  { slug: "senhubimmo", name: "SenHub Immo", baseUrl: "https://senhubimmo.com", kind: "PORTAL", priority: 3 },
   // Out of scope by decision
   { slug: "facebook", name: "Facebook (groupes / Marketplace)", baseUrl: "https://www.facebook.com", kind: "SOCIAL", priority: 3, status: "EXCLUDED", notes: "Exclu : CGU + bannissement quasi immédiat. Décision nov. 2026." },
 ];

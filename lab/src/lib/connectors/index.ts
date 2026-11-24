@@ -14,7 +14,9 @@ import { immoSenegal } from "@/lib/connectors/immo-senegal";
 import { immolux } from "@/lib/connectors/immolux";
 import { immooz } from "@/lib/connectors/immooz";
 import { jiji } from "@/lib/connectors/jiji";
+import { oroSira } from "@/lib/connectors/jsonld-sitemap";
 import { logerDakar } from "@/lib/connectors/loger-dakar";
+import { luxuryEstate } from "@/lib/connectors/luxuryestate";
 import { logerSenegal } from "@/lib/connectors/logersenegal";
 import { paSenegal } from "@/lib/connectors/pa-senegal";
 import { senemarket } from "@/lib/connectors/senemarket";
@@ -53,4 +55,7 @@ export const CONNECTORS: Connector[] = [
   troisH,
   immoStar,
   senemarket,
+  luxuryEstate,
+  // orosira-sn: generic IP clause + Arcjet — waiting for product-owner go (not ToS-approved).
+  oroSira,
 ];
