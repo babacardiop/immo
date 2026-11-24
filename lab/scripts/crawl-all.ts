@@ -22,7 +22,9 @@ async function main() {
     },
     select: { slug: true, name: true },
   });
-  const skipped = CONNECTORS.map((c) => c.slug).filter((s) => !sources.some((x) => x.slug === s));
+  const skipped = CONNECTORS.map((c) => c.slug).filter(
+    (s) => (!only || only.includes(s)) && !sources.some((x) => x.slug === s),
+  );
   console.log(`Crawl en parallèle : ${sources.map((s) => s.slug).join(", ") || "(aucune)"}`);
   if (skipped.length) console.log(`Ignorées (statut / CGU) : ${skipped.join(", ")}`);
 
