@@ -17,6 +17,7 @@ import { jiji } from "@/lib/connectors/jiji";
 import { logerDakar } from "@/lib/connectors/loger-dakar";
 import { logerSenegal } from "@/lib/connectors/logersenegal";
 import { paSenegal } from "@/lib/connectors/pa-senegal";
+import { senemarket } from "@/lib/connectors/senemarket";
 import { seneweb } from "@/lib/connectors/seneweb";
 import { snimmo, twoSimmo } from "@/lib/connectors/wpresidence";
 
@@ -51,4 +52,5 @@ export const CONNECTORS: Connector[] = [
   snimmo,
   troisH,
   immoStar,
+  senemarket,
 ];
