@@ -16,7 +16,8 @@
     "sources:probe": "tsx --env-file=.env scripts/probe-sources.ts",
     "hub:create-reader": "node scripts/create-hub-reader.mjs",
     "postinstall": "prisma generate",
-    "crawl": "tsx --env-file=.env scripts/crawl.ts"
+    "crawl": "tsx --env-file=.env scripts/crawl.ts",
+    "crawl:all": "tsx --env-file=.env scripts/crawl-all.ts"
   },
   "dependencies": {
     "@prisma/client": "6.19.3",

@@ -25,7 +25,7 @@ export type IngestOptions = {
 /** Detail values win over index values, but never erase them with null. */
 function detailData(d: ParsedDetail): Prisma.ListingRawUpdateInput {
   const data: Record<string, unknown> = { detailFetchedAt: new Date() };
-  for (const [k, v] of Object.entries(d)) if (v != null) data[k] = v;
+  for (const [k, v] of Object.entries(d)) if (v != null) data[k === "sellerName" ? "agencyName" : k] = v;
   return data as Prisma.ListingRawUpdateInput;
 }
 
@@ -65,15 +65,27 @@ export async function runIngest(connector: Connector, opts: IngestOptions) {
       const url = connector.pageUrl(page);
       let listings: ParsedListing[];
       try {
-        listings = connector.parseIndex(await fetcher.get(url));
+        listings = connector.parseIndex(await fetcher.get(url), new Date(), url);
         stats.fetched++;
       } catch (e) {
         if (e instanceof CrawlBlockedError) throw e;
+        if (/^HTTP 404 /.test((e as Error).message) && page > 1) {
+          if (connector.continueOnEmpty) {
+            log(`page ${page}: 404 (segment terminé)`);
+            continue;
+          }
+          notes = `page ${page} introuvable (404) — fin des résultats`;
+          break;
+        }
         stats.errors++;
         log(`page ${page}: ${(e as Error).message}`);
         continue;
       }
       if (listings.length === 0) {
+        if (connector.continueOnEmpty) {
+          log(`page ${page}: vide (segment suivant)`);
+          continue;
+        }
         notes = `page ${page} vide — fin des résultats`;
         break;
       }
@@ -103,6 +115,7 @@ export async function runIngest(connector: Connector, opts: IngestOptions) {
           locationRaw: l.locationRaw,
           agencyName: l.sellerName,
           ...(l.sellerPhone ? { sellerPhone: l.sellerPhone } : {}),
+          ...(l.lat != null && l.lng != null ? { lat: l.lat, lng: l.lng } : {}),
           contentHash: hash,
         };
         const observation = { create: { runId: run.id, priceXof: l.priceXof, surfaceM2: l.surfaceM2, contentHash: hash } };
@@ -117,9 +130,11 @@ export async function runIngest(connector: Connector, opts: IngestOptions) {
           stats.inserted++;
           newOnPage++;
         } else if (prev.contentHash !== hash) {
+          // Don't erase values that only the ad page provides (price, type… on feed-based sources).
+          const nonNull = Object.fromEntries(Object.entries(fields).filter(([, v]) => v != null));
           await prismaLab.listingRaw.update({
             where: { id: prev.id },
-            data: { ...fields, lastSeenAt: now, removedAt: null, lastRunId: run.id, observations: observation },
+            data: { ...nonNull, lastSeenAt: now, removedAt: null, lastRunId: run.id, observations: observation },
           });
           needDetail.push({ id: prev.id, url: l.url });
           stats.updated++;

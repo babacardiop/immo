@@ -17,6 +17,9 @@ export type ParsedListing = {
   /** Normalised E.164 digits when the index page exposes it. */
   sellerPhone?: string | null;
   postedAt: Date | null;
+  /** WGS84 coordinates when the source exposes them. */
+  lat?: number | null;
+  lng?: number | null;
 };
 
 /** Extra fields only available on an ad's own page. Null = not found. */
@@ -29,6 +32,9 @@ export type ParsedDetail = {
   photoCount: number | null;
   locationRaw: string | null;
   sellerPhone: string | null;
+  /** Optional — only when the ad page shows them. */
+  postedAt?: Date | null;
+  sellerName?: string | null;
 };
 
 export type Connector = {
@@ -36,8 +42,10 @@ export type Connector = {
   slug: string;
   /** Index pages to crawl, in order. */
   pageUrl(page: number): string;
-  /** Pure parser: HTML of one index page → ads on it. */
-  parseIndex(html: string, now?: Date): ParsedListing[];
+  /** Pure parser: body of one index page → ads on it. `url` = the page fetched. */
+  parseIndex(html: string, now?: Date, url?: string): ParsedListing[];
+  /** Pages are independent segments (e.g. one per property type): an empty page doesn't end the crawl. */
+  continueOnEmpty?: boolean;
   /** Optional pure parser for an ad page (fetched only for new / changed ads). */
   parseDetail?(html: string): ParsedDetail;
 };

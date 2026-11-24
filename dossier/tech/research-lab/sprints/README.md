@@ -380,7 +380,7 @@ Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md))
 - [ ] Revue juridique ToS sources avant scale automatisé
 - [ ] Pas de republication verbatim photos/textes concurrents
 - [ ] ~~Minimisation tél vendeur~~ → **décision 24/11/2026 : téléphones vendeurs stockés en clair** (`ListingRaw.sellerPhone`, lab uniquement, jamais vers le hub) pour dédup + lien annonce ↔ propriétaire. **À régulariser : déclaration CDP (loi 2008-12), base légale, durée de conservation, droit d'opposition** avant tout usage prospection. Pas de revente de bases.
-- [ ] Dérogation CGU CoinAfrique : revue juridique (droit producteur BDD, droit mauricien)
+- [ ] Dérogations CGU (porteur produit, 24/11/2026) : CoinAfrique, Habita, Annonces Immobilières Sénégal, Arkadia, Jiji → revue juridique (droit producteur BDD, droit mauricien pour CoinAfrique, clause « pas d'usage commercial » Arkadia, collecte de contacts Jiji)
 - [ ] Secrets lab ≠ secrets hub dans les CI
 - [ ] Rate-limit + robots.txt respectés dans chaque connecteur
 
@@ -451,6 +451,7 @@ Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md))
 
 | Date | Note |
 | --- | --- |
+| 2026-11-24 | S2c : 11 connecteurs (Expat-Dakar, CoinAfrique, Seneweb, Immobilier.sn, Loger Sénégal, Loger-Dakar, Espace Villa, Habita, Annonces Immo Sénégal, Arkadia, Jiji), construits en parallèle par sous-agents ; `npm run crawl:all` (un fetcher poli par site). Découverte : 44 sources candidates en base. Ingest : GPS, URL de page passée au parseur, segments (`continueOnEmpty`), 404 = fin, pas d'écrasement par null. Sans téléphone : Arkadia (formulaire), Jiji (bouton JS), Loger Sénégal (ligne plateforme). |
 | 2026-11-24 | S2b : pages annonce (détails) récupérées pour les annonces nouvelles/modifiées + rattrapage plafonné ; connecteur CoinAfrique (dérogation CGU) ; `sellerPhone` en clair + page `/vendeurs` (regroupement multi-sites par téléphone) ; descriptions stockées. |
 | 2026-11-24 | S2 spike : CGU lues — CoinAfrique exclu (interdit robots/extraction), Expat-Dakar approuvé usage interne. Connecteur Expat (pages index uniquement, attributs `data-t-listing_*`, jamais de téléphone), `PoliteFetcher` (robots par URL, ≥5 s + jitter, arrêt + auto-pause sur 403/429/anti-bot), `ListingObservation` avancé depuis S3. 1er run : 307 annonces. Limite connue : meublés mélangent prix nuit / mois. |
 | 2026-11-23 | S0 livré : DB `evergreen_lab` (Neon staging, même projet), rôle `RESEARCH_LAB` + `labAccess` (migration hub), app `lab/` (Next 16.4.6, port 3001), login option B via rôle SQL `lab_hub_reader` (SELECT colonnes User only). Un seul compte : ADMIN hub = accès lab. Lab-only bloqués au login hub. 25 sources sondées : 6 OK · 5 CAUTION · 13 NO. Crawl avancé avant Vague 0 (décision produit). |
