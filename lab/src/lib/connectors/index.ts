@@ -7,6 +7,9 @@ import { espaceVilla } from "@/lib/connectors/espacevilla";
 import { expatDakar } from "@/lib/connectors/expat-dakar";
 import { habita } from "@/lib/connectors/habita";
 import { immobilierSn } from "@/lib/connectors/immobilier-sn";
+import { immoSenegal } from "@/lib/connectors/immo-senegal";
+import { immolux } from "@/lib/connectors/immolux";
+import { immooz } from "@/lib/connectors/immooz";
 import { jiji } from "@/lib/connectors/jiji";
 import { logerDakar } from "@/lib/connectors/loger-dakar";
 import { logerSenegal } from "@/lib/connectors/logersenegal";
@@ -32,6 +35,9 @@ export const CONNECTORS: Connector[] = [
   arkadia,
   jiji,
   paSenegal,
+  immoSenegal,
+  immolux,
+  immooz,
   // diwaan-immo: ToS forbid collection/exploitation — runIngest refuses until tosReviewed (owner go).
   diwaan,
 ];
