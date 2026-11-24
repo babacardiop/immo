@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { categoryToKind, parseExpatDate, parseExpatIndex } from "@/lib/connectors/expat-dakar";
+import { categoryToKind, parseExpatDate, parseExpatDetail, parseExpatIndex } from "@/lib/connectors/expat-dakar";
 
 // Synthetic card mirroring the site's markup (not copied content).
 const card = (o: { id: string; cat: string; price: string; cur?: string; chips?: string[]; date?: string }) => `
@@ -34,9 +34,9 @@ describe("parseExpatIndex", () => {
     expect(l.postedAt?.toISOString()).toBe("2026-11-23T23:00:00.000Z");
   });
 
-  it("never captures phone numbers", () => {
+  it("captures the seller phone from the WhatsApp link, normalised", () => {
     const [l] = parseExpatIndex(card({ id: "1", cat: "maisons-a-louer", price: "0" }), NOW);
-    expect(JSON.stringify(l, (_, v) => (typeof v === "bigint" ? v.toString() : v))).not.toMatch(/221770000000/);
+    expect(l.sellerPhone).toBe("221770000000");
   });
 
   it("treats 0 price as unknown, converts EUR, dedupes featured repeats", () => {
@@ -48,6 +48,27 @@ describe("parseExpatIndex", () => {
     expect(out).toHaveLength(2);
     expect(out[0].priceXof).toBeNull();
     expect(out[1].priceXof).toBe(65595700n);
+  });
+});
+
+describe("parseExpatDetail", () => {
+  it("reads properties, description, gallery and contact phone", () => {
+    const html = `
+      <ul><li class="gallery__image gallery__image--thumb"></li><li class="gallery__image gallery__image--thumb"></li></ul>
+      <div class="listing-item__address"><span class="listing-item__address-location"> Almadies </span><span class="listing-item__address-region"> Dakar </span></div>
+      <dl class="listing-item__properties"><dt class="t"> Chambres </dt><dd class="d"> 2 </dd><dt class="t"> Mètres carrés </dt><dd class="d"> 140 m² </dd><dt class="t"> Salles de bain </dt><dd class="d"> 3 </dd></dl>
+      <div class="listing-item__title"> Description </div><div class="listing-item__description"><p>Bel F3.</p><p>Ascenseur ;<br> parking.</p></div>
+      <div class="listing-item-contact"><a href="tel:+221771234567">appeler</a></div>`;
+    expect(parseExpatDetail(html)).toEqual({
+      description: "Bel F3.\nAscenseur ;\nparking.",
+      rooms: null,
+      bedrooms: 2,
+      bathrooms: 3,
+      surfaceM2: 140,
+      photoCount: 2,
+      locationRaw: "Almadies, Dakar",
+      sellerPhone: "221771234567",
+    });
   });
 });
 

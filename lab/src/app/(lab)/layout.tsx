@@ -6,6 +6,7 @@ import { logoutAction } from "@/app/actions/auth";
 const NAV: { href?: string; label: string }[] = [
   { href: "/sources", label: "Sources" },
   { href: "/annonces", label: "Annonces brutes" },
+  { href: "/vendeurs", label: "Vendeurs" },
   { href: "/marche", label: "Marché" },
   { label: "Review (S3)" },
   { label: "Indices (S4)" },

@@ -192,8 +192,15 @@ model ListingRaw {
 
   sellerType   String? // agence / particulier / promoteur
   agencyName   String?
+  /// Seller phone, normalised E.164 digits (e.g. 221771234567). Groups ads by owner
+  /// and helps cross-source dedup. Lab-only: never exposed to the hub.
+  /// Decision 24/11/2026 (product owner): stored in clear; CDP compliance to handle later.
+  sellerPhone  String?
   photoCount   Int?
   photoHashes  String[]
+  /// Ad text. Internal use (dedup, research), never republished.
+  description  String?
+  detailFetchedAt DateTime?
 
   /// SHA-256 of the normalised fields — detects edits / price drops.
   contentHash  String
@@ -208,6 +215,7 @@ model ListingRaw {
   @@unique([sourceId, externalId])
   @@index([quartierId, transaction])
   @@index([lastSeenAt])
+  @@index([sellerPhone])
 }
 
 /// One row each time an ad is first seen or its content changes (price drops, edits).

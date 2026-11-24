@@ -327,7 +327,7 @@ Légende : `P0` critique · `P1` important · `P2` nice · `[ ]` ouvert.
 
 - [x] Liste candidate v0 (25 sites, `lab/src/lib/sources/seed.ts`) — Facebook **exclu** (décision)
 - [x] Sonde polie `npm run sources:probe` : robots.txt + 1 page, UA identifié, 2 s entre requêtes → verdict OK / CAUTION / NO dans `Source` + historique `SourceProbe`
-- [~] Relecture CGU manuelle des sources OK avant connecteur — Expat-Dakar ✅ (approuvé, usage interne) · CoinAfrique ❌ (CGU interdisent robots + extraction → EXCLUDED) · autres OK à faire
+- [~] Relecture CGU manuelle des sources OK avant connecteur — Expat-Dakar ✅ (approuvé, usage interne) · CoinAfrique ⚠️ CGU interdisent robots + extraction → **dérogation porteur produit 24/11/2026** (recherche interne, aucune republication, risque accepté) · autres OK à faire
 - [ ] Corriger `listingUrl` des CAUTION (page de recherche réelle) puis re-sonder
 - [ ] Récolte d’agences depuis les annuaires (au-senegal, senego) → nouvelles sources
 - [ ] Page `/bot` publique sur evergreen.sn (contact du crawler)
@@ -379,7 +379,8 @@ Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md))
 
 - [ ] Revue juridique ToS sources avant scale automatisé
 - [ ] Pas de republication verbatim photos/textes concurrents
-- [ ] Minimisation tél vendeur ; pas de revente de bases
+- [ ] ~~Minimisation tél vendeur~~ → **décision 24/11/2026 : téléphones vendeurs stockés en clair** (`ListingRaw.sellerPhone`, lab uniquement, jamais vers le hub) pour dédup + lien annonce ↔ propriétaire. **À régulariser : déclaration CDP (loi 2008-12), base légale, durée de conservation, droit d'opposition** avant tout usage prospection. Pas de revente de bases.
+- [ ] Dérogation CGU CoinAfrique : revue juridique (droit producteur BDD, droit mauricien)
 - [ ] Secrets lab ≠ secrets hub dans les CI
 - [ ] Rate-limit + robots.txt respectés dans chaque connecteur
 
@@ -450,6 +451,7 @@ Prérequis produit : hub Vague 0 live ([`07-roadmap-lab`](../07-roadmap-lab.md))
 
 | Date | Note |
 | --- | --- |
+| 2026-11-24 | S2b : pages annonce (détails) récupérées pour les annonces nouvelles/modifiées + rattrapage plafonné ; connecteur CoinAfrique (dérogation CGU) ; `sellerPhone` en clair + page `/vendeurs` (regroupement multi-sites par téléphone) ; descriptions stockées. |
 | 2026-11-24 | S2 spike : CGU lues — CoinAfrique exclu (interdit robots/extraction), Expat-Dakar approuvé usage interne. Connecteur Expat (pages index uniquement, attributs `data-t-listing_*`, jamais de téléphone), `PoliteFetcher` (robots par URL, ≥5 s + jitter, arrêt + auto-pause sur 403/429/anti-bot), `ListingObservation` avancé depuis S3. 1er run : 307 annonces. Limite connue : meublés mélangent prix nuit / mois. |
 | 2026-11-23 | S0 livré : DB `evergreen_lab` (Neon staging, même projet), rôle `RESEARCH_LAB` + `labAccess` (migration hub), app `lab/` (Next 16.4.6, port 3001), login option B via rôle SQL `lab_hub_reader` (SELECT colonnes User only). Un seul compte : ADMIN hub = accès lab. Lab-only bloqués au login hub. 25 sources sondées : 6 OK · 5 CAUTION · 13 NO. Crawl avancé avant Vague 0 (décision produit). |
 | 2026-10-15 | Création dossier `sprints/` + README recon v0 (puis déplacé sous `dossier/tech/research-lab/`). Auth hub = JWT + Credentials + `UserRole` sans lab. Reco : **hub DB pour auth**, **lab DB pour data**, login Credentials dual en MVP, SSO cookie plus tard. |

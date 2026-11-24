@@ -1,12 +1,13 @@
 import type { Transaction } from "@prisma/client";
-import type { Connector, ParsedListing } from "@/lib/connectors/types";
+import { bedroomsFromText, htmlToText, surfaceFromText, type Connector, type ParsedDetail, type ParsedListing } from "@/lib/connectors/types";
+import { normalizePhone } from "@/lib/privacy/phone";
 
 /**
- * Expat-Dakar connector (S2 spike). Reads ONLY the category index pages:
- * every card carries data-t-listing_* attributes (id, title, category, price,
- * currency, location) plus chips (bedrooms, m²), a date and the seller name.
- * Detail pages are never fetched. WhatsApp numbers on cards are ignored.
- * ToS reviewed 24/11/2026: internal use only, no republication.
+ * Expat-Dakar connector. Index cards carry data-t-listing_* attributes (id,
+ * title, category, price, currency, location), chips (bedrooms, m²), a date,
+ * the seller name and a WhatsApp link (seller phone). Ad pages add the
+ * property list, description and photo count — fetched only for new/changed ads.
+ * ToS reviewed 24/11/2026: internal research use only, no republication.
  */
 
 const BASE = "https://www.expat-dakar.com";
@@ -116,14 +117,49 @@ export function parseExpatIndex(html: string, now = new Date()): ParsedListing[]
       city,
       locationRaw,
       sellerName: text(block, /tw-sr-card__seller">[\s\S]*?<strong>([\s\S]*?)<\/strong>/),
+      sellerPhone: normalizePhone(block.match(/[?&;]phone=([^&"]+)/)?.[1] ?? block.match(/href="tel:([^"]+)"/)?.[1]),
       postedAt: dateRaw ? parseExpatDate(dateRaw, now) : null,
     });
   }
   return [...out.values()];
 }
 
+/** Ad page: <dl class="listing-item__properties"> + description + gallery + contact. */
+export function parseExpatDetail(html: string): ParsedDetail {
+  const props = new Map<string, string>();
+  const dl = html.match(/<dl class="listing-item__properties">([\s\S]*?)<\/dl>/)?.[1] ?? "";
+  for (const m of dl.matchAll(/<dt[^>]*>([\s\S]*?)<\/dt>\s*<dd[^>]*>([\s\S]*?)<\/dd>/g)) {
+    props.set(fold(htmlToText(m[1]) ?? ""), htmlToText(m[2]) ?? "");
+  }
+  const num = (...keys: string[]) => {
+    for (const k of keys) {
+      const v = [...props.entries()].find(([p]) => p.startsWith(k))?.[1];
+      const n = v ? Number(v.replace(/[^\d]/g, "")) : NaN;
+      if (Number.isFinite(n) && n > 0) return n;
+    }
+    return null;
+  };
+  const description = htmlToText(html.match(/<div class="listing-item__description">([\s\S]*?)<\/div>/)?.[1]);
+  const loc = htmlToText(html.match(/listing-item__address-location">([\s\S]*?)<\/span>/)?.[1]);
+  const region = htmlToText(html.match(/listing-item__address-region">([\s\S]*?)<\/span>/)?.[1]);
+  const thumbs = (html.match(/gallery__image--thumb/g) ?? []).length;
+  const contact = html.match(/listing-item-contact[\s\S]*?href="tel:([^"]+)"/)?.[1];
+
+  return {
+    description,
+    rooms: num("pieces"),
+    bedrooms: num("chambres") ?? bedroomsFromText(description),
+    bathrooms: num("salles de bain", "salle de bain", "salles d'eau"),
+    surfaceM2: num("metres carres", "superficie", "surface") ?? surfaceFromText(description),
+    photoCount: thumbs || (html.includes("listing-item__gallery") ? 1 : null),
+    locationRaw: loc ? [loc, region].filter(Boolean).join(", ") : null,
+    sellerPhone: normalizePhone(contact),
+  };
+}
+
 export const expatDakar: Connector = {
   slug: "expat-dakar",
   pageUrl: (page) => (page <= 1 ? `${BASE}/immobilier` : `${BASE}/immobilier?page=${page}`),
   parseIndex: parseExpatIndex,
+  parseDetail: parseExpatDetail,
 };

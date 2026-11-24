@@ -1,5 +1,6 @@
 // Run one connector. Usage:
-//   npm run crawl -- --source=expat-dakar --pages=30
+//   npm run crawl -- --source=expat-dakar --pages=30 --details=100
+//   npm run crawl -- --source=coinafrique-sn --pages=5 --details=200
 // Politeness lives in PoliteFetcher (robots, ≥5 s between requests, stop on 403/429/anti-bot).
 import { prismaLab } from "../src/lib/db";
 import { CONNECTORS } from "../src/lib/connectors";
@@ -15,14 +16,16 @@ async function main() {
     process.exit(1);
   }
   const maxPages = Number(arg("pages") ?? 10);
-  console.log(`Crawl ${slug}: up to ${maxPages} pages`);
+  const maxDetails = Number(arg("details") ?? 100);
+  console.log(`Crawl ${slug}: up to ${maxPages} index pages, ${maxDetails} ad pages`);
   const r = await runIngest(connector, {
     maxPages,
+    maxDetails,
     stopAfterStalePages: 3,
     log: (m) => console.log(`  ${m}`),
   });
   console.log(
-    `${r.status}: ${r.fetched} pages · +${r.inserted} nouvelles · ${r.updated} modifiées · ${r.unchanged} inchangées · ${r.errors} erreurs${r.notes ? ` · ${r.notes}` : ""}`,
+    `${r.status}: ${r.fetched} pages index · ${r.details} pages annonce · +${r.inserted} nouvelles · ${r.updated} modifiées · ${r.unchanged} inchangées · ${r.errors} erreurs${r.notes ? ` · ${r.notes}` : ""}`,
   );
 }
 
