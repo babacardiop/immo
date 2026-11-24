@@ -75,6 +75,12 @@ export const SEED_SOURCES: SeedSource[] = [
   { slug: "jurilux-immo", name: "Jurilux Immo", baseUrl: "https://jurilux-immo.com", kind: "AGENCY", priority: 3 },
   { slug: "immolagune", name: "Immolagune", baseUrl: "https://www.immolagune.com", listingUrl: "https://www.immolagune.com/immobilier-senegal/terrain-asc.php", kind: "AGENCY", priority: 3 },
   { slug: "pa-senegal", name: "PA Sénégal (petites annonces)", baseUrl: "https://www.pa-senegal.com", kind: "CLASSIFIEDS", priority: 3 },
+  // Discovery round 4 (24/11/2026, web search)
+  { slug: "senemarket", name: "Senemarket", baseUrl: "https://www.senemarket.sn", listingUrl: "https://www.senemarket.sn/public/search?c=37&display=list", kind: "CLASSIFIEDS", priority: 3 },
+  { slug: "mamaison-sn", name: "Mamaison.sn", baseUrl: "https://mamaison.sn", kind: "PORTAL", priority: 3 },
+  { slug: "snimmo", name: "Snimmo", baseUrl: "https://snimmo.sn", kind: "AGENCY", priority: 3 },
+  { slug: "lasignature-sn", name: "La Signature Immobilière", baseUrl: "https://lasignature.sn", kind: "AGENCY", priority: 3 },
+  { slug: "dorgoo-sn", name: "Dorgoo", baseUrl: "http://www.dorgoo.sn", listingUrl: "http://www.dorgoo.sn/immobilier-dakar-senegal.html", kind: "CLASSIFIEDS", priority: 3, notes: "Annonces anciennes (2022) selon recherche." },
   // Out of scope by decision
   { slug: "facebook", name: "Facebook (groupes / Marketplace)", baseUrl: "https://www.facebook.com", kind: "SOCIAL", priority: 3, status: "EXCLUDED", notes: "Exclu : CGU + bannissement quasi immédiat. Décision nov. 2026." },
 ];
