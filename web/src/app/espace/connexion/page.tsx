@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { auth } from "@/lib/auth";
 import { LoginForm } from "@/components/login-form";
 import { BrandLogo } from "@/components/brand-logo";
@@ -20,6 +21,9 @@ export default function ConnexionPage() {
 }
 
 async function ConnexionContent() {
+  // Auth.js generates random values when there is no session; mark this
+  // subtree request-time so Cache Components doesn't flag it while prerendering.
+  await connection();
   const session = await auth();
   if (session?.user) {
     redirect("/espace/agent");
