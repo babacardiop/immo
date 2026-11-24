@@ -69,7 +69,8 @@ export async function runIngest(connector: Connector, opts: IngestOptions) {
         stats.fetched++;
       } catch (e) {
         if (e instanceof CrawlBlockedError) throw e;
-        if (/^HTTP 404 /.test((e as Error).message) && page > 1) {
+        // 404 = page past the end; 400 = WordPress REST "rest_post_invalid_page_number".
+        if (/^HTTP 40[04] /.test((e as Error).message) && page > 1) {
           if (connector.continueOnEmpty) {
             log(`page ${page}: 404 (segment terminé)`);
             continue;

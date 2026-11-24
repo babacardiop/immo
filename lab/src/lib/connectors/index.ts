@@ -6,6 +6,7 @@ import { coinAfrique } from "@/lib/connectors/coinafrique";
 import { diwaan } from "@/lib/connectors/diwaan";
 import { espaceVilla } from "@/lib/connectors/espacevilla";
 import { expatDakar } from "@/lib/connectors/expat-dakar";
+import { immoStar, troisH } from "@/lib/connectors/g5ere";
 import { greenAcres } from "@/lib/connectors/green-acres";
 import { habita } from "@/lib/connectors/habita";
 import { immobilierSn } from "@/lib/connectors/immobilier-sn";
@@ -17,6 +18,7 @@ import { logerDakar } from "@/lib/connectors/loger-dakar";
 import { logerSenegal } from "@/lib/connectors/logersenegal";
 import { paSenegal } from "@/lib/connectors/pa-senegal";
 import { seneweb } from "@/lib/connectors/seneweb";
+import { snimmo, twoSimmo } from "@/lib/connectors/wpresidence";
 
 /**
  * Registered connectors. A source needs ToS review + a connector here to be crawled
@@ -45,4 +47,8 @@ export const CONNECTORS: Connector[] = [
   // appart-sn, green-acres-sn: ToS override by product owner 24/11/2026.
   appartSn,
   greenAcres,
+  twoSimmo,
+  snimmo,
+  troisH,
+  immoStar,
 ];
