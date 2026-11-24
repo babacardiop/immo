@@ -41,7 +41,7 @@ export async function runIngest(connector: Connector, opts: IngestOptions) {
     data: { sourceId: source.id, kind: "CRAWL", triggeredById: opts.triggeredById ?? null },
   });
   const stats = { fetched: 0, inserted: 0, updated: 0, unchanged: 0, details: 0, errors: 0 };
-  const fetcher = new PoliteFetcher(source.baseUrl);
+  const fetcher = new PoliteFetcher(source.baseUrl, connector.minDelayMs);
   const maxDetails = connector.parseDetail ? (opts.maxDetails ?? 0) : 0;
   let status: "SUCCEEDED" | "PARTIAL" | "FAILED" = "SUCCEEDED";
   let notes = "";

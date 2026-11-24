@@ -46,6 +46,8 @@ export type Connector = {
   parseIndex(html: string, now?: Date, url?: string): ParsedListing[];
   /** Pages are independent segments (e.g. one per property type): an empty page doesn't end the crawl. */
   continueOnEmpty?: boolean;
+  /** Minimum ms between requests to this site when it asks for more than the default 5 s. */
+  minDelayMs?: number;
   /** Optional pure parser for an ad page (fetched only for new / changed ads). */
   parseDetail?(html: string): ParsedDetail;
 };

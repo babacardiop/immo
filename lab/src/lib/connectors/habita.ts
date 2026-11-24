@@ -31,7 +31,9 @@ import { normalizePhone } from "@/lib/privacy/phone";
 
 const BASE = "https://www.habita.com";
 const COUNTRY_SN = 34;
-const PER_PAGE = 200; // SN totals are small (ResidenceSale = 133); one page per type.
+const PER_PAGE = 100; // the API caps results at 100 per page whatever we ask.
+/** Result pages walked per search type (ResidenceSale ≈ 133 → 2 pages; 3 for headroom). */
+export const HABITA_PAGES_PER_TYPE = 3;
 /** One index "page" per search type, biggest first. */
 export const HABITA_TYPES = ["ResidenceSale", "ResidenceRent", "LotSale", "CommercialSale", "CommercialRent", "LotRent"] as const;
 
@@ -201,13 +203,15 @@ export function habitaDetailTransaction(html: string): Transaction {
 export const habita: Connector = {
   slug: "habita-sn",
   pageUrl: (page) => {
-    const type = HABITA_TYPES[Math.min(Math.max(page, 1), HABITA_TYPES.length) - 1];
-    // page > number of types → a URL that returns no results, which ends the ingest loop.
-    const p = page > HABITA_TYPES.length ? 99 : 1;
-    return `${BASE}/propertysearch/results/en/${p}/${PER_PAGE}/full?type=${type}&countries=${COUNTRY_SN}&sort=newest`;
+    const i = Math.max(page, 1) - 1;
+    const t = Math.floor(i / HABITA_PAGES_PER_TYPE);
+    // Past the last type → a URL that returns no results, which ends the ingest loop.
+    if (t >= HABITA_TYPES.length) return `${BASE}/propertysearch/results/en/99/${PER_PAGE}/full?type=${HABITA_TYPES[0]}&countries=${COUNTRY_SN}&sort=newest`;
+    const p = (i % HABITA_PAGES_PER_TYPE) + 1;
+    return `${BASE}/propertysearch/results/en/${p}/${PER_PAGE}/full?type=${HABITA_TYPES[t]}&countries=${COUNTRY_SN}&sort=newest`;
   },
   parseIndex: parseHabitaIndex,
   parseDetail: parseHabitaDetail,
-  // One "page" per property type: an empty type must not stop the others. Crawl with --pages=6.
+  // 3 pages per property type: an empty page must not stop the others. Crawl with --pages=18.
   continueOnEmpty: true,
 };

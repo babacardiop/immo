@@ -2,6 +2,7 @@ import type { Connector } from "@/lib/connectors/types";
 import { annoncesImmoSenegal } from "@/lib/connectors/annonces-immo-senegal";
 import { arkadia } from "@/lib/connectors/arkadia";
 import { coinAfrique } from "@/lib/connectors/coinafrique";
+import { diwaan } from "@/lib/connectors/diwaan";
 import { espaceVilla } from "@/lib/connectors/espacevilla";
 import { expatDakar } from "@/lib/connectors/expat-dakar";
 import { habita } from "@/lib/connectors/habita";
@@ -9,6 +10,7 @@ import { immobilierSn } from "@/lib/connectors/immobilier-sn";
 import { jiji } from "@/lib/connectors/jiji";
 import { logerDakar } from "@/lib/connectors/loger-dakar";
 import { logerSenegal } from "@/lib/connectors/logersenegal";
+import { paSenegal } from "@/lib/connectors/pa-senegal";
 import { seneweb } from "@/lib/connectors/seneweb";
 
 /**
@@ -29,4 +31,7 @@ export const CONNECTORS: Connector[] = [
   annoncesImmoSenegal,
   arkadia,
   jiji,
+  paSenegal,
+  // diwaan-immo: ToS forbid collection/exploitation — runIngest refuses until tosReviewed (owner go).
+  diwaan,
 ];

@@ -113,8 +113,10 @@ describe("helpers", () => {
     expect(toXof(10, "GBP")).toBeNull();
   });
   it("pageUrl walks the search types, then ends", () => {
-    expect(habita.pageUrl(1)).toContain("type=ResidenceSale&countries=34");
-    expect(habita.pageUrl(2)).toContain("type=ResidenceRent");
-    expect(habita.pageUrl(7)).toContain("/99/");
+    expect(habita.pageUrl(1)).toContain("/en/1/100/full?type=ResidenceSale&countries=34");
+    expect(habita.pageUrl(2)).toContain("/en/2/100/full?type=ResidenceSale");
+    expect(habita.pageUrl(4)).toContain("/en/1/100/full?type=ResidenceRent");
+    expect(habita.pageUrl(18)).toContain("/en/3/100/full?type=LotRent");
+    expect(habita.pageUrl(19)).toContain("/99/");
   });
 });
